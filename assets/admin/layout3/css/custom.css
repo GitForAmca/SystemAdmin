@@ -1,0 +1,90 @@
+/* here you can put your own css to customize and override the theme */
+
+/***
+Rounded Portlets
+***/
+/*
+.portlet {
+	border-radius: 4px !important;
+}
+
+.portlet .portlet-title {
+	border-radius: 4px 4px 0px 0px !important;
+}
+
+.portlet .portlet-body,
+.portlet .portlet-body .form-actions  {
+	border-radius: 0px 0px 4px 4px !important;
+}
+*/
+
+.dataMasterInput {
+	padding: 0px 0px;
+	font-size: 14px;
+	line-height: 12px;
+	height: 20px;
+	border-radius: 0px;
+	border: 0px;
+	width: 150px;
+}
+.caln {
+	height: 20px;
+	line-height: 20px;
+	padding: 0px 6px 0px 6px;
+}
+.caln1 {
+	height: 30px;
+	padding: 0px 6px 0px 6px;
+}
+.dataMasterInput .select2-choice {
+	height: 20px;
+	line-height: 20px;
+	padding: 0px 6px 0px 6px;
+	border-radius: 0px;
+	border: 0px;
+}
+.dataMasterInput .select2-choice .select2-arrow b {
+	background-position: 0 -5px;
+}
+.btn-exc {
+	height: 20px;
+	padding: 0px 4px;
+}
+.table-adjust > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+	padding: 4px;
+}
+.table > tbody > tr:hover {
+	background: #f2f2f2;
+}
+
+.table-adjust > thead {
+	background: #f4f4f4;
+}
+.equalWidth{
+	display: flex;
+	padding: 0px 10px;
+}
+.equalWidth .col-md-2 {
+	padding: 0px 3px;
+	width: auto;
+	margin: 0px;
+	width: 13%;
+}
+.equalWidth .col-md-2:last-child{
+	width: 3%;
+}
+.equalWidth .col-md-2 .form-group {
+	margin-bottom: 0px;
+}
+.hr {
+	margin: 8px 0px;
+}
+.dataMasterInput1 {
+	padding: 0px 4px;
+	font-size: 14px;
+	height: 30px;
+}
+.dataMasterInput1 .select2-choice {
+	height: 30px;
+	padding: 0px 6px 0px 6px;
+}

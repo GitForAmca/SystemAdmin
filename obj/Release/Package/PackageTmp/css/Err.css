@@ -1,0 +1,11 @@
+﻿
+
+.input_alertbox{ position: absolute;float:left; margin:0; padding:4px; color:#4b4b4b; font:normal 11px Arial, Helvetica, sans-serif; text-decoration:none; border:1px solid #ca0000; height:16px; min-width:60px;}
+.input_alertbox p {
+	padding:0px 12px;
+	background:none;
+	background:url(../images/down_error.png) left top no-repeat;
+	position:absolute;
+	left: 9px;
+	top: 24px;
+}

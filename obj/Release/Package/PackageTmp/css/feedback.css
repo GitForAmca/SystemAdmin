@@ -1,0 +1,170 @@
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 400;
+}
+
+.bgWrap {
+    position: relative;
+}
+.logoM{
+    display: block;
+    margin: 0 auto;
+}
+/*.bgWrap .firstRibbon {
+    height: 20vh;
+    background: #fff;
+}
+.bgWrap .secondRibbon {
+    height: 80vh;
+    background: #e8a535;
+}*/
+.errorMsgFeedback{
+    color: red;
+}
+.tableCustm {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tableCustm tr td {
+    border: 1px solid #333;
+    padding: 2px 5px;
+    font-size: 14px;
+    font-style: italic
+}
+.inf {
+    width: 100%;
+    float: left;
+}
+.form-control{
+    height: 40px;
+    border-radius: 0px;
+}
+.rado {
+    width: 100%;
+    float: left;
+    margin-top: 10px;
+}
+
+
+.bgWrap .mainTheme {
+    width: 40%;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.btn-theme {
+    background: #D1AE6C;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    float: right;
+}
+.btn-theme:hover{
+    opacity: 0.9;
+    color: #fff;
+}
+.bgWrap .mainTheme h1 {
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-weight: bold;
+    text-align: center;
+}
+.comm input[type="radio"], input[type="checkbox"] {
+    margin: 4px 15px 0px;
+}
+.bgWrap .mainTheme .headingT {
+    background: #D1AE6C;
+    padding: 20px;
+    width: 100%;
+    float: left;
+    color: #fff;
+}
+
+.bgWrap .mainTheme .headingT .fullWidth {
+    width: 100%;
+    float: left;
+    margin-bottom: 5px;
+}
+.bgWrap .mainTheme .bodyT .fullWidth {
+    width: 100%;
+    float: left;
+    margin-bottom: 5px;
+    background: #f7f7f7;
+    padding: 10px;
+}
+.table{
+    margin-bottom: 0px;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+    padding: 5px;
+}
+.bgWrap .mainTheme .bodyT .fullWidth ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+.bgWrap .mainTheme .bodyT .fullWidth .captionQues {
+    width: 75%;
+    float: left;
+}
+.bgWrap .mainTheme .bodyT .fullWidth .rad {
+    width: 5%;
+    float: left;
+}
+.bgWrap .mainTheme .bodyT .fullWidth .table-responsive {
+    margin-top: 15px;
+}
+.bgWrap .mainTheme .bodyT .fullWidth ul li{
+    display: inline;
+    margin-left: 10px;
+    font-weight: bold;
+}
+.bgWrap .mainTheme .bodyT .fullWidth ul li:first-child{
+    margin-left: 0px;
+}
+.bgWrap .mainTheme .bodyT .fullWidth ul li span {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    line-height: 25px;
+    background: #D1AE6C;
+    color: #fff;
+    text-align: center;
+    border-radius: 100%;
+    margin-right: 4px;
+}
+.bgWrap .mainTheme .headingT .fullWidth .halfWidth {
+    width: 50%;
+    float: left;
+}
+
+.bgWrap .mainTheme .headingT .fullWidth .halfWidth span {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.bgWrap .mainTheme .bodyT {
+    background: #fff;
+    padding-top: 7px;
+    float: left;
+    width: 100%;
+}
+
+@media screen and (max-width: 600px){
+    .bgWrap .mainTheme{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 1600px){
+    .bgWrap .mainTheme{
+        width: 50%;
+    }
+}
+
+/*# sourceMappingURL=main.css.map */
