@@ -16,7 +16,7 @@
                             <button class="btn dropdown-toggle" data-toggle="dropdown">
                                 Action <i class="fa fa-angle-down"></i>
                             </button>
-                            <ul class="dropdown-menu pull-right"> 
+                            <ul class="dropdown-menu pull-right "> 
                                 <li>
                                     <asp:LinkButton ID="lnkBtnAddNew" OnClick="lnkBtnAddNew_Click" runat="server"><i class="fa fa-plus"></i>Add</asp:LinkButton>
                                 </li>
