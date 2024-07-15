@@ -159,6 +159,15 @@ namespace SystemAdmin.ESS
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
 
         /// <summary>
+        /// txtSubject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSubject;
+
+        /// <summary>
         /// txtDescription control.
         /// </summary>
         /// <remarks>

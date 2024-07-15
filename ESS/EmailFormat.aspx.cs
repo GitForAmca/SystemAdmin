@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SystemAdmin.App_Code;
 
+
 namespace SystemAdmin.ESS
 {
     public partial class EmailFormat : System.Web.UI.Page
@@ -142,6 +143,7 @@ namespace SystemAdmin.ESS
                 ddlType.SelectedIndex = ddlType.Items.IndexOf(ddlType.Items.FindByValue(dt.Rows[0]["Type"].ToString()));
                 ckObjectives.InnerText = dt.Rows[0]["Body"].ToString();
                 chkactive.Checked = bool.Parse(dt.Rows[0]["IsActive"].ToString());
+                txtSubject.Text = dt.Rows[0]["Subject"].ToString();
                 ViewState["Mode"] = "Edit";
                 divView.Visible = false;
                 divAddEdit.Visible = true;
@@ -165,6 +167,7 @@ namespace SystemAdmin.ESS
             xml += "<Description><![CDATA[" + txtDescription.Text.Trim() + "]]></Description>";
             xml += "<Type><![CDATA[" + ddlType.SelectedValue + "]]></Type>";
             xml += "<IsActive><![CDATA[" + (chkactive.Checked) + "]]></IsActive>";
+            xml += "<Subject><![CDATA[" + txtSubject.Text.Trim() + "]]></Subject>";
             xml += "</tr>";
             xml += "</tbl>";
             return xml;
