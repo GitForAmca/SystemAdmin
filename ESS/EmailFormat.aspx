@@ -5,7 +5,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <asp:Label ID="lblPageListTitle" runat="server" Text="Email Format"></asp:Label>
+                    <asp:Label ID="lblPageListTitle" runat="server" Text="Email Format"></asp:Label> 
                 </div>
             </div>
             <div id="divView" runat="server" class="portlet-body">
