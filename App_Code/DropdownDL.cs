@@ -21,6 +21,7 @@ namespace SystemAdmin.App_Code
                 sqlCmd.Parameters.Add("@RegionId", SqlDbType.NVarChar).Value = PL.RegionId;
                 sqlCmd.Parameters.Add("@IndustryId", SqlDbType.NVarChar).Value = PL.IndustryId;
                 sqlCmd.Parameters.Add("@SubDepartmentId", SqlDbType.NVarChar).Value = PL.SubDepartmentId;
+                sqlCmd.Parameters.Add("@ServiceTypeAutoid", SqlDbType.NVarChar).Value = PL.ServiceTypeAutoid;
 
                 sqlCmd.Parameters.Add("@isException", SqlDbType.Bit);
                 sqlCmd.Parameters["@isException"].Direction = ParameterDirection.Output;

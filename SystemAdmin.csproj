@@ -4333,10 +4333,17 @@
     <Content Include="css\style.css" />
     <Content Include="css\tabcss.css" />
     <Content Include="Default.aspx" />
+    <Content Include="ESS\CRMCSMapping.aspx" />
+    <Content Include="ESS\ELFormat.aspx" />
     <Content Include="ESS\EmailFormat.aspx" />
+    <Content Include="ESS\OperationMapping.aspx" />
     <Content Include="ESS\QuestionnaireMaster.aspx" />
+    <Content Include="ESS\ReviewMasterControl.aspx" />
+    <Content Include="ESS\RiskQuestions.aspx" />
+    <Content Include="ESS\SalesCRMMapping.aspx" />
     <Content Include="ESS\ServiceMaster.aspx" />
     <Content Include="ESS\ServiceTypeMaster.aspx" />
+    <Content Include="ESS\StatusMaster.aspx" />
     <Content Include="images\AMCA_icon.png" />
     <Content Include="images\jolahamainlogo.svg" />
     <Content Include="images\logoFooter.svg" />
@@ -4542,6 +4549,8 @@
     <Compile Include="App_Code\clsMail.cs" />
     <Compile Include="App_Code\DropdownPL.cs" />
     <Compile Include="App_Code\DropdownDL.cs" />
+    <Compile Include="App_Code\EssPL.cs" />
+    <Compile Include="App_Code\EssDL.cs" />
     <Compile Include="App_Code\LoginPL.cs" />
     <Compile Include="App_Code\LoginDL.cs" />
     <Compile Include="App_Code\MenuAccessPL.cs" />
@@ -4559,6 +4568,20 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ESS\CRMCSMapping.aspx.cs">
+      <DependentUpon>CRMCSMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\CRMCSMapping.aspx.designer.cs">
+      <DependentUpon>CRMCSMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\ELFormat.aspx.cs">
+      <DependentUpon>ELFormat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\ELFormat.aspx.designer.cs">
+      <DependentUpon>ELFormat.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ESS\EmailFormat.aspx.cs">
       <DependentUpon>EmailFormat.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4566,12 +4589,40 @@
     <Compile Include="ESS\EmailFormat.aspx.designer.cs">
       <DependentUpon>EmailFormat.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ESS\OperationMapping.aspx.cs">
+      <DependentUpon>OperationMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\OperationMapping.aspx.designer.cs">
+      <DependentUpon>OperationMapping.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ESS\QuestionnaireMaster.aspx.cs">
       <DependentUpon>QuestionnaireMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ESS\QuestionnaireMaster.aspx.designer.cs">
       <DependentUpon>QuestionnaireMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\ReviewMasterControl.aspx.cs">
+      <DependentUpon>ReviewMasterControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\ReviewMasterControl.aspx.designer.cs">
+      <DependentUpon>ReviewMasterControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\RiskQuestions.aspx.cs">
+      <DependentUpon>RiskQuestions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\RiskQuestions.aspx.designer.cs">
+      <DependentUpon>RiskQuestions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\SalesCRMMapping.aspx.cs">
+      <DependentUpon>SalesCRMMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\SalesCRMMapping.aspx.designer.cs">
+      <DependentUpon>SalesCRMMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\ServiceMaster.aspx.cs">
       <DependentUpon>ServiceMaster.aspx</DependentUpon>
@@ -4586,6 +4637,13 @@
     </Compile>
     <Compile Include="ESS\ServiceTypeMaster.aspx.designer.cs">
       <DependentUpon>ServiceTypeMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\StatusMaster.aspx.cs">
+      <DependentUpon>StatusMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\StatusMaster.aspx.designer.cs">
+      <DependentUpon>StatusMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage\MainMaster.Master.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>

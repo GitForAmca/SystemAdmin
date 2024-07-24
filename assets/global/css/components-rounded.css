@@ -2672,31 +2672,31 @@ Dropdown Menu
     background: #951424;
     border: 1px solid #951424;
 }
-.dropdown > .dropdown-menu:before,
-.dropdown-toggle > .dropdown-menu:before,
-.btn-group > .dropdown-menu:before {
-  position: absolute;
-  top: -8px;
-  left: 9px;
-  right: auto;
-  display: inline-block !important;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid #e0e0e0;
-  border-left: 8px solid transparent;
-  content: '';
-}
+    .dropdown > .dropdown-menu:before,
+    .dropdown-toggle > .dropdown-menu:before,
+    .btn-group > .dropdown-menu:before {
+        position: absolute;
+        top: -8px;
+        left: 9px;
+        right: auto;
+        display: inline-block !important;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid #951424;
+        border-left: 8px solid transparent;
+        content: '';
+    }
 .dropdown > .dropdown-menu:after,
 .dropdown-toggle > .dropdown-menu:after,
 .btn-group > .dropdown-menu:after {
-  position: absolute;
-  top: -7px;
-  left: 10px;
-  right: auto;
-  display: inline-block !important;
-  border-right: 7px solid transparent;
-  border-bottom: 7px solid #fff;
-  border-left: 7px solid transparent;
-  content: '';
+    position: absolute;
+    top: -7px;
+    left: 10px;
+    right: auto;
+    display: inline-block !important;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #951424;
+    border-left: 7px solid transparent;
+    content: '';
 }
 .dropdown > .dropdown-menu.pull-left:before,
 .dropdown-toggle > .dropdown-menu.pull-left:before,

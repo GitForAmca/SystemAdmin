@@ -132,6 +132,60 @@ namespace SystemAdmin.ESS
         protected global::System.Web.UI.WebControls.TextBox txtServiceName;
 
         /// <summary>
+        /// ddlPrimaryEA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPrimaryEA;
+
+        /// <summary>
+        /// ddlSecondaryEA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSecondaryEA;
+
+        /// <summary>
+        /// chkactive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkactive;
+
+        /// <summary>
+        /// btnsave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnsave;
+
+        /// <summary>
+        /// btncancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btncancel;
+
+        /// <summary>
+        /// ddlTypeUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTypeUpdate;
+
+        /// <summary>
         /// ddlManager control.
         /// </summary>
         /// <remarks>
@@ -166,24 +220,6 @@ namespace SystemAdmin.ESS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSecondarySupervisor;
-
-        /// <summary>
-        /// ddlPrimaryEA control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPrimaryEA;
-
-        /// <summary>
-        /// ddlSecondaryEA control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSecondaryEA;
 
         /// <summary>
         /// ddlPrimaryAssigner control.
@@ -222,31 +258,22 @@ namespace SystemAdmin.ESS
         protected global::System.Web.UI.WebControls.DropDownList ddlSecondaryReviewer;
 
         /// <summary>
-        /// chkactive control.
+        /// LV_Operations control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkactive;
+        protected global::System.Web.UI.WebControls.ListView LV_Operations;
 
         /// <summary>
-        /// btnsave control.
+        /// btnUpdateOperationValues control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnsave;
-
-        /// <summary>
-        /// btncancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btncancel;
+        protected global::System.Web.UI.WebControls.Button btnUpdateOperationValues;
 
         /// <summary>
         /// hidID control.

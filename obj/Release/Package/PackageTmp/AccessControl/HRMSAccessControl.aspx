@@ -12,7 +12,7 @@
                 <div class="col-md-2 pull-right text-right">
                     <label class="control-label"><span class="required" aria-required="true"></span></label>
                     <div>
-                        <div class="btn-group pull-right" style="margin-left: 8px;"> 
+                        <div class="btn-group pull-right" style="margin-left: 8px;">  
                             <button class="btn dropdown-toggle" data-toggle="dropdown">
                                 Action <i class="fa fa-angle-down"></i>
                             </button>

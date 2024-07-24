@@ -57,6 +57,7 @@
                                             <th>#</th>
                                             <th>Name</th>
                                             <th>Function Name</th>
+                                            <th>Subject</th>
                                             <th>Description</th> 
                                             <th>Type</th> 
                                             <th>Group</th> 
@@ -77,6 +78,9 @@
                                     </td>
                                     <td>
                                         <%# Eval("Name")%>
+                                    </td>
+                                    <td>
+                                        <%# Eval("Subject")%>
                                     </td>
                                     <td>
                                         <%# Eval("Description")%>
@@ -136,13 +140,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="control-label">Function Name<span class="required" aria-required="true"> *</span></label>
-                                                <asp:TextBox ID="txtFunctionName" CssClass="form-control req" runat="server" oldname="" onblur="CheckName(this);" placeholder="input here"></asp:TextBox>
+                                                <asp:TextBox ID="txtFunctionName" CssClass="form-control req" runat="server" oldname="" onblur="CheckName(this);" placeholder="input Function Name"></asp:TextBox>
                                             </div>
                                         </div> 
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="control-label">Name<span class="required" aria-required="true"> *</span></label>
-                                                <asp:TextBox ID="txtname" CssClass="form-control req" runat="server" placeholder="input here"></asp:TextBox>
+                                                <asp:TextBox ID="txtname" CssClass="form-control req" runat="server" placeholder="input Name"></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -154,14 +158,20 @@
                                                     <asp:ListItem Value="External" Text="External"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
-                                        </div> 
-                                        <div class="col-md-11">
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="control-label">Description<span class="required" aria-required="true"> </span></label>
-                                                <asp:TextBox ID="txtDescription" TextMode="MultiLine" Rows="5" class="form-control" runat="server"></asp:TextBox>
+                                                <label class="control-label">Subject<span class="required" aria-required="true"> *</span></label>
+                                                <asp:TextBox ID="txtSubject" CssClass="form-control req" runat="server" placeholder="input Subject"></asp:TextBox>
                                             </div>
                                         </div>
-                                        <div class="col-md-1 text-right" style="margin-top: 6%;">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label">Description<span class="required" aria-required="true"> </span></label>
+                                                <asp:TextBox ID="txtDescription" TextMode="MultiLine" Rows="5" class="form-control" runat="server"  placeholder="input here"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1" style="margin-top: -3%">
                                             <asp:CheckBox ID="chkactive" runat="server" class="form-control req" Style='border: none !important' Checked="true" Text="Is Active" />
                                         </div> 
                                     </div>
