@@ -14,6 +14,8 @@ namespace SystemAdmin.App_Code
         public object CreatedBy { get; set; }
         public object OldName { get; set; }
         public object Type { get; set; }
+        public object Action { get; set; }
+        public object Department { get; set; }
         public object XML { get; set; }
         public object XML1 { get; set; }
         public object XML2 { get; set; }
