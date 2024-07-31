@@ -191,6 +191,8 @@
                                                         <li><a href='../ESS/ReviewMasterControl.aspx'><i class='fa fa-angle-right'></i>Review Master Control</a></li>
                                                         <li><a href='../ESS/RiskQuestions.aspx'><i class='fa fa-angle-right'></i>Risk Questions</a></li>
                                                         <li><a href='../ESS/ELFormat.aspx'><i class='fa fa-angle-right'></i>EL Format</a></li>
+                                                        <li><a href='../ESS/CategoryType.aspx'><i class='fa fa-angle-right'></i>Category Type</a></li>
+                                                        <li><a href='../ESS/CategoryBox.aspx'><i class='fa fa-angle-right'></i>Category Box</a></li>
                                                     </ul>
                                                 </div>
                                             </div>

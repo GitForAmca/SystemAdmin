@@ -12,7 +12,7 @@
                 <div class="row">
                      <div class="col-md-3">
                         <div class="form-group">
-                            <label class="control-label">Type<span class="required" aria-required="true"> *</span></label>
+                            <label class="control-label">Type<span class="required" aria-required="true"> </span></label>
                             <asp:DropDownList ID="ddlTypeSearch" OnSelectedIndexChanged="ddlTypeSearch_SelectedIndexChanged" AutoPostBack="true" runat="server" CssClass="form-control select2ddl req">
                                <asp:ListItem Text="Select" Value=""></asp:ListItem>
                                <asp:ListItem Text="Entity" Value="Entity"></asp:ListItem>
@@ -23,7 +23,7 @@
                     </div> 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="control-label">Action<span class="required" aria-required="true"> *</span></label>
+                            <label class="control-label">Action<span class="required" aria-required="true"> </span></label>
                             <asp:DropDownList ID="ddlActionSearch"  OnSelectedIndexChanged="ddlActionSearch_SelectedIndexChanged" AutoPostBack="true" runat="server" CssClass="form-control select2ddl req">
                                <asp:ListItem Text="Select" Value=""></asp:ListItem>
                                <asp:ListItem Text="Automated" Value="Automated"></asp:ListItem>
@@ -33,7 +33,7 @@
                     </div>  
                      <div class="col-md-3">
                          <div class="form-group">
-                             <label class="control-label">Department<span class="required" aria-required="true"> *</span></label>
+                             <label class="control-label">Department<span class="required" aria-required="true"> </span></label>
                              <asp:ListBox ID="ddlDepartmentSearch" SelectionMode="Multiple"  OnSelectedIndexChanged="lstDepartmentSearch_SelectedIndexChanged" class="form-control req multiselectddl" runat="server"></asp:ListBox>  
                          </div> 
                      </div> 
@@ -124,58 +124,40 @@
             <div id="divAddEdit" runat="server" class="portlet-body form" visible="false">
                 <div class="form-body">                    
                     <div class="row">
-                        <div class="col-md-12">
-                            <hr />
-                        </div>
-                    </div>
-                    <div class="row" runat="server" id="divAssignment">
-                        <div class="col-md-12">
-                            <div class="portlet box green">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        Details
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label class="control-label">Group Name<span class="required" aria-required="true"> *</span></label>
-                                                <asp:TextBox ID="txtGroupName" CssClass="form-control req" runat="server" oldname="" onblur="CheckName(this);" placeholder="input Group Name"></asp:TextBox>
-                                            </div>
-                                        </div> 
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label class="control-label">Type<span class="required" aria-required="true"> *</span></label>
-                                                <asp:DropDownList ID="ddlType" runat="server" CssClass="form-control select2ddl req">
-                                                   <asp:ListItem Text="Select" Value=""></asp:ListItem>
-                                                   <asp:ListItem Text="Entity" Value="Entity"></asp:ListItem>
-                                                   <asp:ListItem Text="Assignment" Value="Assignment"></asp:ListItem>
-                                                   <asp:ListItem Text="Consultant" Value="Consultant"></asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div> 
-                                        </div> 
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label class="control-label">Action<span class="required" aria-required="true"> *</span></label>
-                                                <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control select2ddl req">
-                                                   <asp:ListItem Text="Select" Value=""></asp:ListItem>
-                                                   <asp:ListItem Text="Automated" Value="Automated"></asp:ListItem>
-                                                   <asp:ListItem Text="Manual" Value="Manual"></asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div> 
-                                        </div>  
-                                         <div class="col-md-3">
-                                             <div class="form-group">
-                                                 <label class="control-label">Department<span class="required" aria-required="true"> *</span></label>
-                                                 <asp:ListBox ID="ddlDepartment" SelectionMode="Multiple" class="form-control req multiselectddl" runat="server"></asp:ListBox>  
-                                             </div> 
-                                         </div> 
-                                    </div>
-                                </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Group Name<span class="required" aria-required="true"> *</span></label>
+                                <asp:TextBox ID="txtGroupName" CssClass="form-control req" runat="server" oldname="" onblur="CheckName(this);" placeholder="input Group Name"></asp:TextBox>
                             </div>
-                        </div>
-                    </div> 
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Type<span class="required" aria-required="true"> *</span></label>
+                                <asp:DropDownList ID="ddlType" runat="server" CssClass="form-control select2ddl req">
+                                   <asp:ListItem Text="Select" Value=""></asp:ListItem>
+                                   <asp:ListItem Text="Entity" Value="Entity"></asp:ListItem>
+                                   <asp:ListItem Text="Assignment" Value="Assignment"></asp:ListItem>
+                                   <asp:ListItem Text="Consultant" Value="Consultant"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div> 
+                        </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Action<span class="required" aria-required="true"> *</span></label>
+                                <asp:DropDownList ID="ddlAction" runat="server" CssClass="form-control select2ddl req">
+                                   <asp:ListItem Text="Select" Value=""></asp:ListItem>
+                                   <asp:ListItem Text="Automated" Value="Automated"></asp:ListItem>
+                                   <asp:ListItem Text="Manual" Value="Manual"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div> 
+                        </div>  
+                         <div class="col-md-3">
+                             <div class="form-group">
+                                 <label class="control-label">Department<span class="required" aria-required="true"> *</span></label>
+                                 <asp:ListBox ID="ddlDepartment" SelectionMode="Multiple" class="form-control req multiselectddl" runat="server"></asp:ListBox>  
+                             </div> 
+                         </div> 
+                    </div>
                 <div class="form-actions right">
                     <div class="row">
                         <div class="col-md-12">

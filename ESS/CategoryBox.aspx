@@ -10,17 +10,15 @@
             </div>
             <div id="divView" runat="server" class="portlet-body">
                 <div class="row">
-                    <div class="col-md-1">
-                        <label class="control-label" style="margin-top: 10px;">Group Name<span class="required" aria-required="true"></span></label>
-                    </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <asp:DropDownList runat="server" ID="ddlGroupNameFilter" OnSelectedIndexChanged="ddlGroupNameFilter_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control"></asp:DropDownList>
+                            <label class="control-label" style="margin-top: 10px;">Group Name<span class="required" aria-required="true"></span></label>
+                            <asp:DropDownList runat="server" ID="ddlGroupNameFilter" OnSelectedIndexChanged="ddlGroupNameFilter_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
                         </div>
                     </div>  
                     <div class="col-md-2 pull-right">
                         <div class="form-group">
-                            <label class="control-label">&nbsp;</label>
+                            <label class="control-label"><span class="required" aria-required="true"></span></label>
                             <div>
                                 <div class="btn-group pull-right">
                                     <button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -86,40 +84,20 @@
             </div>
             <div id="divAddEdit" runat="server" class="portlet-body form" visible="false">
                 <div class="form-body">                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <hr />
+                    <div class="row"> 
+                        <div class="col-md-3">
+                           <div class="form-group">
+                               <label class="control-label">Name<span class="required" aria-required="true">*</span></label>
+                               <asp:TextBox ID="txtName" class="form-control req" runat="server"></asp:TextBox>
+                           </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Category Group<span class="required" aria-required="true"> *</span></label>
+                                <asp:DropDownList runat="server" ID="ddlCategoryGroup" CssClass="form-control select2ddl req"></asp:DropDownList>
+                            </div> 
+                        </div> 
                     </div>
-                    <div class="row" runat="server" id="divAssignment">
-                        <div class="col-md-12">
-                            <div class="portlet box green">
-                                <div class="portlet-title"> 
-                                    <div class="caption">
-                                        Details
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="row">
-                                       <div class="row"> 
-                                           <div class="col-md-3">
-                                              <div class="form-group">
-                                                  <label class="control-label">Name<span class="required" aria-required="true">*</span></label>
-                                                  <asp:TextBox ID="txtName" class="form-control req" runat="server"></asp:TextBox>
-                                              </div>
-                                           </div>
-                                           <div class="col-md-3">
-                                               <div class="form-group">
-                                                   <label class="control-label">Category Group<span class="required" aria-required="true"> *</span></label>
-                                                   <asp:DropDownList runat="server" ID="ddlCategoryGroup" CssClass="form-control select2ddl req"></asp:DropDownList>
-                                               </div> 
-                                           </div> 
-                                       </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
                 <div class="form-actions right">
                     <div class="row">
                         <div class="col-md-12">
