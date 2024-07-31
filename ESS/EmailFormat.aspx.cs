@@ -86,6 +86,7 @@ namespace SystemAdmin.ESS
             ddlType.SelectedIndex = -1;
             chkactive.Checked = true;
             hidID.Value = "";
+            txtSubject.Text = "";
         }
         protected void lnkBtnAddNew_Click(object sender, EventArgs e)
         {
@@ -166,7 +167,6 @@ namespace SystemAdmin.ESS
             xml += "<EmailName><![CDATA[" + txtname.Text.Trim() + "]]></EmailName>";
             xml += "<Description><![CDATA[" + txtDescription.Text.Trim() + "]]></Description>";
             xml += "<Type><![CDATA[" + ddlType.SelectedValue + "]]></Type>";
-            xml += "<IsActive><![CDATA[" + (chkactive.Checked) + "]]></IsActive>";
             xml += "<Subject><![CDATA[" + txtSubject.Text.Trim() + "]]></Subject>";
             xml += "</tr>";
             xml += "</tbl>";
@@ -300,6 +300,7 @@ namespace SystemAdmin.ESS
             xml += "<mainEmailId><![CDATA[" + mainEmailId + "]]></mainEmailId>";
             xml += "<Content><![CDATA[" + ckObjectives.InnerText + "]]></Content>";
             xml += "<Description><![CDATA[" + txtDescription.Text + "]]></Description>";
+            xml += "<IsActive><![CDATA[" + (chkactive.Checked) + "]]></IsActive>";
             xml += "</tr>";
 
             PL.CreatedBy = Session["UserAutoId"].ToString();
@@ -323,6 +324,7 @@ namespace SystemAdmin.ESS
             xml += "<mainEmailId><![CDATA[" + mainid + "]]></mainEmailId>";
             xml += "<GroupId><![CDATA[" + GroupId + "]]></GroupId>";
             xml += "<Content><![CDATA[" + ckObjectives.InnerText + "]]></Content>";
+            xml += "<IsActive><![CDATA[" + (chkactive.Checked) + "]]></IsActive>";
             xml += "</tr>";
             return xml;
         }
