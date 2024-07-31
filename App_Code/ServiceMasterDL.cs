@@ -23,8 +23,6 @@ namespace SystemAdmin.App_Code
                 sqlCmd.Parameters.Add("@OldName", SqlDbType.VarChar).Value = PL.OldName;
                 sqlCmd.Parameters.Add("@GroupId", SqlDbType.VarChar).Value = PL.GroupId;
                 sqlCmd.Parameters.Add("@Type", SqlDbType.VarChar).Value = PL.Type;
-                sqlCmd.Parameters.Add("@Action", SqlDbType.VarChar).Value = PL.Action;
-                sqlCmd.Parameters.Add("@Department", SqlDbType.VarChar).Value = PL.Department;
                 sqlCmd.Parameters.Add("@CreatedBy", SqlDbType.VarChar).Value = PL.CreatedBy;
                 sqlCmd.Parameters.Add("@XML", SqlDbType.Xml).Value = PL.XML;
                 sqlCmd.Parameters.Add("@XML1", SqlDbType.Xml).Value = PL.XML1;
