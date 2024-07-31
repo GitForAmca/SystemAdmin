@@ -27,9 +27,9 @@ namespace SystemAdmin.ESS
         }  
         void DepartmentList()
         {
-            ServiceMasterPL PL = new ServiceMasterPL();
-            PL.OpCode = 32;
-            ServiceMasterDL.returnTable(PL);
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 52;
+            DropdownDL.returnTable(PL);
             ddlDepartment.DataValueField = "Id";
             ddlDepartment.DataTextField = "Department";
             ddlDepartment.DataSource = PL.dt;
@@ -46,12 +46,12 @@ namespace SystemAdmin.ESS
         {
             string DepartmentString = Request.Form[ddlDepartmentSearch.UniqueID];
             //-----------------
-            ServiceMasterPL PL = new ServiceMasterPL();
-            PL.OpCode = 31;
+            EssPL PL = new EssPL();
+            PL.OpCode = 32;
             PL.Type = ddlTypeSearch.SelectedValue;
             PL.Action = ddlActionSearch.SelectedValue;
             PL.Department = DepartmentString;
-            ServiceMasterDL.returnTable(PL);
+            EssDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------
             LV.DataSource = dt;
@@ -93,10 +93,10 @@ namespace SystemAdmin.ESS
         }
         void setForEdit(int id)
         {
-            ServiceMasterPL PL = new ServiceMasterPL();
-            PL.OpCode = 34; 
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 51; 
             PL.AutoId = id;
-            ServiceMasterDL.returnTable(PL);
+            DropdownDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------
             if (dt.Rows.Count > 0)
@@ -151,12 +151,12 @@ namespace SystemAdmin.ESS
         } 
         protected void btnsave_Click(object sender, EventArgs e)
         { 
-            ServiceMasterPL PL = new ServiceMasterPL();
+            EssPL PL = new EssPL();
             if (ViewState["Mode"].ToString() == "Add")
             {
                 PL.OpCode = 33;
                 PL.XML = GetParentServiceXml();  
-                ServiceMasterDL.returnTable(PL);
+                EssDL.returnTable(PL);
                 if (!PL.isException)
                 {
                     divView.Visible = true;
@@ -172,10 +172,10 @@ namespace SystemAdmin.ESS
             }
             else if (ViewState["Mode"].ToString() == "Edit")
             {
-                PL.OpCode = 35;
+                PL.OpCode = 36;
                 PL.XML = GetParentServiceXml();
                 PL.AutoId = Convert.ToInt32(hidID.Value);
-                ServiceMasterDL.returnTable(PL);
+                EssDL.returnTable(PL);
                 if (!PL.isException)
                 { 
                     divView.Visible = true;

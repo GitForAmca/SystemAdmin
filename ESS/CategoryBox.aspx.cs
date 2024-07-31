@@ -27,9 +27,9 @@ namespace SystemAdmin.ESS
         }  
         void GetGroupList()
         {
-            ServiceMasterPL PL = new ServiceMasterPL();
-            PL.OpCode = 36;
-            ServiceMasterDL.returnTable(PL);
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 49;
+            DropdownDL.returnTable(PL);
             ddlGroupNameFilter.DataValueField = "Id";
             ddlGroupNameFilter.DataTextField = "GroupName";
             ddlGroupNameFilter.DataSource = PL.dt;
@@ -45,10 +45,10 @@ namespace SystemAdmin.ESS
         void FillListView()
         { 
             //-----------------
-            ServiceMasterPL PL = new ServiceMasterPL();
-            PL.OpCode = 37;
-            PL.AutoId = ddlGroupNameFilter.SelectedValue; 
-            ServiceMasterDL.returnTable(PL);
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 53;
+            PL.AutoId = ddlGroupNameFilter.SelectedValue;
+            DropdownDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------
             LV.DataSource = dt;
@@ -88,10 +88,10 @@ namespace SystemAdmin.ESS
         }
         void setForEdit(int id)
         {
-            ServiceMasterPL PL = new ServiceMasterPL();
-            PL.OpCode = 40; 
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 50; 
             PL.AutoId = id;
-            ServiceMasterDL.returnTable(PL);
+            DropdownDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------
             if (dt.Rows.Count > 0)
