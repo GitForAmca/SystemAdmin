@@ -172,7 +172,7 @@ namespace SystemAdmin.ESS
             }
             else if (ViewState["Mode"].ToString() == "Edit")
             {
-                PL.OpCode = 36;
+                PL.OpCode = 34;
                 PL.XML = GetParentServiceXml();
                 PL.AutoId = Convert.ToInt32(hidID.Value);
                 EssDL.returnTable(PL);

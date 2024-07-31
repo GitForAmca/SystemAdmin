@@ -127,7 +127,7 @@ namespace SystemAdmin.ESS
             ServiceMasterPL PL = new ServiceMasterPL();
             if (ViewState["Mode"].ToString() == "Add")
             {
-                PL.OpCode = 38;
+                PL.OpCode = 31;
                 PL.AutoId = Session["UserAutoId"].ToString();
                 PL.XML = GetParentServiceXml();  
                 ServiceMasterDL.returnTable(PL);
@@ -146,7 +146,7 @@ namespace SystemAdmin.ESS
             }
             else if (ViewState["Mode"].ToString() == "Edit")
             {
-                PL.OpCode = 39;
+                PL.OpCode = 32;
                 PL.XML = GetParentServiceXml();
                 PL.AutoId = Convert.ToInt32(hidID.Value);
                 ServiceMasterDL.returnTable(PL);
