@@ -18,6 +18,8 @@ namespace SystemAdmin.App_Code
         public object Action { get; set; }
         public object Category { get; set; }
         public object Remarks { get; set; }
+        public object FromDate { get; set; }
+        public object ToDate { get; set; }
         public object IsActive { get; set; }
         public object XML { get; set; }
         public object XML1 { get; set; }

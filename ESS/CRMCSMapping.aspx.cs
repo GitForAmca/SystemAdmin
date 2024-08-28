@@ -31,7 +31,7 @@ namespace SystemAdmin.ESS
             ddlCSR.DataTextField = "Name";
             ddlCSR.DataSource = PL.dt;
             ddlCSR.DataBind();
-            ddlCSR.Items.Insert(0, new ListItem("Select Onshore", ""));
+            ddlCSR.Items.Insert(0, new ListItem("Select CSR", ""));
         }
         void CECList()
         {

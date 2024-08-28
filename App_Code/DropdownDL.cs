@@ -23,17 +23,9 @@ namespace SystemAdmin.App_Code
                 sqlCmd.Parameters.Add("@SubDepartmentId", SqlDbType.NVarChar).Value = PL.SubDepartmentId;
                 sqlCmd.Parameters.Add("@ServiceTypeAutoid", SqlDbType.NVarChar).Value = PL.ServiceTypeAutoid;
 
-                sqlCmd.Parameters.Add("@isException", SqlDbType.Bit);
-                sqlCmd.Parameters["@isException"].Direction = ParameterDirection.Output;
-                sqlCmd.Parameters.Add("@exceptionMessage", SqlDbType.NVarChar, 500);
-                sqlCmd.Parameters["@exceptionMessage"].Direction = ParameterDirection.Output;
-
                 SqlDataAdapter sqlAdp = new SqlDataAdapter(sqlCmd);
                 PL.dt = new DataTable();
-                sqlCmd.CommandTimeout = 0;
                 sqlAdp.Fill(PL.dt);
-                PL.isException = Convert.ToBoolean(sqlCmd.Parameters["@isException"].Value);
-                PL.exceptionMessage = sqlCmd.Parameters["@exceptionMessage"].Value.ToString();
             }
             catch (Exception ex)
             {

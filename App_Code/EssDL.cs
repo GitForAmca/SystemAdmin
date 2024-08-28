@@ -26,6 +26,8 @@ namespace SystemAdmin.App_Code
                 sqlCmd.Parameters.Add("@Department", SqlDbType.VarChar).Value = PL.Department;
                 sqlCmd.Parameters.Add("@Action", SqlDbType.VarChar).Value = PL.Action;
                 sqlCmd.Parameters.Add("@Category", SqlDbType.VarChar).Value = PL.Category;
+                sqlCmd.Parameters.Add("@FromDate", SqlDbType.VarChar).Value = PL.FromDate;
+                sqlCmd.Parameters.Add("@ToDate", SqlDbType.VarChar).Value = PL.ToDate;
                 sqlCmd.Parameters.Add("@IsActive", SqlDbType.VarChar).Value = PL.IsActive;
                 sqlCmd.Parameters.Add("@CreatedBy", SqlDbType.VarChar).Value = PL.CreatedBy;
                 sqlCmd.Parameters.Add("@Remarks", SqlDbType.VarChar).Value = PL.Remarks;

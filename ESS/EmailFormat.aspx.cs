@@ -60,6 +60,7 @@ namespace SystemAdmin.ESS
             PL.OpCode = 21;
             PL.Type = ddlTypeSearch.SelectedValue;
             PL.GroupId = ddlGroupFilter.SelectedValue;
+            PL.Industry = ddlActive.SelectedValue;
             ServiceMasterDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------
@@ -330,6 +331,10 @@ namespace SystemAdmin.ESS
         }
 
         protected void ddlTypeSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillListView();
+        }
+        protected void ddlIsActiveSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillListView();
         }

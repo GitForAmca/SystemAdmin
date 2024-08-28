@@ -193,6 +193,8 @@
                                                         <li><a href='../ESS/ELFormat.aspx'><i class='fa fa-angle-right'></i>EL Format</a></li>
                                                         <li><a href='../ESS/CategoryType.aspx'><i class='fa fa-angle-right'></i>Category Type</a></li>
                                                         <li><a href='../ESS/CategoryBox.aspx'><i class='fa fa-angle-right'></i>Category Box</a></li>
+                                                        <li><a href='../ESS/SalesCollectionTarget.aspx'><i class='fa fa-angle-right'></i>Sales Collection Target</a></li>
+                                                        <li><a href='../ESS/TaskSchedule.aspx'><i class='fa fa-angle-right'></i>Task Schedule</a></li>
                                                     </ul>
                                                 </div>
                                             </div>

@@ -4342,10 +4342,12 @@
     <Content Include="ESS\QuestionnaireMaster.aspx" />
     <Content Include="ESS\ReviewMasterControl.aspx" />
     <Content Include="ESS\RiskQuestions.aspx" />
+    <Content Include="ESS\SalesCollectionTarget.aspx" />
     <Content Include="ESS\SalesCRMMapping.aspx" />
     <Content Include="ESS\ServiceMaster.aspx" />
     <Content Include="ESS\ServiceTypeMaster.aspx" />
     <Content Include="ESS\StatusMaster.aspx" />
+    <Content Include="ESS\TaskSchedule.aspx" />
     <Content Include="images\AMCA_icon.png" />
     <Content Include="images\jolahamainlogo.svg" />
     <Content Include="images\logoFooter.svg" />
@@ -4633,6 +4635,13 @@
     <Compile Include="ESS\RiskQuestions.aspx.designer.cs">
       <DependentUpon>RiskQuestions.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ESS\SalesCollectionTarget.aspx.cs">
+      <DependentUpon>SalesCollectionTarget.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\SalesCollectionTarget.aspx.designer.cs">
+      <DependentUpon>SalesCollectionTarget.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ESS\SalesCRMMapping.aspx.cs">
       <DependentUpon>SalesCRMMapping.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4660,6 +4669,13 @@
     </Compile>
     <Compile Include="ESS\StatusMaster.aspx.designer.cs">
       <DependentUpon>StatusMaster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\TaskSchedule.aspx.cs">
+      <DependentUpon>TaskSchedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\TaskSchedule.aspx.designer.cs">
+      <DependentUpon>TaskSchedule.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage\MainMaster.Master.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>

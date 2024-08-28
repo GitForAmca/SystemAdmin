@@ -26,6 +26,16 @@
                             </asp:DropDownList>
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Is Active<span class="required" aria-required="true"></span></label>
+                            <asp:DropDownList ID="ddlActive" runat="server" CssClass="form-control select2ddl" OnSelectedIndexChanged="ddlIsActiveSearch_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:ListItem Text="Choose an item" Value=""></asp:ListItem>
+                                <asp:ListItem Text="Active" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Inactive" Value="0"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                    </div>
                     <div class="col-md-2 pull-right">
                         <div class="form-group">
                             <label class="control-label">&nbsp;</label>
@@ -61,6 +71,7 @@
                                             <th>Description</th> 
                                             <th>Type</th> 
                                             <th>Group</th> 
+                                            <th>Is Active</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -90,7 +101,10 @@
                                     </td>
                                     <td>
                                         <%# Eval("GroupName")%>
-                                    </td>                                     
+                                    </td>  
+                                    <td>
+                                        <span class='<%# bool.Parse( Eval("IsActive").ToString())==true?"label label-sm label-success":"label label-sm label-danger"%>' runat="server"><%# bool.Parse( Eval("IsActive").ToString())==true?"Yes":"No"%></span>
+                                    </td>                                   
                                 </tr>
                             </itemtemplate>
                             <emptydatatemplate>
