@@ -30,7 +30,7 @@ namespace SystemAdmin.ESS
         void BindRegion(DropDownList ddl)
         {
             DropdownPL PL = new DropdownPL();
-            PL.OpCode = 55;
+            PL.OpCode = 60;
             PL.AutoId = Session["UserAutoId"].ToString(); 
             DropdownDL.returnTable(PL);
             ddl.DataSource = PL.dt;
@@ -50,7 +50,7 @@ namespace SystemAdmin.ESS
         void BindIndustry(DropDownList ddl)
         {
             DropdownPL PL = new DropdownPL();
-            PL.OpCode = 56;
+            PL.OpCode = 61;
             PL.AutoId = Session["UserAutoId"].ToString(); 
             DropdownDL.returnTable(PL);
             ddl.DataSource = PL.dt;
@@ -69,7 +69,7 @@ namespace SystemAdmin.ESS
         void BindCategory(DropDownList ddl)
         {
             DropdownPL PL = new DropdownPL();
-            PL.OpCode = 57;
+            PL.OpCode = 62;
             PL.AutoId = Session["UserAutoId"].ToString();
             DropdownDL.returnTable(PL);
             ddl.DataSource = PL.dt;
