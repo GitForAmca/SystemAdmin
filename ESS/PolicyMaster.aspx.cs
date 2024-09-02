@@ -30,7 +30,7 @@ namespace SystemAdmin.ESS
         void BindRegion(DropDownList ddl)
         {
             DropdownPL PL = new DropdownPL();
-            PL.OpCode = 60;
+            PL.OpCode = 63;
             PL.AutoId = Session["UserAutoId"].ToString(); 
             DropdownDL.returnTable(PL);
             ddl.DataSource = PL.dt;
