@@ -10,6 +10,11 @@ namespace SystemAdmin.App_Code
         public object AutoId { get; set; }
         public object EmpId { get; set; }
         public object Industry { get; set; }
+        public object Region { get; set; }
+        public object DepartmentId { get; set; }
+        public object SubDepartmentId { get; set; }
+        public object Category { get; set; }
+        public object CompanyId { get; set; } 
         public object GroupId { get; set; }
         public object CreatedBy { get; set; }
         public object OldName { get; set; }

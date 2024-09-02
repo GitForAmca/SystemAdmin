@@ -22,6 +22,11 @@ namespace SystemAdmin.App_Code
                 sqlCmd.Parameters.Add("@Industry", SqlDbType.VarChar).Value = PL.Industry;
                 sqlCmd.Parameters.Add("@OldName", SqlDbType.VarChar).Value = PL.OldName;
                 sqlCmd.Parameters.Add("@GroupId", SqlDbType.VarChar).Value = PL.GroupId;
+                sqlCmd.Parameters.Add("@Region", SqlDbType.VarChar).Value = PL.Region;
+                sqlCmd.Parameters.Add("@Category", SqlDbType.VarChar).Value = PL.Category;
+                sqlCmd.Parameters.Add("@CompanyId", SqlDbType.VarChar).Value = PL.CompanyId;
+                sqlCmd.Parameters.Add("@DepartmentId", SqlDbType.VarChar).Value = PL.DepartmentId;
+                sqlCmd.Parameters.Add("@SubdepartmentId", SqlDbType.VarChar).Value = PL.SubDepartmentId;
                 sqlCmd.Parameters.Add("@Type", SqlDbType.VarChar).Value = PL.Type;
                 sqlCmd.Parameters.Add("@CreatedBy", SqlDbType.VarChar).Value = PL.CreatedBy;
                 sqlCmd.Parameters.Add("@XML", SqlDbType.Xml).Value = PL.XML;
