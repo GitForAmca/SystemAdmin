@@ -12,7 +12,7 @@ namespace SystemAdmin.App_Code
     {
         public string SendMailOTP(string FromMailID, string fromEmailPassword, string ToMailID, string CC, string BCC, string subject, string body, string servername, int PortNo, bool ssl)
         {
-            servername = "smtp.office365.com"; PortNo = 587; ssl = true; FromMailID = "notification5@amca.ae"; fromEmailPassword = "X*277783772681up";
+            servername = "smtp.office365.com"; PortNo = 587; ssl = true; FromMailID = "notification6@amca.ae"; fromEmailPassword = "P&859077360056ad";
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             string msg = string.Empty;

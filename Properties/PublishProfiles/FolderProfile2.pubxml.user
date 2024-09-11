@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>Z:\F\AMCA\Publish Projects\SystemAdmin</_PublishTargetUrl>
-    <History>True|2024-07-30T06:17:24.1153711Z;True|2024-07-23T14:21:45.6323930+04:00;True|2024-07-22T17:03:55.3617381+04:00;True|2024-07-19T12:46:00.2569273+04:00;True|2024-07-18T13:00:42.9137747+04:00;True|2024-07-11T09:35:48.1391510+04:00;True|2024-07-10T16:10:11.3073539+04:00;True|2024-07-10T16:07:12.8545993+04:00;True|2024-07-10T15:19:54.7109656+04:00;False|2024-07-10T15:10:53.1305235+04:00;True|2024-07-03T18:47:04.8279905+04:00;True|2024-07-03T18:44:27.5040269+04:00;True|2024-07-03T17:52:13.3090059+04:00;True|2024-07-02T10:50:52.1129592+04:00;True|2024-06-30T23:08:16.9977507+04:00;True|2024-06-28T09:32:51.1447872+04:00;True|2024-06-28T09:30:01.0800555+04:00;True|2024-06-27T17:53:46.7532138+04:00;True|2024-06-26T14:53:03.6673163+04:00;</History>
+    <History>True|2024-09-02T12:55:07.0403255Z;True|2024-09-02T16:51:26.0789188+04:00;True|2024-07-30T10:17:24.1153711+04:00;True|2024-07-23T14:21:45.6323930+04:00;True|2024-07-22T17:03:55.3617381+04:00;True|2024-07-19T12:46:00.2569273+04:00;True|2024-07-18T13:00:42.9137747+04:00;True|2024-07-11T09:35:48.1391510+04:00;True|2024-07-10T16:10:11.3073539+04:00;True|2024-07-10T16:07:12.8545993+04:00;True|2024-07-10T15:19:54.7109656+04:00;False|2024-07-10T15:10:53.1305235+04:00;True|2024-07-03T18:47:04.8279905+04:00;True|2024-07-03T18:44:27.5040269+04:00;True|2024-07-03T17:52:13.3090059+04:00;True|2024-07-02T10:50:52.1129592+04:00;True|2024-06-30T23:08:16.9977507+04:00;True|2024-06-28T09:32:51.1447872+04:00;True|2024-06-28T09:30:01.0800555+04:00;True|2024-06-27T17:53:46.7532138+04:00;True|2024-06-26T14:53:03.6673163+04:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -13783,10 +13783,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:34</publishTime>
     </File>
     <File Include="bin/SystemAdmin.dll">
-      <publishTime>07/31/2024 16:34:09</publishTime>
+      <publishTime>09/02/2024 16:55:03</publishTime>
     </File>
     <File Include="bin/SystemAdmin.pdb">
-      <publishTime>07/31/2024 16:34:09</publishTime>
+      <publishTime>09/02/2024 16:55:03</publishTime>
     </File>
     <File Include="css/AjaxTabStyle.css">
       <publishTime>07/11/2024 10:46:32</publishTime>
@@ -13872,17 +13872,26 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Default.aspx">
       <publishTime>07/11/2024 10:46:31</publishTime>
     </File>
+    <File Include="ESS/CategoryBox.aspx">
+      <publishTime>07/31/2024 16:44:09</publishTime>
+    </File>
+    <File Include="ESS/CategoryType.aspx">
+      <publishTime>07/31/2024 17:16:16</publishTime>
+    </File>
     <File Include="ESS/CRMCSMapping.aspx">
       <publishTime>07/18/2024 12:32:43</publishTime>
     </File>
     <File Include="ESS/ELFormat.aspx">
-      <publishTime>07/22/2024 17:38:22</publishTime>
+      <publishTime>08/08/2024 11:00:05</publishTime>
     </File>
     <File Include="ESS/EmailFormat.aspx">
-      <publishTime>07/15/2024 13:06:41</publishTime>
+      <publishTime>08/08/2024 11:09:13</publishTime>
     </File>
     <File Include="ESS/OperationMapping.aspx">
       <publishTime>07/18/2024 17:13:45</publishTime>
+    </File>
+    <File Include="ESS/PolicyMaster.aspx">
+      <publishTime>09/02/2024 16:31:39</publishTime>
     </File>
     <File Include="ESS/QuestionnaireMaster.aspx">
       <publishTime>07/17/2024 13:00:42</publishTime>
@@ -13892,6 +13901,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="ESS/RiskQuestions.aspx">
       <publishTime>07/19/2024 11:47:30</publishTime>
+    </File>
+    <File Include="ESS/SalesCollectionTarget.aspx">
+      <publishTime>08/22/2024 18:15:42</publishTime>
     </File>
     <File Include="ESS/SalesCRMMapping.aspx">
       <publishTime>07/18/2024 13:00:25</publishTime>
@@ -13904,6 +13916,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="ESS/StatusMaster.aspx">
       <publishTime>07/17/2024 18:21:32</publishTime>
+    </File>
+    <File Include="ESS/TaskSchedule.aspx">
+      <publishTime>08/23/2024 17:30:21</publishTime>
     </File>
     <File Include="images/AMCA_icon.png">
       <publishTime>07/11/2024 10:46:32</publishTime>
@@ -14404,10 +14419,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:32</publishTime>
     </File>
     <File Include="MasterPage/MainMaster.Master">
-      <publishTime>07/22/2024 15:11:01</publishTime>
+      <publishTime>09/02/2024 16:31:39</publishTime>
     </File>
     <File Include="Menu/ChildMenu.aspx">
-      <publishTime>07/11/2024 10:46:31</publishTime>
+      <publishTime>07/31/2024 17:27:49</publishTime>
     </File>
     <File Include="Menu/ParentMenu.aspx">
       <publishTime>07/11/2024 10:46:31</publishTime>
@@ -14419,7 +14434,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:31</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/18/2024 13:00:37</publishTime>
+      <publishTime>09/02/2024 16:51:23</publishTime>
     </File>
   </ItemGroup>
 </Project>

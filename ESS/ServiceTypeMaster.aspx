@@ -58,6 +58,8 @@
                                             <th>Service Type Name</th>
                                             <th>Primary EA</th>
                                             <th>Secondary EA</th>
+                                            <th>Primary Coordinator</th>
+                                            <th>Secondary Coordinator</th>
                                             <th>Created On</th>
                                             <th>Created By</th>
                                             <th>IsActive</th>
@@ -83,6 +85,12 @@
                                     </td>
                                     <td>
                                         <%# Eval("SecondaryEAName")%>
+                                    </td>
+                                    <td>
+                                        <%# Eval("PrimaryCoordinatorName")%>
+                                    </td>
+                                    <td>
+                                        <%# Eval("SecondaryCoordinatorName")%>
                                     </td>
                                     <td>
                                         <%# Eval("CreatedOn")%>
@@ -137,22 +145,34 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Service Type Name<span class="required" aria-required="true"> *</span></label>
                                 <asp:TextBox ID="txtServiceName" oldname="" onblur="CheckName(this);" CssClass="form-control req" runat="server" placeholder="input here"></asp:TextBox>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Primary EA<span class="required" aria-required="true"> *</span></label>
                                 <asp:DropDownList runat="server" ID="ddlPrimaryEA" CssClass="form-control req select2ddl"></asp:DropDownList>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">Secondary EA<span class="required" aria-required="true"> *</span></label>
                                 <asp:DropDownList runat="server" ID="ddlSecondaryEA" CssClass="form-control req select2ddl"></asp:DropDownList>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Primary Coordinator<span class="required" aria-required="true"> *</span></label>
+                                <asp:DropDownList runat="server" ID="ddlPrimaryCoordinator" CssClass="form-control req select2ddl"></asp:DropDownList>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Secondary Coordinator<span class="required" aria-required="true"> </span></label>
+                                <asp:DropDownList runat="server" ID="ddlSecondaryCoordinator" CssClass="form-control select2ddl"></asp:DropDownList>
                             </div>
                         </div>
                         <div class="col-md-12">

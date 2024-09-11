@@ -4339,6 +4339,7 @@
     <Content Include="ESS\ELFormat.aspx" />
     <Content Include="ESS\EmailFormat.aspx" />
     <Content Include="ESS\OperationMapping.aspx" />
+    <Content Include="ESS\PolicyMaster.aspx" />
     <Content Include="ESS\QuestionnaireMaster.aspx" />
     <Content Include="ESS\ReviewMasterControl.aspx" />
     <Content Include="ESS\RiskQuestions.aspx" />
@@ -4613,6 +4614,13 @@
     </Compile>
     <Compile Include="ESS\OperationMapping.aspx.designer.cs">
       <DependentUpon>OperationMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\PolicyMaster.aspx.cs">
+      <DependentUpon>PolicyMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\PolicyMaster.aspx.designer.cs">
+      <DependentUpon>PolicyMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\QuestionnaireMaster.aspx.cs">
       <DependentUpon>QuestionnaireMaster.aspx</DependentUpon>

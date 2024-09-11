@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>Z:\F\AMCA\Publish Projects\SystemAdmin</_PublishTargetUrl>
-    <History>True|2024-08-23T12:43:11.7758496Z;True|2024-08-22T18:07:47.0656557+04:00;True|2024-08-08T11:02:53.8958426+04:00;True|2024-07-31T16:45:33.1858517+04:00;True|2024-07-31T16:39:29.3574526+04:00;True|2024-07-31T16:37:37.2247689+04:00;True|2024-07-17T18:22:12.1748205+04:00;True|2024-07-15T13:10:28.5008597+04:00;</History>
+    <History>True|2024-09-11T10:23:32.0637075Z;True|2024-09-11T10:23:39.8978503+04:00;True|2024-09-05T18:26:56.8950499+04:00;True|2024-08-23T16:43:11.7758496+04:00;True|2024-08-22T18:07:47.0656557+04:00;True|2024-08-08T11:02:53.8958426+04:00;True|2024-07-31T16:45:33.1858517+04:00;True|2024-07-31T16:39:29.3574526+04:00;True|2024-07-31T16:37:37.2247689+04:00;True|2024-07-17T18:22:12.1748205+04:00;True|2024-07-15T13:10:28.5008597+04:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -13780,10 +13780,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:34</publishTime>
     </File>
     <File Include="bin/SystemAdmin.dll">
-      <publishTime>08/23/2024 17:30:38</publishTime>
+      <publishTime>09/11/2024 14:23:27</publishTime>
     </File>
     <File Include="bin/SystemAdmin.pdb">
-      <publishTime>08/23/2024 17:30:38</publishTime>
+      <publishTime>09/11/2024 14:23:27</publishTime>
     </File>
     <File Include="css/AjaxTabStyle.css">
       <publishTime>07/11/2024 10:46:32</publishTime>
@@ -13887,6 +13887,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="ESS/OperationMapping.aspx">
       <publishTime>07/18/2024 17:13:45</publishTime>
     </File>
+    <File Include="ESS/PolicyMaster.aspx">
+      <publishTime>09/02/2024 16:31:39</publishTime>
+    </File>
     <File Include="ESS/QuestionnaireMaster.aspx">
       <publishTime>07/17/2024 13:00:42</publishTime>
     </File>
@@ -13906,7 +13909,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:31</publishTime>
     </File>
     <File Include="ESS/ServiceTypeMaster.aspx">
-      <publishTime>07/23/2024 14:13:33</publishTime>
+      <publishTime>09/11/2024 14:23:18</publishTime>
     </File>
     <File Include="ESS/StatusMaster.aspx">
       <publishTime>07/17/2024 18:21:32</publishTime>
@@ -14413,7 +14416,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:32</publishTime>
     </File>
     <File Include="MasterPage/MainMaster.Master">
-      <publishTime>08/23/2024 15:45:46</publishTime>
+      <publishTime>09/02/2024 16:31:39</publishTime>
     </File>
     <File Include="Menu/ChildMenu.aspx">
       <publishTime>07/31/2024 17:27:49</publishTime>
@@ -14428,7 +14431,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:31</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/31/2024 16:37:33</publishTime>
+      <publishTime>09/05/2024 18:26:53</publishTime>
     </File>
   </ItemGroup>
 </Project>

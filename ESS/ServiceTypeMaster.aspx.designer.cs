@@ -150,6 +150,24 @@ namespace SystemAdmin.ESS
         protected global::System.Web.UI.WebControls.DropDownList ddlSecondaryEA;
 
         /// <summary>
+        /// ddlPrimaryCoordinator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPrimaryCoordinator;
+
+        /// <summary>
+        /// ddlSecondaryCoordinator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSecondaryCoordinator;
+
+        /// <summary>
         /// chkactive control.
         /// </summary>
         /// <remarks>

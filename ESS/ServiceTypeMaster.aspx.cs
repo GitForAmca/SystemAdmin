@@ -24,6 +24,7 @@ namespace SystemAdmin.ESS
                 FillListView();
                 FillOperation();
                 FillEA();
+                FillCSR();
             }
         }
         private void BindCheckBoxList()
@@ -95,6 +96,22 @@ namespace SystemAdmin.ESS
             ddlSecondaryEA.DataBind();
             ddlSecondaryEA.Items.Insert(0, new ListItem("Select Option", ""));
         }
+        public void FillCSR()
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 64;
+            DropdownDL.returnTable(PL);
+            ddlPrimaryCoordinator.DataValueField = "Autoid";
+            ddlPrimaryCoordinator.DataTextField = "Name";
+            ddlPrimaryCoordinator.DataSource = PL.dt;
+            ddlPrimaryCoordinator.DataBind();
+            ddlPrimaryCoordinator.Items.Insert(0, new ListItem("Select Option", ""));
+            ddlSecondaryCoordinator.DataValueField = "Autoid";
+            ddlSecondaryCoordinator.DataTextField = "Name";
+            ddlSecondaryCoordinator.DataSource = PL.dt;
+            ddlSecondaryCoordinator.DataBind();
+            ddlSecondaryCoordinator.Items.Insert(0, new ListItem("Select Option", ""));
+        }
         void FillOperation()
         {
             DropdownPL PL = new DropdownPL();
@@ -118,6 +135,8 @@ namespace SystemAdmin.ESS
             txtServiceName.Text = "";
             ddlPrimaryEA.SelectedIndex = -1;
             ddlSecondaryEA.SelectedIndex = -1;
+            ddlPrimaryCoordinator.SelectedIndex = -1;
+            ddlSecondaryCoordinator.SelectedIndex = -1;
             chkactive.Checked = true;
             hidID.Value = "";
         }
@@ -177,6 +196,8 @@ namespace SystemAdmin.ESS
                 ddlUpdateGroupCompany.SelectedIndex = ddlUpdateGroupCompany.Items.IndexOf(ddlUpdateGroupCompany.Items.FindByValue(PL.dt.Rows[0]["GroupId"].ToString()));
                 ddlPrimaryEA.SelectedIndex = ddlPrimaryEA.Items.IndexOf(ddlPrimaryEA.Items.FindByValue(PL.dt.Rows[0]["PrimaryAccessTo"].ToString()));
                 ddlSecondaryEA.SelectedIndex = ddlSecondaryEA.Items.IndexOf(ddlSecondaryEA.Items.FindByValue(PL.dt.Rows[0]["SecondaryAccessTo"].ToString()));
+                ddlPrimaryCoordinator.SelectedIndex = ddlPrimaryCoordinator.Items.IndexOf(ddlPrimaryCoordinator.Items.FindByValue(PL.dt.Rows[0]["PrimaryCoordinator"].ToString()));
+                ddlSecondaryCoordinator.SelectedIndex = ddlSecondaryCoordinator.Items.IndexOf(ddlSecondaryCoordinator.Items.FindByValue(PL.dt.Rows[0]["SecondaryCoordinator"].ToString()));
                 chkactive.Checked = bool.Parse(dt.Rows[0]["isActive"].ToString());
                 ViewState["Mode"] = "Edit";
                 divView.Visible = false;
@@ -229,6 +250,8 @@ namespace SystemAdmin.ESS
             string xml = "<tr>";
             xml += "<PrimaryAccessTo><![CDATA[" + ddlPrimaryEA.SelectedValue + "]]></PrimaryAccessTo>";
             xml += "<SecondaryAccessTo><![CDATA[" + ddlSecondaryEA.SelectedValue + "]]></SecondaryAccessTo>";
+            xml += "<PrimaryCoordinator><![CDATA[" + ddlPrimaryCoordinator.SelectedValue + "]]></PrimaryCoordinator>";
+            xml += "<SecondaryCoordinator><![CDATA[" + ddlSecondaryCoordinator.SelectedValue + "]]></SecondaryCoordinator>";
             xml += "<GroupId><![CDATA[" + GroupId + "]]></GroupId>";
             xml += "<IsActive><![CDATA[" + (chkactive.Checked) + "]]></IsActive>";
             xml += "</tr>";
