@@ -42,7 +42,7 @@
                         <LayoutTemplate>
                             <table class="table table-bordered table-hover mydatatable">
                                 <thead>
-                                    <tr>
+                                    <tr> 
                                         <th>#</th>
                                         <th>Group</th>
                                         <th>Employee</th>
@@ -121,7 +121,7 @@
                     </div>
                     <div class="col-md-12">
                         <h4><strong>Company List</strong></h4>
-                        <asp:CheckBoxList ID="chkGroupCompany" runat="server" RepeatDirection="Horizontal" DataTextField="Name" DataValueField="CompanyId" OnDataBinding="chkGroupCompany_DataBinding" />
+                        <asp:CheckBoxList ID="chkGroupCompany" runat="server" RepeatDirection="Horizontal" DataTextField="Name" DataValueField="CompanyId" OnDataBinding="chkGroupCompany_DataBinding" OnSelectedIndexChanged="chkGroupCompany_SelectedIndexChanged" AutoPostBack="true" />
                     </div>
                 </div>
                 <div class="row" runat="server" id="divUpdateGroup" visible="false">

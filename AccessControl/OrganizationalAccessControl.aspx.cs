@@ -89,6 +89,9 @@ namespace SystemAdmin.AccessControl
         }
         void SetForEdit(string empid, string groupid)
         {
+            string designation = getDesignationId(Convert.ToInt32(empid.ToString()));
+            FillListView(designation, empid.ToString(), groupid);
+            /////////////////////////////////////
             MenuAccessPL PL = new MenuAccessPL();
             PL.OpCode = 23;
             PL.EmpId = empid;
@@ -106,8 +109,6 @@ namespace SystemAdmin.AccessControl
                 divEmployeeAccess.Visible = true;
 
                 getSelectedGroup(PL.dt.Rows[0]["EmpId"].ToString());
-                string designation = getDesignationId(Convert.ToInt32(PL.dt.Rows[0]["EmpId"].ToString()));
-                FillListView(designation, PL.dt.Rows[0]["EmpId"].ToString());
                 foreach (DataRow dr in PL.dt.Rows)
                 {
                     foreach (ListViewItem lvItem in LV_Access_Menu_Company.Items)
@@ -200,13 +201,14 @@ namespace SystemAdmin.AccessControl
         {
             FillEmpAccess();
         }
-        void FillListView(string designation, string empid)
+        void FillListView(string designation, string empid, string Group)
         {
             MenuAccessPL PL = new MenuAccessPL();
             PL.OpCode = 24;
             PL.Designation = designation;
             PL.Type = 1;
             PL.EmpId = empid;
+            PL.Industry = Group;
             MenuAccessDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
@@ -313,11 +315,19 @@ namespace SystemAdmin.AccessControl
                     divEmployeeDetails.Visible = true;
                     divEmployeeAccess.Visible = true;
                     GetEmployeeDepartment(Convert.ToInt32(ddlEmployeeName.SelectedValue));
-                    string designation = getDesignationId(Convert.ToInt32(ddlEmployeeName.SelectedValue));
-                    FillListView(designation, ddlEmployeeName.SelectedValue);
                     BindCheckBoxList();
                 }
             }
+        }
+        protected void chkGroupCompany_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var checkedValues = chkGroupCompany.Items
+                                                .Cast<ListItem>()
+                                                .Where(item => item.Selected)
+                                                .Select(item => item.Value);
+            string selectedGroup = string.Join(",", checkedValues);
+            string designation = getDesignationId(Convert.ToInt32(ddlEmployeeName.SelectedValue));
+            FillListView(designation, ddlEmployeeName.SelectedValue, selectedGroup);
         }
         protected void btnViewAction_Click(object sender, EventArgs e)
         {
@@ -341,7 +351,7 @@ namespace SystemAdmin.AccessControl
             if (PL.dt.Rows.Count > 0)
             {
                 string designation = getDesignationId(Convert.ToInt32(PL.dt.Rows[0]["EmpId"].ToString()));
-                FillListView(designation, PL.dt.Rows[0]["EmpId"].ToString());
+                FillListView(designation, PL.dt.Rows[0]["EmpId"].ToString(), hidGroupIdMain.Value);
                 foreach (DataRow dr in PL.dt.Rows)
                 {
                     foreach (ListViewItem lvItem in LV_Access_Menu_Company_Update.Items)
