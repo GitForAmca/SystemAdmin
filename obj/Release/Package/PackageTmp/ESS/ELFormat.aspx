@@ -5,7 +5,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <asp:Label ID="lblPageListTitle" runat="server" Text="CRM CS Mapping"></asp:Label>
+                    <asp:Label ID="lblPageListTitle" runat="server" Text="EL Format"></asp:Label>
                 </div>
             </div> 
             <div class="portlet-body form">

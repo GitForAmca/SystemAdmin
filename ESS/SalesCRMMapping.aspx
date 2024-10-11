@@ -5,7 +5,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <asp:Label ID="lblPageListTitle" runat="server" Text="CRM CS Mapping"></asp:Label>
+                    <asp:Label ID="lblPageListTitle" runat="server" Text="Sales CRM Mapping"></asp:Label>
                 </div>
             </div> 
             <div id="divView" runat="server" class="portlet-body">
@@ -167,7 +167,7 @@
             if (value == "") {
                 return;
             }
-            var Data = JSON.stringify({ value: value, oldname: $(args).attr('oldname') });
+            var Data = JSON.stringify({ value: value, oldname: $('#<%= ddlUpdateGroupCompany.ClientID%>').val() });
             $.ajax({
                 dataType: "json",
                 type: "POST",
