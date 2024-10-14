@@ -95,10 +95,11 @@
                                         <%# Eval("Period")%>
                                     </td>
                                     <td> 
-                                        <asp:DropDownList ID="ddl_SearchTypeTbl" runat="server" class="form-control select2ddl" oldvalue='<%#Eval("TargetType") %>'>
+                                        <%# Eval("TargetType")%>
+                                       <%-- <asp:DropDownList ID="ddl_SearchTypeTbl" runat="server" class="form-control select2ddl" oldvalue='<%#Eval("TargetType") %>'>
                                             <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
                                             <asp:ListItem Value="Team" Selected="True" Text="Team"></asp:ListItem>
-                                        </asp:DropDownList>
+                                        </asp:DropDownList>--%>
                                     </td>
                                     <asp:Panel runat="server" ID="pnlCECIndividual">
                                         <td>  
@@ -118,9 +119,10 @@
                                             <asp:DropDownList ID="ddl_ParentTeamNameTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
                                         </td> 
                                         <td> 
-                                            <asp:HiddenField ID="hdnTeamName" runat="server" Value='<%# Eval("Team")%>' />
+                                        <%# Eval("TeamName")%>
+                                           <%-- <asp:HiddenField ID="hdnTeamName" runat="server" Value='<%# Eval("Team")%>' />
                                             <asp:DropDownList ID="ddl_TeamNameTbl" runat="server" CssClass="form-control select2ddl"> 
-                                            </asp:DropDownList>
+                                            </asp:DropDownList>--%>
                                         </td> 
                                         <td> 
                                             <asp:HiddenField ID="hdnCECCollectionTeam" runat="server" Value='<%# Eval("CECTeam")%>' />

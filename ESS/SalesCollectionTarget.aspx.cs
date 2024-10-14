@@ -250,7 +250,7 @@ namespace SystemAdmin.ESS
             xml += "<CECIndName><![CDATA[" + ((DropDownList)item.FindControl("ddl_CECIndNameTbl")).SelectedValue.Trim() + "]]></CECIndName>";
             xml += "<BDIndName><![CDATA[" + ((DropDownList)item.FindControl("ddl_BDIndNameTbl")).SelectedValue.Trim() + "]]></BDIndName>";
             xml += "<ParentTeam><![CDATA[" + ((DropDownList)item.FindControl("ddl_ParentTeamNameTbl")).SelectedValue.Trim() + "]]></ParentTeam>";
-            xml += "<TeamName><![CDATA[" + ((DropDownList)item.FindControl("ddl_TeamNameTbl")).SelectedValue.Trim() + "]]></TeamName>";
+            //xml += "<TeamName><![CDATA[" + ((DropDownList)item.FindControl("ddl_TeamNameTbl")).SelectedValue.Trim() + "]]></TeamName>";
             xml += "<CECCollectionTeam><![CDATA[" + ((DropDownList)item.FindControl("ddl_CECCollectionTbl")).SelectedValue.Trim() + "]]></CECCollectionTeam>";
             xml += "<BDCollectionTeam><![CDATA[" + ((DropDownList)item.FindControl("ddl_BDCollectionTbl")).SelectedValue.Trim() + "]]></BDCollectionTeam>";
             xml += "<Lead><![CDATA[" + ((TextBox)item.FindControl("txt_LeadTbl")).Text.Trim() + "]]></Lead>";
@@ -425,8 +425,8 @@ namespace SystemAdmin.ESS
         }
         protected void lvSales_ItemDataBound(object sender, ListViewItemEventArgs e)
         {
-            DropDownList ddlType = (DropDownList)e.Item.FindControl("ddl_SearchTypeTbl");
-            ddlType.SelectedIndex = ddlType.Items.IndexOf(ddlType.Items.FindByValue(ddlType.Attributes["oldvalue"]));
+            //DropDownList ddlType = (DropDownList)e.Item.FindControl("ddl_SearchTypeTbl");
+            //ddlType.SelectedIndex = ddlType.Items.IndexOf(ddlType.Items.FindByValue(ddlType.Attributes["oldvalue"]));
 
             DropDownList ddlCECTeamName = (DropDownList)e.Item.FindControl("ddl_CECIndNameTbl");
             getEmployee(ddlCECTeamName);
@@ -440,9 +440,9 @@ namespace SystemAdmin.ESS
             getParentTeamName(ddlParentTeamName);
             ddlParentTeamName.SelectedIndex = ddlParentTeamName.Items.IndexOf(ddlParentTeamName.Items.FindByValue(((HiddenField)e.Item.FindControl("hdnParenTeam")).Value));             
 
-            DropDownList ddlTeamName = (DropDownList)e.Item.FindControl("ddl_TeamNameTbl");
-            getTeamName(ddlTeamName);
-            ddlTeamName.SelectedIndex = ddlTeamName.Items.IndexOf(ddlTeamName.Items.FindByValue(((HiddenField)e.Item.FindControl("hdnTeamName")).Value));
+            //DropDownList ddlTeamName = (DropDownList)e.Item.FindControl("ddl_TeamNameTbl");
+            //getTeamName(ddlTeamName);
+            //ddlTeamName.SelectedIndex = ddlTeamName.Items.IndexOf(ddlTeamName.Items.FindByValue(((HiddenField)e.Item.FindControl("hdnTeamName")).Value));
 
             DropDownList ddlCECCollection = (DropDownList)e.Item.FindControl("ddl_CECCollectionTbl");
             BindCECCollectionTeam(ddlCECCollection);
