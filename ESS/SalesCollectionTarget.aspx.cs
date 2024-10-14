@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -17,73 +18,85 @@ namespace SystemAdmin.ESS
             if (!Page.IsPostBack)
             {
                 FillGroup();
-                BindCECCollectionTeam();
-                BindBDCollectionTeam();
-                getEmployee();
-                getParentTeamName();
-                getTeamName();
+                BindCECCollectionTeam(ddlSalesCollectionCECTeam);
+                BindBDCollectionTeam(ddlSalesCollectionBDTeam);
+                getEmployee(ddlCECIndivdual);
+                getParentTeamName(ddlParentTeamName);
+                getTeamName(ddlTeamName);
                 FillListSearch();
             }
         }
-        void getEmployee()
+        void getEmployee(DropDownList ddl)
         {
             DropdownPL PL = new DropdownPL();
             PL.OpCode = 54;
             DropdownDL.returnTable(PL);
-            ddlCECIndivdual.DataValueField = "Autoid";
-            ddlCECIndivdual.DataTextField = "Name";
-            ddlCECIndivdual.DataSource = PL.dt;
-            ddlCECIndivdual.DataBind();
-            ddlCECIndivdual.Items.Insert(0, new ListItem("Select Option", ""));
+            ddl.DataValueField = "Autoid";
+            ddl.DataTextField = "Name";
+            ddl.DataSource = PL.dt;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select Option", ""));
         }
-        void getTeamName()
+        void getTeamName(DropDownList dll)
         {
             DropdownPL PL = new DropdownPL();
             PL.OpCode = 55;
             DropdownDL.returnTable(PL);
-            ddlTeamName.DataValueField = "AutoId";
-            ddlTeamName.DataTextField = "TeamName";
-            ddlTeamName.DataSource = PL.dt;
-            ddlTeamName.DataBind();
-            ddlTeamName.Items.Insert(0, new ListItem("Select Option", ""));
+            dll.DataValueField = "AutoId";
+            dll.DataTextField = "TeamName";
+            dll.DataSource = PL.dt;
+            dll.DataBind();
+            dll.Items.Insert(0, new ListItem("Select Option", ""));
         }
-        void getParentTeamName()
+        void getParentTeamName(DropDownList dll)
         {
             DropdownPL PL = new DropdownPL();
             PL.OpCode = 56;
             DropdownDL.returnTable(PL);
-            ddlParentTeamName.DataValueField = "Autoid";
-            ddlParentTeamName.DataTextField = "PTeamName";
-            ddlParentTeamName.DataSource = PL.dt;
-            ddlParentTeamName.DataBind();
-            ddlParentTeamName.Items.Insert(0, new ListItem("Select Option", ""));
+            dll.DataValueField = "Autoid";
+            dll.DataTextField = "PTeamName";
+            dll.DataSource = PL.dt;
+            dll.DataBind();
+            dll.Items.Insert(0, new ListItem("Select Option", ""));
         }
-        void BindCECCollectionTeam()
+        void BindCECCollectionTeam(DropDownList dll)
         {
             DropdownPL PL = new DropdownPL();
             PL.OpCode = 54;
             DropdownDL.returnTable(PL);
-            ddlSalesCollectionCECTeam.DataValueField = "Autoid";
-            ddlSalesCollectionCECTeam.DataTextField = "Name";
-            ddlSalesCollectionCECTeam.DataSource = PL.dt;
-            ddlSalesCollectionCECTeam.DataBind();
-            ddlSalesCollectionCECTeam.Items.Insert(0, new ListItem("Select Option", ""));
+            dll.DataValueField = "Autoid";
+            dll.DataTextField = "Name";
+            dll.DataSource = PL.dt;
+            dll.DataBind();
+            dll.Items.Insert(0, new ListItem("Select Option", ""));
         }
-        void BindBDCollectionTeam()
+        void BindBDCollectionTeam(DropDownList dll)
         {
             DropdownPL PL = new DropdownPL();
             PL.OpCode = 57;
             DropdownDL.returnTable(PL);
-            ddlSalesCollectionBDTeam.DataValueField = "Autoid";
-            ddlSalesCollectionBDTeam.DataTextField = "Name";
-            ddlSalesCollectionBDTeam.DataSource = PL.dt;
-            ddlSalesCollectionBDTeam.DataBind();
-            ddlSalesCollectionBDTeam.Items.Insert(0, new ListItem("Select Option", ""));
+            dll.DataValueField = "Autoid";
+            dll.DataTextField = "Name";
+            dll.DataSource = PL.dt;
+            dll.DataBind();
+            dll.Items.Insert(0, new ListItem("Select Option", ""));
+
             ddlBDIndividual.DataValueField = "Autoid";
             ddlBDIndividual.DataTextField = "Name";
             ddlBDIndividual.DataSource = PL.dt;
             ddlBDIndividual.DataBind();
             ddlBDIndividual.Items.Insert(0, new ListItem("Select Option", ""));
+        }
+        void BindddlBDIndividualTbl(DropDownList ddl)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 57;
+            DropdownDL.returnTable(PL);
+            ddl.DataValueField = "Autoid";
+            ddl.DataTextField = "Name";
+            ddl.DataSource = PL.dt;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select Option", ""));
         }
         void FillGroup()
         {
@@ -204,8 +217,10 @@ namespace SystemAdmin.ESS
                             {
                                 ddlParentTeamName.SelectedIndex = ddlParentTeamName.Items.IndexOf(ddlParentTeamName.Items.FindByValue(PL.dt.Rows[0]["ParentTeam"].ToString()));
                                 ddlTeamName.SelectedIndex = ddlTeamName.Items.IndexOf(ddlTeamName.Items.FindByValue(PL.dt.Rows[0]["Team"].ToString()));
-                                SetMultiple(ddlSalesCollectionCECTeam, PL.dt.Rows[0]["CECTeam"].ToString());
-                                SetMultiple(ddlSalesCollectionBDTeam, PL.dt.Rows[0]["BDTeam"].ToString());
+                                ddlSalesCollectionCECTeam.SelectedIndex = ddlTeamName.Items.IndexOf(ddlTeamName.Items.FindByValue(PL.dt.Rows[0]["CECTeam"].ToString()));
+                                ddlSalesCollectionBDTeam.SelectedIndex = ddlTeamName.Items.IndexOf(ddlTeamName.Items.FindByValue(PL.dt.Rows[0]["BDTeam"].ToString()));
+                                //SetMultiple(ddlSalesCollectionCECTeam, PL.dt.Rows[0]["CECTeam"].ToString());
+                                //SetMultiple(ddlSalesCollectionBDTeam, PL.dt.Rows[0]["BDTeam"].ToString());
                                 divIndivdual.Visible = false;
                                 divTeam.Visible = true;
                             }
@@ -223,6 +238,39 @@ namespace SystemAdmin.ESS
                     }
                 }
             }
+        }
+
+        protected void UpdateRecord_Click(object sender, EventArgs e)
+        { 
+            var btn = (LinkButton)sender;
+            var item = (ListViewItem)btn.NamingContainer;
+            int AutoId = int.Parse(((HiddenField)item.FindControl("hidautoidUpdate")).Value); 
+
+            string xml = "<tbl><tr>";
+            xml += "<CECIndName><![CDATA[" + ((DropDownList)item.FindControl("ddl_CECIndNameTbl")).SelectedValue.Trim() + "]]></CECIndName>";
+            xml += "<BDIndName><![CDATA[" + ((DropDownList)item.FindControl("ddl_BDIndNameTbl")).SelectedValue.Trim() + "]]></BDIndName>";
+            xml += "<ParentTeam><![CDATA[" + ((DropDownList)item.FindControl("ddl_ParentTeamNameTbl")).SelectedValue.Trim() + "]]></ParentTeam>";
+            xml += "<TeamName><![CDATA[" + ((DropDownList)item.FindControl("ddl_TeamNameTbl")).SelectedValue.Trim() + "]]></TeamName>";
+            xml += "<CECCollectionTeam><![CDATA[" + ((DropDownList)item.FindControl("ddl_CECCollectionTbl")).SelectedValue.Trim() + "]]></CECCollectionTeam>";
+            xml += "<BDCollectionTeam><![CDATA[" + ((DropDownList)item.FindControl("ddl_BDCollectionTbl")).SelectedValue.Trim() + "]]></BDCollectionTeam>";
+            xml += "<Lead><![CDATA[" + ((TextBox)item.FindControl("txt_LeadTbl")).Text.Trim() + "]]></Lead>";
+            xml += "<EL><![CDATA[" + ((TextBox)item.FindControl("txt_ElTbl")).Text.Trim() + "]]></EL>";
+            xml += "<Client><![CDATA[" + ((TextBox)item.FindControl("txt_ClientTbl")).Text.Trim() + "]]></Client>";
+            xml += "<Consultant><![CDATA[" + ((TextBox)item.FindControl("txt_ConsultantTbl")).Text.Trim() + "]]></Consultant>";
+            xml += "<Assignment><![CDATA[" + ((TextBox)item.FindControl("txt_AssignmentTbl")).Text.Trim() + "]]></Assignment>";
+            xml += "<Amount><![CDATA[" + ((TextBox)item.FindControl("txt_AmountTbl")).Text.Trim() + "]]></Amount>";
+            xml += "</tr></tbl>"; 
+
+            EssPL PL = new EssPL();
+            PL.XML = xml; 
+            PL.AutoId = AutoId;
+            PL.OpCode = 44;
+            EssDL.returnTable(PL);
+            if (!PL.isException)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowDone('Record(s) Update Record successfully');", true);
+            }
+
         }
         void SetMultiple(ListBox ddl, string ids)
         {
@@ -264,8 +312,8 @@ namespace SystemAdmin.ESS
             xml += "<BDIndId><![CDATA[" + ddlBDIndividual.SelectedValue + "]]></BDIndId>";
             xml += "<ParentTeam><![CDATA[" + ddlParentTeamName.SelectedValue + "]]></ParentTeam>";
             xml += "<Team><![CDATA[" + ddlTeamName.SelectedValue + "]]></Team>";
-            xml += "<CECTeam><![CDATA[" + Request.Form[ddlSalesCollectionCECTeam.UniqueID] + "]]></CECTeam>";
-            xml += "<BDTeam><![CDATA[" + Request.Form[ddlSalesCollectionBDTeam.UniqueID] + "]]></BDTeam>";
+            xml += "<CECTeam><![CDATA[" + ddlSalesCollectionCECTeam.SelectedValue + "]]></CECTeam>";
+            xml += "<BDTeam><![CDATA[" + ddlSalesCollectionBDTeam.SelectedValue + "]]></BDTeam>";
             xml += "<TargetAmount><![CDATA[" + txtTargetAmount.Text.Trim() + "]]></TargetAmount>";
             xml += "<TargetLead><![CDATA[" + txtLead.Text.Trim() + "]]></TargetLead>";
             xml += "<TargetEL><![CDATA[" + txtTargetEL.Text.Trim() + "]]></TargetEL>";
@@ -330,7 +378,7 @@ namespace SystemAdmin.ESS
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowDone('Record(s) add successfully');", true);
             }
-        }
+        } 
         void FillListSearch()
         {
             EssPL PL = new EssPL();
@@ -369,14 +417,41 @@ namespace SystemAdmin.ESS
                     divIndivdual.Visible = false;
                     divTeam.Visible = true;
                 }
-                getTeamName();
-                BindCECCollectionTeam();
-                BindBDCollectionTeam();
-                getEmployee();
+                getTeamName(ddlTeamName);
+                BindCECCollectionTeam(ddlSalesCollectionCECTeam);
+                BindBDCollectionTeam(ddlSalesCollectionBDTeam);
+                getEmployee(ddlCECIndivdual);
             }
         }
         protected void lvSales_ItemDataBound(object sender, ListViewItemEventArgs e)
         {
+            DropDownList ddlType = (DropDownList)e.Item.FindControl("ddl_SearchTypeTbl");
+            ddlType.SelectedIndex = ddlType.Items.IndexOf(ddlType.Items.FindByValue(ddlType.Attributes["oldvalue"]));
+
+            DropDownList ddlCECTeamName = (DropDownList)e.Item.FindControl("ddl_CECIndNameTbl");
+            getEmployee(ddlCECTeamName);
+            ddlCECTeamName.SelectedIndex = ddlCECTeamName.Items.IndexOf(ddlCECTeamName.Items.FindByValue(((HiddenField)e.Item.FindControl("hdnCECIndName")).Value));
+
+            DropDownList ddlBDIndNamee = (DropDownList)e.Item.FindControl("ddl_BDIndNameTbl");
+            BindddlBDIndividualTbl(ddlBDIndNamee);
+            ddlBDIndNamee.SelectedIndex = ddlBDIndNamee.Items.IndexOf(ddlBDIndNamee.Items.FindByValue(((HiddenField)e.Item.FindControl("hdnBDIndName")).Value));
+
+            DropDownList ddlParentTeamName = (DropDownList)e.Item.FindControl("ddl_ParentTeamNameTbl");
+            getParentTeamName(ddlParentTeamName);
+            ddlParentTeamName.SelectedIndex = ddlParentTeamName.Items.IndexOf(ddlParentTeamName.Items.FindByValue(((HiddenField)e.Item.FindControl("hdnParenTeam")).Value));             
+
+            DropDownList ddlTeamName = (DropDownList)e.Item.FindControl("ddl_TeamNameTbl");
+            getTeamName(ddlTeamName);
+            ddlTeamName.SelectedIndex = ddlTeamName.Items.IndexOf(ddlTeamName.Items.FindByValue(((HiddenField)e.Item.FindControl("hdnTeamName")).Value));
+
+            DropDownList ddlCECCollection = (DropDownList)e.Item.FindControl("ddl_CECCollectionTbl");
+            BindCECCollectionTeam(ddlCECCollection);
+            ddlCECCollection.SelectedIndex = ddlCECCollection.Items.IndexOf(ddlCECCollection.Items.FindByValue(((HiddenField)e.Item.FindControl("hdnCECCollectionTeam")).Value));
+
+            DropDownList ddlBDCollection = (DropDownList)e.Item.FindControl("ddl_BDCollectionTbl");
+            BindBDCollectionTeam(ddlBDCollection);
+            ddlBDCollection.SelectedIndex = ddlBDCollection.Items.IndexOf(ddlBDCollection.Items.FindByValue(((HiddenField)e.Item.FindControl("hdnBDCollectionTeam")).Value));
+
             Panel pnlCECIndividual = (Panel)e.Item.FindControl("pnlCECIndividual");
             Panel pnlBDIndividual = (Panel)e.Item.FindControl("pnlBDIndividual");
             Panel pnlTeam = (Panel)e.Item.FindControl("pnlTeam");

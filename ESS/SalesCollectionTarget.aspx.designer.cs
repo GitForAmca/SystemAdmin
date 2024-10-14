@@ -210,7 +210,7 @@ namespace SystemAdmin.ESS
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ddlSalesCollectionCECTeam;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalesCollectionCECTeam;
 
         /// <summary>
         /// ddlSalesCollectionBDTeam control.
@@ -219,7 +219,7 @@ namespace SystemAdmin.ESS
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ddlSalesCollectionBDTeam;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalesCollectionBDTeam;
 
         /// <summary>
         /// txtTargetAmount control.

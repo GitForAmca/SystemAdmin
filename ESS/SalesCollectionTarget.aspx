@@ -76,6 +76,7 @@
                                             <th>Consultant</th>
                                             <th>Assignment</th>
                                             <th>Amount</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -94,49 +95,83 @@
                                         <%# Eval("Period")%>
                                     </td>
                                     <td>
-                                        <%# Eval("TargetType")%>
+                                        <%--<%# Eval("TargetType")%>--%>
+                                        <asp:DropDownList ID="ddl_SearchTypeTbl" runat="server" class="form-control select2ddl" oldvalue='<%#Eval("TargetType") %>'>
+                                            <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
+                                            <asp:ListItem Value="Team" Selected="True" Text="Team"></asp:ListItem>
+                                        </asp:DropDownList>
                                     </td>
                                     <asp:Panel runat="server" ID="pnlCECIndividual">
                                         <td>
-                                            <%# Eval("CECIndName")%>
+                                            <%--<%# Eval("CECIndName")%>--%>    
+                                            <asp:HiddenField ID="hdnCECIndName" runat="server" Value='<%# Eval("CECIndId")%>' />
+                                            <asp:DropDownList ID="ddl_CECIndNameTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>                             
                                         </td>
                                     </asp:Panel>
                                     <asp:Panel runat="server" ID="pnlBDIndividual">
                                         <td>
-                                            <%# Eval("BDIndName")%>
+                                            <%--<%# Eval("BDIndName")%>--%>
+                                            <asp:HiddenField ID="hdnBDIndName" runat="server" Value='<%# Eval("BDIndId")%>' />
+                                            <asp:DropDownList ID="ddl_BDIndNameTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
                                         </td>
                                     </asp:Panel>
                                     <asp:Panel runat="server" ID="pnlTeam">
                                         <td>
-                                            <%# Eval("PTeamName")%>
-                                        </td>
-                                        <td>
-                                            <%# Eval("TeamName")%>
-                                        </td>
-                                        <td>
-                                            <%# Eval("CECCollectionTeam")%>
+                                            <%--<%# Eval("PTeamName")%>--%>
+                                            <asp:HiddenField ID="hdnParenTeam" runat="server" Value='<%# Eval("ParentTeam")%>' />
+                                            <asp:DropDownList ID="ddl_ParentTeamNameTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
                                         </td> 
                                         <td>
-                                            <%# Eval("BDCollectionTeam")%>
+                                            <%--<%# Eval("TeamName")%>--%>
+                                            <asp:HiddenField ID="hdnTeamName" runat="server" Value='<%# Eval("Team")%>' />
+                                            <asp:DropDownList ID="ddl_TeamNameTbl" runat="server" CssClass="form-control select2ddl"> 
+                                            </asp:DropDownList>
+                                        </td> 
+                                        <td>
+                                           <%-- <%# Eval("CECCollectionTeam")%>--%>
+                                            <asp:HiddenField ID="hdnCECCollectionTeam" runat="server" Value='<%# Eval("CECTeam")%>' />
+                                            <asp:DropDownList ID="ddl_CECCollectionTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
+                                        </td> 
+                                        <td>
+                                            <%--<%# Eval("BDCollectionTeam")%>--%>
+                                            <asp:HiddenField ID="hdnBDCollectionTeam" runat="server" Value='<%# Eval("BDTeam")%>' />
+                                            <asp:DropDownList ID="ddl_BDCollectionTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
                                         </td>
                                     </asp:Panel>
                                     <td>
-                                        <%# Eval("TargetLead")%>
+                                        <%--<%# Eval("TargetLead")%>--%>  
+                                        <asp:TextBox ID="txt_LeadTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetLead") %>' runat="server"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <%# Eval("TargetEL")%>
+                                       <%-- <%# Eval("TargetEL")%>--%>
+                                        <asp:TextBox ID="txt_ElTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetEL") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td>
-                                        <%# Eval("TargetClient")%>
+                                        <%--<%# Eval("TargetClient")%>--%>
+                                        <asp:TextBox ID="txt_ClientTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetClient") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td>
-                                        <%# Eval("TargetConsultant")%>
+                                        <%--<%# Eval("TargetConsultant")%>--%>
+                                        <asp:TextBox ID="txt_ConsultantTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetConsultant") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td>
-                                        <%# Eval("TargetAssignment")%>
+                                       <%-- <%# Eval("TargetAssignment")%>--%>
+                                        <asp:TextBox ID="txt_AssignmentTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetAssignment") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td>
-                                        <%# Eval("TargetAmount")%>
+                                        <%--<%# Eval("TargetAmount")%>--%>
+                                        <asp:TextBox ID="txt_AmountTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetAmount") %>' runat="server"></asp:TextBox> 
+                                    </td>
+                                    <td>
+                                        <div class="form-group m-0">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <asp:HiddenField ID="hidautoidUpdate" runat="server" Value='<%# Eval("Autoid")%>' />
+                                                    <asp:LinkButton ID="UpdateRecord"  OnClick="UpdateRecord_Click" Text="<i class='fa fa-floppy-o'></i>" ToolTip="Update Record" CssClass="bgGreen" runat="server" /> 
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td> 
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -156,6 +191,7 @@
                                             <th>Consultant</th>
                                             <th>Assignment</th>
                                             <th>Amount</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                 </table> 
@@ -242,13 +278,13 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="control-label">CEC Team<span class="required" aria-required="true"> *</span></label>
-                                            <asp:ListBox ID="ddlSalesCollectionCECTeam" SelectionMode="Multiple" class="form-control reqsc multiselectddl" runat="server"></asp:ListBox> 
+                                            <asp:DropDownList ID="ddlSalesCollectionCECTeam" class="form-control reqsc" runat="server"></asp:DropDownList> 
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="control-label">BD Team<span class="required" aria-required="true"> </span></label>
-                                            <asp:ListBox ID="ddlSalesCollectionBDTeam" SelectionMode="Multiple" class="form-control multiselectddl" runat="server"></asp:ListBox> 
+                                            <asp:DropDownList ID="ddlSalesCollectionBDTeam" class="form-control" runat="server"></asp:DropDownList> 
                                         </div>
                                     </div>
                                 </div>
