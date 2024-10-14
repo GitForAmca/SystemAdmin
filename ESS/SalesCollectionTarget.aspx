@@ -132,22 +132,22 @@
                                         </td>
                                     </asp:Panel>
                                     <td> 
-                                        <asp:TextBox ID="txt_LeadTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetLead") %>' runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txt_LeadTbl" CssClass="form-control NumberOnly" Text='<%#Eval("TargetLead") %>' runat="server"></asp:TextBox>
                                     </td>
                                     <td> 
-                                        <asp:TextBox ID="txt_ElTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetEL") %>' runat="server"></asp:TextBox> 
+                                        <asp:TextBox ID="txt_ElTbl" CssClass="form-control NumberOnly" Text='<%#Eval("TargetEL") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td> 
-                                        <asp:TextBox ID="txt_ClientTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetClient") %>' runat="server"></asp:TextBox> 
+                                        <asp:TextBox ID="txt_ClientTbl" CssClass="form-control NumberOnly" Text='<%#Eval("TargetClient") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td> 
-                                        <asp:TextBox ID="txt_ConsultantTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetConsultant") %>' runat="server"></asp:TextBox> 
+                                        <asp:TextBox ID="txt_ConsultantTbl" CssClass="form-control NumberOnly" Text='<%#Eval("TargetConsultant") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td> 
-                                        <asp:TextBox ID="txt_AssignmentTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetAssignment") %>' runat="server"></asp:TextBox> 
+                                        <asp:TextBox ID="txt_AssignmentTbl" CssClass="form-control NumberOnly" Text='<%#Eval("TargetAssignment") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td> 
-                                        <asp:TextBox ID="txt_AmountTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetAmount") %>' runat="server"></asp:TextBox> 
+                                        <asp:TextBox ID="txt_AmountTbl" CssClass="form-control NumberOnly" Text='<%#Eval("TargetAmount") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td>
                                         <div class="form-group m-0">
@@ -158,7 +158,6 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </td> 
                                     </td>
                                 </tr>
                             </ItemTemplate>
