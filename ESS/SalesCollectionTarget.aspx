@@ -94,72 +94,59 @@
                                     <td>
                                         <%# Eval("Period")%>
                                     </td>
-                                    <td>
-                                        <%--<%# Eval("TargetType")%>--%>
+                                    <td> 
                                         <asp:DropDownList ID="ddl_SearchTypeTbl" runat="server" class="form-control select2ddl" oldvalue='<%#Eval("TargetType") %>'>
                                             <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
                                             <asp:ListItem Value="Team" Selected="True" Text="Team"></asp:ListItem>
                                         </asp:DropDownList>
                                     </td>
                                     <asp:Panel runat="server" ID="pnlCECIndividual">
-                                        <td>
-                                            <%--<%# Eval("CECIndName")%>--%>    
+                                        <td>  
                                             <asp:HiddenField ID="hdnCECIndName" runat="server" Value='<%# Eval("CECIndId")%>' />
                                             <asp:DropDownList ID="ddl_CECIndNameTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>                             
                                         </td>
                                     </asp:Panel>
                                     <asp:Panel runat="server" ID="pnlBDIndividual">
-                                        <td>
-                                            <%--<%# Eval("BDIndName")%>--%>
+                                        <td> 
                                             <asp:HiddenField ID="hdnBDIndName" runat="server" Value='<%# Eval("BDIndId")%>' />
                                             <asp:DropDownList ID="ddl_BDIndNameTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
                                         </td>
                                     </asp:Panel>
                                     <asp:Panel runat="server" ID="pnlTeam">
-                                        <td>
-                                            <%--<%# Eval("PTeamName")%>--%>
+                                        <td> 
                                             <asp:HiddenField ID="hdnParenTeam" runat="server" Value='<%# Eval("ParentTeam")%>' />
                                             <asp:DropDownList ID="ddl_ParentTeamNameTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
                                         </td> 
-                                        <td>
-                                            <%--<%# Eval("TeamName")%>--%>
+                                        <td> 
                                             <asp:HiddenField ID="hdnTeamName" runat="server" Value='<%# Eval("Team")%>' />
                                             <asp:DropDownList ID="ddl_TeamNameTbl" runat="server" CssClass="form-control select2ddl"> 
                                             </asp:DropDownList>
                                         </td> 
-                                        <td>
-                                           <%-- <%# Eval("CECCollectionTeam")%>--%>
+                                        <td> 
                                             <asp:HiddenField ID="hdnCECCollectionTeam" runat="server" Value='<%# Eval("CECTeam")%>' />
                                             <asp:DropDownList ID="ddl_CECCollectionTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
                                         </td> 
-                                        <td>
-                                            <%--<%# Eval("BDCollectionTeam")%>--%>
+                                        <td> 
                                             <asp:HiddenField ID="hdnBDCollectionTeam" runat="server" Value='<%# Eval("BDTeam")%>' />
                                             <asp:DropDownList ID="ddl_BDCollectionTbl" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
                                         </td>
                                     </asp:Panel>
-                                    <td>
-                                        <%--<%# Eval("TargetLead")%>--%>  
+                                    <td> 
                                         <asp:TextBox ID="txt_LeadTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetLead") %>' runat="server"></asp:TextBox>
                                     </td>
-                                    <td>
-                                       <%-- <%# Eval("TargetEL")%>--%>
+                                    <td> 
                                         <asp:TextBox ID="txt_ElTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetEL") %>' runat="server"></asp:TextBox> 
                                     </td>
-                                    <td>
-                                        <%--<%# Eval("TargetClient")%>--%>
+                                    <td> 
                                         <asp:TextBox ID="txt_ClientTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetClient") %>' runat="server"></asp:TextBox> 
                                     </td>
-                                    <td>
-                                        <%--<%# Eval("TargetConsultant")%>--%>
+                                    <td> 
                                         <asp:TextBox ID="txt_ConsultantTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetConsultant") %>' runat="server"></asp:TextBox> 
                                     </td>
-                                    <td>
-                                       <%-- <%# Eval("TargetAssignment")%>--%>
+                                    <td> 
                                         <asp:TextBox ID="txt_AssignmentTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetAssignment") %>' runat="server"></asp:TextBox> 
                                     </td>
-                                    <td>
-                                        <%--<%# Eval("TargetAmount")%>--%>
+                                    <td> 
                                         <asp:TextBox ID="txt_AmountTbl" CssClass="form-control NumberOnly" Width="200" Text='<%#Eval("TargetAmount") %>' runat="server"></asp:TextBox> 
                                     </td>
                                     <td>
