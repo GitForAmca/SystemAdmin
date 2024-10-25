@@ -53,6 +53,7 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Group</th>
                                             <th>Sender Email</th>
                                             <th>Sender Password</th>                                     
                                             <th>On</th>                                                 
@@ -68,6 +69,9 @@
                                 <tr>
                                     <td>
                                         <asp:CheckBox ID="chkSelect" runat="server" CssClass="checkboxes chkselect" Autoid='<%# Eval("Autoid")%>' />
+                                    </td>
+                                    <td>
+                                        <%# Eval("GroupName")%>
                                     </td>
                                     <td>
                                         <%# Eval("SenderEmail")%>
@@ -88,11 +92,11 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Jurisdiction</th>
-                                            <th>Primary</th>
-                                            <th>Secondary</th>                                             
-                                            <th>By</th>                                                 
-                                            <th>On</th>   
+                                            <th>Group</th>
+                                            <th>Sender Email</th>
+                                            <th>Sender Password</th>                                     
+                                            <th>On</th>                                                 
+                                            <th>Is Active</th>      
                                         </tr>
                                     </thead>
                                 </table>
@@ -123,10 +127,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">Sender Email<span class="required" aria-required="true"> *</span></label>
-                                <label class="control-lab184
-                                    el">Sender Email<span class="required" aria-required="true"> *</span></label>
-                                <asp:TextBox ID="txtSenderEmail" class="form-control req" runat="server" ></asp:TextBox>
+                                <label class="control-label">Sender Email<span class="required" aria-required="true"> *</span></label> 
+                                <asp:TextBox ID="txtSenderEmail" class="form-control emailid req" runat="server" ></asp:TextBox>
                             </div>
                         </div> 
                         <div class="col-md-4">
