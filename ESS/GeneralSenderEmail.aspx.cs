@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -130,31 +131,29 @@ namespace SystemAdmin.ESS
         }
         string XMLField(string GroupId)
         {
-            string xml = "<tr>";
+            string xml = "<tbl><tr>";
             xml += "<GroupId><![CDATA[" + GroupId + "]]></GroupId>";
             xml += "<SenderEmail><![CDATA[" + txtSenderEmail.Text+ "]]></SenderEmail>";
             xml += "<SenderPassword><![CDATA[" + txtSenderPassword.Text.Trim() + "]]></SenderPassword>"; 
-            xml += "</tr>";
+            xml += "</tr></tbl>";
             return xml;
         }
-        string GetChildStatusXml()
-        {
-            string xml = "<tbl>";
-            foreach (ListItem gr in chkGroupCompany.Items)
-            {
-                if (gr.Selected)
-                {
-                    xml += XMLField(gr.Value);
-                }
-            }
-            xml += "</tbl>";
-            return xml;
-        }
+        //string GetChildStatusXml()
+        //{
+        //    string xml = "<tbl>";
+        //    foreach (ListItem gr in chkGroupCompany.Items)
+        //    {
+        //        if (gr.Selected)
+        //        {
+        //            xml += XMLField(gr.Value);
+        //        }
+        //    }
+        //    xml += "</tbl>";
+        //    return xml;
+        //}
         string GetChildStatusTypeXmlForUpdate()
-        {
-            string xml = "<tbl>";
-            xml += XMLField(ddlUpdateGroupCompany.SelectedValue);
-            xml += "</tbl>";
+        { 
+            string xml = XMLField(ddlUpdateGroupCompany.SelectedValue); 
             return xml;
         }
         private bool IsAnyItemChecked()
@@ -176,17 +175,25 @@ namespace SystemAdmin.ESS
                 if (ViewState["Mode"].ToString() == "Add")
                 {
                     PL.OpCode = 45;
-                    PL.XML = GetChildStatusXml();
-                    PL.CreatedBy = Session["UserAutoId"].ToString();
-                    EssDL.returnTable(PL);
-                    if (!PL.isException)
+                    foreach (ListItem gr in chkGroupCompany.Items)
                     {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record save successfully');", true);
+                        if (gr.Selected)
+                        { 
+                            PL.GroupId = gr.Value;
+                            PL.XML = XMLField(PL.GroupId.ToString());
+                            PL.CreatedBy = Session["UserAutoId"].ToString();
+                            EssDL.returnTable(PL);
+                            if (!PL.isException)
+                            {
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record save successfully');", true);
+                            }
+                            else
+                            {
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
+                            }
+                        }
                     }
-                    else
-                    {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
-                    }
+                    
                 }
                 else if (ViewState["Mode"].ToString() == "Edit")
                 {
