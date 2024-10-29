@@ -4338,6 +4338,7 @@
     <Content Include="ESS\CRMCSMapping.aspx" />
     <Content Include="ESS\ELFormat.aspx" />
     <Content Include="ESS\EmailFormat.aspx" />
+    <Content Include="ESS\GeneralSenderEmail.aspx" />
     <Content Include="ESS\OperationMapping.aspx" />
     <Content Include="ESS\PolicyMaster.aspx" />
     <Content Include="ESS\QuestionnaireMaster.aspx" />
@@ -4607,6 +4608,13 @@
     </Compile>
     <Compile Include="ESS\EmailFormat.aspx.designer.cs">
       <DependentUpon>EmailFormat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\GeneralSenderEmail.aspx.cs">
+      <DependentUpon>GeneralSenderEmail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\GeneralSenderEmail.aspx.designer.cs">
+      <DependentUpon>GeneralSenderEmail.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\OperationMapping.aspx.cs">
       <DependentUpon>OperationMapping.aspx</DependentUpon>
