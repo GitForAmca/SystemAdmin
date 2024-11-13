@@ -26,6 +26,7 @@ namespace SystemAdmin.Menu
                 getSubParentMenu(ddlSubParentMenuFilter, "", "");
                 getRegion("0");
                 getIndustry(ddlIndustries);
+                BindStatus();
                 FillListView();
             }
         }
@@ -45,6 +46,19 @@ namespace SystemAdmin.Menu
             ddlSecondayPerson.DataBind();
             ddlSecondayPerson.Items.Insert(0, new ListItem("Choose an item", ""));
         }
+        void BindStatus()
+        {
+            ServiceMasterPL PL = new ServiceMasterPL();
+            PL.Industry = ddlIndustries.SelectedValue;
+            PL.GroupId = ddlGroup.SelectedValue;
+            PL.OpCode = 40;
+            ServiceMasterDL.returnTable(PL);
+            lstStatus.DataSource = PL.dt;
+            lstStatus.DataValueField = "id";
+            lstStatus.DataTextField = "StatusName";
+            lstStatus.DataBind();
+        }
+
         void getRegion(string id)
         {
             DropdownPL PL = new DropdownPL();
@@ -84,6 +98,7 @@ namespace SystemAdmin.Menu
             {
                 getGroupCompany(ddlIndustries.SelectedValue);
                 getRegion(ddlIndustries.SelectedValue);
+                BindStatus();
             }
         }
         void getMenuType()
@@ -110,12 +125,14 @@ namespace SystemAdmin.Menu
                 if(ddlMenuType.SelectedValue == "1")
                 {
                     divIndustries.Visible = true;
+                    divManualStatus.Visible = true;
                     divGroup.Visible = true;
                 }
                 else
                 {
                     getRegion("0");
                     divIndustries.Visible = false;
+                    divManualStatus.Visible = false;
                     divGroup.Visible = false;
                 }
             }
@@ -229,6 +246,8 @@ namespace SystemAdmin.Menu
         }
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+            string manualStatus = Request.Form[lstStatus.UniqueID];
+
             var xml = "<tbl>";
             xml += "<tr>";
 
@@ -241,7 +260,7 @@ namespace SystemAdmin.Menu
             xml += "<IsDefault><![CDATA[" + chkDefault.Checked + "]]></IsDefault>";
             xml += "<IsActive><![CDATA[" + chkActive.Checked + "]]></IsActive>";
             xml += "<IsMasterMenu><![CDATA[" + chkMasterMenu.Checked + "]]></IsMasterMenu>";
-
+            xml += "<StatusId><![CDATA[" + manualStatus + "]]></StatusId>";
             xml += "</tr>";
             xml += "</tbl>";
 
@@ -334,11 +353,13 @@ namespace SystemAdmin.Menu
                 if (PL.dt.Rows[0]["Type"].ToString() == "1")
                 {
                     divIndustries.Visible = true;
+                    divManualStatus.Visible = true;
                     divGroup.Visible = true;
                 }
                 else
                 {
                     divIndustries.Visible = false;
+                    divManualStatus.Visible = false;
                     divGroup.Visible = false;
                 }
                 ddlIndustries.SelectedIndex = ddlIndustries.Items.IndexOf(ddlIndustries.Items.FindByValue(PL.dt.Rows[0]["IndustriesId"].ToString()));
@@ -363,6 +384,8 @@ namespace SystemAdmin.Menu
                 }
 
                 SetList(ddlRegion, PL.dt.Rows[0]["RegionIds"].ToString());
+                BindStatus();
+                SetList(lstStatus, PL.dt.Rows[0]["StatusId"].ToString());
 
                 if (PL.dt.Rows[0]["IsDefault"].ToString() == "True")
                 {

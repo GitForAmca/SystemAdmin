@@ -191,6 +191,12 @@
                             <asp:DropDownList ID="ddlSecondayPerson" CssClass="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
+                    <div class="col-md-3" id="divManualStatus" runat="server">
+                        <div class="form-group">
+                            <label class="control-label">Manual Status<span class="required" aria-required="true"> </span></label>
+                            <asp:ListBox ID="lstStatus" SelectionMode="Multiple" class="form-control multiselectddl" runat="server"></asp:ListBox>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
