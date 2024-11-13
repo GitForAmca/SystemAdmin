@@ -124,7 +124,7 @@ namespace SystemAdmin.ESS
                 xml += "</tbl>";
                 if (ViewState["Mode"].ToString() == "Add")
                 {
-                    PL.OpCode = 48;
+                    PL.OpCode = 52;
                     PL.XML = xml;
                     PL.CreatedBy = Session["UserAutoId"].ToString();
                     EssDL.returnTable(PL);
