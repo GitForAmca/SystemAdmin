@@ -4339,6 +4339,7 @@
     <Content Include="ESS\ELFormat.aspx" />
     <Content Include="ESS\EmailFormat.aspx" />
     <Content Include="ESS\GeneralSenderEmail.aspx" />
+    <Content Include="ESS\LicenseActivity.aspx" />
     <Content Include="ESS\OperationMapping.aspx" />
     <Content Include="ESS\PolicyMaster.aspx" />
     <Content Include="ESS\QuestionnaireMaster.aspx" />
@@ -4615,6 +4616,12 @@
     </Compile>
     <Compile Include="ESS\GeneralSenderEmail.aspx.designer.cs">
       <DependentUpon>GeneralSenderEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\LicenseActivity.aspx.cs">
+      <DependentUpon>LicenseActivity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\LicenseActivity.aspx.designer.cs">
+      <DependentUpon>LicenseActivity.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\OperationMapping.aspx.cs">
       <DependentUpon>OperationMapping.aspx</DependentUpon>
