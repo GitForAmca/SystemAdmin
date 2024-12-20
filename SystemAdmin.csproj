@@ -4619,6 +4619,7 @@
     </Compile>
     <Compile Include="ESS\LicenseActivity.aspx.cs">
       <DependentUpon>LicenseActivity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ESS\LicenseActivity.aspx.designer.cs">
       <DependentUpon>LicenseActivity.aspx</DependentUpon>

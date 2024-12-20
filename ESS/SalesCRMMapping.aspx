@@ -16,7 +16,7 @@
                             <asp:DropDownList runat="server" ID="ddlGroupFilter" CssClass="form-control select2ddl"></asp:DropDownList>
                         </div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-1"> 
                         <div class="form-group">
                             <label class="control-label"></label>
                             <div style="margin-top: 8px;">
@@ -39,6 +39,9 @@
                                         <li>
                                             <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" Text="Edit" OnClientClick="return CheckOnlyOneSelect('chkselect');"><i class="fa fa-pencil"></i> Edit</asp:LinkButton>
                                         </li>
+                                        <li>
+                                            <asp:LinkButton ID="lnkBtnDelete" runat="server" OnClick="lnkBtnDelete_Click" Text="Delete" OnClientClick="checkIsDeleted(this);return false;"><i class="fa fa-trash"></i> Delete</asp:LinkButton>
+                                        </li>
                                     </ul> 
                                 </div> 
                             </div>
@@ -53,8 +56,9 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>BA</th>
+                                            <th>BD</th>
                                             <th>CEC</th>
+                                            <th>CSR</th>
                                             <th>CEM</th>
                                             <th>By</th>                                                 
                                             <th>On</th>                                                 
@@ -77,6 +81,9 @@
                                         <%# Eval("CECName")%>
                                     </td>
                                     <td>
+                                        <%# Eval("CSRName")%>
+                                    </td>
+                                    <td>
                                         <%# Eval("CEMName")%>
                                     </td>
                                     <td>
@@ -96,6 +103,7 @@
                                             <th>#</th>
                                             <th>BA</th>
                                             <th>CEC</th>
+                                            <th>CSR</th>
                                             <th>CEM</th>
                                             <th>By</th>                                                 
                                             <th>On</th>   
@@ -129,16 +137,22 @@
                     <div class="row"> 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">BA<span class="required" aria-required="true"> *</span></label>
-                                <asp:DropDownList runat="server" oldname="" onchange="CheckName(this);" ID="ddlBA" CssClass="form-control select2ddl req"></asp:DropDownList>
+                                <label class="control-label">BD<span class="required" aria-required="true"> </span></label>
+                                <asp:DropDownList runat="server" ID="ddlBA" CssClass="form-control select2ddl"></asp:DropDownList>
                             </div>
                         </div> 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">CEC<span class="required" aria-required="true"> *</span></label>
-                                <asp:DropDownList runat="server" ID="ddlCEC" CssClass="form-control select2ddl req"></asp:DropDownList>
+                                <label class="control-label">CEC<span class="required" aria-required="true"> </span></label>
+                                <asp:DropDownList runat="server" ID="ddlCEC" CssClass="form-control select2ddl"></asp:DropDownList>
                             </div>
                         </div> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">CSR<span class="required" aria-required="true"> *</span></label>
+                                <asp:DropDownList runat="server" ID="ddlCSR" CssClass="form-control select2ddl req"></asp:DropDownList>
+                            </div>
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="control-label">CEM<span class="required" aria-required="true"> *</span></label>
@@ -187,6 +201,11 @@
                     ShowError(errMsg);
                 }
             });
+        }
+        function checkIsDeleted(args) {
+            if (CheckOnlyOneSelect('chkselect')) {
+                Myconfirm('You want to Delete.', args);
+            }
         }
     </script>
 </asp:Content>
