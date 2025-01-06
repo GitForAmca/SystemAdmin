@@ -154,19 +154,11 @@ namespace SystemAdmin
                     EssDL.returnTable(PL);
                     if (!PL.isException)
                     {
-                        string ad = PL.dt.Rows[0]["Status"].ToString();
-                        if (PL.dt.Rows[0]["Status"].ToString() == "1")
-                        {
-                            divView.Visible = true;
-                            divAddEdit.Visible = false;
-                            ClearField();
-                            FillListView();
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record save successfully');", true);
-                        }
-                        else
-                        {
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowError('Trade License Authority already exist in the database.');", true);
-                        }
+                        divView.Visible = true;
+                        divAddEdit.Visible = false;
+                        ClearField();
+                        FillListView();
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record save successfully');", true);
                     }
                     else
                     {
