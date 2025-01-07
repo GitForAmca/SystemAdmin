@@ -198,6 +198,7 @@
                                                         <li><a href='../ESS/PolicyMaster.aspx'><i class='fa fa-angle-right'></i>Policy Master</a></li>
                                                         <li><a href='../ESS/GeneralSenderEmail.aspx'><i class='fa fa-angle-right'></i>General Sender Email</a></li>
                                                         <li><a href='../ESS/LicenseActivity.aspx'><i class='fa fa-angle-right'></i>License Activity</a></li>
+                                                        <li><a href='../ESS/TradeLicenseAuthority.aspx'><i class='fa fa-angle-right'></i>Trade License Authority</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
