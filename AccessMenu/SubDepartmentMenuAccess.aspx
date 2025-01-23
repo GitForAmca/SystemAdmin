@@ -9,20 +9,45 @@
         </div> 
         <div id="divView" runat="server" class="portlet-body form-body">
             <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Industry<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList ID="ddlIndustryFilter" OnSelectedIndexChanged="ddlIndustriesFilter_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Department<span class="required" aria-required="true"></span></label>
+                        <asp:DropDownList ID="ddlDepartmentFilter" OnSelectedIndexChanged="ddldepartmentFilter_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Sub Department<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList ID="ddlSubDepartmentFilter" class="form-control select2ddl" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label"><span class="required" aria-required="true"></span></label>
+                    <div>
+                        <asp:Button ID="btnGet" runat="server" class="btn blue" OnClick="btnGet_Click" Text="Get" />
+                        <asp:Button ID="btnReset" runat="server" CssClass="btn default" OnClick="btnReset_Click" Text="Reset" />
+                    </div>
+                </div>
                 <div class="col-md-2 pull-right text-right">
                     <label class="control-label"><span class="required" aria-required="true"></span></label>
                     <div>
-                        <div class="btn-group pull-right" style="margin-left: 8px;"> 
+                        <div class="btn-group pull-right" style="margin-left: 8px;">
                             <button class="btn dropdown-toggle" data-toggle="dropdown">
                                 Action <i class="fa fa-angle-down"></i>
                             </button>
-                            <ul class="dropdown-menu pull-right"> 
+                            <ul class="dropdown-menu pull-right">
                                 <li>
                                     <asp:LinkButton ID="lnkBtnAddNew" OnClick="lnkBtnAddNew_Click" runat="server"><i class="fa fa-plus"></i>Add</asp:LinkButton>
                                 </li>
                                 <li>
                                     <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" OnClientClick="return CheckOnlyOneSelect('checkboxes');" Text="Edit"><i class="fa fa-pencil"></i>Edit</asp:LinkButton>
-                                </li> 
+                                </li>
                             </ul>
                         </div>
                     </div>
