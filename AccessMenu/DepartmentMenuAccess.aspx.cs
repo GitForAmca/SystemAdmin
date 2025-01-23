@@ -97,6 +97,7 @@ namespace SystemAdmin.AccessMenu
             ddlRegion.SelectedIndex = 0;
             ddlDepartment.SelectedIndex = 0;
             lstParentMenu.SelectedIndex = 0;
+
         }
         void FillListView()
         {
@@ -321,7 +322,9 @@ namespace SystemAdmin.AccessMenu
         }
         protected void btnReset_Click(object sender, EventArgs e)
         {
-
+            ddlIndustryFilter.SelectedIndex = -1;
+            ddlDepartmentFilter.SelectedIndex = -1;
+            FillListView();
         }
     }
 }

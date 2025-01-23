@@ -357,7 +357,10 @@ namespace SystemAdmin.AccessMenu
         }
         protected void btnReset_Click(object sender, EventArgs e)
         {
-
+            ddlIndustryFilter.SelectedIndex = -1;
+            ddlDepartmentFilter.SelectedIndex = -1;
+            ddlSubDepartmentFilter.SelectedIndex = -1;
+            FillListView();
         }
     }
 }
