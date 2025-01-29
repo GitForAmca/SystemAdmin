@@ -17,6 +17,7 @@ namespace SystemAdmin.AccessMenu
             if (!Page.IsPostBack)
             {
                 FillListView();
+                getIndustry();
                 getIndustry(ddlIndustries);
             }
         }
@@ -115,6 +116,9 @@ namespace SystemAdmin.AccessMenu
         {
             MenuAccessPL PL = new MenuAccessPL();
             PL.OpCode = 11;
+            PL.Industry = ddlIndustryFilter.SelectedValue;
+            PL.Department = ddlDepartmentFilter.SelectedValue;
+            PL.SubDepartment = ddlSubDepartmentFilter.SelectedValue;
             MenuAccessDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
@@ -297,6 +301,66 @@ namespace SystemAdmin.AccessMenu
         {
             divView.Visible = true;
             divEdit.Visible = false;
+        }
+        void getIndustry()
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 2;
+            DropdownDL.returnTable(PL); 
+            ddlIndustryFilter.DataSource = PL.dt;
+            ddlIndustryFilter.DataValueField = "ID";
+            ddlIndustryFilter.DataTextField = "Description";
+            ddlIndustryFilter.DataBind();
+            ddlIndustryFilter.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        void getDepartmentFilter(int id)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 17;
+            PL.AutoId = id;
+            DropdownDL.returnTable(PL);
+            ddlDepartmentFilter.DataSource = PL.dt;
+            ddlDepartmentFilter.DataValueField = "DesignationId";
+            ddlDepartmentFilter.DataTextField = "Name";
+            ddlDepartmentFilter.DataBind();
+            ddlDepartmentFilter.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        void getSubDepartmentFilter(int id)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 18;
+            PL.AutoId = id;
+            DropdownDL.returnTable(PL);
+            ddlSubDepartmentFilter.DataSource = PL.dt;
+            ddlSubDepartmentFilter.DataValueField = "Autoid";
+            ddlSubDepartmentFilter.DataTextField = "GroupName";
+            ddlSubDepartmentFilter.DataBind();
+            ddlSubDepartmentFilter.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        protected void ddlIndustriesFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlIndustryFilter.SelectedValue != "")
+            {
+                getDepartmentFilter(Convert.ToInt32(ddlIndustryFilter.SelectedValue));
+            }
+        }
+        protected void ddldepartmentFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlDepartmentFilter.SelectedValue != "")
+            {
+                getSubDepartmentFilter(Convert.ToInt32(ddlDepartmentFilter.SelectedValue));
+            }
+        }
+        protected void btnGet_Click(object sender, EventArgs e)
+        {
+            FillListView();
+        }
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            ddlIndustryFilter.SelectedIndex = -1;
+            ddlDepartmentFilter.SelectedIndex = -1;
+            ddlSubDepartmentFilter.SelectedIndex = -1;
+            FillListView();
         }
     }
 }
