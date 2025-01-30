@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -20,7 +21,19 @@ namespace SystemAdmin.ESS
                 BAList();
                 CECList();
                 CEMList();
+                CSRList();
             }
+        }
+        void CSRList()
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 31;
+            DropdownDL.returnTable(PL);
+            ddlCSR.DataValueField = "Autoid";
+            ddlCSR.DataTextField = "Name";
+            ddlCSR.DataSource = PL.dt;
+            ddlCSR.DataBind();
+            ddlCSR.Items.Insert(0, new ListItem("Select CSR", ""));
         }
         void BAList()
         {
@@ -146,6 +159,7 @@ namespace SystemAdmin.ESS
                             ddlUpdateGroupCompany.SelectedIndex = ddlUpdateGroupCompany.Items.IndexOf(ddlUpdateGroupCompany.Items.FindByValue(dt.Rows[0]["GroupId"].ToString()));
                             ddlBA.SelectedIndex = ddlBA.Items.IndexOf(ddlBA.Items.FindByValue(dt.Rows[0]["BA"].ToString()));
                             ddlCEC.SelectedIndex = ddlCEC.Items.IndexOf(ddlCEC.Items.FindByValue(dt.Rows[0]["CEC"].ToString()));
+                            ddlCSR.SelectedIndex = ddlCSR.Items.IndexOf(ddlCSR.Items.FindByValue(dt.Rows[0]["CSR"].ToString()));
                             ddlCEM.SelectedIndex = ddlCEM.Items.IndexOf(ddlCEM.Items.FindByValue(dt.Rows[0]["CEM"].ToString()));
                         }
                         ViewState["Mode"] = "Edit";
@@ -156,6 +170,34 @@ namespace SystemAdmin.ESS
                         divUpdateGroup.Visible = true;
                         ddlUpdateGroupCompany.Enabled = false;
                         break;
+                    }
+                }
+            }
+        }
+        protected void lnkBtnDelete_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in LV_Operation_Mapping.Items)
+            {
+                CheckBox chkSelect = (CheckBox)item.FindControl("chkSelect");
+                if (chkSelect != null)
+                {
+                    if (chkSelect.Checked)
+                    {
+                        int Autoid = Convert.ToInt32(chkSelect.Attributes["Autoid"]);
+                        //-----------------
+                        EssPL PL = new EssPL();
+                        PL.OpCode = 53;
+                        PL.AutoId = Autoid;
+                        EssDL.returnTable(PL);
+                        if (!PL.isException)
+                        {
+                            FillListView(ddlGroupFilter.SelectedValue);
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Delete successfully');", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
+                        }
                     }
                 }
             }
@@ -180,6 +222,7 @@ namespace SystemAdmin.ESS
             string xml = "<tr>";
             xml += "<GroupId><![CDATA[" + GroupId + "]]></GroupId>";
             xml += "<CEC><![CDATA[" + ddlCEC.SelectedValue + "]]></CEC>";
+            xml += "<CSR><![CDATA[" + ddlCSR.SelectedValue + "]]></CSR>";
             xml += "<BA><![CDATA[" + ddlBA.SelectedValue + "]]></BA>";
             xml += "<CEM><![CDATA[" + ddlCEM.SelectedValue + "]]></CEM>";
             xml += "</tr>";
@@ -262,6 +305,7 @@ namespace SystemAdmin.ESS
         {
             ddlBA.SelectedIndex = -1;
             ddlCEC.SelectedIndex = -1;
+            ddlCSR.SelectedIndex = -1;
             ddlCEM.SelectedIndex = -1;
         }
 

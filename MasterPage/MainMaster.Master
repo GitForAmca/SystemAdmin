@@ -185,7 +185,7 @@
                                                         <li><a href='../ESS/QuestionnaireMaster.aspx'><i class='fa fa-angle-right'></i>Questionnaire Master</a></li>
                                                         <li><a href='../ESS/EmailFormat.aspx'><i class='fa fa-angle-right'></i>Email Format</a></li>
                                                         <li><a href='../ESS/StatusMaster.aspx'><i class='fa fa-angle-right'></i>Status Master</a></li>
-                                                        <li><a href='../ESS/CRMCSMapping.aspx'><i class='fa fa-angle-right'></i>CRM CS Mapping</a></li>
+                                                        <%--<li><a href='../ESS/CRMCSMapping.aspx'><i class='fa fa-angle-right'></i>CRM CS Mapping</a></li>--%>
                                                         <li><a href='../ESS/SalesCRMMapping.aspx'><i class='fa fa-angle-right'></i>Sales CRM Mapping</a></li>
                                                         <li><a href='../ESS/OperationMapping.aspx'><i class='fa fa-angle-right'></i>Operation Mapping</a></li>
                                                         <li><a href='../ESS/ReviewMasterControl.aspx'><i class='fa fa-angle-right'></i>Review Master Control</a></li>
@@ -198,6 +198,8 @@
                                                         <li><a href='../ESS/PolicyMaster.aspx'><i class='fa fa-angle-right'></i>Policy Master</a></li>
                                                         <li><a href='../ESS/GeneralSenderEmail.aspx'><i class='fa fa-angle-right'></i>General Sender Email</a></li>
                                                         <li><a href='../ESS/LicenseActivity.aspx'><i class='fa fa-angle-right'></i>License Activity</a></li>
+                                                        <li><a href='../ESS/PortalSettings.aspx'><i class='fa fa-angle-right'></i>Portal Settings</a></li>
+                                                        <li><a href='../ESS/TicketRequest.aspx'><i class='fa fa-angle-right'></i>Ticket Request</a></li>
                                                     </ul>
                                                 </div>
                                             </div>

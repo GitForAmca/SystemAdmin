@@ -18,6 +18,7 @@ namespace SystemAdmin.AccessMenu
             if (!Page.IsPostBack)
             {
                 FillListView();
+                getIndustry();
                 getIndustry(ddlIndustries);
             }
         }
@@ -96,11 +97,14 @@ namespace SystemAdmin.AccessMenu
             ddlRegion.SelectedIndex = 0;
             ddlDepartment.SelectedIndex = 0;
             lstParentMenu.SelectedIndex = 0;
+
         }
         void FillListView()
         {
             MenuAccessPL PL = new MenuAccessPL();
             PL.OpCode = 5;
+            PL.Industry = ddlIndustryFilter.SelectedValue;
+            PL.Department = ddlDepartmentFilter.SelectedValue;
             MenuAccessDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
@@ -278,6 +282,49 @@ namespace SystemAdmin.AccessMenu
         protected void btnCancel_Click(object sender, EventArgs e)
         {
 
+        }
+        void getIndustry()
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 2;
+            DropdownDL.returnTable(PL);
+            ddlIndustryFilter.DataSource = PL.dt;
+            ddlIndustryFilter.DataValueField = "ID";
+            ddlIndustryFilter.DataTextField = "Description";
+            ddlIndustryFilter.DataBind();
+            ddlIndustryFilter.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        void getDepartmentFilter(int id)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 17;
+            PL.AutoId = id;
+            DropdownDL.returnTable(PL);
+            ddlDepartmentFilter.DataSource = PL.dt;
+            ddlDepartmentFilter.DataValueField = "DesignationId";
+            ddlDepartmentFilter.DataTextField = "Name";
+            ddlDepartmentFilter.DataBind();
+            ddlDepartmentFilter.Items.Insert(0, new ListItem("Choose an item", ""));
+        } 
+        protected void ddlIndustriesFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlIndustryFilter.SelectedValue != "")
+            {
+                getDepartmentFilter(Convert.ToInt32(ddlIndustryFilter.SelectedValue));
+            }
+        }
+        protected void ddldepartmentFilter_SelectedIndexChanged(object sender, EventArgs e)
+        { 
+        }
+        protected void btnGet_Click(object sender, EventArgs e)
+        {
+            FillListView();
+        }
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            ddlIndustryFilter.SelectedIndex = -1;
+            ddlDepartmentFilter.SelectedIndex = -1;
+            FillListView();
         }
     }
 }
