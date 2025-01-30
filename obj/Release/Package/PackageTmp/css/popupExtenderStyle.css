@@ -1,0 +1,122 @@
+﻿.modalBackgroundNew
+{
+	background-color: #EEEEEE;
+	opacity: 0.6;
+} 
+.modalPopup
+{
+    color: White;
+    line-height: 15pt;
+    clear: both;
+    width: 600px;
+    height:auto;
+    color: Black;
+    font-family: Arial, Helvetica, Sans-Serif;
+    border: 2px solid #2aa5bc;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.075) inset;
+}
+
+/*  Information  */
+
+.popup_TitlebarInformation
+{
+    height:25px;
+	padding-top: 5px;
+	font-weight: bold;
+	font-size: 16px;
+	cursor: move;
+	width: 100%;
+	background-color:#2aa5bc;
+}
+
+.popupBodyDivInformation
+{
+	background-color: #EEEEEE;
+	color:Black;
+	overflow:auto;
+	font-size:14px;
+	padding:15px 0px 15px 0px;	
+}
+.popupBottomDiv
+{
+	padding-top:10px;
+	padding-bottom:10px;
+	width: 100%;
+	background-color:white;
+}
+/*-------------------------------------------------------------------------------------------------------*/
+
+/*Warning
+
+.popup_TitlebarWarning
+{
+	padding-top: 3px;
+	font-weight: bold;
+	font-size: 16px; 
+	cursor: move;
+	width: 100%;
+	background-color:#E4B239;
+}
+
+.popupBodyDivWarning
+{
+	background-color: #FEEFB3;
+	color:#9F6000;
+	height: 50px;
+	width: 100%;
+	font-size:13px;
+	padding:15px 0px 15px 0px;
+	border-color:#9F6000;
+	border-width:1px;
+	border-style:solid;
+}*/
+
+/*Error
+
+.popup_TitlebarError
+{
+	padding-top: 3px;
+	font-weight: bold;
+	font-size: 16px;
+	cursor: move;
+	width: 100%;
+	background-color:#F23737;
+}
+
+.popupBodyDivError
+{
+	background-color: #FFBABA;
+	color:#E1323C;
+	height: 50px;
+	width: 100%;
+	font-size:14px;
+	padding:15px 0px 15px 0px;
+	border-color:#E1323C;
+	border-width:1px;
+	border-style:solid;
+}*/
+
+/*Success*/
+
+.popup_TitlebarSuccess
+{
+	height:25px;
+	padding-top: 5px;
+	font-weight: bold;
+	font-size: 16px;
+	cursor: move;
+	width: 100%;
+	background-color:Gray;
+}
+
+.popupBodyDivSuccess
+{
+    background-color: White;
+	color:Black;
+	overflow:auto;
+	font-size:14px;
+	padding:15px 0px 15px 0px;
+	width: 100%;
+}
+
+

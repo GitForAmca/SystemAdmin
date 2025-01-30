@@ -227,6 +227,8 @@ D:\AMCA\AMCA Projects\Git Project\System Admin\SystemAdmin\bin\roslyn\vbc.exe.co
 D:\AMCA\AMCA Projects\Git Project\System Admin\SystemAdmin\bin\roslyn\vbc.rsp
 D:\AMCA\AMCA Projects\Git Project\System Admin\SystemAdmin\bin\roslyn\VBCSCompiler.exe
 D:\AMCA\AMCA Projects\Git Project\System Admin\SystemAdmin\bin\roslyn\VBCSCompiler.exe.config
+D:\AMCA\AMCA Projects\Git Project\System Admin\SystemAdmin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\AMCA\AMCA Projects\Git Project\System Admin\SystemAdmin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\AMCA\AMCA Projects\Git Project\System Admin\SystemAdmin\obj\Debug\SystemAdmin.csproj.AssemblyReference.cache
 D:\AMCA\AMCA Projects\Git Project\System Admin\SystemAdmin\obj\Debug\SystemAdmin.csproj.CoreCompileInputs.cache
 D:\AMCA\AMCA Projects\Git Project\System Admin\SystemAdmin\obj\Debug\SystemAdmin.csproj.CopyComplete
