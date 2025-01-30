@@ -4396,10 +4396,7 @@
     <Content Include="ESS\ServiceTypeMaster.aspx" />
     <Content Include="ESS\StatusMaster.aspx" />
     <Content Include="ESS\TaskSchedule.aspx" />
-<<<<<<< HEAD
-=======
     <Content Include="ESS\TicketRequest.aspx" />
->>>>>>> 6e5a786c910e0cc0b04e006e4604618a880c2b7c
     <Content Include="ESS\TradeLicenseAuthority.aspx" />
     <Content Include="images\AMCA_icon.png" />
     <Content Include="images\jolahamainlogo.svg" />
@@ -9329,11 +9326,10 @@
     <Compile Include="ESS\TaskSchedule.aspx.designer.cs">
       <DependentUpon>TaskSchedule.aspx</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="ESS\TradeLicenseAuthority.aspx.cs">
       <DependentUpon>TradeLicenseAuthority.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-=======
+    </Compile>
     <Compile Include="ESS\TicketRequest.aspx.cs">
       <DependentUpon>TicketRequest.aspx</DependentUpon>
     </Compile>
@@ -9342,7 +9338,6 @@
     </Compile>
     <Compile Include="ESS\TradeLicenseAuthority.aspx.cs">
       <DependentUpon>TradeLicenseAuthority.aspx</DependentUpon>
->>>>>>> 6e5a786c910e0cc0b04e006e4604618a880c2b7c
     </Compile>
     <Compile Include="ESS\TradeLicenseAuthority.aspx.designer.cs">
       <DependentUpon>TradeLicenseAuthority.aspx</DependentUpon>

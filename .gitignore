@@ -4,3 +4,5 @@
 .vs/SystemAdmin/FileContentIndex/7b962f04-9d4b-4fa7-b128-763b6c8f2e2b.vsidx
 .vs/SystemAdmin/FileContentIndex/92d01f26-c66b-4d61-bcc6-db6f49379e77.vsidx
 *.vsidx
+/.vs
+*.htm
