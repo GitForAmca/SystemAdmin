@@ -6,3 +6,5 @@
 *.vsidx
 /.vs
 *.htm
+/.vs
+.vs/SystemAdmin/v17/fileList.bin
