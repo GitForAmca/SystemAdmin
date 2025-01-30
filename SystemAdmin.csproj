@@ -4351,6 +4351,7 @@
     <Content Include="ESS\ServiceTypeMaster.aspx" />
     <Content Include="ESS\StatusMaster.aspx" />
     <Content Include="ESS\TaskSchedule.aspx" />
+    <Content Include="ESS\TradeLicenseAuthority.aspx" />
     <Content Include="images\AMCA_icon.png" />
     <Content Include="images\jolahamainlogo.svg" />
     <Content Include="images\logoFooter.svg" />
@@ -4700,6 +4701,13 @@
     </Compile>
     <Compile Include="ESS\TaskSchedule.aspx.designer.cs">
       <DependentUpon>TaskSchedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\TradeLicenseAuthority.aspx.cs">
+      <DependentUpon>TradeLicenseAuthority.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\TradeLicenseAuthority.aspx.designer.cs">
+      <DependentUpon>TradeLicenseAuthority.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage\MainMaster.Master.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>
