@@ -4386,6 +4386,7 @@
     <Content Include="ESS\LicenseActivity.aspx" />
     <Content Include="ESS\OperationMapping.aspx" />
     <Content Include="ESS\PolicyMaster.aspx" />
+    <Content Include="ESS\PortalSettings.aspx" />
     <Content Include="ESS\QuestionnaireMaster.aspx" />
     <Content Include="ESS\ReviewMasterControl.aspx" />
     <Content Include="ESS\RiskQuestions.aspx" />
@@ -4395,6 +4396,8 @@
     <Content Include="ESS\ServiceTypeMaster.aspx" />
     <Content Include="ESS\StatusMaster.aspx" />
     <Content Include="ESS\TaskSchedule.aspx" />
+    <Content Include="ESS\TicketRequest.aspx" />
+    <Content Include="ESS\TradeLicenseAuthority.aspx" />
     <Content Include="images\AMCA_icon.png" />
     <Content Include="images\jolahamainlogo.svg" />
     <Content Include="images\logoFooter.svg" />
@@ -9165,6 +9168,7 @@
     <Compile Include="AccessMenu\SubDepartmentMenuAccess.aspx.designer.cs">
       <DependentUpon>SubDepartmentMenuAccess.aspx</DependentUpon>
     </Compile>
+    <Content Include="App_Code\Class1.cs" />
     <Compile Include="App_Code\clsGeneral.cs" />
     <Compile Include="App_Code\clsMail.cs" />
     <Compile Include="App_Code\DropdownPL.cs" />
@@ -9177,6 +9181,8 @@
     <Compile Include="App_Code\MenuAccessDL.cs" />
     <Compile Include="App_Code\MenuPL.cs" />
     <Compile Include="App_Code\MenuDL.cs" />
+    <Compile Include="App_Code\PortalSettingsPL.cs" />
+    <Compile Include="App_Code\PortalSettingsDL.cs" />
     <Compile Include="App_Code\ServiceMasterPL.cs" />
     <Compile Include="App_Code\ServiceMasterDL.cs" />
     <Compile Include="App_Code\UtilityPL.cs" />
@@ -9251,6 +9257,12 @@
     <Compile Include="ESS\PolicyMaster.aspx.designer.cs">
       <DependentUpon>PolicyMaster.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ESS\PortalSettings.aspx.cs">
+      <DependentUpon>PortalSettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\PortalSettings.aspx.designer.cs">
+      <DependentUpon>PortalSettings.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ESS\QuestionnaireMaster.aspx.cs">
       <DependentUpon>QuestionnaireMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -9313,6 +9325,18 @@
     </Compile>
     <Compile Include="ESS\TaskSchedule.aspx.designer.cs">
       <DependentUpon>TaskSchedule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\TicketRequest.aspx.cs">
+      <DependentUpon>TicketRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\TicketRequest.aspx.designer.cs">
+      <DependentUpon>TicketRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\TradeLicenseAuthority.aspx.cs">
+      <DependentUpon>TradeLicenseAuthority.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\TradeLicenseAuthority.aspx.designer.cs">
+      <DependentUpon>TradeLicenseAuthority.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage\MainMaster.Master.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>

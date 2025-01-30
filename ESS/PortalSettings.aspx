@@ -34,7 +34,7 @@
             <div id="divView" runat="server" class="portlet-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4 class="section-title">Portal Downtime</h4>
+                        <h4 class="section-title">HRMS Portal Downtime</h4>
                     </div>
                 </div>
                 <div class="row">

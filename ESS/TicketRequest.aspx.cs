@@ -116,7 +116,15 @@ namespace SystemAdmin.ESS
                         {
                             txtRequestBox.Text = dt.Rows[0]["RequestName"].ToString();
                             ddlType.SelectedValue = dt.Rows[0]["Type"].ToString();
-                            ddlMenu.SelectedValue = dt.Rows[0]["MenuId"].ToString();
+                            try
+                            {
+                                ddlMenu.SelectedValue = dt.Rows[0]["MenuId"].ToString();
+                            }
+                            catch(Exception ex)
+                            {
+
+                            }
+                            
                             SetMultiBD(ddlDepartment, PL.dt.Rows[0]["DepartmentId"].ToString());
                             chkactive.Checked = bool.Parse(dt.Rows[0]["IsActive"].ToString());
                             ViewState["Mode"] = "Edit";
