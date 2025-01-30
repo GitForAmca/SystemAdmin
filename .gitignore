@@ -11,3 +11,5 @@ bin/SystemAdmin.dll
 bin/SystemAdmin.pdb
 *.cache
 /obj/Debug
+/.vs
+/.vs
