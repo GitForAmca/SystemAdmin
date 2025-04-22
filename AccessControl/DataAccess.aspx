@@ -86,8 +86,11 @@
                                     <td>
                                         <%# Eval("AccessEmpName")%>
                                     </td>
-                                    <td>
-                                        <%# Eval("EndDate")%>
+                                    <td style='<%# 
+                                        Convert.ToDateTime(Eval("EndDate")).Date < DateTime.Now.Date ? "color:red;" : 
+                                        Convert.ToDateTime(Eval("EndDate")).Date == DateTime.Now.Date ? "color:orange;" : 
+                                        "" %>'>
+                                        <%# Eval("EndDate", "{0:yyyy-MM-dd}") %>
                                     </td>
                                     <td>
                                         <%# Eval("CreatedBy")%>
