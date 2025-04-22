@@ -105,6 +105,15 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEmployeeAccess;
 
         /// <summary>
+        /// upnl_Menuaccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upnl_Menuaccess;
+
+        /// <summary>
         /// LV_Access_Menu_Company control.
         /// </summary>
         /// <remarks>

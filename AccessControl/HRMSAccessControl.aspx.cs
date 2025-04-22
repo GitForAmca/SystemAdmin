@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,7 +15,7 @@ namespace SystemAdmin.AccessControl
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
-            {
+            { 
                 FillEmpAccess();
             }
         }
@@ -49,7 +50,7 @@ namespace SystemAdmin.AccessControl
                     SetForEdit(int.Parse(chkSelect.Attributes["Autoid"].ToString()));
                     divView.Visible = false;
                     divEdit.Visible = true;
-
+                    upnl_Menuaccess.Update();
                     break;
                 }
             }
@@ -68,14 +69,18 @@ namespace SystemAdmin.AccessControl
                 ddlEmployeeName.SelectedIndex = ddlEmployeeName.Items.IndexOf(ddlEmployeeName.Items.FindByValue(PL.dt.Rows[0]["EmpId"].ToString()));
                 divEmployeeDetails.Visible = true;
                 divEmployeeAccess.Visible = true;
-
                 string designation = getDesignationId(Convert.ToInt32(PL.dt.Rows[0]["EmpId"].ToString()));
                 FillListView(designation, PL.dt.Rows[0]["EmpId"].ToString());
                 foreach (DataRow dr in PL.dt.Rows)
                 {
                     foreach (ListViewItem lvItem in LV_Access_Menu_Company.Items)
                     {
+                        string selectedRegionIds = string.Empty;
+                        string selectedIndustryIds = string.Empty;
+                        CheckBoxList chkCompany = (CheckBoxList)lvItem.FindControl("chkactionCompany");
                         HiddenField hidAutoId = (HiddenField)lvItem.FindControl("hidautoid");
+                       
+
                         if (dr[0].ToString() == hidAutoId.Value.ToString())
                         {
                             if (!string.IsNullOrEmpty(dr["RegionId"].ToString()))
@@ -88,12 +93,14 @@ namespace SystemAdmin.AccessControl
                                     {
                                         if (li.Value == str)
                                         {
+                                            selectedRegionIds += "," + li.Value;
                                             li.Selected = true;
                                             break;
                                         }
                                     }
                                 }
                             }
+
                             if (!string.IsNullOrEmpty(dr["IndustryId"].ToString()))
                             {
                                 CheckBoxList chkaction = (CheckBoxList)lvItem.FindControl("chkactionIndustry");
@@ -104,12 +111,29 @@ namespace SystemAdmin.AccessControl
                                     {
                                         if (li.Value == str)
                                         {
+                                            selectedIndustryIds += "," + li.Value;
                                             li.Selected = true;
                                             break;
                                         }
                                     }
                                 }
                             }
+
+                            if (selectedRegionIds != "")
+                            {
+                                var companies = GetCompaniesByRegions(selectedRegionIds, selectedIndustryIds);
+                                chkCompany.DataSource = companies;
+                                chkCompany.DataTextField = "Name";
+                                chkCompany.DataValueField = "Id";
+                                chkCompany.DataBind();
+                                chkCompany.Enabled = true;
+                            }
+                            else
+                            {
+                                chkCompany.Enabled = false;
+                                chkCompany.Items.Clear();
+                            }
+
                             if (!string.IsNullOrEmpty(dr["Action"].ToString()))
                             {
                                 CheckBoxList chkaction = (CheckBoxList)lvItem.FindControl("chkactionMenu");
@@ -126,6 +150,41 @@ namespace SystemAdmin.AccessControl
                                     }
                                 }
                             }
+
+                            if (!string.IsNullOrEmpty(dr["CompanyId"].ToString()))
+                            {
+                                CheckBoxList chkcompany = (CheckBoxList)lvItem.FindControl("chkactionCompany");
+                                string[] action = dr["CompanyId"].ToString().Split('^');
+                                foreach (string str in action)
+                                {
+                                    foreach (ListItem li in chkcompany.Items)
+                                    {
+                                        if (li.Value == str)
+                                        {
+                                            li.Selected = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!string.IsNullOrEmpty(dr["ReportingPersonId"].ToString()))
+                            {
+                                CheckBoxList chkreporting = (CheckBoxList)lvItem.FindControl("chkactioreporting");
+                                string[] action = dr["ReportingPersonId"].ToString().Split('^');
+                                foreach (string str in action)
+                                {
+                                    foreach (ListItem li in chkreporting.Items)
+                                    {
+                                        if (li.Value == str)
+                                        {
+                                            li.Selected = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            } 
+
                             break;
                         }
                     }
@@ -168,6 +227,7 @@ namespace SystemAdmin.AccessControl
                 LV_Access_Menu_Company.DataSource = PL.dt;
                 LV_Access_Menu_Company.DataBind();
             }
+            upnl_Menuaccess.Update();
         }
         void GetEmployeeDepartment(int id)
         {
@@ -215,6 +275,16 @@ namespace SystemAdmin.AccessControl
             MenuDL.returnTable(PL);
             return PL.dt;
         }
+
+        public DataTable GetReportingperson(string linkid)
+        {
+            MenuAccessPL PL = new MenuAccessPL();
+            PL.OpCode = 33;
+            PL.EmpId = linkid;
+            MenuAccessDL.returnTable(PL);
+            return PL.dt;
+        }
+
         public string getDesignationId(int id)
         {
             string msg = "";
@@ -243,6 +313,7 @@ namespace SystemAdmin.AccessControl
                 string designation = getDesignationId(Convert.ToInt32(ddlEmployeeName.SelectedValue));
                 FillListView(designation, ddlEmployeeName.SelectedValue);
                 SetForEdit(Convert.ToInt32(ddlEmployeeName.SelectedValue));
+                upnl_Menuaccess.Update();
             }
         }
         protected void btnSave_Click(object sender, EventArgs e)
@@ -282,10 +353,14 @@ namespace SystemAdmin.AccessControl
                 string Region = "";
                 string Industry = "";
                 string Action = "";
+                string CompanyId = "";
+                string Reporting = "";
                 HiddenField hidAutoId = (HiddenField)lvItem.FindControl("hidautoid");
                 CheckBoxList chkactionRegion = (CheckBoxList)lvItem.FindControl("chkactionRegion");
                 CheckBoxList chkactionIndustry = (CheckBoxList)lvItem.FindControl("chkactionIndustry");
                 CheckBoxList chkactionMenu = (CheckBoxList)lvItem.FindControl("chkactionMenu");
+                CheckBoxList chkactionCompany = (CheckBoxList)lvItem.FindControl("chkactionCompany");
+                CheckBoxList chkactioreporting = (CheckBoxList)lvItem.FindControl("chkactioreporting");
                 foreach (ListItem reg in chkactionRegion.Items)
                 {
                     if (reg.Selected)
@@ -307,11 +382,27 @@ namespace SystemAdmin.AccessControl
                         Action += act.Value + "^";
                     }
                 }
+                foreach (ListItem act in chkactionCompany.Items)
+                {
+                    if (act.Selected)
+                    {
+                        CompanyId += act.Value + "^";
+                    }
+                }
+                foreach (ListItem act in chkactioreporting.Items)
+                {
+                    if (act.Selected)
+                    {
+                        Reporting += act.Value + "^";
+                    }
+                }
                 XML += "<tr>";
                 XML += "<EmpId>" + ddlEmployeeName.SelectedValue + "</EmpId>";
                 XML += "<RegionId>" + Region + "</RegionId>";
                 XML += "<IndustryId>" + Industry + "</IndustryId>";
                 XML += "<Action>" + Action + "</Action>";
+                XML += "<Company>" + CompanyId + "</Company>";
+                XML += "<Reporting>" + Reporting + "</Reporting>";
                 XML += "<MenuId>" + hidAutoId.Value + "</MenuId>";
                 XML += "</tr>";
             }
@@ -325,19 +416,206 @@ namespace SystemAdmin.AccessControl
         }
         protected void LV_Hid_Region_Industry_ItemDataBound(object sender, ListViewItemEventArgs e)
         {
-            Panel pnlRegion = (Panel)e.Item.FindControl("pnlRegion");
-            Panel pnlIndustry = (Panel)e.Item.FindControl("pnlIndustry");
-            HiddenField hdnMastermenu = (HiddenField)e.Item.FindControl("hidIsParentMenu");
-            if(hdnMastermenu.Value == "True")
+            if (e.Item.ItemType == ListViewItemType.DataItem)
             {
-                pnlRegion.Visible = true;
-                pnlIndustry.Visible = true;
+                Panel pnlRegion = (Panel)e.Item.FindControl("pnlRegion");
+                Panel pnlIndustry = (Panel)e.Item.FindControl("pnlIndustry");
+                Panel pnlCompany = (Panel)e.Item.FindControl("pnlCompany");
+                HiddenField hdnMastermenu = (HiddenField)e.Item.FindControl("hidIsParentMenu");
+                if (hdnMastermenu.Value == "True")
+                {
+                    pnlRegion.Visible = true;
+                    pnlIndustry.Visible = true;
+                    pnlCompany.Visible = true;
+                }
+                else
+                {
+                    pnlRegion.Visible = false;
+                    pnlIndustry.Visible = false;
+                    pnlCompany.Visible = false;
+                }
+            }
+        }
+        protected void chkactionRegion_SelectedIndexChanged(object sender, EventArgs e)
+        { 
+            CheckBoxList chkRegion = (CheckBoxList)sender;
+            ListViewItem item = (ListViewItem)chkRegion.NamingContainer;
+            CheckBoxList chkCompany = (CheckBoxList)item.FindControl("chkactionCompany");
+            CheckBoxList chkIndustry = (CheckBoxList)item.FindControl("chkactionIndustry");
+            CheckBox chkselectallcompany = (CheckBox)item.FindControl("chkselectallcompany");
+            //chkselectallcompany.Checked = false;
+            string selectedRegionIds = string.Empty;
+            string selectedIndustryIds = string.Empty;
+            foreach (ListItem regionItem in chkRegion.Items)
+            {
+                if (regionItem.Selected)
+                { 
+                    if (string.IsNullOrEmpty(selectedRegionIds))
+                    {
+                        selectedRegionIds = regionItem.Value; 
+                    }
+                    else
+                    {
+                        selectedRegionIds += "," + regionItem.Value; 
+                    }
+                }
+            }
+            foreach (ListItem IndustryItem in chkIndustry.Items)
+            {
+                if (IndustryItem.Selected)
+                {
+                    if (string.IsNullOrEmpty(selectedIndustryIds))
+                    {
+                        selectedIndustryIds = IndustryItem.Value;
+                    }
+                    else
+                    {
+                        selectedIndustryIds += "," + IndustryItem.Value;
+                    }
+                }
+            }
+            if (selectedRegionIds != "")
+            {
+                var companies = GetCompaniesByRegions(selectedRegionIds, selectedIndustryIds);
+                chkCompany.DataSource = companies;
+                chkCompany.DataTextField = "Name";
+                chkCompany.DataValueField = "Id";
+                chkCompany.DataBind(); 
+                chkCompany.Enabled = true;
+                chkselectallcompany.Visible =true;
             }
             else
             {
-                pnlRegion.Visible = false;
-                pnlIndustry.Visible = false;
+                chkselectallcompany.Visible =false;
+                chkCompany.Enabled = false;
+                chkCompany.Items.Clear();
             }
+            upnl_Menuaccess.Update();
+        }
+
+        private DataTable GetCompaniesByRegions(string selectedRegionIds,string selectedIndustryIds)
+        {
+            MenuAccessPL PL = new MenuAccessPL();
+            PL.OpCode = 32;
+            PL.Type = selectedRegionIds;
+            PL.Industry = selectedIndustryIds;
+            MenuAccessDL.returnTable(PL);  
+            DataTable dt = PL.dt; 
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                return dt;
+            }
+            else
+            {
+                return new DataTable(); 
+            }
+        }
+
+        protected void chkactionIndustry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CheckBoxList chkIndustry = (CheckBoxList)sender;
+            ListViewItem item = (ListViewItem)chkIndustry.NamingContainer;
+            CheckBoxList chkCompany = (CheckBoxList)item.FindControl("chkactionCompany");
+            CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
+            CheckBox chkselectallcompany = (CheckBox)item.FindControl("chkselectallcompany");
+            //chkselectallcompany.Checked = false;
+            string selectedRegionIds = string.Empty;
+            string selectedIndustryIds = string.Empty;
+            foreach (ListItem regionItem in chkRegion.Items)
+            {
+                if (regionItem.Selected)
+                {
+                    if (string.IsNullOrEmpty(selectedRegionIds))
+                    {
+                        selectedRegionIds = regionItem.Value;
+                    }
+                    else
+                    {
+                        selectedRegionIds += "," + regionItem.Value;
+                    }
+                }
+            }
+            foreach (ListItem IndustryItem in chkIndustry.Items)
+            {
+                if (IndustryItem.Selected)
+                {
+                    if (string.IsNullOrEmpty(selectedIndustryIds))
+                    {
+                        selectedIndustryIds = IndustryItem.Value;
+                    }
+                    else
+                    {
+                        selectedIndustryIds += "," + IndustryItem.Value;
+                    }
+                }
+            }
+            if (selectedRegionIds != "")
+            {
+                var companies = GetCompaniesByRegions(selectedRegionIds, selectedIndustryIds);
+                chkCompany.DataSource = companies;
+                chkCompany.DataTextField = "Name";
+                chkCompany.DataValueField = "Id";
+                chkCompany.DataBind();
+                chkCompany.Enabled = true;
+                chkselectallcompany.Visible =true;
+            }
+            else
+            {
+                chkCompany.Enabled = false;
+                chkCompany.Items.Clear();
+                chkselectallcompany.Visible =false;
+            }
+            upnl_Menuaccess.Update();
+        }
+
+        protected void chkSelectAllRegion_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkSelectAll = (CheckBox)sender;
+            ListViewItem item = (ListViewItem)chkSelectAll.NamingContainer;
+
+            CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
+            CheckBoxList chkIndustry = (CheckBoxList)item.FindControl("chkactionIndustry");
+            CheckBoxList chkComapny = (CheckBoxList)item.FindControl("chkactionCompany");
+           
+
+            if (chkRegion != null)
+            {
+                foreach (ListItem li in chkRegion.Items)
+                {
+                    li.Selected = chkSelectAll.Checked;
+                } 
+
+              
+                foreach (ListItem li in chkIndustry.Items)
+                {
+                    li.Selected = chkSelectAll.Checked;
+                }
+                chkactionRegion_SelectedIndexChanged(chkRegion, EventArgs.Empty);
+                foreach (ListItem li in chkComapny.Items)
+                {
+                    li.Selected = chkSelectAll.Checked; 
+                }
+                
+            } 
+            upnl_Menuaccess.Update();
+        }
+
+        protected void chkselectallcompany_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkSelectAll = (CheckBox)sender;
+            ListViewItem item = (ListViewItem)chkSelectAll.NamingContainer; 
+           
+            CheckBoxList chkComapny = (CheckBoxList)item.FindControl("chkactionCompany");
+
+            if (chkComapny != null)
+            { 
+                foreach (ListItem li in chkComapny.Items)
+                {
+                    li.Selected = chkSelectAll.Checked;
+                }
+
+            }
+            upnl_Menuaccess.Update();
         }
     }
 }
