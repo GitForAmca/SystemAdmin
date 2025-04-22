@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccessControl\DataAccess.aspx" />
     <Content Include="AccessControl\HRMSAccessControl.aspx" />
     <Content Include="AccessControl\OrganizationalAccessControl.aspx" />
     <Content Include="AccessMenu\DesignationMenuAccess.aspx" />
@@ -4575,15 +4576,18 @@
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\System.Xml.XPath.XDocument.dll" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\vbc.exe" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\VBCSCompiler.exe" />
-    <Content Include="Properties\PublishProfiles\FolderProfile.pubxml.user" />
-    <Content Include="Properties\PublishProfiles\FolderProfile1.pubxml.user" />
-    <Content Include="Properties\PublishProfiles\FolderProfile2.pubxml.user" />
-    <Content Include="Properties\PublishProfiles\FolderProfile3.pubxml.user" />
     <Content Include="View\Dashboard.aspx" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessControl\DataAccess.aspx.cs">
+      <DependentUpon>DataAccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccessControl\DataAccess.aspx.designer.cs">
+      <DependentUpon>DataAccess.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AccessControl\HRMSAccessControl.aspx.cs">
       <DependentUpon>HRMSAccessControl.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4710,6 +4714,7 @@
     </Compile>
     <Compile Include="ESS\PortalSettings.aspx.cs">
       <DependentUpon>PortalSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ESS\PortalSettings.aspx.designer.cs">
       <DependentUpon>PortalSettings.aspx</DependentUpon>
@@ -4783,6 +4788,7 @@
     </Compile>
     <Compile Include="ESS\TicketRequest.aspx.cs">
       <DependentUpon>TicketRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ESS\TicketRequest.aspx.designer.cs">
       <DependentUpon>TicketRequest.aspx</DependentUpon>
@@ -4831,6 +4837,7 @@
     </Compile>
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
@@ -5183,10 +5190,6 @@
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\vbc.exe.config" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\vbc.rsp" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\VBCSCompiler.exe.config" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -5196,6 +5199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".github\workflows\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

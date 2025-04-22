@@ -126,7 +126,7 @@
                 </div>
                 <div class="row" runat="server" id="divUpdateGroup" visible="false">
                     <div class="col-md-12">
-                        <hr />
+                        <hr /> 
                     </div>
                     <div class="col-md-3">
                         <h4><strong>Company List</strong></h4>

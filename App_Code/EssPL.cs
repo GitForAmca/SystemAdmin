@@ -21,6 +21,11 @@ namespace SystemAdmin.App_Code
         public object FromDate { get; set; }
         public object ToDate { get; set; }
         public object IsActive { get; set; }
+        public object String1 { get; set; }
+        public object String2 { get; set; }
+        public object String3 { get; set; }
+        public object String4 { get; set; }
+        public object String5 { get; set; }
         public object XML { get; set; }
         public object XML1 { get; set; }
         public object XML2 { get; set; }

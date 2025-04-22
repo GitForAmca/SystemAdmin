@@ -31,6 +31,11 @@ namespace SystemAdmin.App_Code
                 sqlCmd.Parameters.Add("@IsActive", SqlDbType.VarChar).Value = PL.IsActive;
                 sqlCmd.Parameters.Add("@CreatedBy", SqlDbType.VarChar).Value = PL.CreatedBy;
                 sqlCmd.Parameters.Add("@Remarks", SqlDbType.VarChar).Value = PL.Remarks;
+                sqlCmd.Parameters.Add("@String1", SqlDbType.VarChar).Value = PL.String1;
+                sqlCmd.Parameters.Add("@String2", SqlDbType.VarChar).Value = PL.String2;
+                sqlCmd.Parameters.Add("@String3", SqlDbType.VarChar).Value = PL.String3;
+                sqlCmd.Parameters.Add("@String4", SqlDbType.VarChar).Value = PL.String4;
+                sqlCmd.Parameters.Add("@String5", SqlDbType.VarChar).Value = PL.String5;
                 sqlCmd.Parameters.Add("@XML", SqlDbType.Xml).Value = PL.XML;
                 sqlCmd.Parameters.Add("@XML1", SqlDbType.Xml).Value = PL.XML1;
                 sqlCmd.Parameters.Add("@XML2", SqlDbType.Xml).Value = PL.XML2;

@@ -34,7 +34,6 @@
     <link rel="stylesheet" type="text/css" href="<%= ResolveUrl("~/")%>assets/admin/layout3/css/custom.css" />
        
     <link rel="stylesheet" type="text/css" href="<%= ResolveUrl("~/")%>assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />
-    <link href="../NotificationCss/butterup-main/butterup.min.css" rel="stylesheet" /> 
     <link href="../css/custom.css" rel="stylesheet" />
 
     <!-- BEGIN JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
@@ -109,7 +108,6 @@
 
     <script src="<%= ResolveUrl("~/")%>JS/push.js" type="text/javascript"></script>
     <script type="text/javascript" src="<%= ResolveUrl("~/")%>assets/global/plugins/ckeditor/ckeditor.js"></script>
-    <script src="../NotificationCss/butterup-main/butterup.min.js"></script>
     
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
@@ -164,21 +162,6 @@
                                                 </div>
                                                 <div class='col-md-3'>
                                                     <ul class='mega-menu-submenu'>
-                                                        <li><h3>Access Menu</h3></li>
-                                                        <li><a href='../AccessMenu/DepartmentMenuAccess.aspx'><i class='fa fa-angle-right'></i>Department</a></li>
-                                                        <li><a href='../AccessMenu/SubDepartmentMenuAccess.aspx'><i class='fa fa-angle-right'></i>Sub Department</a></li>
-                                                        <li><a href='../AccessMenu/DesignationMenuAccess.aspx'><i class='fa fa-angle-right'></i>Designation</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class='col-md-3'>
-                                                    <ul class='mega-menu-submenu'>
-                                                        <li><h3>Access Control</h3></li>
-                                                        <li><a href='../AccessControl/OrganizationalAccessControl.aspx'><i class='fa fa-angle-right'></i>Organizational</a></li>
-                                                        <li><a href='../AccessControl/HRMSAccessControl.aspx'><i class='fa fa-angle-right'></i>HRMS</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class='col-md-3'>
-                                                    <ul class='mega-menu-submenu'>
                                                         <li><h3>ESS</h3></li>
                                                         <li><a href='../ESS/ServiceTypeMaster.aspx'><i class='fa fa-angle-right'></i>Service Type Master</a></li>
                                                         <li><a href='../ESS/ServiceMaster.aspx'><i class='fa fa-angle-right'></i>Service Master</a></li>
@@ -200,6 +183,33 @@
                                                         <li><a href='../ESS/LicenseActivity.aspx'><i class='fa fa-angle-right'></i>License Activity</a></li>
                                                         <li><a href='../ESS/PortalSettings.aspx'><i class='fa fa-angle-right'></i>Portal Settings</a></li>
                                                         <li><a href='../ESS/TicketRequest.aspx'><i class='fa fa-angle-right'></i>Ticket Request</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class='menu-dropdown mega-menu-dropdown mega-menu-full'>
+                                <a  data-toggle='dropdown' href='javascript:;' class='dropdown-toggle'>Access <i class='fa fa-angle-down'></i></a>
+                                <ul class='dropdown-menu' style='min-width: 900px' >
+                                    <li>
+                                        <div class='mega-menu-content'>
+                                            <div class='row'>
+                                                <div class='col-md-3'>
+                                                    <ul class='mega-menu-submenu'>
+                                                        <li><h3>Access Menu</h3></li>
+                                                        <li><a href='../AccessMenu/DepartmentMenuAccess.aspx'><i class='fa fa-angle-right'></i>Department</a></li>
+                                                        <li><a href='../AccessMenu/SubDepartmentMenuAccess.aspx'><i class='fa fa-angle-right'></i>Sub Department</a></li>
+                                                        <li><a href='../AccessMenu/DesignationMenuAccess.aspx'><i class='fa fa-angle-right'></i>Designation</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class='col-md-3'>
+                                                    <ul class='mega-menu-submenu'>
+                                                        <li><h3>Access Control</h3></li>
+                                                        <li><a href='../AccessControl/OrganizationalAccessControl.aspx'><i class='fa fa-angle-right'></i>Organizational</a></li>
+                                                        <li><a href='../AccessControl/HRMSAccessControl.aspx'><i class='fa fa-angle-right'></i>HRMS</a></li>
+                                                        <li><a href='../AccessControl/DataAccess.aspx'><i class='fa fa-angle-right'></i>Data Access</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -342,7 +352,7 @@
 
                 // initialize the pager plugin
                 // ****************************
-                .tablesorterPager(pagerOptions);
+                //.tablesorterPager(pagerOptions);
                 $('.TableAdvanceSearch').bind('pagerChange', function () {
                     // pager automatically enables when table is sorted.
                     $('.toggle').text('Disable');
