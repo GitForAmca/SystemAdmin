@@ -139,22 +139,28 @@
                                                 <%# Eval("MenuName") %>
                                             </td>
                                             <td>
-                                                <asp:Panel runat="server" ID="pnlRegion">   
+                                                <asp:Panel runat="server" ID="pnlRegion">  
+                                                <asp:CheckBox ID="chkSelectAllRegion" ForeColor="Blue" Font-Bold="true" runat="server" Text="Select All"
+                                                  AutoPostBack="true" OnCheckedChanged="chkSelectAllRegion_CheckedChanged" /> 
                                                 <asp:CheckBoxList ID="chkactionRegion" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' OnSelectedIndexChanged="chkactionRegion_SelectedIndexChanged" AutoPostBack="true"  runat="server" RepeatDirection="Vertical" DataTextField="CountryName" DataValueField="RegionId" DataSource='<%# GetRegionAction(Eval("Autoid").ToString()) %>' /> 
                                                 </asp:Panel>
                                             </td>
                                             <td>
-                                                <asp:Panel runat="server" ID="pnlIndustry">
+                                                <asp:Panel runat="server" ID="pnlIndustry"> 
                                                 <asp:CheckBoxList ID="chkactionIndustry" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' OnSelectedIndexChanged="chkactionIndustry_SelectedIndexChanged" AutoPostBack="true" runat="server" RepeatDirection="Vertical" DataTextField="Description" DataValueField="Autoid" DataSource='<%# GetIndustryAction(Eval("RegionIds").ToString()) %>' />
                                                 </asp:Panel>
                                             </td>
                                             <td>
                                                 <asp:Panel runat="server" ID="pnlCompany"> 
+                                                <asp:CheckBox ID="chkselectallcompany" ForeColor="Blue" Font-Bold="true" runat="server" Text="Select All"
+                                                 AutoPostBack="true" OnCheckedChanged="chkselectallcompany_CheckedChanged" /> 
                                                 <asp:CheckBoxList ID="chkactionCompany" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="Description" DataValueField="Autoid" />
                                                 </asp:Panel>
                                             </td>
                                             <td>
                                                <asp:Panel runat="server" ID="pnlReporting">
+                                                 <asp:CheckBox ID="chkReportingPerson" ForeColor="Blue" Font-Bold="true" runat="server" Text="Select All"
+                                                    AutoPostBack="true" OnCheckedChanged="chkReportingPerson_CheckedChanged" /> 
                                                  <asp:CheckBoxList ID="chkactioreporting" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="EmpName" DataSource='<%# GetReportingperson(Eval("EmpId").ToString()) %>' DataValueField="Autoid" />
                                                </asp:Panel>
                                             </td>

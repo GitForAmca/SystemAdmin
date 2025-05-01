@@ -563,56 +563,72 @@ namespace SystemAdmin.AccessControl
                  
             }
             upnl_Menuaccess.Update();
+        } 
+       
+
+        protected void chkSelectAllRegion_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkSelectAll = (CheckBox)sender;
+            ListViewItem item = (ListViewItem)chkSelectAll.NamingContainer; 
+            CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
+            CheckBoxList chkIndustry = (CheckBoxList)item.FindControl("chkactionIndustry");
+            CheckBoxList chkComapny = (CheckBoxList)item.FindControl("chkactionCompany");
+            CheckBox chkselectallcompany = (CheckBox)item.FindControl("chkselectallcompany");
+            if (chkRegion != null)
+            {
+                foreach (ListItem li in chkRegion.Items)
+                {
+                    li.Selected = chkSelectAll.Checked;
+                } 
+                foreach (ListItem li in chkIndustry.Items)
+                {
+                    li.Selected = chkSelectAll.Checked;
+                }
+
+                foreach (ListItem li in chkComapny.Items)
+                {
+                    
+                    li.Selected = chkSelectAll.Checked;
+                }
+                chkselectallcompany.Checked = chkSelectAll.Checked;
+                chkactionRegion_SelectedIndexChanged(chkRegion, EventArgs.Empty);
+                foreach (ListItem li in chkComapny.Items)
+                {
+                    li.Selected = chkSelectAll.Checked;
+                } 
+            }
+            upnl_Menuaccess.Update();
         }
 
-        //protected void chkSelectAllRegion_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    CheckBox chkSelectAll = (CheckBox)sender;
-        //    ListViewItem item = (ListViewItem)chkSelectAll.NamingContainer;
+        protected void chkselectallcompany_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkSelectAll = (CheckBox)sender;
+            ListViewItem item = (ListViewItem)chkSelectAll.NamingContainer; 
+            CheckBoxList chkComapny = (CheckBoxList)item.FindControl("chkactionCompany"); 
+            if (chkComapny != null)
+            {
+                foreach (ListItem li in chkComapny.Items)
+                {
+                    li.Selected = chkSelectAll.Checked;
+                }
 
-        //    CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
-        //    CheckBoxList chkIndustry = (CheckBoxList)item.FindControl("chkactionIndustry");
-        //    CheckBoxList chkComapny = (CheckBoxList)item.FindControl("chkactionCompany");
-           
+            }
+            upnl_Menuaccess.Update();
+        }
 
-        //    if (chkRegion != null)
-        //    {
-        //        foreach (ListItem li in chkRegion.Items)
-        //        {
-        //            li.Selected = chkSelectAll.Checked;
-        //        } 
-
-              
-        //        foreach (ListItem li in chkIndustry.Items)
-        //        {
-        //            li.Selected = chkSelectAll.Checked;
-        //        }
-        //        chkactionRegion_SelectedIndexChanged(chkRegion, EventArgs.Empty);
-        //        foreach (ListItem li in chkComapny.Items)
-        //        {
-        //            li.Selected = chkSelectAll.Checked; 
-        //        }
-                
-        //    } 
-        //    upnl_Menuaccess.Update();
-        //}
-
-        //protected void chkselectallcompany_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    CheckBox chkSelectAll = (CheckBox)sender;
-        //    ListViewItem item = (ListViewItem)chkSelectAll.NamingContainer; 
-           
-        //    CheckBoxList chkComapny = (CheckBoxList)item.FindControl("chkactionCompany");
-
-        //    if (chkComapny != null)
-        //    { 
-        //        foreach (ListItem li in chkComapny.Items)
-        //        {
-        //            li.Selected = chkSelectAll.Checked;
-        //        }
-
-        //    }
-        //    upnl_Menuaccess.Update();
-        //}
+        protected void chkReportingPerson_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkSelectAll = (CheckBox)sender;
+            ListViewItem item = (ListViewItem)chkSelectAll.NamingContainer;
+            CheckBoxList chkactioreporting = (CheckBoxList)item.FindControl("chkactioreporting");
+            if (chkactioreporting != null)
+            {
+                foreach (ListItem li in chkactioreporting.Items)
+                {
+                    li.Selected = chkSelectAll.Checked;
+                } 
+            }
+            upnl_Menuaccess.Update();
+        }
     }
 }
