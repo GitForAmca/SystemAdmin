@@ -10,9 +10,58 @@
         </div>
         <div id="divView" runat="server" class="portlet-body">
             <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Director<span class="required" aria-required="true"> *</span></label>
+                        <asp:DropDownList ID="ddlDirectorSearch" class="form-control req select2ddl" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Element<span class="required" aria-required="true"> *</span></label>
+                        <asp:DropDownList runat="server" ID="ddlElementSearch" OnSelectedIndexChanged="ddlElementSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control req select2ddl"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Role<span class="required" aria-required="true"> *</span></label>
+                        <asp:DropDownList runat="server" ID="ddlRoleSearch" CssClass="form-control req select2ddl"></asp:DropDownList>
+                    </div>                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Employee<span class="required" aria-required="true"> *</span></label>
+                        <asp:DropDownList runat="server" ID="ddlEmployeeSearch" CssClass="form-control req select2ddl"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Sub Department<span class="required" aria-required="true"> *</span></label>
+                        <asp:DropDownList runat="server" ID="ddlSubDepartmentSearch" OnSelectedIndexChanged="ddlSubDepartmentSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control req select2ddl"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divGroupSearch" runat="server" visible="false">
+                    <div class="form-group">
+                        <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
+                        <asp:DropDownList ID="ddlGroupSearch" runat="server" class="form-control req select2ddl">
+                            <asp:ListItem Value="" Text="Select Option"></asp:ListItem>
+                            <asp:ListItem Value="A" Text="A"></asp:ListItem>
+                            <asp:ListItem Value="B" Text="B"></asp:ListItem>
+                            <asp:ListItem Value="C" Text="C"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <div style="margin-top: 8px;">
+                            <asp:Button ID="btnGet" runat="server" CssClass="btn green" Text="Get" OnClick="btnGet_Click" />
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-2 pull-right">
                     <div class="form-group">
-                        <label class="control-label">&nbsp;</label>
                         <div>
                             <div class="btn-group pull-right">
                                 <button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -34,7 +83,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <asp:ListView ID="LV" runat="server" ItemPlaceholderID="itemplaceholder">
-                        <layouttemplate>
+                        <LayoutTemplate>
                             <table class="table table-bordered table-hover mydatatable">
                                 <thead class="dtTheme">
                                     <tr>
@@ -53,39 +102,39 @@
                                     <div id="itemplaceholder" runat="server"></div>
                                 </tbody>
                             </table>
-                        </layouttemplate>
-                        <itemtemplate>
+                        </LayoutTemplate>
+                        <ItemTemplate>
                             <tr>
                                 <td>
                                     <asp:CheckBox ID="chkSelect" runat="server" CssClass="checkboxes chkselect" Autoid='<%# Eval("Autoid")%>' />
                                 </td>
                                 <td>
                                     <%# Eval("EmpName")%>
-                                </td>   
+                                </td>
                                 <td>
                                     <%# Eval("ElementName")%>
-                                </td>  
+                                </td>
                                 <td>
                                     <%# Eval("EARole")%>
-                                </td> 
+                                </td>
                                 <td>
                                     <%# Eval("SubDepartment")%>
-                                </td> 
+                                </td>
                                 <td>
                                     <%# Eval("DirectorName")%>
-                                </td>  
+                                </td>
                                 <td>
                                     <%# Eval("CreatedByName")%>
-                                </td>    
+                                </td>
                                 <td>
                                     <%# Eval("CreatedOn")%>
-                                </td>    
+                                </td>
                                 <td>
                                     <span class='<%# bool.Parse( Eval("IsActive").ToString())==true?"label label-sm label-success":"label label-sm label-danger"%>' runat="server"><%# bool.Parse( Eval("IsActive").ToString())==true?"Yes":"No"%></span>
-                                </td>                       
+                                </td>
                             </tr>
-                        </itemtemplate>
-                        <emptydatatemplate>
+                        </ItemTemplate>
+                        <EmptyDataTemplate>
                             <table class="table table-bordered table-hover mydatatable">
                                 <thead>
                                     <tr>
@@ -100,7 +149,7 @@
                                     </tr>
                                 </thead>
                             </table>
-                        </emptydatatemplate>
+                        </EmptyDataTemplate>
                     </asp:ListView>
                 </div>
             </div>

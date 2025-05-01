@@ -17,6 +17,7 @@ namespace SystemAdmin.Directors
             {
                 FillListView();
                 getDirectorList(ddlDirector);
+                getDirectorList(ddlDirectorSearch);
                 BindElement();
             }
         }
@@ -42,8 +43,15 @@ namespace SystemAdmin.Directors
             ddlElement.DataTextField = "Element";
             ddlElement.DataBind();
             ddlElement.Items.Insert(0, new ListItem("Select an option", ""));
+
+            DropdownDL.returnTable(PL);
+            ddlElementSearch.DataSource = PL.dt;
+            ddlElementSearch.DataValueField = "Element";
+            ddlElementSearch.DataTextField = "Element";
+            ddlElementSearch.DataBind();
+            ddlElementSearch.Items.Insert(0, new ListItem("Select an option", ""));
         }
-        private void BindEmployee(string Element)
+        private void BindEmployee(string Element , DropDownList ddl)
         {
             DropdownPL PL = new DropdownPL();
             PL.OpCode = 70;
@@ -69,17 +77,17 @@ namespace SystemAdmin.Directors
             PL.ServiceTypeAutoid = department;
             PL.SubDepartmentId = subdepartment;
             DropdownDL.returnTable(PL);
-            ddlEmployee.DataSource = PL.dt;
-            ddlEmployee.DataValueField = "Autoid";
-            ddlEmployee.DataTextField = "Name";
-            ddlEmployee.DataBind();
-            ddlEmployee.Items.Insert(0, new ListItem("Select an option", ""));
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Autoid";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select an option", ""));
         }
         protected void ddlElement_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindEmployee(ddlElement.SelectedValue);
-            BindRole(ddlElement.SelectedValue);
-            getSubDepartment(ddlElement.SelectedValue);
+            BindEmployee(ddlElement.SelectedValue, ddlEmployee);
+            BindRole(ddlElement.SelectedValue,ddlRole);
+            getSubDepartment(ddlElement.SelectedValue, ddlSubDepartment);
         }
         protected void ddlSubDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -99,59 +107,65 @@ namespace SystemAdmin.Directors
                 divGroup.Visible = false;
             }
         }
-        void getSubDepartment(string Element)
+        void getSubDepartment(string Element , DropDownList ddl)
         {
             if (Element == "HR")
             {
-                ddlSubDepartment.Items.Clear();
-                ddlSubDepartment.Items.Add(new ListItem("Select Option", ""));
-                ddlSubDepartment.Items.Add(new ListItem("Payroll", "Recruiter"));
-                ddlSubDepartment.Items.Add(new ListItem("Recruiter", "Recruiter"));
+                ddl.Items.Clear();
+                ddl.Items.Add(new ListItem("Select Option", ""));
+                ddl.Items.Add(new ListItem("Payroll", "Recruiter"));
+                ddl.Items.Add(new ListItem("Recruiter", "Recruiter"));
             }
             if (Element == "EA")
             {
-                ddlSubDepartment.Items.Clear();
-                ddlSubDepartment.Items.Add(new ListItem("Select Option", ""));
-                ddlSubDepartment.Items.Add(new ListItem("Pre-Sales", "Pre-Sales"));
-                ddlSubDepartment.Items.Add(new ListItem("Post-Sales", "Post-Sales"));
-                ddlSubDepartment.Items.Add(new ListItem("Internal", "Internal"));
+                ddl.Items.Clear();
+                ddl.Items.Add(new ListItem("Select Option", ""));
+                ddl.Items.Add(new ListItem("Pre-Sales", "Pre-Sales"));
+                ddl.Items.Add(new ListItem("Post-Sales", "Post-Sales"));
+                ddl.Items.Add(new ListItem("Internal", "Internal"));
             }
             if (Element == "Supervisor" || Element == "Coordinator")
             {
-                ddlSubDepartment.Items.Clear();
-                ddlSubDepartment.Items.Add(new ListItem("Select Option", ""));
-                ddlSubDepartment.Items.Add(new ListItem("Post-Sales", "Post-Sales"));
+                ddl.Items.Clear();
+                ddl.Items.Add(new ListItem("Select Option", ""));
+                ddl.Items.Add(new ListItem("Post-Sales", "Post-Sales"));
             }
         }
-        void BindRole(string Element)
+        void BindRole(string Element , DropDownList ddl)
         {
             if (Element == "HR")
             {
-                ddlRole.Items.Clear();
-                ddlRole.Items.Add(new ListItem("Select Option", ""));
-                ddlRole.Items.Add(new ListItem("Report To", "Report To"));
-                ddlRole.SelectedValue = "Report To";
+                ddl.Items.Clear();
+                ddl.Items.Add(new ListItem("Select Option", ""));
+                ddl.Items.Add(new ListItem("Report To", "Report To"));
+                ddl.SelectedValue = "Report To";
             }
             if (Element == "EA")
             {
-                ddlRole.Items.Clear();
-                ddlRole.Items.Add(new ListItem("Select Option", ""));
-                ddlRole.Items.Add(new ListItem("CEM", "CEM"));
-                ddlRole.Items.Add(new ListItem("HOD", "HOD"));
-                ddlRole.Items.Add(new ListItem("Report To", "Report To"));
+                ddl.Items.Clear();
+                ddl.Items.Add(new ListItem("Select Option", ""));
+                ddl.Items.Add(new ListItem("CEM", "CEM"));
+                ddl.Items.Add(new ListItem("HOD", "HOD"));
+                ddl.Items.Add(new ListItem("Report To", "Report To"));
             }
             if (Element == "Supervisor" || Element == "Coordinator")
             {
-                ddlRole.Items.Clear();
-                ddlRole.Items.Add(new ListItem("Select Option", ""));
-                ddlRole.Items.Add(new ListItem("CEM", "CEM"));
-                ddlRole.SelectedValue = "CEM";
+                ddl.Items.Clear();
+                ddl.Items.Add(new ListItem("Select Option", ""));
+                ddl.Items.Add(new ListItem("CEM", "CEM"));
+                ddl.SelectedValue = "CEM";
             }
         }
         void FillListView()
         {
             EssPL PL = new EssPL();
             PL.OpCode = 78;
+            PL.AutoId = ddlDirectorSearch.SelectedValue;
+            PL.String1 = ddlElementSearch.SelectedValue;
+            PL.String2 = ddlRoleSearch.SelectedValue;
+            PL.EmpId = ddlEmployeeSearch.SelectedValue;
+            PL.String3 = ddlSubDepartmentSearch.SelectedValue;
+            PL.String4 = ddlGroupSearch.SelectedValue;
             EssDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------
@@ -201,9 +215,9 @@ namespace SystemAdmin.Directors
             //--------------------------------
             if (dt.Rows.Count > 0)
             {
-                BindEmployee(dt.Rows[0]["Element"].ToString());
-                getSubDepartment(dt.Rows[0]["Element"].ToString());
-                BindRole(dt.Rows[0]["Element"].ToString());
+                BindEmployee(dt.Rows[0]["Element"].ToString(), ddlEmployee);
+                getSubDepartment(dt.Rows[0]["Element"].ToString() , ddlSubDepartment);
+                BindRole(dt.Rows[0]["Element"].ToString(), ddlRole);
                 ddlDirector.SelectedIndex = ddlDirector.Items.IndexOf(ddlDirector.Items.FindByValue(dt.Rows[0]["DirectorId"].ToString()));
                 ddlElement.SelectedIndex = ddlElement.Items.IndexOf(ddlElement.Items.FindByValue(dt.Rows[0]["Element"].ToString()));
                 ddlRole.SelectedIndex = ddlRole.Items.IndexOf(ddlRole.Items.FindByValue(dt.Rows[0]["EARole"].ToString()));
@@ -297,6 +311,37 @@ namespace SystemAdmin.Directors
         protected void btncancel_Click(object sender, EventArgs e)
         {
             Response.Redirect(Request.RawUrl);
+        }
+
+        protected void ddlSubDepartmentSearch_SelectedIndexChanged(object sender, EventArgs e)
+        { 
+            if (ddlSubDepartmentSearch.SelectedValue != "")
+            {
+                if (ddlSubDepartmentSearch.SelectedValue == "Post-Sales")
+                {
+                    divGroupSearch.Visible = true;
+                }
+                else
+                {
+                    divGroupSearch.Visible = false;
+                }
+            }
+            else
+            {
+                divGroupSearch.Visible = false;
+            }
+        } 
+        protected void ddlElementSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindEmployee(ddlElementSearch.SelectedValue, ddlEmployeeSearch); 
+            BindRole(ddlElementSearch.SelectedValue, ddlRoleSearch);
+            getSubDepartment(ddlElementSearch.SelectedValue , ddlSubDepartmentSearch);
+
+        }
+
+        protected void btnGet_Click(object sender, EventArgs e)
+        {
+            FillListView();
         }
     }
 }
