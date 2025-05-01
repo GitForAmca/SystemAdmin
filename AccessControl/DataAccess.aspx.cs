@@ -51,13 +51,15 @@ namespace SystemAdmin.AccessControl
         }
         private void BindElement()
         {
-            ddlElement.Items.Clear();
-            ddlElement.Items.Add(new ListItem("Select an option", ""));
-            ddlElement.Items.Add(new ListItem("BD", "BD"));
-            ddlElement.Items.Add(new ListItem("CEC", "CEC"));
-            ddlElement.Items.Add(new ListItem("CSR", "CSR"));
-            ddlElement.Items.Add(new ListItem("Operation", "Operation"));
-            ddlElement.Items.Add(new ListItem("CEM", "CEM"));
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 69;
+            PL.ServiceTypeAutoid = "1,2,3,4,5";
+            DropdownDL.returnTable(PL);
+            ddlElement.DataSource = PL.dt;
+            ddlElement.DataValueField = "Element";
+            ddlElement.DataTextField = "Element";
+            ddlElement.DataBind();
+            ddlElement.Items.Insert(0, new ListItem("Select an option", ""));
         }
         private void BindCheckBoxList()
         {
