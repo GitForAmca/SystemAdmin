@@ -63,12 +63,11 @@ namespace SystemAdmin.Directors
             }
             if(Element == "EA")
             {
-                department = "44,46,47,48,49";
+                department = "44,46,47,48,49,50";
             }
             if(Element == "Supervisor")
             {
-                department = "3";
-                subdepartment = "73";
+                department = "3,30";
             }
             if(Element == "Coordinator")
             {
@@ -160,12 +159,12 @@ namespace SystemAdmin.Directors
         {
             EssPL PL = new EssPL();
             PL.OpCode = 78;
-            PL.AutoId = ddlDirectorSearch.SelectedValue;
             PL.String1 = ddlElementSearch.SelectedValue;
             PL.String2 = ddlRoleSearch.SelectedValue;
             PL.EmpId = ddlEmployeeSearch.SelectedValue;
             PL.String3 = ddlSubDepartmentSearch.SelectedValue;
             PL.String4 = ddlGroupSearch.SelectedValue;
+            PL.String5 = ddlDirectorSearch.SelectedValue;
             EssDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------

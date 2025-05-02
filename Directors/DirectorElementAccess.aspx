@@ -13,37 +13,37 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Director<span class="required" aria-required="true"> *</span></label>
-                        <asp:DropDownList ID="ddlDirectorSearch" class="form-control req select2ddl" runat="server"></asp:DropDownList>
+                        <label class="control-label">Director<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList ID="ddlDirectorSearch" class="form-control select2ddl" runat="server"></asp:DropDownList>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Element<span class="required" aria-required="true"> *</span></label>
-                        <asp:DropDownList runat="server" ID="ddlElementSearch" OnSelectedIndexChanged="ddlElementSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control req select2ddl"></asp:DropDownList>
+                        <label class="control-label">Element<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList runat="server" ID="ddlElementSearch" OnSelectedIndexChanged="ddlElementSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Role<span class="required" aria-required="true"> *</span></label>
-                        <asp:DropDownList runat="server" ID="ddlRoleSearch" CssClass="form-control req select2ddl"></asp:DropDownList>
+                        <label class="control-label">Role<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList runat="server" ID="ddlRoleSearch" CssClass="form-control select2ddl"></asp:DropDownList>
                     </div>                </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Employee<span class="required" aria-required="true"> *</span></label>
-                        <asp:DropDownList runat="server" ID="ddlEmployeeSearch" CssClass="form-control req select2ddl"></asp:DropDownList>
+                        <label class="control-label">Employee<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList runat="server" ID="ddlEmployeeSearch" CssClass="form-control select2ddl"></asp:DropDownList>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Sub Department<span class="required" aria-required="true"> *</span></label>
-                        <asp:DropDownList runat="server" ID="ddlSubDepartmentSearch" OnSelectedIndexChanged="ddlSubDepartmentSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control req select2ddl"></asp:DropDownList>
+                        <label class="control-label">Sub Department<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList runat="server" ID="ddlSubDepartmentSearch" OnSelectedIndexChanged="ddlSubDepartmentSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
                     </div>
                 </div>
                 <div class="col-md-4" id="divGroupSearch" runat="server" visible="false">
                     <div class="form-group">
-                        <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
-                        <asp:DropDownList ID="ddlGroupSearch" runat="server" class="form-control req select2ddl">
+                        <label class="control-label">Group<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList ID="ddlGroupSearch" runat="server" class="form-control select2ddl">
                             <asp:ListItem Value="" Text="Select Option"></asp:ListItem>
                             <asp:ListItem Value="A" Text="A"></asp:ListItem>
                             <asp:ListItem Value="B" Text="B"></asp:ListItem>
