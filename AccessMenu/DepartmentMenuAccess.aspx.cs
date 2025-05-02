@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -75,12 +77,14 @@ namespace SystemAdmin.AccessMenu
             {
                 getRegion(ddlIndustries.SelectedValue);
                 getParentMenu(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
+                FillDepartmetnDetail(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
             }
         }
         protected void btnGetDepartment_Click(object sender, EventArgs e)
         {
             getDepartment(ddlIndustries.SelectedValue, Request.Form[ddlRegion.UniqueID]);
             getParentMenu(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
+            FillDepartmetnDetail(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
         }
         protected void lnkBtnAddNew_Click(object sender, EventArgs e)
         {
@@ -184,23 +188,28 @@ namespace SystemAdmin.AccessMenu
         void saveParentMenu(int mainId)
         {
             string groupString = Request.Form[lstParentMenu.UniqueID];
-            if (groupString != null)
+            string XML = "";
+            XML += "<tbl>";
+            foreach (ListViewItem item in lstDEpartmentDetail.Items)
             {
-                var query = from val in groupString.Split(',')
-                            select int.Parse(val);
-                string XML = "";
-                XML += "<tbl>";
-                foreach (int num in query)
+                CheckBox chkSelect = (CheckBox)item.FindControl("chkIsChecked");
+                if (chkSelect.Checked == true)
                 {
-                    XML += XMLParentMenu(mainId, num);
+                    CheckBox chkIsChecked = (CheckBox)item.FindControl("chkIsChecked");
+                    HiddenField hdnMenuId = (HiddenField)item.FindControl("hidautoid");
+
+                    XML += "<tr>"; 
+                    XML += "<MainId><![CDATA[" + mainId + "]]></MainId>";
+                    XML += "<ParentMenuId><![CDATA[" + hdnMenuId.Value + "]]></ParentMenuId>"; 
+                    XML += "</tr>";
                 }
-                XML += "</tbl>";
-                MenuAccessPL PL = new MenuAccessPL();
-                PL.OpCode = 4;
-                PL.XML = XML;
-                PL.AutoId = mainId;
-                MenuAccessDL.returnTable(PL);
             }
+            XML += "</tbl>";
+            MenuAccessPL PL = new MenuAccessPL();
+            PL.OpCode = 4;
+            PL.XML = XML;
+            PL.AutoId = mainId;
+            MenuAccessDL.returnTable(PL); 
         }
         private static string XMLRegion(int MainId, int RegionId)
         {
@@ -227,7 +236,7 @@ namespace SystemAdmin.AccessMenu
                 {
                     int Autoid = Convert.ToInt32(chkSelect.Attributes["Autoid"]);
                     hidAutoid.Value = chkSelect.Attributes["Autoid"];
-                    getData(Autoid);
+                    getData(Autoid); 
                     ViewState["Mode"] = "Edit";
                     divView.Visible = false;
                     divEdit.Visible = true;
@@ -250,7 +259,9 @@ namespace SystemAdmin.AccessMenu
                 getDepartment(PL.dt.Rows[0]["IndustryId"].ToString(), PL.dt.Rows[0]["RegionIds"].ToString());
                 ddlDepartment.SelectedIndex = ddlDepartment.Items.IndexOf(ddlDepartment.Items.FindByValue(PL.dt.Rows[0]["DepartmentId"].ToString()));
                 getParentMenu(PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
+                FillDepartmetnDetail(PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
                 SetList(lstParentMenu, PL.dt.Rows[0]["ParentMenuIds"].ToString());
+                SelectCheckDepartmentDetail(id);
             }
         }
         void SetList(ListBox ddl, string ids)
@@ -325,6 +336,57 @@ namespace SystemAdmin.AccessMenu
             ddlIndustryFilter.SelectedIndex = -1;
             ddlDepartmentFilter.SelectedIndex = -1;
             FillListView();
+        }
+        void FillDepartmetnDetail(string region, int indutryid)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 6;
+            PL.RegionId = region;
+            PL.IndustryId = indutryid;
+            DropdownDL.returnTable(PL);
+            DataTable dt = PL.dt;
+            if (PL.dt.Rows.Count > 0)
+            {
+                lstDEpartmentDetail.DataSource = PL.dt;
+                lstDEpartmentDetail.DataBind();
+            }
+            else
+            {
+                lstDEpartmentDetail.DataSource = PL.dt;
+                lstDEpartmentDetail.DataBind();
+            }
+        }
+        void SelectCheckDepartmentDetail(int autoId)
+        {
+            foreach (ListViewItem item2 in lstDEpartmentDetail.Items)
+            {
+                CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
+                chkIsChecked.Checked = false;
+            }
+
+            MenuAccessPL PL = new MenuAccessPL();
+            PL.OpCode = 34;
+            PL.AutoId = autoId;
+            MenuAccessDL.returnTable(PL);
+            DataTable dt = PL.dt;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    foreach (ListViewItem item2 in lstDEpartmentDetail.Items)
+                    {
+                        HiddenField hdnMenuid = (HiddenField)item2.FindControl("hidautoid");
+
+                        string hdnMenuidVlaue = hdnMenuid.Value;
+                        if (hdnMenuid.Value == row["ParentMenuId"].ToString())
+                        {
+                            CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
+                            chkIsChecked.Checked = true;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

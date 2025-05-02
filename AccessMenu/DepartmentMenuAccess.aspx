@@ -121,6 +121,37 @@
                             <asp:ListBox ID="lstParentMenu" SelectionMode="Multiple" class="form-control req multiselectddl" runat="server"></asp:ListBox>
                         </div>
                     </div>
+                <div class="col-md-12">
+                    <asp:ListView ID="lstDEpartmentDetail" runat="server" ItemPlaceholderID="itemplaceholder">
+                        <LayoutTemplate>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Parent Menu</th> 
+                                        <th>Type</th> 
+                                    </tr>
+                                </thead>
+                                <tr id="itemplaceholder" runat="server" />
+                            </table>
+                        </LayoutTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td>
+                                    <asp:HiddenField ID="hidautoid" runat="server" Value='<%# Eval("Autoid")%>' />
+                                    <asp:CheckBox ID="chkIsChecked" Checked="true" runat="server" CssClass="checkboxes" />
+                                    <%--<asp:CheckBox ID="chkSelect" class="checkboxes" runat="server" Autoid='<%# Eval("Autoid")%>' />--%>
+                                </td>
+                                <td>
+                                    <%# Eval("ParentMenuName") %>
+                                </td> 
+                                <td>
+                                    <%# Eval("MenuType") %>
+                                </td> 
+                            </tr>
+                        </ItemTemplate>
+                    </asp:ListView>
+                </div>
                 </div>
             </div>
             <div class="form-actions right">

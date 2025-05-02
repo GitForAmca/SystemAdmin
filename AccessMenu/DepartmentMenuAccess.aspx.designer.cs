@@ -150,6 +150,15 @@ namespace SystemAdmin.AccessMenu
         protected global::System.Web.UI.WebControls.ListBox lstParentMenu;
 
         /// <summary>
+        /// lstDEpartmentDetail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView lstDEpartmentDetail;
+
+        /// <summary>
         /// btnAdd control.
         /// </summary>
         /// <remarks>
