@@ -48,18 +48,18 @@ namespace SystemAdmin.AccessMenu
             ddlDepartment.DataBind();
             ddlDepartment.Items.Insert(0, new ListItem("Choose an item", ""));
         }
-        void getParentMenu(string region, int indutryid)
-        {
-            DropdownPL PL = new DropdownPL();
-            PL.OpCode = 6;
-            PL.RegionId = region;
-            PL.IndustryId = indutryid;
-            DropdownDL.returnTable(PL);
-            lstParentMenu.DataSource = PL.dt;
-            lstParentMenu.DataValueField = "Autoid";
-            lstParentMenu.DataTextField = "ParentMenuName";
-            lstParentMenu.DataBind();
-        }
+        //void getParentMenu(string region, int indutryid)
+        //{
+        //    DropdownPL PL = new DropdownPL();
+        //    PL.OpCode = 6;
+        //    PL.RegionId = region;
+        //    PL.IndustryId = indutryid;
+        //    DropdownDL.returnTable(PL);
+        //    lstParentMenu.DataSource = PL.dt;
+        //    lstParentMenu.DataValueField = "Autoid";
+        //    lstParentMenu.DataTextField = "ParentMenuName";
+        //    lstParentMenu.DataBind();
+        //}
         void getRegion(string id)
         {
             DropdownPL PL = new DropdownPL();
@@ -76,14 +76,14 @@ namespace SystemAdmin.AccessMenu
             if (ddlIndustries.SelectedValue != "")
             {
                 getRegion(ddlIndustries.SelectedValue);
-                getParentMenu(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
+                //getParentMenu(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
                 FillDepartmetnDetail(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
             }
         }
         protected void btnGetDepartment_Click(object sender, EventArgs e)
         {
             getDepartment(ddlIndustries.SelectedValue, Request.Form[ddlRegion.UniqueID]);
-            getParentMenu(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
+            //getParentMenu(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
             FillDepartmetnDetail(Request.Form[ddlRegion.UniqueID], Convert.ToInt32(ddlIndustries.SelectedValue));
         }
         protected void lnkBtnAddNew_Click(object sender, EventArgs e)
@@ -93,14 +93,14 @@ namespace SystemAdmin.AccessMenu
             ViewState["Mode"] = "Add";
             ddlRegion.Items.Clear();
             ddlDepartment.Items.Clear();
-            lstParentMenu.Items.Clear();
+            //lstParentMenu.Items.Clear();
         }
         void ClearField()
         {
             ddlIndustries.SelectedIndex = 0;
             ddlRegion.SelectedIndex = 0;
             ddlDepartment.SelectedIndex = 0;
-            lstParentMenu.SelectedIndex = 0;
+            //lstParentMenu.SelectedIndex = 0;
 
         }
         void FillListView()
@@ -187,7 +187,7 @@ namespace SystemAdmin.AccessMenu
         }
         void saveParentMenu(int mainId)
         {
-            string groupString = Request.Form[lstParentMenu.UniqueID];
+            //string groupString = Request.Form[lstParentMenu.UniqueID];
             string XML = "";
             XML += "<tbl>";
             foreach (ListViewItem item in lstDEpartmentDetail.Items)
@@ -258,9 +258,9 @@ namespace SystemAdmin.AccessMenu
                 SetList(ddlRegion, PL.dt.Rows[0]["RegionIds"].ToString());
                 getDepartment(PL.dt.Rows[0]["IndustryId"].ToString(), PL.dt.Rows[0]["RegionIds"].ToString());
                 ddlDepartment.SelectedIndex = ddlDepartment.Items.IndexOf(ddlDepartment.Items.FindByValue(PL.dt.Rows[0]["DepartmentId"].ToString()));
-                getParentMenu(PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
+                //getParentMenu(PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
                 FillDepartmetnDetail(PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
-                SetList(lstParentMenu, PL.dt.Rows[0]["ParentMenuIds"].ToString());
+                //SetList(lstParentMenu, PL.dt.Rows[0]["ParentMenuIds"].ToString());
                 SelectCheckDepartmentDetail(id);
             }
         }

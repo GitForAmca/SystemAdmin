@@ -115,18 +115,18 @@
                             <asp:DropDownList ID="ddlDepartment" oldname="" onchange="CheckName(this);" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <%--<div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Parent Menu<span class="required" aria-required="true"> *</span></label>
                             <asp:ListBox ID="lstParentMenu" SelectionMode="Multiple" class="form-control req multiselectddl" runat="server"></asp:ListBox>
                         </div>
-                    </div>
+                    </div>--%>
                 <div class="col-md-12">
                     <asp:ListView ID="lstDEpartmentDetail" runat="server" ItemPlaceholderID="itemplaceholder">
                         <LayoutTemplate>
                             <table class="table table-bordered table-hover">
                                 <thead>
-                                    <tr>
+                                    <tr style="background: #ddd;">
                                         <th>#</th>
                                         <th>Parent Menu</th> 
                                         <th>Type</th> 
