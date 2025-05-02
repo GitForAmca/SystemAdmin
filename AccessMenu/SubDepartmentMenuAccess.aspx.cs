@@ -64,11 +64,13 @@ namespace SystemAdmin.AccessMenu
             PL.IndustryId = ddlIndustries.SelectedValue;
             PL.RegionId = region;
             DropdownDL.returnTable(PL);
-            lstSubParentMenu.DataSource = PL.dt;
-            lstSubParentMenu.DataValueField = "Autoid";
-            lstSubParentMenu.DataTextField = "SubParentMenuName";
-            lstSubParentMenu.DataBind();
-        }
+            //lstSubParentMenu.DataSource = PL.dt;
+            //lstSubParentMenu.DataValueField = "Autoid";
+            //lstSubParentMenu.DataTextField = "SubParentMenuName";
+            //lstSubParentMenu.DataBind();
+            lV_SubParent.DataSource = PL.dt;
+            lV_SubParent.DataBind();
+        } 
         void getRegion(string id)
         {
             DropdownPL PL = new DropdownPL();
@@ -102,7 +104,7 @@ namespace SystemAdmin.AccessMenu
             divEdit.Visible = true;
             ViewState["Mode"] = "Add";
             ddlRegion.Items.Clear();
-            lstSubParentMenu.Items.Clear();
+            //lstSubParentMenu.Items.Clear();
         }
         void ClearField()
         {
@@ -110,7 +112,7 @@ namespace SystemAdmin.AccessMenu
             ddlRegion.SelectedIndex = -1;
             ddlDepartment.SelectedIndex = 0;
             ddlSubDepartment.SelectedIndex = 0;
-            lstSubParentMenu.SelectedIndex = -1;
+            //lstSubParentMenu.SelectedIndex = -1;
         }
         void FillListView()
         {
@@ -196,25 +198,47 @@ namespace SystemAdmin.AccessMenu
             }
         }
         void saveSubParentMenu(int mainId)
-        {
-            string groupString = Request.Form[lstSubParentMenu.UniqueID];
-            if (groupString != null)
+        { 
+            string XML = "";
+            XML += "<tbl>";
+            foreach (ListViewItem item in lV_SubParent.Items)
             {
-                var query = from val in groupString.Split(',')
-                            select int.Parse(val);
-                string XML = "";
-                XML += "<tbl>";
-                foreach (int num in query)
+                CheckBox chkSelect = (CheckBox)item.FindControl("chkIsChecked");
+                if (chkSelect.Checked == true)
                 {
-                    XML += XMLSubParentMenu(mainId, num);
+                    CheckBox chkIsChecked = (CheckBox)item.FindControl("chkIsChecked");
+                    HiddenField hdnMenuId = (HiddenField)item.FindControl("hidautoid");
+
+                    XML += "<tr>";
+                    XML += "<MainId><![CDATA[" + mainId + "]]></MainId>";
+                    XML += "<SubParentMenuId><![CDATA[" + hdnMenuId.Value + "]]></SubParentMenuId>";
+                    XML += "</tr>";
                 }
-                XML += "</tbl>";
-                MenuAccessPL PL = new MenuAccessPL();
-                PL.OpCode = 10;
-                PL.XML = XML;
-                PL.AutoId = mainId;
-                MenuAccessDL.returnTable(PL);
             }
+            XML += "</tbl>";
+            MenuAccessPL PL = new MenuAccessPL();
+            PL.OpCode = 10;
+            PL.XML = XML;
+            PL.AutoId = mainId;
+            MenuAccessDL.returnTable(PL);
+
+            //if (groupString != null)
+            //{
+            //    var query = from val in groupString.Split(',')
+            //                select int.Parse(val);
+            //    string XML = "";
+            //    XML += "<tbl>";
+            //    foreach (int num in query)
+            //    {
+            //        XML += XMLSubParentMenu(mainId, num);
+            //    }
+            //    XML += "</tbl>";
+            //    MenuAccessPL PL = new MenuAccessPL();
+            //    PL.OpCode = 10;
+            //    PL.XML = XML;
+            //    PL.AutoId = mainId;
+            //    MenuAccessDL.returnTable(PL);
+            //}
         }
         private static string XMLRegion(int MainId, int RegionId)
         {
@@ -268,7 +292,8 @@ namespace SystemAdmin.AccessMenu
                 ddlSubDepartment.SelectedIndex = ddlSubDepartment.Items.IndexOf(ddlSubDepartment.Items.FindByValue(PL.dt.Rows[0]["SubDepartmentId"].ToString()));
 
                 getSubParentMenu(Convert.ToInt32(PL.dt.Rows[0]["DepartmentId"].ToString()), PL.dt.Rows[0]["RegionIds"].ToString());
-                SetList(lstSubParentMenu, PL.dt.Rows[0]["SubParentMenuId"].ToString());
+                //SetList(lstSubParentMenu, PL.dt.Rows[0]["SubParentMenuId"].ToString());
+                SelectCheckDepartmentDetail(id);
             }
         }
         void SetList(ListBox ddl, string ids)
@@ -361,6 +386,38 @@ namespace SystemAdmin.AccessMenu
             ddlDepartmentFilter.SelectedIndex = -1;
             ddlSubDepartmentFilter.SelectedIndex = -1;
             FillListView();
+        }
+        void SelectCheckDepartmentDetail(int autoId)
+        {
+            foreach (ListViewItem item2 in lV_SubParent.Items)
+            {
+                CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
+                chkIsChecked.Checked = false;
+            }
+
+            MenuAccessPL PL = new MenuAccessPL();
+            PL.OpCode = 35;
+            PL.AutoId = autoId;
+            MenuAccessDL.returnTable(PL);
+            DataTable dt = PL.dt;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    foreach (ListViewItem item2 in lV_SubParent.Items)
+                    {
+                        HiddenField hdnMenuid = (HiddenField)item2.FindControl("hidautoid");
+
+                        string hdnMenuidVlaue = hdnMenuid.Value;
+                        if (hdnMenuid.Value == row["SubParentMenuId"].ToString())
+                        {
+                            CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
+                            chkIsChecked.Checked = true;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

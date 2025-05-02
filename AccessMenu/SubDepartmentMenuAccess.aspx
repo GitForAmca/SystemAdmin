@@ -125,11 +125,45 @@
                             <asp:DropDownList ID="ddlSubDepartment" oldname="" onchange="CheckName(this);" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                   <%-- <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Sub Parent Menu<span class="required" aria-required="true"> *</span></label>
                             <asp:ListBox ID="lstSubParentMenu" SelectionMode="Multiple" class="form-control req multiselectddl" runat="server"></asp:ListBox>
                         </div>
+                    </div>--%>
+                    <div class="col-md-12">
+                        <asp:ListView ID="lV_SubParent" runat="server" ItemPlaceholderID="itemplaceholder">
+                            <LayoutTemplate>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr style="background: #ddd;">
+                                            <th>#</th>
+                                            <th>Sub Parent Menu</th>
+                                            <th>Parent Menu</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tr id="itemplaceholder" runat="server" />
+                                </table>
+                            </LayoutTemplate>
+                            <ItemTemplate>
+                                <tr>
+                                    <td>
+                                        <asp:HiddenField ID="hidautoid" runat="server" Value='<%# Eval("Autoid")%>' />
+                                        <asp:CheckBox ID="chkIsChecked" Checked="true" runat="server" CssClass="checkboxes" /> 
+                                    </td>
+                                    <td>
+                                        <%# Eval("SubParentMenu") %>
+                                    </td>
+                                    <td>
+                                        <%# Eval("ParentMenu") %>
+                                    </td>
+                                    <td>
+                                        <%# Eval("MenuType") %>
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:ListView>
                     </div>
                 </div>
             </div>
