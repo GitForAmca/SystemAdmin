@@ -17,7 +17,8 @@ namespace SystemAdmin.AccessControl
             if (!Page.IsPostBack)
             {
                 FillActiveFilterEmployee();
-                FillEmpAccess();
+                FillEmpAccess(); 
+                getDepartmentFilter();
             }
         }
         void FillActiveFilterEmployee()
@@ -183,6 +184,10 @@ namespace SystemAdmin.AccessControl
         {
             MenuAccessPL PL = new MenuAccessPL();
             PL.OpCode = 22;
+            PL.AutoId = ddlEmployeeFilter.SelectedValue;
+            PL.Department = ddlDepartmentFilter.SelectedValue;
+            PL.SubDepartment = ddlSubDepartmentFilter.SelectedValue;
+            PL.Designation = ddlDesignationFilter.SelectedValue;
             PL.AutoId = ddlEmployeeFilter.SelectedValue;
             MenuAccessDL.returnTable(PL);
             DataTable dt = PL.dt;
@@ -565,6 +570,70 @@ namespace SystemAdmin.AccessControl
         {
             divEdit.Visible = false;
             divView.Visible = true;
+        }
+        protected void ddldepartmentFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlDepartmentFilter.SelectedValue != "")
+            {
+                getSubDepartmentFilter(Convert.ToInt32(ddlDepartmentFilter.SelectedValue));
+                ddlDesignationFilter.DataSource = "";
+                ddlDesignationFilter.DataBind();
+            }
+            else
+            {
+                ddlSubDepartmentFilter.DataSource = "";
+                ddlSubDepartmentFilter.DataBind();
+
+                ddlDesignationFilter.DataSource = "";
+                ddlDesignationFilter.DataBind();
+            }
+        }
+        void getDepartmentFilter()
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 72; 
+            DropdownDL.returnTable(PL);
+            ddlDepartmentFilter.DataSource = PL.dt;
+            ddlDepartmentFilter.DataValueField = "Id";
+            ddlDepartmentFilter.DataTextField = "Name";
+            ddlDepartmentFilter.DataBind();
+            ddlDepartmentFilter.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        void getSubDepartmentFilter(int id)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 18;
+            PL.AutoId = id;
+            DropdownDL.returnTable(PL);
+            ddlSubDepartmentFilter.DataSource = PL.dt;
+            ddlSubDepartmentFilter.DataValueField = "Autoid";
+            ddlSubDepartmentFilter.DataTextField = "GroupName";
+            ddlSubDepartmentFilter.DataBind();
+            ddlSubDepartmentFilter.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        void getDesignationFilter()
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 73;
+            PL.AutoId = ddlSubDepartmentFilter.SelectedValue;
+            DropdownDL.returnTable(PL);
+            ddlDesignationFilter.DataSource = PL.dt;
+            ddlDesignationFilter.DataValueField = "Id";
+            ddlDesignationFilter.DataTextField = "Name";
+            ddlDesignationFilter.DataBind();
+            ddlDesignationFilter.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        protected void ddlSubDepartmentFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSubDepartmentFilter.SelectedValue != "")
+            {
+                getDesignationFilter();
+            }
+            else
+            {
+                ddlDesignationFilter.DataSource = "";
+                ddlDesignationFilter.DataBind();
+            }
         }
     }
 }

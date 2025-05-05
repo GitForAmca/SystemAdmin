@@ -42,6 +42,33 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.DropDownList ddlEmployeeFilter;
 
         /// <summary>
+        /// ddlDepartmentFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDepartmentFilter;
+
+        /// <summary>
+        /// ddlSubDepartmentFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubDepartmentFilter;
+
+        /// <summary>
+        /// ddlDesignationFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDesignationFilter;
+
+        /// <summary>
         /// btnGet control.
         /// </summary>
         /// <remarks>

@@ -15,6 +15,24 @@
                         <asp:DropDownList ID="ddlEmployeeFilter" class="form-control select2ddl" runat="server"></asp:DropDownList>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Department<span class="required" aria-required="true"></span></label>
+                        <asp:DropDownList ID="ddlDepartmentFilter" OnSelectedIndexChanged="ddldepartmentFilter_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Sub Department<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList ID="ddlSubDepartmentFilter"  OnSelectedIndexChanged="ddlSubDepartmentFilter_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Designation<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList ID="ddlDesignationFilter" class="form-control select2ddl" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
                 <div class="col-md-2 pull-right text-right">
                     <label class="control-label"><span class="required" aria-required="true"></span></label>
                     <div>
