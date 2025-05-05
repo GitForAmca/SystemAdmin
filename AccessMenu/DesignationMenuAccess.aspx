@@ -135,11 +135,49 @@
                             <asp:DropDownList ID="ddlDesignation" oldname="" onchange="CheckName(this);" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <%--<div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Child Menu<span class="required" aria-required="true"> *</span></label>
                             <asp:ListBox ID="lstChildMenu" SelectionMode="Multiple" class="form-control req reqdep multiselectddl" runat="server"></asp:ListBox>
                         </div>
+                    </div>--%>
+                    <div class="col-md-12">
+                        <asp:ListView ID="lV_ChildMenu" runat="server" ItemPlaceholderID="itemplaceholder">
+                            <LayoutTemplate>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr style="background: #ddd;">
+                                            <th>#</th>
+                                            <th>Menu Name</th> 
+                                            <th>Sub Parent Menu</th> 
+                                            <th>Parent Menu </th>  
+                                            <th>Type</th> 
+                                        </tr>
+                                    </thead>
+                                    <tr id="itemplaceholder" runat="server" />
+                                </table>
+                            </LayoutTemplate>
+                            <ItemTemplate>
+                                <tr>
+                                    <td>
+                                        <asp:HiddenField ID="hidautoid" runat="server" Value='<%# Eval("Autoid")%>' />
+                                        <asp:CheckBox ID="chkIsChecked" Checked="true" runat="server" CssClass="checkboxes" />
+                                    </td>
+                                    <td>
+                                        <%# Eval("MenuName") %>
+                                    </td> 
+                                    <td>
+                                        <%# Eval("SubParentMenuName") %>
+                                    </td> 
+                                    <td>
+                                        <%# Eval("ParentMenuName") %>
+                                    </td> 
+                                    <td>
+                                        <%# Eval("MenuType") %>
+                                    </td>  
+                                </tr>
+                            </ItemTemplate>
+                        </asp:ListView>
                     </div>
                 </div>
             </div>

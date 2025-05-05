@@ -159,13 +159,13 @@ namespace SystemAdmin.AccessMenu
         protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
 
         /// <summary>
-        /// lstChildMenu control.
+        /// lV_ChildMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lstChildMenu;
+        protected global::System.Web.UI.WebControls.ListView lV_ChildMenu;
 
         /// <summary>
         /// btnAdd control.
