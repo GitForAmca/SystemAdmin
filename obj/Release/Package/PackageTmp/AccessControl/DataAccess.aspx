@@ -52,10 +52,10 @@
                                 <table class="table table-bordered table-hover mydatatable">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Element</th>                                                    
-                                            <th>Access Employee</th>                                                    
+                                            <th>#</th>                                         
+                                            <th>Access Employee</th>  
+                                            <th>Element</th>   
+                                            <th>Name</th>                                                          
                                             <th>End Date</th>                                                 
                                             <th>Created By</th>                                                 
                                             <th>Created On</th>                                                 
@@ -78,16 +78,19 @@
                                         <asp:CheckBox ID="chkSelect" runat="server" CssClass="checkboxes chkselect" EmpId='<%# Eval("EmpId")%>' ElementName='<%# Eval("ElementName")%>' AccessEmpId='<%# Eval("AccessEmpId")%>' GroupId='<%# Eval("GroupId")%>' />
                                     </td>
                                     <td>
-                                        <%# Eval("EmpName")%>
+                                        <%# Eval("AccessEmpName")%>
                                     </td>
                                     <td>
                                         <%# Eval("ElementName")%>
                                     </td>
                                     <td>
-                                        <%# Eval("AccessEmpName")%>
+                                        <%# Eval("EmpName")%>
                                     </td>
-                                    <td>
-                                        <%# Eval("EndDate")%>
+                                    <td style='<%# 
+                                        Convert.ToDateTime(Eval("EndDate")).Date < DateTime.Now.Date ? "color:red;" : 
+                                        Convert.ToDateTime(Eval("EndDate")).Date == DateTime.Now.Date ? "color:orange;" : 
+                                        "" %>'>
+                                        <%# Eval("EndDate", "{0:yyyy-MM-dd}") %>
                                     </td>
                                     <td>
                                         <%# Eval("CreatedBy")%>

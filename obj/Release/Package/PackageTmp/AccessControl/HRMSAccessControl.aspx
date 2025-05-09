@@ -105,51 +105,76 @@
                 </div>
                 <div class="row" runat="server" id="divEmployeeAccess">
                     <div class="col-md-12">
-                        <asp:ListView ID="LV_Access_Menu_Company" runat="server" ItemPlaceholderID="itemplaceholder2" OnItemDataBound="LV_Hid_Region_Industry_ItemDataBound">
-                            <LayoutTemplate>
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr style="background: #ddd;">
-                                            <th>Parent</th>
-                                            <th>Sub Parent</th>
-                                            <th>Child</th>
-                                            <th>Region</th>
-                                            <th>Industries</th>
-                                            <th>Action</th>
+                        <asp:UpdatePanel ID="upnl_Menuaccess" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate> 
+                                <asp:ListView ID="LV_Access_Menu_Company" runat="server" ItemPlaceholderID="itemplaceholder2" OnItemDataBound="LV_Hid_Region_Industry_ItemDataBound">
+                                    <LayoutTemplate>
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr style="background: #ddd;">
+                                                    <th>Parent</th>
+                                                    <th>Sub Parent</th>
+                                                    <th>Child</th>
+                                                    <th>Region</th>
+                                                    <th>Industries</th>
+                                                    <th>Company</th>
+                                                    <th>Reporting To</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead> 
+                                            <tr id="itemplaceholder2" runat="server" />
+                                        </table>
+                                    </LayoutTemplate>
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td>
+                                                <asp:HiddenField ID="hidautoid" runat="server" Value='<%# Eval("Autoid")%>' />
+                                                <asp:HiddenField ID="hidIsParentMenu" runat="server" Value='<%# Eval("IsMasterMenu")%>' />
+                                                <%# Eval("ParentMenuName") %>
+                                            </td>
+                                            <td>
+                                                <%# Eval("SubParentMenuName") %>
+                                            </td>
+                                            <td>
+                                                <%# Eval("MenuName") %>
+                                            </td>
+                                            <td>
+                                                <asp:Panel runat="server" ID="pnlRegion">  
+                                                <asp:CheckBox ID="chkSelectAllRegion" ForeColor="Blue" Font-Bold="true" runat="server" Text="Select All"
+                                                  AutoPostBack="true" OnCheckedChanged="chkSelectAllRegion_CheckedChanged" /> 
+                                                <asp:CheckBoxList ID="chkactionRegion" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' OnSelectedIndexChanged="chkactionRegion_SelectedIndexChanged" AutoPostBack="true"  runat="server" RepeatDirection="Vertical" DataTextField="CountryName" DataValueField="RegionId" DataSource='<%# GetRegionAction(Eval("Autoid").ToString()) %>' /> 
+                                                </asp:Panel>
+                                            </td>
+                                            <td>
+                                                <asp:Panel runat="server" ID="pnlIndustry"> 
+                                                <asp:CheckBoxList ID="chkactionIndustry" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' OnSelectedIndexChanged="chkactionIndustry_SelectedIndexChanged" AutoPostBack="true" runat="server" RepeatDirection="Vertical" DataTextField="Description" DataValueField="Autoid" DataSource='<%# GetIndustryAction(Eval("RegionIds").ToString()) %>' />
+                                                </asp:Panel>
+                                            </td>
+                                            <td>
+                                                <asp:Panel runat="server" ID="pnlCompany"> 
+                                                <asp:CheckBox ID="chkselectallcompany" ForeColor="Blue" Font-Bold="true" runat="server" Text="Select All"
+                                                 AutoPostBack="true" OnCheckedChanged="chkselectallcompany_CheckedChanged" /> 
+                                                <asp:CheckBoxList ID="chkactionCompany" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="Description" DataValueField="Autoid" />
+                                                </asp:Panel>
+                                            </td>
+                                            <td>
+                                               <asp:Panel runat="server" ID="pnlReporting">
+                                                 <asp:CheckBox ID="chkReportingPerson" ForeColor="Blue" Font-Bold="true" runat="server" Text="Select All"
+                                                    AutoPostBack="true" OnCheckedChanged="chkReportingPerson_CheckedChanged" /> 
+                                                 <asp:CheckBoxList ID="chkactioreporting" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="EmpName" DataSource='<%# GetReportingperson(Eval("EmpId").ToString()) %>' DataValueField="Autoid" />
+                                               </asp:Panel>
+                                            </td>
+                                            <td>
+                                              <asp:CheckBoxList ID="chkactionMenu" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="ActionName" DataValueField="Autoid" DataSource='<%# GetAction(Eval("Autoid").ToString()) %>' />
+                                            </td>
                                         </tr>
-                                    </thead> 
-                                    <tr id="itemplaceholder2" runat="server" />
-                                </table>
-                            </LayoutTemplate>
-                            <ItemTemplate>
-                                <tr>
-                                    <td>
-                                        <asp:HiddenField ID="hidautoid" runat="server" Value='<%# Eval("Autoid")%>' />
-                                        <asp:HiddenField ID="hidIsParentMenu" runat="server" Value='<%# Eval("IsMasterMenu")%>' />
-                                        <%# Eval("ParentMenuName") %>
-                                    </td>
-                                    <td>
-                                        <%# Eval("SubParentMenuName") %>
-                                    </td>
-                                    <td>
-                                        <%# Eval("MenuName") %>
-                                    </td>
-                                    <td>
-                                        <asp:Panel runat="server" ID="pnlRegion">
-                                            <asp:CheckBoxList ID="chkactionRegion" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="CountryName" DataValueField="RegionId" DataSource='<%# GetRegionAction(Eval("Autoid").ToString()) %>' />
-                                        </asp:Panel>
-                                    </td>
-                                    <td>
-                                        <asp:Panel runat="server" ID="pnlIndustry">
-                                            <asp:CheckBoxList ID="chkactionIndustry" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="Description" DataValueField="Autoid" DataSource='<%# GetIndustryAction(Eval("RegionIds").ToString()) %>' />
-                                        </asp:Panel>
-                                    </td>
-                                    <td>
-                                        <asp:CheckBoxList ID="chkactionMenu" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="ActionName" DataValueField="Autoid" DataSource='<%# GetAction(Eval("Autoid").ToString()) %>' />
-                                    </td>
-                                </tr>
-                            </ItemTemplate>
-                        </asp:ListView>
+                                    </ItemTemplate>
+                                </asp:ListView>
+                             </ContentTemplate>
+                            <Triggers> 
+                                <asp:AsyncPostBackTrigger ControlID="LV_Access_Menu_Company" />
+                            </Triggers>
+                         </asp:UpdatePanel>
                     </div>
                 </div>
             </div>
@@ -163,5 +188,17 @@
             </div>
         </div>
     </div>
-    <asp:HiddenField ID="hidAutoidMain" runat="server" Value="" />
+<asp:HiddenField ID="hidAutoidMain" runat="server" Value="" />  
+  <script type="text/javascript">
+     function selectAllRegion(source) {
+         debugger
+         var container = source.closest(".region-container");
+         if (!container) return; 
+         var checkboxes = container.querySelectorAll(".checkbox-wrapper input[type='checkbox']"); 
+         checkboxes.forEach(function (cb) {
+             cb.checked = source.checked;
+              
+         }); 
+     }
+  </script> 
 </asp:Content>

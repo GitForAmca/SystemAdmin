@@ -212,6 +212,14 @@
                                                         <li><a href='../AccessControl/DataAccess.aspx'><i class='fa fa-angle-right'></i>Data Access</a></li>
                                                     </ul>
                                                 </div>
+                                                <div class='col-md-3'>
+                                                    <ul class='mega-menu-submenu'>
+                                                        <li><h3>Directors</h3></li>
+                                                        <li><a href='../Directors/Directors.aspx'><i class='fa fa-angle-right'></i>Directors</a></li>
+                                                        <li><a href='../Directors/DirectorRelations.aspx'><i class='fa fa-angle-right'></i>Director Relations</a></li>
+                                                        <li><a href='../Directors/DirectorElementAccess.aspx'><i class='fa fa-angle-right'></i>Director Element Access</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </li>

@@ -4334,6 +4334,9 @@
     <Content Include="css\style.css" />
     <Content Include="css\tabcss.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Directors\DirectorElementAccess.aspx" />
+    <Content Include="Directors\DirectorRelations.aspx" />
+    <Content Include="Directors\Directors.aspx" />
     <Content Include="ESS\CategoryBox.aspx" />
     <Content Include="ESS\CategoryType.aspx" />
     <Content Include="ESS\CRMCSMapping.aspx" />
@@ -4648,6 +4651,27 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Directors\DirectorElementAccess.aspx.cs">
+      <DependentUpon>DirectorElementAccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Directors\DirectorElementAccess.aspx.designer.cs">
+      <DependentUpon>DirectorElementAccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Directors\DirectorRelations.aspx.cs">
+      <DependentUpon>DirectorRelations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Directors\DirectorRelations.aspx.designer.cs">
+      <DependentUpon>DirectorRelations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Directors\Directors.aspx.cs">
+      <DependentUpon>Directors.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Directors\Directors.aspx.designer.cs">
+      <DependentUpon>Directors.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\CategoryBox.aspx.cs">
       <DependentUpon>CategoryBox.aspx</DependentUpon>
