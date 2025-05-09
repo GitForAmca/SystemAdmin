@@ -36,7 +36,7 @@ namespace SystemAdmin.Directors
         {
             DropdownPL PL = new DropdownPL();
             PL.OpCode = 69;
-            PL.ServiceTypeAutoid = "6,7,8,9";
+            PL.ServiceTypeAutoid = "6,7,8,9,10";
             DropdownDL.returnTable(PL);
             ddlElement.DataSource = PL.dt;
             ddlElement.DataValueField = "Element";
@@ -63,7 +63,7 @@ namespace SystemAdmin.Directors
             }
             if(Element == "EA")
             {
-                department = "44,46,47,48,49,50";
+                department = "44,46,47,48,49,50,40,41";
             }
             if(Element == "Supervisor")
             {
@@ -72,6 +72,10 @@ namespace SystemAdmin.Directors
             if(Element == "Coordinator")
             {
                 department = "42";
+            }
+            if(Element == "CRM")
+            {
+                department = "43";
             }
             PL.ServiceTypeAutoid = department;
             PL.SubDepartmentId = subdepartment;
@@ -123,7 +127,7 @@ namespace SystemAdmin.Directors
                 ddl.Items.Add(new ListItem("Post-Sales", "Post-Sales"));
                 ddl.Items.Add(new ListItem("Internal", "Internal"));
             }
-            if (Element == "Supervisor" || Element == "Coordinator")
+            if (Element == "Supervisor" || Element == "Coordinator" || Element == "CRM")
             {
                 ddl.Items.Clear();
                 ddl.Items.Add(new ListItem("Select Option", ""));
@@ -147,7 +151,7 @@ namespace SystemAdmin.Directors
                 ddl.Items.Add(new ListItem("HOD", "HOD"));
                 ddl.Items.Add(new ListItem("Report To", "Report To"));
             }
-            if (Element == "Supervisor" || Element == "Coordinator")
+            if (Element == "Supervisor" || Element == "Coordinator" || Element == "CRM")
             {
                 ddl.Items.Clear();
                 ddl.Items.Add(new ListItem("Select Option", ""));
