@@ -161,7 +161,7 @@
                                 <tr>
                                     <td>
                                         <asp:HiddenField ID="hidautoid" runat="server" Value='<%# Eval("Autoid")%>' />
-                                        <asp:CheckBox ID="chkIsChecked" Checked="true" runat="server" CssClass="checkboxes" />
+                                        <asp:CheckBox ID="chkIsChecked" runat="server" CssClass="checkboxes" />
                                     </td>
                                     <td>
                                         <%# Eval("MenuName") %>

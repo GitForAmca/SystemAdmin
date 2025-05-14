@@ -150,11 +150,32 @@ namespace SystemAdmin.AccessMenu
             PL.AutoId = id;
             PL.RegionId = region;
             PL.IndustryId = industries;
-            DropdownDL.returnTable(PL);
-            //lstChildMenu.DataSource = PL.dt;
-            //lstChildMenu.DataValueField = "Autoid";
-            //lstChildMenu.DataTextField = "MenuName";
-            //lstChildMenu.DataBind();
+            DropdownDL.returnTable(PL);  
+            if (PL.dt.Rows.Count > 0)
+            {
+                lV_ChildMenu.DataSource = PL.dt;
+                lV_ChildMenu.DataBind();
+
+                for (int i = 0; i < PL.dt.Rows.Count; i++)
+                {
+                    DataRow row = PL.dt.Rows[i];
+                    if (Convert.ToBoolean(row["IsDefault"]))
+                    {
+                        ListViewItem item2 = lV_ChildMenu.Items[i]; // assuming row and item are aligned by index
+                        CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
+                        chkIsChecked.Checked = true;
+                    }
+                }
+            }
+        }
+        void getChildMenuEdit(int id, string region, int industries)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 13;
+            PL.AutoId = id;
+            PL.RegionId = region;
+            PL.IndustryId = industries;
+            DropdownDL.returnTable(PL); 
             lV_ChildMenu.DataSource = PL.dt;
             lV_ChildMenu.DataBind();
         }
@@ -364,7 +385,7 @@ namespace SystemAdmin.AccessMenu
                 getDesignation(Convert.ToInt32(PL.dt.Rows[0]["SubDepartmentId"].ToString()));
                 ddlDesignation.SelectedIndex = ddlDesignation.Items.IndexOf(ddlDesignation.Items.FindByValue(PL.dt.Rows[0]["DesignaitonId"].ToString()));
 
-                getChildMenu(Convert.ToInt32(PL.dt.Rows[0]["SubDepartmentId"].ToString()), PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
+                getChildMenuEdit(Convert.ToInt32(PL.dt.Rows[0]["SubDepartmentId"].ToString()), PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
                 //SetList(lstChildMenu, PL.dt.Rows[0]["ChildMenuIds"].ToString());
                 SelectCheckDesignationMenu(id);
             }

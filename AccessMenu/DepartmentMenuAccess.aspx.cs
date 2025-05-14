@@ -259,7 +259,7 @@ namespace SystemAdmin.AccessMenu
                 getDepartment(PL.dt.Rows[0]["IndustryId"].ToString(), PL.dt.Rows[0]["RegionIds"].ToString());
                 ddlDepartment.SelectedIndex = ddlDepartment.Items.IndexOf(ddlDepartment.Items.FindByValue(PL.dt.Rows[0]["DepartmentId"].ToString()));
                 //getParentMenu(PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
-                FillDepartmetnDetail(PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
+                FillDepartmetnEdit(PL.dt.Rows[0]["RegionIds"].ToString(), Convert.ToInt32(PL.dt.Rows[0]["IndustryId"].ToString()));
                 //SetList(lstParentMenu, PL.dt.Rows[0]["ParentMenuIds"].ToString());
                 SelectCheckDepartmentDetail(id);
             }
@@ -345,10 +345,41 @@ namespace SystemAdmin.AccessMenu
             PL.IndustryId = indutryid;
             DropdownDL.returnTable(PL);
             DataTable dt = PL.dt;
+
             if (PL.dt.Rows.Count > 0)
             {
                 lstDEpartmentDetail.DataSource = PL.dt;
+                lstDEpartmentDetail.DataBind();  
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DataRow row = dt.Rows[i];
+                    if (Convert.ToBoolean(row["IsDefault"]))
+                    {
+                        ListViewItem item2 = lstDEpartmentDetail.Items[i]; // assuming row and item are aligned by index
+                        CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
+                        chkIsChecked.Checked = true;
+                    }
+                }
+            }
+            else
+            {
+                lstDEpartmentDetail.DataSource = PL.dt;
                 lstDEpartmentDetail.DataBind();
+            }
+        }
+        void FillDepartmetnEdit(string region, int indutryid)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 6;
+            PL.RegionId = region;
+            PL.IndustryId = indutryid;
+            DropdownDL.returnTable(PL);
+            DataTable dt = PL.dt; 
+            if (PL.dt.Rows.Count > 0)
+            {
+                lstDEpartmentDetail.DataSource = PL.dt;
+                lstDEpartmentDetail.DataBind(); 
             }
             else
             {

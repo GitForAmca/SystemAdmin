@@ -63,14 +63,38 @@ namespace SystemAdmin.AccessMenu
             PL.AutoId = departmentid;
             PL.IndustryId = ddlIndustries.SelectedValue;
             PL.RegionId = region;
-            DropdownDL.returnTable(PL);
-            //lstSubParentMenu.DataSource = PL.dt;
-            //lstSubParentMenu.DataValueField = "Autoid";
-            //lstSubParentMenu.DataTextField = "SubParentMenuName";
-            //lstSubParentMenu.DataBind();
-            lV_SubParent.DataSource = PL.dt;
-            lV_SubParent.DataBind();
-        } 
+            DropdownDL.returnTable(PL); 
+            if (PL.dt.Rows.Count > 0)
+            {
+                lV_SubParent.DataSource = PL.dt;
+                lV_SubParent.DataBind();
+
+                for (int i = 0; i < PL.dt.Rows.Count; i++)
+                {
+                    DataRow row = PL.dt.Rows[i];
+                    if (Convert.ToBoolean(row["IsDefault"]))
+                    {
+                        ListViewItem item2 = lV_SubParent.Items[i]; // assuming row and item are aligned by index
+                        CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
+                        chkIsChecked.Checked = true;
+                    }
+                }
+            }
+        }
+        void getSubParentMenuEdit(int departmentid, string region)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 7;
+            PL.AutoId = departmentid;
+            PL.IndustryId = ddlIndustries.SelectedValue;
+            PL.RegionId = region;
+            DropdownDL.returnTable(PL);   
+            if (PL.dt.Rows.Count > 0)
+            {
+                lV_SubParent.DataSource = PL.dt;
+                lV_SubParent.DataBind(); 
+            }
+        }
         void getRegion(string id)
         {
             DropdownPL PL = new DropdownPL();
@@ -291,7 +315,7 @@ namespace SystemAdmin.AccessMenu
                 getSubDepartment(Convert.ToInt32(PL.dt.Rows[0]["DepartmentId"].ToString()));
                 ddlSubDepartment.SelectedIndex = ddlSubDepartment.Items.IndexOf(ddlSubDepartment.Items.FindByValue(PL.dt.Rows[0]["SubDepartmentId"].ToString()));
 
-                getSubParentMenu(Convert.ToInt32(PL.dt.Rows[0]["DepartmentId"].ToString()), PL.dt.Rows[0]["RegionIds"].ToString());
+                getSubParentMenuEdit(Convert.ToInt32(PL.dt.Rows[0]["DepartmentId"].ToString()), PL.dt.Rows[0]["RegionIds"].ToString());
                 //SetList(lstSubParentMenu, PL.dt.Rows[0]["SubParentMenuId"].ToString());
                 SelectCheckDepartmentDetail(id);
             }
