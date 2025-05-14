@@ -17,7 +17,7 @@ namespace SystemAdmin.AccessControl
             if (!Page.IsPostBack)
             {
                 FillActiveFilterEmployee();
-                FillEmpAccess(); 
+                //FillEmpAccess(); 
                 getDepartmentFilter();
             }
         }
@@ -204,7 +204,14 @@ namespace SystemAdmin.AccessControl
         }
         protected void btnGet_Click(object sender, EventArgs e)
         {
-            FillEmpAccess();
+            if (ddlEmployeeFilter.SelectedValue != "" || ddlDepartmentFilter.SelectedValue != "" || ddlSubDepartmentFilter.SelectedValue != "" || ddlDesignationFilter.SelectedValue != "")
+            {
+                FillEmpAccess();
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowError('Kindly Select any filter');", true);
+            }
         }
         void FillListView(string designation, string empid, string Group)
         {
