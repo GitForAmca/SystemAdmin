@@ -64,6 +64,9 @@
                                         <th>#</th>
                                         <th>Group</th>
                                         <th>Employee</th>
+                                        <th>Department</th>
+                                        <th>Sub Department</th>
+                                        <th>Designation</th>
                                         <th>View Action</th>
                                     </tr>
                                 </thead>
@@ -82,6 +85,15 @@
                                 </td>
                                 <td>
                                     <%# Eval("EmpName") %>
+                                </td>
+                                <td>
+                                    <%# Eval("DepartmentName") %>
+                                </td>
+                                <td>
+                                    <%# Eval("SubDepartmentName") %>
+                                </td>
+                                <td>
+                                    <%# Eval("DesignationName") %>
                                 </td>
                                 <td>
                                      <asp:Button ID="btnViewAction" CssClass="btn btn-xs blue" runat="server" Text="View Action" OnClick="btnViewAction_Click" />
