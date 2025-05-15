@@ -312,8 +312,19 @@ namespace SystemAdmin.AccessControl
                             ddlElement.Enabled = false;
                             ddlElement.SelectedIndex = ddlElement.Items.IndexOf(ddlElement.Items.FindByValue(dt.Rows[0]["ElementName"].ToString()));
                             ddlAccessName.Enabled = false;
-                            getAccessEmp(dt.Rows[0]["ElementName"].ToString(), dt.Rows[0]["ClientEngagementManager"].ToString());
-                            ddlAccessName.SelectedIndex = ddlAccessName.Items.IndexOf(ddlAccessName.Items.FindByValue(dt.Rows[0]["AccessEmpId"].ToString()));
+
+                            if (dt.Rows[0]["ElementName"].ToString() == "CEM")
+                            {
+                                getCEMList();
+                                ddlAccessName.SelectedIndex = ddlAccessName.Items.IndexOf(ddlAccessName.Items.FindByValue(dt.Rows[0]["AccessEmpId"].ToString()));
+                            }
+                            else
+                            {
+                                getAccessEmp(dt.Rows[0]["ElementName"].ToString(), dt.Rows[0]["ClientEngagementManager"].ToString());
+                                ddlAccessName.SelectedIndex = ddlAccessName.Items.IndexOf(ddlAccessName.Items.FindByValue(dt.Rows[0]["AccessEmpId"].ToString()));
+                            }
+
+
                             txtEndDate.Text = dt.Rows[0]["EndDate"].ToString();
                             if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
                             {
