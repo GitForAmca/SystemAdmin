@@ -36,7 +36,7 @@ namespace SystemAdmin.Directors
         {
             DropdownPL PL = new DropdownPL();
             PL.OpCode = 69;
-            PL.ServiceTypeAutoid = "6,7,8,9,10";
+            PL.ServiceTypeAutoid = "6,7,8,9,10,11";
             DropdownDL.returnTable(PL);
             ddlElement.DataSource = PL.dt;
             ddlElement.DataValueField = "Element";
@@ -61,7 +61,7 @@ namespace SystemAdmin.Directors
             {
                 department = "13";
             }
-            if(Element == "EA")
+            if(Element == "EA" || Element == "Meeting")
             {
                 department = "44,46,47,48,49,50,40,41";
             }
@@ -96,7 +96,7 @@ namespace SystemAdmin.Directors
         {
             if(ddlSubDepartment.SelectedValue != "")
             {
-                if (ddlSubDepartment.SelectedValue == "Post-Sales")
+                if (ddlSubDepartment.SelectedValue == "Post-Sales" && ddlElement.SelectedValue.ToString() != "Meeting")
                 {
                     divGroup.Visible = true;
                 }
@@ -119,7 +119,7 @@ namespace SystemAdmin.Directors
                 ddl.Items.Add(new ListItem("Payroll", "Recruiter"));
                 ddl.Items.Add(new ListItem("Recruiter", "Recruiter"));
             }
-            if (Element == "EA")
+            if (Element == "EA" || Element == "Meeting")
             {
                 ddl.Items.Clear();
                 ddl.Items.Add(new ListItem("Select Option", ""));
@@ -151,7 +151,7 @@ namespace SystemAdmin.Directors
                 ddl.Items.Add(new ListItem("HOD", "HOD"));
                 ddl.Items.Add(new ListItem("Report To", "Report To"));
             }
-            if (Element == "Supervisor" || Element == "Coordinator" || Element == "CRM")
+            if (Element == "Supervisor" || Element == "Coordinator" || Element == "CRM" || Element == "Meeting")
             {
                 ddl.Items.Clear();
                 ddl.Items.Add(new ListItem("Select Option", ""));
@@ -227,7 +227,7 @@ namespace SystemAdmin.Directors
                 ddlGroup.SelectedIndex = ddlGroup.Items.IndexOf(ddlGroup.Items.FindByValue(dt.Rows[0]["PSGroup"].ToString()));
                 ddlEmployee.SelectedIndex = ddlEmployee.Items.IndexOf(ddlEmployee.Items.FindByValue(dt.Rows[0]["EmpId"].ToString()));
                 ddlSubDepartment.SelectedIndex = ddlSubDepartment.Items.IndexOf(ddlSubDepartment.Items.FindByValue(dt.Rows[0]["SubDepartment"].ToString()));
-                if (dt.Rows[0]["SubDepartment"].ToString() == "Post-Sales")
+                if (dt.Rows[0]["SubDepartment"].ToString() == "Post-Sales" && dt.Rows[0]["Element"].ToString() != "Meeting")
                 {
                     divGroup.Visible = true;
                 }
@@ -320,7 +320,7 @@ namespace SystemAdmin.Directors
         { 
             if (ddlSubDepartmentSearch.SelectedValue != "")
             {
-                if (ddlSubDepartmentSearch.SelectedValue == "Post-Sales")
+                if (ddlSubDepartmentSearch.SelectedValue == "Post-Sales" && ddlElementSearch.SelectedValue.ToString () != "Meeting")
                 {
                     divGroupSearch.Visible = true;
                 }
