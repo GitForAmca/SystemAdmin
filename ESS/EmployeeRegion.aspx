@@ -12,8 +12,13 @@
 
             <div id="divView" runat="server" class="portlet-body">
                 <div class="row">
-                    <%--action div start--%>
-                    <div class="col-md-12">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label" style="margin-top: 10px;">Region<span class="required" aria-required="true"></span></label>
+                            <asp:DropDownList runat="server" ID="ddlMasterRegionSearch" OnSelectedIndexChanged="ddlMasterRegionSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
+                        </div>
+                    </div>  
+                    <div class="col-md-10">
                         <div class="form-group">
                             <label class="control-label">&nbsp;</label>
                             <div>

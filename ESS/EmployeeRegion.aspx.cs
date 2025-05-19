@@ -18,6 +18,7 @@ namespace SystemAdmin.ESS
                 FillListView();
                 BindAllDropdownsFromSingleDataTable();
                 BindMasterRegion(ddlMasterRegion);
+                BindMasterRegion(ddlMasterRegionSearch);
             }
         }
         void FillListView()
@@ -25,11 +26,16 @@ namespace SystemAdmin.ESS
             //-----------------
             EssPL PL = new EssPL();
             PL.OpCode = 85;
+            PL.String1 = ddlMasterRegionSearch.SelectedValue.ToString();
             EssDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------
             LV_Employee_Region.DataSource = dt;
             LV_Employee_Region.DataBind();
+        }
+        protected void ddlMasterRegionSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillListView();
         }
         void BindMasterRegion(DropDownList ddl)
         {

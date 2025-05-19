@@ -33,6 +33,15 @@ namespace SystemAdmin.ESS
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divView;
 
         /// <summary>
+        /// ddlMasterRegionSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMasterRegionSearch;
+
+        /// <summary>
         /// lnkBtnAddNew control.
         /// </summary>
         /// <remarks>
