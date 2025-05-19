@@ -6,7 +6,7 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <asp:Label ID="lblPageListTitle" runat="server" Text="Employee Region"></asp:Label>
+                    <asp:Label ID="lblPageListTitle" runat="server" Text="Region"></asp:Label>
                 </div>
             </div>
 
@@ -44,8 +44,8 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Master Region</th>
                                             <th>Region</th>
+                                            <th>Location</th>
                                             <th>TimeZone</th>
                                             <th>Currency</th>
                                             <th>Is Active</th>
@@ -87,8 +87,8 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Master Region</th>
                                             <th>Region</th>
+                                            <th>Location</th>
                                             <th>TimeZone</th>
                                             <th>Currency</th>
                                             <th>Is Active</th>
@@ -106,14 +106,14 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">Master Region<span class="required" aria-required="true"> *</span></label>
+                                <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
                                 <asp:DropDownList ID="ddlMasterRegion" CssClass="form-control reqRec select2ddl" runat="server"></asp:DropDownList>
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
+                                <label class="control-label">Location<span class="required" aria-required="true"> *</span></label>
                                 <asp:DropDownList ID="ddlRegion" CssClass="form-control reqRec select2ddl" runat="server"></asp:DropDownList>
                             </div>
                         </div>

@@ -167,7 +167,7 @@ namespace SystemAdmin.ESS
                     }
                     else
                     {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowError('Request already exist in the database.');", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowError('Region already exist in the database.');", true);
                     }
                 }
                 else
