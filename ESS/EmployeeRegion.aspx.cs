@@ -107,7 +107,7 @@ namespace SystemAdmin.ESS
                         DataTable dt = PL.dt;
                         if (dt.Rows.Count > 0)
                         {
-                            ddlMasterRegion.SelectedValue = dt.Rows[0]["MasterAutoid"].ToString();
+                            ddlMasterRegion.SelectedValue = dt.Rows[0]["MasterRegionAutoid"].ToString();
                             ddlMasterRegion.Enabled = false;
                             ddlRegion.SelectedValue = dt.Rows[0]["RegionAutoid"].ToString();
                             ddlTimeZone.SelectedValue = dt.Rows[0]["TimeZoneId"].ToString();
@@ -148,8 +148,8 @@ namespace SystemAdmin.ESS
             EssPL PL = new EssPL();
             string xml = "<tbl>";
             xml += "<tr>";
-            xml += "<MasterRegion><![CDATA[" + ddlMasterRegion.SelectedValue + "]]></MasterRegion>";
-            xml += "<Region><![CDATA[" + ddlRegion.SelectedValue + "]]></Region>";
+            xml += "<MasterRegionAutoid><![CDATA[" + ddlMasterRegion.SelectedValue + "]]></MasterRegionAutoid>";
+            xml += "<RegionCode><![CDATA[" + ddlRegion.SelectedValue + "]]></RegionCode>";
             xml += "<TimeZone><![CDATA[" + ddlTimeZone.SelectedValue + "]]></TimeZone>";
             xml += "<Currency><![CDATA[" + ddlCurrency.SelectedValue + "]]></Currency>";
             xml += "<IsActive><![CDATA[" + (chkactive.Checked == true ? 1 : 0) + "]]></IsActive>";

@@ -62,7 +62,7 @@ namespace SystemAdmin.Menu
         void getRegion(string id)
         {
             DropdownPL PL = new DropdownPL();
-            PL.OpCode = 1;
+            PL.OpCode = 71;
             PL.AutoId = id;
             DropdownDL.returnTable(PL);
             ddlRegion.DataSource = PL.dt;
