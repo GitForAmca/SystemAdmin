@@ -237,6 +237,7 @@ namespace SystemAdmin.AccessControl
                                     divEmployeeDetails.Visible = false;
                                     LV_Access_Menu_Company.DataSource = "";
                                     LV_Access_Menu_Company.DataBind();
+                                    upnl_EmployeeAccess.Update();
                                 }
                                 else
                                 {
@@ -353,6 +354,8 @@ namespace SystemAdmin.AccessControl
                                         if (hdnMenuid.Value == row["MenuId"].ToString())
                                         {
                                             CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
+                                            CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
+                                            CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
                                             if (row["MenuAccess"].ToString() == "True")
                                             {
                                                 chkIsChecked.Checked = true;
@@ -360,6 +363,22 @@ namespace SystemAdmin.AccessControl
                                             else
                                             {
                                                 chkIsChecked.Checked = false;
+                                            }
+                                            if (row["Direct"].ToString() == "True")
+                                            {
+                                                chckDirect.Checked = true;
+                                            }
+                                            else
+                                            {
+                                                chckDirect.Checked = false;
+                                            }
+                                            if (row["Consultant"].ToString() == "True")
+                                            {
+                                                chckConsultant.Checked = true;
+                                            }
+                                            else
+                                            {
+                                                chckConsultant.Checked = false;
                                             }
                                             break;
                                         }
@@ -394,6 +413,8 @@ namespace SystemAdmin.AccessControl
                 if (chkSelect != null)
                 {
                     CheckBox chkIsChecked = (CheckBox)item.FindControl("chkIsChecked");
+                    CheckBox chckDirect = (CheckBox)item.FindControl("chckDirect");
+                    CheckBox chckConsultant = (CheckBox)item.FindControl("chckConsultant");
                     HiddenField hdnMenuId = (HiddenField)item.FindControl("hidautoid");
                     xml += "<tr>";
                     xml += "<EmpId><![CDATA[" + ddlEmpName.SelectedValue + "]]></EmpId>";
@@ -404,6 +425,8 @@ namespace SystemAdmin.AccessControl
                     xml += "<GroupId><![CDATA[" + GroupId + "]]></GroupId>";
                     xml += "<MenuId><![CDATA[" + hdnMenuId.Value + "]]></MenuId>";
                     xml += "<MenuAccess><![CDATA[" + (chkIsChecked.Checked == true ? 1 : 0) + "]]></MenuAccess>";
+                    xml += "<Direct><![CDATA[" + (chckDirect.Checked == true ? 1 : 0) + "]]></Direct>";
+                    xml += "<Consultant><![CDATA[" + (chckConsultant.Checked == true ? 1 : 0) + "]]></Consultant>";
                     xml += "</tr>";
                 }
             }
@@ -518,6 +541,7 @@ namespace SystemAdmin.AccessControl
                 lv.DataSource = PL.dt;
                 lv.DataBind();
                 divEmployeeAccess.Visible = true;
+                upnl_EmployeeAccess.Update();
             }
             else
             {
@@ -567,6 +591,8 @@ namespace SystemAdmin.AccessControl
                         if (hdnMenuid.Value == row["MenuId"].ToString())
                         {
                             CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsCheckedUpdate");
+                            CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
+                            CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
                             if (row["MenuAccess"].ToString() == "True")
                             {
                                 chkIsChecked.Checked = true;
@@ -574,6 +600,22 @@ namespace SystemAdmin.AccessControl
                             else
                             {
                                 chkIsChecked.Checked = false;
+                            }
+                            if (row["Direct"].ToString() == "True")
+                            {
+                                chckDirect.Checked = true;
+                            }
+                            else
+                            {
+                                chckDirect.Checked = false;
+                            }
+                            if (row["Consultant"].ToString() == "True")
+                            {
+                                chckConsultant.Checked = true;
+                            }
+                            else
+                            {
+                                chckConsultant.Checked = false;
                             }
                             break;
                         }
@@ -590,6 +632,8 @@ namespace SystemAdmin.AccessControl
                 if (chkSelect != null)
                 {
                     CheckBox chkIsChecked = (CheckBox)item.FindControl("chkIsCheckedUpdate");
+                    CheckBox chckDirect = (CheckBox)item.FindControl("chckDirect");
+                    CheckBox chckConsultant = (CheckBox)item.FindControl("chckConsultant");
                     HiddenField hdnMenuId = (HiddenField)item.FindControl("hidautoidUpdate");
                     xml += "<tr>";
                     xml += "<EmpId><![CDATA[" + hidEmpIdMain.Value + "]]></EmpId>";
@@ -600,6 +644,8 @@ namespace SystemAdmin.AccessControl
                     xml += "<GroupId><![CDATA[" + GroupId + "]]></GroupId>";
                     xml += "<MenuId><![CDATA[" + hdnMenuId.Value + "]]></MenuId>";
                     xml += "<MenuAccess><![CDATA[" + (chkIsChecked.Checked == true ? 1 : 0) + "]]></MenuAccess>";
+                    xml += "<Direct><![CDATA[" + (chckDirect.Checked == true ? 1 : 0) + "]]></Direct>";
+                    xml += "<Consultant><![CDATA[" + (chckConsultant.Checked == true ? 1 : 0) + "]]></Consultant>";
                     xml += "</tr>";
                 }
             }
@@ -629,6 +675,6 @@ namespace SystemAdmin.AccessControl
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
             }
-        }
+        } 
     }
 }

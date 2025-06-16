@@ -227,15 +227,18 @@
                     </div>
                     <div class="row" runat="server" id="divEmployeeAccess">
                         <div class="col-md-12">
+                        <asp:UpdatePanel ID="upnl_EmployeeAccess" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate> 
                             <asp:ListView ID="LV_Access_Menu_Company" runat="server" ItemPlaceholderID="itemplaceholder">
                                 <LayoutTemplate>
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                             <tr style="background: #ddd;">
-                                                <th>Action</th>
+                                                <th>#</th>
                                                 <th>Child</th>
                                                 <th>Sub Parent</th>
                                                 <th>Parent</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tr id="itemplaceholder" runat="server" />
@@ -255,10 +258,27 @@
                                         </td>
                                         <td>
                                             <%# Eval("PPname") %>
+                                        </td> 
+                                        <td>
+                                            <ul style="list-style: none;">
+                                                <li>
+                                                    <label class="control-label">Direct<span class="required" aria-required="true"></span></label>
+                                                    <asp:CheckBox ID="chckDirect" Checked runat="server" RepeatDirection="Vertical" CssClass="checkboxes" DataTextField="DirectValue" />
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Consultant<span class="required" aria-required="true"></span></label>
+                                                    <asp:CheckBox ID="chckConsultant" Checked runat="server" RepeatDirection="Vertical" CssClass="checkboxes" DataTextField="ConsultantValue" />
+                                                </li>
+                                            </ul>
                                         </td>
                                     </tr>
                                 </ItemTemplate>
                             </asp:ListView>
+                             </ContentTemplate>
+                            <Triggers> 
+                                <asp:AsyncPostBackTrigger ControlID="LV_Access_Menu_Company" />
+                            </Triggers>
+                         </asp:UpdatePanel>
                         </div>
                     </div>
                 </div>
@@ -313,6 +333,7 @@
                                                 <th>Child</th>
                                                 <th>Sub Parent</th>
                                                 <th>Parent</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tr id="itemplaceholder" runat="server" />
@@ -332,6 +353,18 @@
                                         </td>
                                         <td>
                                             <%# Eval("PPname") %>
+                                        </td>
+                                        <td>
+                                            <ul style="list-style: none;">
+                                                <li>
+                                                    <label class="control-label">Direct<span class="required" aria-required="true"></span></label>
+                                                    <asp:CheckBox ID="chckDirect" runat="server" RepeatDirection="Vertical" CssClass="checkboxes" DataTextField="DirectValue" />
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Consultant<span class="required" aria-required="true"></span></label>
+                                                    <asp:CheckBox ID="chckConsultant" runat="server" RepeatDirection="Vertical" CssClass="checkboxes" DataTextField="ConsultantValue" />
+                                                </li>
+                                            </ul>
                                         </td>
                                     </tr>
                                 </ItemTemplate>
