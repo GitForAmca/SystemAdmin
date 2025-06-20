@@ -675,6 +675,113 @@ namespace SystemAdmin.AccessControl
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
             }
-        } 
+        }
+
+        protected void chkSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item2 in LV_Access_Menu_Company_Update.Items)
+            {
+                CheckBox chkSelect = (CheckBox)item2.FindControl("chkIsCheckedUpdate");
+                CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
+                CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
+                if (chkSelectAll.Checked == true) 
+                {
+                    chkSelect.Checked = true;
+                }
+                else
+                {
+                    chkSelect.Checked = false;
+                    chckDirect.Checked = false;
+                    chckConsultant.Checked = false;
+                }
+            }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "openpp", "OpenPopUpAction();", true);
+        }
+
+        protected void chckAllDirect_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item2 in LV_Access_Menu_Company_Update.Items)
+            {
+                CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
+                if (chckAllDirect.Checked == true)
+                {
+                    chckDirect.Checked = true;
+                }
+                else
+                {
+                    chckDirect.Checked = false;
+                }
+            }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "openpp", "OpenPopUpAction();", true);
+        }
+
+        protected void chckAllConsultant_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item2 in LV_Access_Menu_Company_Update.Items)
+            {
+                CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
+                if (chckAllConsultant.Checked == true)
+                {
+                    chckConsultant.Checked = true;
+                }
+                else
+                {
+                    chckConsultant.Checked = false;
+                }
+            }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "openpp", "OpenPopUpAction();", true); 
+        }
+
+        protected void chkSelectAllAdd_CheckedChanged(object sender, EventArgs e)
+        { 
+            foreach (ListViewItem item2 in LV_Access_Menu_Company.Items)
+            {
+                CheckBox chkSelect = (CheckBox)item2.FindControl("chkIsChecked");
+                CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
+                CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
+                if (chkSelectAllAdd.Checked == true)
+                {
+                    chkSelect.Checked = true;
+                }
+                else
+                {
+                    chkSelect.Checked = false;
+                    chckDirect.Checked = false;
+                    chckConsultant.Checked = false;
+                }
+            } 
+        }
+
+        protected void chckDirectAllAdd_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item2 in LV_Access_Menu_Company.Items)
+            {
+                CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
+                if (chckDirectAllAdd.Checked == true)
+                {
+                    chckDirect.Checked = true;
+                }
+                else
+                {
+                    chckDirect.Checked = false;
+                }
+            }
+        }
+
+        protected void chckConsultantAllAdd_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item2 in LV_Access_Menu_Company.Items)
+            {
+                CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
+                if (chckConsultantAllAdd.Checked == true)
+                {
+                    chckConsultant.Checked = true;
+                }
+                else
+                {
+                    chckConsultant.Checked = false;
+                }
+            }
+        }
     }
 }

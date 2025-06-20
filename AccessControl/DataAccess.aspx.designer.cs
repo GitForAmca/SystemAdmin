@@ -186,6 +186,33 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.CheckBox chkActive;
 
         /// <summary>
+        /// chkSelectAllAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSelectAllAdd;
+
+        /// <summary>
+        /// chckDirectAllAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chckDirectAllAdd;
+
+        /// <summary>
+        /// chckConsultantAllAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chckConsultantAllAdd;
+
+        /// <summary>
         /// divEmployeeAccess control.
         /// </summary>
         /// <remarks>
@@ -247,6 +274,33 @@ namespace SystemAdmin.AccessControl
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkActiveUpdate;
+
+        /// <summary>
+        /// chkSelectAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSelectAll;
+
+        /// <summary>
+        /// chckAllDirect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chckAllDirect;
+
+        /// <summary>
+        /// chckAllConsultant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chckAllConsultant;
 
         /// <summary>
         /// LV_Access_Menu_Company_Update control.

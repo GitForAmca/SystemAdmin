@@ -213,10 +213,31 @@
                                 </div>
                             </div>
                         </div>  
-                        <div class="col-md-12 pull-right text-right">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label class="control-label">Is Active</label>
                                 <asp:CheckBox ID="chkActive" Checked="true" runat="server"></asp:CheckBox>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <label class="control-label"><span class="required" aria-required="true"> </span></label>
+                            <div class="form-group">
+                                <asp:CheckBox ID="chkSelectAllAdd" OnCheckedChanged="chkSelectAllAdd_CheckedChanged" AutoPostBack="true" runat="server"></asp:CheckBox>
+                                <label class="control-label">Select All</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <label class="control-label"><span class="required" aria-required="true"> </span></label>
+                            <div class="form-group">
+                                <asp:CheckBox ID="chckDirectAllAdd" OnCheckedChanged="chckDirectAllAdd_CheckedChanged" AutoPostBack="true" runat="server"></asp:CheckBox>
+                                <label class="control-label">All Direct</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <label class="control-label"><span class="required" aria-required="true"> </span></label>
+                            <div class="form-group">
+                                <asp:CheckBox ID="chckConsultantAllAdd" OnCheckedChanged="chckConsultantAllAdd_CheckedChanged" AutoPostBack="true" runat="server"></asp:CheckBox>
+                                <label class="control-label">All Consultant</label>
                             </div>
                         </div>
                     </div>
@@ -234,7 +255,7 @@
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                             <tr style="background: #ddd;">
-                                                <th>#</th>
+                                                <th>Select</th>
                                                 <th>Child</th>
                                                 <th>Sub Parent</th>
                                                 <th>Parent</th>
@@ -320,6 +341,27 @@
                                 <asp:CheckBox ID="chkActiveUpdate" Checked="true" runat="server"></asp:CheckBox>
                                 <label class="control-label">Is Active</label>
                             </div>
+                        </div> 
+                        <div class="col-md-2 text-right">
+                            <label class="control-label"><span class="required" aria-required="true"> </span></label>
+                            <div class="form-group">
+                                <asp:CheckBox ID="chkSelectAll" OnCheckedChanged="chkSelectAll_CheckedChanged" AutoPostBack="true" runat="server"></asp:CheckBox>
+                                <label class="control-label">Select All</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <label class="control-label"><span class="required" aria-required="true"> </span></label>
+                            <div class="form-group">
+                                <asp:CheckBox ID="chckAllDirect" OnCheckedChanged="chckAllDirect_CheckedChanged" AutoPostBack="true" runat="server"></asp:CheckBox>
+                                <label class="control-label">All Direct</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <label class="control-label"><span class="required" aria-required="true"> </span></label>
+                            <div class="form-group">
+                                <asp:CheckBox ID="chckAllConsultant" OnCheckedChanged="chckAllConsultant_CheckedChanged" AutoPostBack="true" runat="server"></asp:CheckBox>
+                                <label class="control-label">All Consultant</label>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -329,7 +371,7 @@
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                             <tr style="background: #ddd;">
-                                                <th>Action</th>
+                                                <th>Select</th>
                                                 <th>Child</th>
                                                 <th>Sub Parent</th>
                                                 <th>Parent</th>
