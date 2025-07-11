@@ -288,11 +288,13 @@ namespace SystemAdmin.Menu
                 divView.Visible = true;
                 divEdit.Visible = false;
                 ClearField();
-                FillListView();
+                FillListView(); 
+                Response.Redirect(Request.RawUrl);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record Save Successfully');", true);
             }
             else
             {
+                Response.Redirect(Request.RawUrl);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
             }
         }
@@ -432,6 +434,7 @@ namespace SystemAdmin.Menu
         {
             divView.Visible = true;
             divEdit.Visible = false;
+            Response.Redirect(Request.RawUrl);
         }
         protected void btnGet_Click(object sender, EventArgs e)
         {
