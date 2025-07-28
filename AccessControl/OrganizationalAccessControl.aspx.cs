@@ -343,12 +343,19 @@ namespace SystemAdmin.AccessControl
         }
         protected void btnViewAction_Click(object sender, EventArgs e)
         {
-            var btn = (Button)sender;
-            var item = (ListViewItem)btn.NamingContainer;
+            //var btn = (Button)sender;
+            //var item = (ListViewItem)btn.NamingContainer;
 
-            int id = int.Parse(((HiddenField)item.FindControl("hidEmpid")).Value);
-            hidEmpidMain.Value = ((HiddenField)item.FindControl("hidEmpid")).Value;
-            hidGroupIdMain.Value = ((HiddenField)item.FindControl("hidGroupId")).Value;
+            Button lnkbtn = (Button)sender;
+            string commandArgs = lnkbtn.CommandArgument;
+
+            string[] args = commandArgs.Split('|');
+            string valAutoId = args.Length > 0 ? args[0] : string.Empty;
+            string valGroupId = args.Length > 1 ? args[1] : string.Empty; 
+
+            int id = Convert.ToInt32(valAutoId);
+            hidEmpidMain.Value = valAutoId;
+            hidGroupIdMain.Value = valGroupId;
             SetForEditGroupWise(id);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "openpp", "OpenPopUpAction();", true);
         }

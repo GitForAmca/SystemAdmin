@@ -96,7 +96,7 @@
                                     <%# Eval("DesignationName") %>
                                 </td>
                                 <td>
-                                     <asp:Button ID="btnViewAction" CssClass="btn btn-xs blue" runat="server" Text="View Action" OnClick="btnViewAction_Click" />
+                                     <asp:Button ID="btnViewAction" CssClass="btn btn-xs blue" runat="server" Text="View Action" OnClick="btnViewAction_Click" CommandArgument='<%# Eval("Autoid") + "|" + Eval("GroupId") %>' />
                                 </td>
                             </tr>
                         </ItemTemplate>
