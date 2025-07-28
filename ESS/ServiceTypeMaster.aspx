@@ -102,7 +102,7 @@
                                         <span class='<%# bool.Parse( Eval("IsActive").ToString())==true?"label label-sm label-success":"label label-sm label-warning"%>' runat="server"><%# Eval("IsActive")%></span>
                                     </td>
                                     <td>
-                                        <asp:LinkButton ID="btnUpdateType" OnClick="btnUpdateType_Click" Text="<i class='fa fa-edit'></i>" data-toggle="tooltip" data-placement="top" title="Update Operations" CssClass="btn btn-xs bgGreen" runat="server" />
+                                        <asp:LinkButton ID="btnUpdateType" OnClick="btnUpdateType_Click" Text="<i class='fa fa-edit'></i>" data-toggle="tooltip" data-placement="top" title="Update Operations" CssClass="btn btn-xs bgGreen"  CommandArgument='<%# Eval("Autoid") %>' runat="server" />
                                     </td>
                                 </tr>
                             </itemtemplate>

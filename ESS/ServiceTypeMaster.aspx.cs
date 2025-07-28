@@ -477,11 +477,12 @@ namespace SystemAdmin.ESS
             ddlSecondaryReviewer.Items.Insert(0, new ListItem("Select Option", ""));
         }
         protected void btnUpdateType_Click(object sender, EventArgs e)
-        {
-            var btn = (LinkButton)sender;
-            var item = (ListViewItem)btn.NamingContainer;
-            int id = int.Parse(((HiddenField)item.FindControl("hdnMainId")).Value);
-            hidID.Value = ((HiddenField)item.FindControl("hdnMainId")).Value;
+        { 
+            LinkButton lnkbtn = (LinkButton)sender;
+            string Autoid = lnkbtn.CommandArgument;
+            int id = int.Parse(Autoid);
+            hidID.Value = Autoid;
+
             FillType(ddlTypeUpdate);
             FillUpdateOperation(id);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "openpp", "OpenPopUpUpdateOperations();", true);
