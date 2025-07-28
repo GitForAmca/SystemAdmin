@@ -237,7 +237,6 @@ namespace SystemAdmin.AccessControl
                                     divEmployeeDetails.Visible = false;
                                     LV_Access_Menu_Company.DataSource = "";
                                     LV_Access_Menu_Company.DataBind();
-                                    upnl_EmployeeAccess.Update();
                                 }
                                 else
                                 {
@@ -354,8 +353,6 @@ namespace SystemAdmin.AccessControl
                                         if (hdnMenuid.Value == row["MenuId"].ToString())
                                         {
                                             CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
-                                            CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
-                                            CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
                                             if (row["MenuAccess"].ToString() == "True")
                                             {
                                                 chkIsChecked.Checked = true;
@@ -363,22 +360,6 @@ namespace SystemAdmin.AccessControl
                                             else
                                             {
                                                 chkIsChecked.Checked = false;
-                                            }
-                                            if (row["Direct"].ToString() == "True")
-                                            {
-                                                chckDirect.Checked = true;
-                                            }
-                                            else
-                                            {
-                                                chckDirect.Checked = false;
-                                            }
-                                            if (row["Consultant"].ToString() == "True")
-                                            {
-                                                chckConsultant.Checked = true;
-                                            }
-                                            else
-                                            {
-                                                chckConsultant.Checked = false;
                                             }
                                             break;
                                         }
@@ -413,8 +394,6 @@ namespace SystemAdmin.AccessControl
                 if (chkSelect != null)
                 {
                     CheckBox chkIsChecked = (CheckBox)item.FindControl("chkIsChecked");
-                    CheckBox chckDirect = (CheckBox)item.FindControl("chckDirect");
-                    CheckBox chckConsultant = (CheckBox)item.FindControl("chckConsultant");
                     HiddenField hdnMenuId = (HiddenField)item.FindControl("hidautoid");
                     xml += "<tr>";
                     xml += "<EmpId><![CDATA[" + ddlEmpName.SelectedValue + "]]></EmpId>";
@@ -424,9 +403,7 @@ namespace SystemAdmin.AccessControl
                     xml += "<IsActive><![CDATA[" + chkActive.Checked + "]]></IsActive>";
                     xml += "<GroupId><![CDATA[" + GroupId + "]]></GroupId>";
                     xml += "<MenuId><![CDATA[" + hdnMenuId.Value + "]]></MenuId>";
-                    xml += "<MenuAccess><![CDATA[" + (chkIsChecked.Checked == true ? 1 : 0) + "]]></MenuAccess>";
-                    xml += "<Direct><![CDATA[" + (chckDirect.Checked == true ? 1 : 0) + "]]></Direct>";
-                    xml += "<Consultant><![CDATA[" + (chckConsultant.Checked == true ? 1 : 0) + "]]></Consultant>";
+                    xml += "<MenuAccess><![CDATA[" + (chkIsChecked.Checked == true ? 1 : 0) + "]]></MenuAccess>"; 
                     xml += "</tr>";
                 }
             }
@@ -541,7 +518,6 @@ namespace SystemAdmin.AccessControl
                 lv.DataSource = PL.dt;
                 lv.DataBind();
                 divEmployeeAccess.Visible = true;
-                upnl_EmployeeAccess.Update();
             }
             else
             {
@@ -591,8 +567,6 @@ namespace SystemAdmin.AccessControl
                         if (hdnMenuid.Value == row["MenuId"].ToString())
                         {
                             CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsCheckedUpdate");
-                            CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
-                            CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
                             if (row["MenuAccess"].ToString() == "True")
                             {
                                 chkIsChecked.Checked = true;
@@ -600,23 +574,7 @@ namespace SystemAdmin.AccessControl
                             else
                             {
                                 chkIsChecked.Checked = false;
-                            }
-                            if (row["Direct"].ToString() == "True")
-                            {
-                                chckDirect.Checked = true;
-                            }
-                            else
-                            {
-                                chckDirect.Checked = false;
-                            }
-                            if (row["Consultant"].ToString() == "True")
-                            {
-                                chckConsultant.Checked = true;
-                            }
-                            else
-                            {
-                                chckConsultant.Checked = false;
-                            }
+                            } 
                             break;
                         }
                     }
@@ -632,8 +590,6 @@ namespace SystemAdmin.AccessControl
                 if (chkSelect != null)
                 {
                     CheckBox chkIsChecked = (CheckBox)item.FindControl("chkIsCheckedUpdate");
-                    CheckBox chckDirect = (CheckBox)item.FindControl("chckDirect");
-                    CheckBox chckConsultant = (CheckBox)item.FindControl("chckConsultant");
                     HiddenField hdnMenuId = (HiddenField)item.FindControl("hidautoidUpdate");
                     xml += "<tr>";
                     xml += "<EmpId><![CDATA[" + hidEmpIdMain.Value + "]]></EmpId>";
@@ -644,8 +600,6 @@ namespace SystemAdmin.AccessControl
                     xml += "<GroupId><![CDATA[" + GroupId + "]]></GroupId>";
                     xml += "<MenuId><![CDATA[" + hdnMenuId.Value + "]]></MenuId>";
                     xml += "<MenuAccess><![CDATA[" + (chkIsChecked.Checked == true ? 1 : 0) + "]]></MenuAccess>";
-                    xml += "<Direct><![CDATA[" + (chckDirect.Checked == true ? 1 : 0) + "]]></Direct>";
-                    xml += "<Consultant><![CDATA[" + (chckConsultant.Checked == true ? 1 : 0) + "]]></Consultant>";
                     xml += "</tr>";
                 }
             }
@@ -675,113 +629,6 @@ namespace SystemAdmin.AccessControl
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
             }
-        }
-
-        protected void chkSelectAll_CheckedChanged(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item2 in LV_Access_Menu_Company_Update.Items)
-            {
-                CheckBox chkSelect = (CheckBox)item2.FindControl("chkIsCheckedUpdate");
-                CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
-                CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
-                if (chkSelectAll.Checked == true) 
-                {
-                    chkSelect.Checked = true;
-                }
-                else
-                {
-                    chkSelect.Checked = false;
-                    chckDirect.Checked = false;
-                    chckConsultant.Checked = false;
-                }
-            }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "openpp", "OpenPopUpAction();", true);
-        }
-
-        protected void chckAllDirect_CheckedChanged(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item2 in LV_Access_Menu_Company_Update.Items)
-            {
-                CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
-                if (chckAllDirect.Checked == true)
-                {
-                    chckDirect.Checked = true;
-                }
-                else
-                {
-                    chckDirect.Checked = false;
-                }
-            }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "openpp", "OpenPopUpAction();", true);
-        }
-
-        protected void chckAllConsultant_CheckedChanged(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item2 in LV_Access_Menu_Company_Update.Items)
-            {
-                CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
-                if (chckAllConsultant.Checked == true)
-                {
-                    chckConsultant.Checked = true;
-                }
-                else
-                {
-                    chckConsultant.Checked = false;
-                }
-            }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "openpp", "OpenPopUpAction();", true); 
-        }
-
-        protected void chkSelectAllAdd_CheckedChanged(object sender, EventArgs e)
-        { 
-            foreach (ListViewItem item2 in LV_Access_Menu_Company.Items)
-            {
-                CheckBox chkSelect = (CheckBox)item2.FindControl("chkIsChecked");
-                CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
-                CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
-                if (chkSelectAllAdd.Checked == true)
-                {
-                    chkSelect.Checked = true;
-                }
-                else
-                {
-                    chkSelect.Checked = false;
-                    chckDirect.Checked = false;
-                    chckConsultant.Checked = false;
-                }
-            } 
-        }
-
-        protected void chckDirectAllAdd_CheckedChanged(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item2 in LV_Access_Menu_Company.Items)
-            {
-                CheckBox chckDirect = (CheckBox)item2.FindControl("chckDirect");
-                if (chckDirectAllAdd.Checked == true)
-                {
-                    chckDirect.Checked = true;
-                }
-                else
-                {
-                    chckDirect.Checked = false;
-                }
-            }
-        }
-
-        protected void chckConsultantAllAdd_CheckedChanged(object sender, EventArgs e)
-        {
-            foreach (ListViewItem item2 in LV_Access_Menu_Company.Items)
-            {
-                CheckBox chckConsultant = (CheckBox)item2.FindControl("chckConsultant");
-                if (chckConsultantAllAdd.Checked == true)
-                {
-                    chckConsultant.Checked = true;
-                }
-                else
-                {
-                    chckConsultant.Checked = false;
-                }
-            }
-        }
+        } 
     }
 }
