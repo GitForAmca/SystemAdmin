@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SystemAdmin.App_Code
+namespace AMCAPropertiesAdmin.App_Code
 {
     public class LoginPL : UtilityPL
     {

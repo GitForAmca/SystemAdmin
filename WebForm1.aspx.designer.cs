@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SystemAdmin
+namespace AMCAPropertiesAdmin
 {
 
 

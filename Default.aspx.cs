@@ -8,8 +8,8 @@ using System.Web.UI.WebControls;
 using System.Net;
 using System.IO;
 using System.Net.NetworkInformation;
-using SystemAdmin.App_Code;
-namespace SystemAdmin
+using AMCAPropertiesAdmin.App_Code;
+namespace AMCAPropertiesAdmin
 {
     public partial class Default : System.Web.UI.Page
     {

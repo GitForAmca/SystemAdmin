@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SystemAdmin.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="AMCAPropertiesAdmin.Default" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -130,7 +130,7 @@
                         <asp:ScriptManager ID="scrptmngr" runat="server"></asp:ScriptManager> 
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <img src="images/jolahamainlogo.svg" class="img-responsive img-middle" width="250">
+                                <img src="../images/AmcaPropertiesMainLogo.svg" class="img-responsive img-middle" width="250">
                             </div>
                         </div>
                         <div class="row">
@@ -177,7 +177,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group text-right">
-                                        <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-theme form-control" Text="Login" CausesValidation="false" OnClick="btnLogin_Click" TabIndex="3" />
+                                        <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-theme form-control" style="background-color:#D7B46A;" Text="Login" CausesValidation="false" OnClick="btnLogin_Click" TabIndex="3" />
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +236,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group text-right">
-                                        <asp:Button ID="btnMainLogin" runat="server" CssClass="btn btn-theme form-control" Text="Verify" CausesValidation="false" OnClick="btnMainLogin_Click" />
+                                        <asp:Button ID="btnMainLogin" runat="server" CssClass="btn btn-theme form-control" style="background-color:#D7B46A;" Text="Verify" CausesValidation="false" OnClick="btnMainLogin_Click" />
                                     </div>
                                 </div>
                             </div>

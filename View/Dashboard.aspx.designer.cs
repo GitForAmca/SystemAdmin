@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SystemAdmin.View
+namespace AMCAPropertiesAdmin.View
 {
 
 

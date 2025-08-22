@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using SystemAdmin.App_Code;
+using AMCAPropertiesAdmin.App_Code;
 
 public class LoginDL
 {

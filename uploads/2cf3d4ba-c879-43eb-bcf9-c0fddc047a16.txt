@@ -1,0 +1,1317 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.Services;
+using System.Runtime.Remoting.Contexts;
+using System.Xml.XPath;
+using System.ComponentModel.DataAnnotations;
+
+public partial class AMCA_PotentialConsultant : System.Web.UI.Page
+{
+    void AccessControl()
+    {
+        if (Session["UserAutoId"] == null)
+        {
+            Response.Redirect("~/Default.aspx");
+        }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        AccessControl();
+        if (!Page.IsPostBack)
+        {
+            hidMenuId.Value = clsGeneral.GetPageAutoid(HttpContext.Current.Request.Url.AbsoluteUri);
+            BindTradeLicenseAuthority();
+            BindCountryList();
+            hidUserId.Value = Session["UserAutoId"].ToString();
+            GetBD();
+            GetCEC();
+            AboutAMCA();
+            DataType(ddlDataType);
+            getDataMasterCount();
+            displayOwnField();
+            BindFloor(ddlFloor);
+            BindArea();
+            BindCountry();
+            GetStatus();
+            GetTransferStatus();
+            RunTimeChangingDataType();
+            ClientCategory(ddlCategory);
+            CRMtCategory(ddlCRMCategory);
+            AboutAMCA(ddlConsultantSource);
+            GetCEM();
+            GetCSR(Convert.ToInt32(Session["UserAutoId"].ToString()), ddlCSR);
+            FillService(ddlservice);
+            divEntity.Visible = true;
+        }
+    }
+    void RunTimeChangingDataType()
+    {
+        if (ddlDataType.SelectedValue == "1")
+        {
+            divEntityFilter.Visible = false;
+            divIndividualFilter.Visible = true;
+            divAuthorityFilter.Visible = false;
+        }
+        else
+        {
+            divIndividualFilter.Visible = false;
+            divEntityFilter.Visible = true;
+            divAuthorityFilter.Visible = true;
+        }
+    }
+    void GetTransferStatus()
+    {
+        StatusRemarksPL PL = new StatusRemarksPL();
+        PL.OpCode = 8;
+        StatusRemarksDL.returnTable(PL);
+        ddlTransferStatus.DataSource = PL.dt;
+        ddlTransferStatus.DataValueField = "id";
+        ddlTransferStatus.DataTextField = "StatusName";
+        ddlTransferStatus.DataBind();
+        ddlTransferStatus.Items.Insert(0, new ListItem("Choose an item.", ""));
+    }
+    void ClientCategory(DropDownList ddl)
+    {
+        ClientMasterPL PL = new ClientMasterPL();
+        PL.OpCode = 72;
+        ClientMasterDL.returnTable(PL);
+        ddl.DataValueField = "Id";
+        ddl.DataTextField = "Name";
+        ddl.DataSource = PL.dt;
+        ddl.DataBind();
+        ddl.Items.Insert(0, new ListItem("Select Option", ""));         
+    }
+
+    void CRMtCategory(DropDownList ddl)
+    {
+        ClientMasterPL PL = new ClientMasterPL();
+        PL.OpCode = 72;
+        ClientMasterDL.returnTable(PL);
+        ddl.DataValueField = "Id";
+        ddl.DataTextField = "Name";
+        ddl.DataSource = PL.dt;
+        ddl.DataBind();
+        ddl.Items.Insert(0, new ListItem("Select Option", ""));
+
+        ddlCRMCategory.DataValueField = "Id";
+        ddlCRMCategory.DataTextField = "Name";
+        ddlCRMCategory.DataSource = PL.dt;
+        ddlCRMCategory.DataBind();
+        ddlCRMCategory.Items.Insert(0, new ListItem("Select Option", ""));
+
+    }
+    void GetStatus()
+    {
+        StatusRemarksPL PL = new StatusRemarksPL();
+        PL.OpCode = 2;
+        PL.AutoId = hidMenuId.Value;
+        StatusRemarksDL.returnTable(PL);
+        statusSearch.DataSource = PL.dt;
+        statusSearch.DataValueField = "AutoId";
+        statusSearch.DataTextField = "StatusName";
+        statusSearch.DataBind();
+        statusSearch.Items.Insert(0, new ListItem("Choose an item.", ""));
+    }
+    void BindCountry()
+    {
+        Employee_MasterPL PL = new Employee_MasterPL();
+        PL.Flag = 42;
+        Employee_MasterDL.returnTable(PL);
+        ////////////////
+        ddlNationalityEntity.DataSource = PL.dt;
+        ddlNationalityEntity.DataValueField = "id";
+        ddlNationalityEntity.DataTextField = "name";
+        ddlNationalityEntity.DataBind();
+        ddlNationalityEntity.Items.Insert(0, new ListItem("Choose an item.", "")); 
+
+        dlNationalityCC.DataSource = PL.dt;
+        dlNationalityCC.DataValueField = "id";
+        dlNationalityCC.DataTextField = "name";
+        dlNationalityCC.DataBind();
+        dlNationalityCC.Items.Insert(0, new ListItem("Choose an item.", ""));
+
+    }
+    void BindArea()
+    {
+        ClientMasterPL PL = new ClientMasterPL();
+        PL.OpCode = 161;
+        ClientMasterDL.returnTable(PL);
+        //////////
+        ddlArea.DataValueField = "AutoId";
+        ddlArea.DataTextField = "Area";
+        ddlArea.DataSource = PL.dt;
+        ddlArea.DataBind();
+        ddlArea.Items.Insert(0, new ListItem("Select Option", ""));
+    }
+    void BindTradeLicenseAuthority()
+    {
+        ClientMasterPL PL = new ClientMasterPL();
+        PL.OpCode = 48;
+        ClientMasterDL.returnTable(PL);
+        ddlAuthority.DataValueField = "name";
+        ddlAuthority.DataTextField = "name";
+        ddlAuthority.DataSource = PL.dt;
+        ddlAuthority.DataBind();
+        ddlAuthority.Items.Insert(0, new ListItem("Select Option", ""));
+        /////////////////
+        ddlAuthoritySearch.DataValueField = "name";
+        ddlAuthoritySearch.DataTextField = "name";
+        ddlAuthoritySearch.DataSource = PL.dt;
+        ddlAuthoritySearch.DataBind();
+        ddlAuthoritySearch.Items.Insert(0, new ListItem("Select Option", ""));
+    }
+    public void GetCSR(int UserAutoid, DropDownList ddl)
+    {
+        Employee_MasterPL PL = new Employee_MasterPL();
+        PL.Flag = "612_1";
+        PL.AutoId = UserAutoid;
+        Employee_MasterDL.returnTable(PL);
+        DataTable dt = PL.dt;
+        if (PL.dt.Rows.Count > 0)
+        {
+            //string CSR = PL.dt.Rows[0]["CSR"].ToString();
+            ddl.DataValueField = "Autoid";
+            ddl.DataTextField = "Name";
+            ddl.DataSource = dt;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select Option", ""));
+            ddl.SelectedIndex = 1; 
+        }
+        else
+        {
+            PL.Flag = 612;
+            PL.CreatedBy = UserAutoid;
+            Employee_MasterDL.returnTable(PL);
+            DataTable dt2 = PL.dt;
+            if (dt2.Rows.Count > 0)
+            {
+                ddl.DataValueField = "Autoid";
+                ddl.DataTextField = "Name";
+                ddl.DataSource = dt2;
+                ddl.DataBind();
+                ddl.Items.Insert(0, new ListItem("Select Option", ""));
+                ddl.SelectedIndex = 1;
+                /////////////// 
+            }
+        }
+    }
+
+    void FillService(DropDownList ddl)
+    {
+        AuditPL PL = new AuditPL();
+        PL.OpCode = 45;
+        AuditDL.returnTable(PL);
+        ddl.DataTextField = "name";
+        ddl.DataValueField = "id";
+        ddl.DataSource = PL.dt;
+        ddl.DataBind();
+        ddl.Items.Insert(0, new ListItem("Select Option", ""));
+    }
+    void BindFloor(DropDownList ddl)
+    {
+        for (int i = 1, j = 1; i <= 50; i++, j += 1)
+        {
+            string val = new clsGeneral().ToOrdinal(i) + " Floor";
+            string val1 = j.ToString();
+            ddl.Items.Add(new ListItem(val, val1));
+        }
+        ddl.Items.Insert(0, new ListItem("Ground Floor", "Ground Floor"));
+        ddl.Items.Insert(0, new ListItem("Others", "Others"));
+        ddl.Items.Insert(0, new ListItem("Select Floor", ""));
+    }
+    void displayOwnField()
+    {
+        if (Session["UserAutoId"].ToString() == "1")
+        {
+            divCEC.Visible = true;
+            divBD.Visible = true;
+            GetBD();
+            GetCEC();
+        }
+    }
+    void sourceControl()
+    {
+        divClientConsultant.Visible = false;
+    }
+    //protected void ddlClientSrce_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    if (ddlClientSource.SelectedValue == "AMCA Consultant")
+    //    {
+    //        GetConsultant();
+    //        divClientConsultant.Visible = true;
+    //    }
+    //    else
+    //    {
+    //        divClientConsultant.Visible = false;
+    //        ddlClientConsultant.SelectedIndex = -1;
+    //    }
+    //}
+    void GetConsultant()
+    {
+        ClientMasterPL PL = new ClientMasterPL();
+        PL.OpCode = 13;
+        PL.PageAccess = new clsGeneral().GetPageFullAccess(Convert.ToInt32(Session["UserAutoId"].ToString()));
+        PL.ConcernCoordinator = Session["UserAutoId"].ToString();
+        ClientMasterDL.returnTable(PL);
+        ddlClientConsultant.DataValueField = "Autoid";
+        ddlClientConsultant.DataTextField = "ConsultantName";
+        ddlClientConsultant.DataSource = PL.dt;
+        ddlClientConsultant.DataBind();
+        ddlClientConsultant.Items.Insert(0, new ListItem("Select Option", ""));
+
+    }
+    void AboutAMCA()
+    {
+        LeadMasterPL PL = new LeadMasterPL();
+        PL.Flag = "AAD";
+        LeadMasterDL.returnTable(PL);
+        ddlClientSource.DataValueField = "AboutAMCA";
+        ddlClientSource.DataTextField = "AboutAMCA";
+        ddlClientSource.DataSource = PL.dt;
+        ddlClientSource.DataBind();
+        ddlClientSource.Items.Insert(0, new ListItem("Select Option", ""));
+        if (Session["secDesignationID"].ToString() == "2" && Session["SubDepartment"].ToString() == "16")
+        {
+            ddlClientSource.Items.Remove(ddlClientSource.Items.FindByValue("AMCA Consultant"));
+        }
+    }
+    void getDataMasterCount()
+    {
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 23;
+        PL.CreatedBy = Session["UserAutoId"].ToString();
+        PL.PageAccess = new clsGeneral().GetPageFullAccess(Convert.ToInt32(Session["UserAutoId"].ToString()));
+        PL.BD = ddlBDsearch.SelectedValue;
+        PL.CEC = ddlcecSearch.SelectedValue;
+        PL.AUTHORITY = ddlAuthoritySearch.SelectedValue;
+        PL.NEXT_FOLLOW_UP_DATE = txtFollowDateSearchFrom.Text;
+        PL.UpdatedOn = txtUpdatedOnSearchFrom.Text;
+        PL.CreatedOn = txtCreatedOnSearchFrom.Text;
+        PL.STATUS = statusSearch.SelectedValue;
+        PL.DataType = Convert.ToInt32(ddlDataType.SelectedValue);
+        Data_MasterDL.returnTable(PL);
+        DataTable dt = PL.dt;
+        if (PL.dt.Rows.Count > 0)
+        {
+            lblCallBack.Text = PL.dt.Rows[0]["CallBack"].ToString();
+            lblEClient.Text = PL.dt.Rows[0]["ExistingClient"].ToString();
+            lblNotContr.Text = PL.dt.Rows[0]["NotContacted"].ToString();
+            lblEPS.Text = PL.dt.Rows[0]["EmailProfileSent"].ToString();
+            lblWPSent.Text = PL.dt.Rows[0]["WhatsAppProfileSent"].ToString();
+            lblNotValid.Text = PL.dt.Rows[0]["NotValid"].ToString();
+            lblNotReacha.Text = PL.dt.Rows[0]["NotReachable"].ToString();
+            lblStillinC.Text = PL.dt.Rows[0]["StillinContract"].ToString();
+            lblNotInteres.Text = PL.dt.Rows[0]["NotInterested"].ToString();
+            lblMeetingDone.Text = PL.dt.Rows[0]["MeetingDone"].ToString();
+            lblLead.Text = PL.dt.Rows[0]["Lead"].ToString();
+            lblPLead.Text = PL.dt.Rows[0]["PotentialLead"].ToString();
+        }
+    }
+    //Primary BD
+    public void GetBD()
+    {
+        Employee_MasterPL PL = new Employee_MasterPL();
+        PL.Flag = 151;
+        PL.AutoId = Convert.ToInt32(Session["UserAutoId"].ToString());
+        PL.DesignationSId = Convert.ToInt32(Session["secDesignationID"].ToString());
+        PL.SubDepartment = Session["SubDepartment"].ToString();
+        Employee_MasterDL.returnTable(PL);
+        ///////////////////////
+        ddlBD.DataValueField = "Autoid";
+        ddlBD.DataTextField = "Name";
+        ddlBD.DataSource = PL.dt;
+        ddlBD.DataBind();
+        ddlBD.Items.Insert(0, new ListItem("Select Option", ""));
+        ///////////////////////
+        ddlBDsearch.DataValueField = "Autoid";
+        ddlBDsearch.DataTextField = "Name";
+        ddlBDsearch.DataSource = PL.dt;
+        ddlBDsearch.DataBind();
+        ddlBDsearch.Items.Insert(0, new ListItem("Select Option", ""));
+        ///////////////////////
+        ddlSecondaryBD.DataValueField = "Autoid";
+        ddlSecondaryBD.DataTextField = "Name";
+        ddlSecondaryBD.DataSource = PL.dt;
+        ddlSecondaryBD.DataBind();
+        ddlSecondaryBD.Items.Insert(0, new ListItem("Select Option", ""));
+    }
+    //CEC
+    public void GetCEC()
+    {
+        Employee_MasterPL PL = new Employee_MasterPL();
+        PL.Flag = 152;
+        PL.AutoId = Convert.ToInt32(Session["UserAutoId"].ToString());
+        PL.DesignationSId = Convert.ToInt32(Session["secDesignationID"].ToString());
+        PL.SubDepartment = Session["SubDepartment"].ToString();
+        Employee_MasterDL.returnTable(PL);
+        ///////////////////////
+        ddlCEC.DataValueField = "Autoid";
+        ddlCEC.DataTextField = "Name";
+        ddlCEC.DataSource = PL.dt;
+        ddlCEC.DataBind();
+        ddlCEC.Items.Insert(0, new ListItem("Select Option", ""));
+        ///////////////////////
+        ddlcecSearch.DataValueField = "Autoid";
+        ddlcecSearch.DataTextField = "Name";
+        ddlcecSearch.DataSource = PL.dt;
+        ddlcecSearch.DataBind();
+        ddlcecSearch.Items.Insert(0, new ListItem("Select Option", ""));
+    }
+    void AboutAMCA(DropDownList ddl)
+    {
+        LeadMasterPL PL = new LeadMasterPL();
+        PL.Flag = "AAM";
+        LeadMasterDL.returnTable(PL);
+        ddl.DataValueField = "AboutAMCA";
+        ddl.DataTextField = "AboutAMCA";
+        ddl.DataSource = PL.dt;
+        ddl.DataBind();
+        ddl.Items.Insert(0, new ListItem("Select Option", ""));
+    }
+    public void GetCEM()
+    {
+        Employee_MasterPL PL = new Employee_MasterPL();
+        PL.Flag = 154;
+        PL.AutoId = Convert.ToInt32(Session["UserAutoId"].ToString());
+        Employee_MasterDL.returnTable(PL);
+        DataTable dt = PL.dt;
+        if (PL.dt.Rows.Count > 0)
+        {
+            string cem = PL.dt.Rows[0]["ClientEngagementManager"].ToString();
+            if (cem != "")
+            {
+                PL.Flag = 155;
+                PL.CreatedBy = Session["UserAutoId"].ToString();
+                PL.AutoId = Convert.ToInt32(cem);
+                Employee_MasterDL.returnTable(PL);
+                DataTable dt1 = PL.dt;
+                if (dt1.Rows.Count > 0)
+                {
+                    ddlClientEngagementManager.DataValueField = "Autoid";
+                    ddlClientEngagementManager.DataTextField = "Name";
+                    ddlClientEngagementManager.DataSource = dt1;
+                    ddlClientEngagementManager.DataBind();
+                    ddlClientEngagementManager.Items.Insert(0, new ListItem("Select Option", "")); 
+                }
+            }
+            else
+            {
+                PL.Flag = 155;
+                PL.CreatedBy = Session["UserAutoId"].ToString();
+                Employee_MasterDL.returnTable(PL);
+                DataTable dt2 = PL.dt;
+                if (dt2.Rows.Count > 0)
+                {
+                    ddlClientEngagementManager.DataValueField = "Autoid";
+                    ddlClientEngagementManager.DataTextField = "Name";
+                    ddlClientEngagementManager.DataSource = dt2;
+                    ddlClientEngagementManager.DataBind();
+                    ddlClientEngagementManager.Items.Insert(0, new ListItem("Select Option", "")); 
+                }
+            }
+        }
+    }
+    void BindCountryList()
+    {
+        LeadMasterPL PL = new LeadMasterPL();
+        PL.Flag = "CO";
+        LeadMasterDL.returnTable(PL);
+        ddlNationalityCode.DataSource = PL.dt;
+        ddlNationalityCode.DataValueField = "id";
+        ddlNationalityCode.DataTextField = "name";
+        ddlNationalityCode.DataBind();
+        ddlNationalityCode.Items.Insert(0, new ListItem("+971", "+971"));
+        /////////////// 
+        ddlNationalityCode2.DataSource = PL.dt;
+        ddlNationalityCode2.DataValueField = "id";
+        ddlNationalityCode2.DataTextField = "name";
+        ddlNationalityCode2.DataBind();
+        ddlNationalityCode2.Items.Insert(0, new ListItem("+971", "+971"));
+    }
+    void DataType(DropDownList ddl)
+    {
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 56;
+        Data_MasterDL.returnTable(PL);
+        ddl.DataSource = PL.dt;
+        ddl.DataValueField = "Autoid";
+        ddl.DataTextField = "Name";
+        ddl.DataBind();
+        ddl.SelectedValue = "2";
+    }
+    protected void lnkBtnAddNew_Click(object sender, EventArgs e)
+    {
+        divView.Visible = false;
+        divRemarks.Visible = true;
+        divNextFollowup.Visible = true;
+        divAddEdit.Visible = true;
+        DataTypeFiledHideShow();
+        FillPopulateCalendar();
+        DateTime now = DateTime.Now;
+        string monthyear = now.ToString("MMM yyyy"); 
+        gettotalCountDatatypewise();
+        sourceControl();
+    }
+    void gettotalCountDatatypewise()
+    {
+        DateTime myDateTime = Convert.ToDateTime(DateTime.Now);
+        int month = Convert.ToInt32(myDateTime.Month.ToString());
+        int year = Convert.ToInt32(myDateTime.Year.ToString());
+        int day = Convert.ToInt32(myDateTime.Day.ToString());
+        int datatype = Convert.ToInt32(ddlDataType.SelectedValue);
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 35;
+        PL.CreatedBy = Session["UserAutoId"].ToString();
+        PL.Year = year;
+        PL.Month = month;
+        PL.DataType = datatype;
+        Data_MasterDL.returnTable(PL);
+        DataTable dt = PL.dt; 
+    }
+    void FillPopulateCalendar()
+    {
+        DateTime myDateTime = Convert.ToDateTime(DateTime.Now);
+        int month = Convert.ToInt32(myDateTime.Month.ToString());
+        int year = Convert.ToInt32(myDateTime.Year.ToString());
+        int day = Convert.ToInt32(myDateTime.Day.ToString());
+        int datatype = Convert.ToInt32(ddlDataType.SelectedValue); 
+    }
+    public string PopulateCalendar(string userid, int month, int year, int datatype)
+    {
+        DateTime myDateTime = Convert.ToDateTime(DateTime.Now);
+        string tday = myDateTime.Day.ToString().PadLeft(2, '0');
+        string calendar = "";
+        string todaydate = "";
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 36;
+        PL.CreatedBy = userid;
+        PL.Year = year;
+        PL.Month = month;
+        PL.DataType = datatype;
+        Data_MasterDL.returnTable(PL);
+        DataTable dt = PL.dt;
+        if (PL.dt.Rows.Count > 0)
+        {
+            calendar += "<ul class='dataCalendar'>";
+            for (int i = 0; i < 7; i++)
+            {
+                calendar += "<li style='background: #CAA669; color: #fff'>" + PL.dt.Rows[i]["WeekDays"].ToString() + "</li>";
+            }
+            foreach (DataRow Pdr in PL.dt.Rows)
+            {
+                if (Pdr["TodayDay"].ToString() == tday)
+                {
+                    todaydate = "todayFill";
+                }
+                calendar += "<li><span class='countdata " + todaydate + "'>" + Pdr["TodayDay"].ToString() + "</span><span class='countdatadata'>" + Pdr["TotalEntry"].ToString() + "</span></li>";
+                todaydate = "";
+            }
+            calendar += "</ul>";
+        }
+        return calendar;
+    }
+    protected void btnadd_Click(object sender, EventArgs e)
+    {
+        if (hdfselectedCheck.Value != "")
+        {
+            updateData();
+            divView.Visible = true;
+            divAddEdit.Visible = false;
+        }
+        else
+        {
+            SaveData();
+        }
+        FillPopulateCalendar();
+        gettotalCountDatatypewise();
+    }
+    void SaveData()
+    {
+        string BDSelected = "";
+        string CECSelected = "";
+        if ((Session["secDesignationID"].ToString() == "2" && Session["SubDepartment"].ToString() == "21") || (Session["secDesignationID"].ToString() == "24" && Session["SubDepartment"].ToString() == "32"))
+        {
+            CECSelected = Session["UserAutoId"].ToString();
+        }
+        else if ((Session["secDesignationID"].ToString() == "2" && Session["SubDepartment"].ToString() == "2") || (Session["secDesignationID"].ToString() == "2" && Session["SubDepartment"].ToString() == "16") || (Session["secDesignationID"].ToString() == "2" && Session["SubDepartment"].ToString() == "80") || (Session["secDesignationID"].ToString() == "2" && Session["SubDepartment"].ToString() == "81"))
+        {
+            BDSelected = Session["UserAutoId"].ToString();
+        }
+        else
+        {
+            CECSelected = ddlCEC.SelectedValue;
+            BDSelected = ddlBD.SelectedValue;
+        }
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.COMPANY_NAME = txtCompanyName.Text; 
+        PL.CONTACT_PERSON = txtContactPerson.Text;
+        PL.Designation = txtDesignationPerson.Text;
+        PL.MOBILE_NO = txtMobileNo.Text;
+        PL.EMAILID = txtEmailId.Text;
+        PL.Source = ddlClientSource.SelectedValue;
+        PL.UnitNo = txtUnitNo.Text;
+        PL.Floor = ddlFloor.SelectedValue;
+        PL.Tower = txtTower.Text;
+        PL.Area = ddlArea.SelectedValue;
+        PL.Emirates = ddlEmirates.SelectedValue;
+        PL.Nationality = dlNationalityCC.SelectedValue;
+        PL.Country = ddlNationalityEntity.SelectedValue;
+        PL.NameTitle = ddlNameTitle.SelectedValue;
+        PL.CountryCode = ddlNationalityCode.SelectedValue; 
+        PL.AUTHORITY = ddlAuthority.SelectedValue;
+        PL.CreatedBy = Session["UserAutoId"].ToString();
+        PL.BD = BDSelected;
+        PL.CEC = CECSelected;
+        PL.DataType = Convert.ToInt32(ddlDataType.SelectedValue);
+        PL.MAutoid = ddlClientConsultant.SelectedValue;
+        PL.SecondaryBD = ddlSecondaryBD.SelectedValue;
+        PL.Category = ddlCategory.SelectedValue;
+        PL.CRMCategory = ddlCRMCategory.SelectedValue;
+        PL.SourceOfConsultant = ddlConsultantSource.SelectedValue;
+        PL.TRNno = txtTRNNo.Text;
+        PL.CEM =  ddlClientEngagementManager.SelectedValue;
+        PL.CSR = ddlCSR.SelectedValue;
+        //PL.OpCode = 12;
+        PL.OpCode = 58;
+        Data_MasterDL.returnTable(PL);
+        if (!PL.isException)
+        { 
+            PL.XML2 = hidxml1.Value;
+            PL.CreatedBy = Session["UserAutoId"].ToString();
+            PL.OpCode = 62;
+            Data_MasterDL.returnTable(PL);
+            if (!PL.isException)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowDone('Record(s) Updated successfully');", true);
+            } 
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowError('" + new clsGeneral().ReplaceSingleQuote(PL.exceptionMessage) + "');", true);
+        }
+    }
+    void ClearData()
+    {
+        ddlBD.SelectedIndex = 0;
+        ddlCEC.SelectedIndex = 0;
+        txtCompanyName.Text = ""; 
+        txtContactPerson.Text = "";
+        ddlNameTitle.SelectedIndex = 0;
+        txtDesignationPerson.Text = "";
+        txtMobileNo.Text = "";
+        txtEmailId.Text = "";
+        txtRemarks.Text = "";
+        txtUnitNo.Text = "";
+        ddlFloor.SelectedIndex = 0;
+        txtTower.Text = "";
+        ddlArea.SelectedIndex = 0;
+        ddlNationalityEntity.SelectedIndex = 0;
+        //ddlClientConsultant.SelectedIndex = 0;
+    }
+    protected void btnReset_Click(object sender, EventArgs e)
+    {
+        ddlBDsearch.SelectedIndex = 0;
+        ddlAuthoritySearch.SelectedIndex = 0;
+        statusSearch.SelectedIndex = 0;
+        txtFollowDateSearchFrom.Text = "";
+        txtFollowDateSearchTo.Text = "";
+        txtUpdatedOnSearchFrom.Text = "";
+        txtUpdatedOnSearchTo.Text = "";
+        txtCreatedOnSearchFrom.Text = "";
+        txtCreatedOnSearchTo.Text = "";
+        txtCompanySearch.Text = "";
+        txtClientId.Text = "";
+        hidFilterClientId.Value = "";
+        hidFilterIndividual.Value = "";
+    }
+    void DataTypeFiledHideShow()
+    {
+        if (ddlDataType.SelectedValue == "1")
+        {
+            divAuthority.Visible = false;  
+        }
+        else
+        {
+            divAuthority.Visible = true;  
+        }
+    }
+    protected void ddlDataType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        getDataMasterCount();
+        FillPopulateCalendar();
+        gettotalCountDatatypewise();
+        DataTypeFiledHideShow();
+        sourceControl();
+    }
+    protected void btnGet_Click(object sender, EventArgs e)
+    {
+        getDataMasterCount();
+    }
+    [WebMethod]
+    public static string update_LeadMaster(int hidautoid, string Status, string Remarks, string FOLLOW_UP_DATE_search, string MenuId)
+    {
+        string msg = "";
+        if (Remarks != "")
+        {
+            StatusRemarksPL PL = new StatusRemarksPL();
+            PL.OpCode = 4;
+            PL.AutoId = hidautoid;
+            PL.Message = Remarks;
+            PL.Status = Status;
+            PL.MenuId = MenuId;
+            PL.Date = FOLLOW_UP_DATE_search;
+            PL.CreatedBy = HttpContext.Current.Session["UserAutoId"].ToString();
+            StatusRemarksDL.returnTable(PL);
+            if (!PL.isException)
+            {
+                Data_MasterPL PL1 = new Data_MasterPL();
+                PL1.AutoId = hidautoid;
+                PL1.CreatedBy = HttpContext.Current.Session["UserAutoId"].ToString();
+                PL1.OpCode = 45;
+                Data_MasterDL.returnTable(PL1);
+            }
+        }
+        return msg;
+    }
+
+    [WebMethod]
+    public static string Delete_LeadMaster(int hidautoid)
+    {
+        string msg = "";
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.AutoId = hidautoid;
+        PL.CreatedBy = HttpContext.Current.Session["UserAutoId"].ToString();
+        PL.OpCode = 16;
+        Data_MasterDL.returnTable(PL);
+        if (!PL.isException)
+        {
+            msg = "Data Delete successfully";
+        }
+        else
+        {
+            msg = new clsGeneral().ReplaceSingleQuote(PL.exceptionMessage);
+        }
+        return msg;
+    }
+    [WebMethod]
+    public static string Edit_Details(int Autoid)
+    {
+        string data = "";
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 26;
+        PL.AutoId = Autoid;
+        Data_MasterDL.returnTable(PL);
+        if (PL.dt.Rows.Count > 0)
+        {
+            data = new clsGeneral().JSONfromDT(PL.dt);
+        }
+        return data;
+    }
+
+    [WebMethod]
+    public static string SendOnWhatsapp(int hidautoid, string MenuId)
+    {
+        string msg = "";
+        string body = "";
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 26;
+        PL.AutoId = hidautoid;
+        Data_MasterDL.returnTable(PL);
+        DataTable dt = PL.dt;
+        var whatsappno = PL.dt.Rows[0]["CountryCode"].ToString() + PL.dt.Rows[0]["MOBILE_NO"].ToString();
+        var allDetails = "";
+        if (PL.dt.Rows.Count > 0)
+        {
+            if (PL.dt.Rows[0]["ConcernPerson"].ToString() != "" && PL.dt.Rows[0]["MOBILE_NO"].ToString() != "")
+            {
+                if (PL.dt.Rows[0]["IsSentWhatsapp"].ToString() == "False")
+                {
+                    PL.OpCode = 27;
+                    PL.AutoId = hidautoid;
+                    PL.CreatedBy = HttpContext.Current.Session["UserAutoId"].ToString();
+                    Data_MasterDL.returnTable(PL);
+                    if (!PL.isException)
+                    {
+                        DataTable dt1 = new clsMail().CompnayProfileSentData(hidautoid, 26);
+                        var title = "*Dear " + dt1.Rows[0]["NameTitle"] + " " + dt1.Rows[0]["ConcernPerson"] + ",*" + "%0a" + "%0a";
+                        var gamca = "Greetings from AMCA!" + "%0a" + "%0a";
+                        var content1 = "AMCA is a leading auditing firm in UAE with a decade-long experience. We are registered with the Ministry of Economy to operate as a licensed auditor. We are listed with all major free zones including DMCC, JAFZA, DAFZA, DWC, DIFC, DSO, Abu Dhabi, Sharjah, RAK, Fujairah, Ajman and Umm al-Quwain." + "%0a" + "%0a";
+                        var content2 = "Our range of services include." + "%0a";
+                        var content3 = "*Audit and Assurance | Accounting and Bookkeeping | Tax Consulting | Regulatory Compliance and Reporting | Advisory Services | Business Set-up | Liquidation/De-registration*" + "%0a" + "%0a";
+                        var content4 = "Kindly find the below link to view our company profile with more information on who we are and what we do" + "%0a";
+                        var companyprofile = "https://amca.ae/CompanyProfile.pdf" + "%0a" + "%0a";
+                        var BDName = dt1.Rows[0]["SenderName"] + "%0a";
+                        var Designation = dt1.Rows[0]["SenderDesignation"] + "%0a";
+                        var mobileNo = HttpUtility.UrlEncode(dt1.Rows[0]["CountryISDCode"].ToString()) + " " + dt1.Rows[0]["SenderContactNo"] + "%0a";
+                        var emailId = dt1.Rows[0]["SenderEmail"] + "%0a";
+                        var website = "www.amcaauditing.com" + "%0a" + "%0a";
+                        var content8 = "If you are not the intended recipient for this message, kindly forward it to concerned department.";
+
+                        allDetails = title + gamca + content1 + content2 + content3 + content4 + companyprofile + BDName + Designation + mobileNo + emailId + website + content8;
+
+                        PL.OpCode = 19;
+                        PL.AutoId = hidautoid;
+                        Data_MasterDL.returnTable(PL);
+                        if (!PL.isException)
+                        {
+                            StatusRemarksPL PL1 = new StatusRemarksPL();
+                            PL1.OpCode = 3;
+                            PL1.AutoId = hidautoid;
+                            PL1.Status = "7";
+                            PL1.MenuId = MenuId;
+                            PL1.CreatedBy = HttpContext.Current.Session["UserAutoId"].ToString();
+                            StatusRemarksDL.returnTable(PL1);
+                            if (!PL1.isException)
+                            {
+                                return "https://wa.me/" + whatsappno + "?text=" + allDetails + "";
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    return msg = "error";
+                }
+            }
+            else
+            {
+                return msg = "warning";
+            }
+        }
+        return msg;
+    }
+    [WebMethod]
+    public static string View_Comments(int Autoid)
+    {
+        string data = "";
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 17;
+        PL.AutoId = Autoid;
+        Data_MasterDL.returnTable(PL);
+        if (PL.dt.Rows.Count > 0)
+        {
+            data = new clsGeneral().JSONfromDT(PL.dt);
+        }
+        return data;
+    }
+
+    [WebMethod]
+    public static string View_Comments_DataMaster(int Autoid)
+    {
+        string data = "";
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 10;
+        PL.AutoId = Autoid;
+        Data_MasterDL.returnTable(PL);
+        if (PL.dt.Rows.Count > 0)
+        {
+            data = new clsGeneral().JSONfromDT(PL.dt);
+        }
+        return data;
+    }
+    [WebMethod]
+    public static string Profile_Sent(int hidautoid, string MenuId)
+    {
+        string msg = "SentSuccess";
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 20;
+        PL.AutoId = hidautoid;
+        Data_MasterDL.returnTable(PL);
+        DataTable dt = PL.dt;
+        if (PL.dt.Rows.Count > 0)
+        {
+            if (PL.dt.Rows[0]["CONTACT_PERSON"].ToString() != "" && PL.dt.Rows[0]["EMAILID"].ToString() != "")
+            {
+                if (PL.dt.Rows[0]["IsSentprofile"].ToString() == "False")
+                {
+                    msg = new clsMail().sendCompanyprofile(hidautoid, 27, 21);
+                    if (msg == "Success")
+                    {
+                        StatusRemarksPL PL1 = new StatusRemarksPL();
+                        PL1.OpCode = 3;
+                        PL1.AutoId = hidautoid;
+                        PL1.Status = "6";
+                        PL1.MenuId = MenuId;
+                        PL1.CreatedBy = HttpContext.Current.Session["UserAutoId"].ToString();
+                        StatusRemarksDL.returnTable(PL1);
+                        if (!PL1.isException)
+                        {
+                            return msg = "SentSuccess";
+                        }
+                    }
+                    else
+                    {
+                        return msg = "errormail";
+                    }
+                }
+                else
+                {
+                    return msg = "error";
+                }
+            }
+            else
+            {
+                return msg = "warning";
+            }
+        }
+        return msg;
+    }
+
+
+    [WebMethod]
+    public static string CheckName(string text, string oldname)
+    {
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 42;
+        PL.COMPANY_NAME = text;
+        PL.NameTitle = oldname;
+        Data_MasterDL.returnTable(PL);
+        return PL.dt.Rows[0]["count"].ToString();
+    }
+    [WebMethod]
+    public static string CheckIndividualNameApi(string text, string oldname)
+    {
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 43;
+        PL.COMPANY_NAME = text;
+        PL.NameTitle = oldname;
+        Data_MasterDL.returnTable(PL);
+        return PL.dt.Rows[0]["count"].ToString();
+    }
+    [WebMethod]
+    public static string update_DataType(string Ids, int DataType)
+    {
+        string msg = "";
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.MAutoid = Ids;
+        PL.DataType = DataType;
+        PL.OpCode = 39;
+        Data_MasterDL.returnTable(PL);
+        if (!PL.isException)
+        {
+            msg = "Update Successfully";
+        }
+        else
+        {
+            msg = new clsGeneral().ReplaceSingleQuote(PL.exceptionMessage);
+        }
+        return msg;
+    }
+    [WebMethod]
+    public static string get_TargetAchieved(string User, int CMonth, int CYear, int CDataType)
+    {
+        string data = "";
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.CreatedBy = User;
+        PL.DataType = CDataType;
+        PL.Month = CMonth;
+        PL.Year = CYear;
+        PL.OpCode = 40;
+        Data_MasterDL.returnTable(PL);
+        if (PL.dt.Rows.Count > 0)
+        {
+            data = new clsGeneral().JSONfromDT(PL.dt);
+        }
+        return data;
+    }
+    protected void btnEntityUpdate_Click(object sender, EventArgs e)
+    {
+        updateData();
+    }
+    void updateData()
+    {
+        var xml = "<tbl>";
+        xml += "<tr>";
+
+        xml += "<AUTHORITY><![CDATA[" + ddlAuthority.SelectedValue + "]]></AUTHORITY>";
+        xml += "<Client_Source><![CDATA[" + ddlClientSource.SelectedValue + "]]></Client_Source>";
+        xml += "<COMPANY_NAME><![CDATA[" + txtCompanyName.Text.Trim() + "]]></COMPANY_NAME>";
+        //xml += "<CountryCodeLandline><![CDATA[" + ddlNationalityCodeLandline.SelectedValue + "]]></CountryCodeLandline>";
+        //xml += "<LANDLINE><![CDATA[" + txtLandline.Text.Trim() + "]]></LANDLINE>";
+        xml += "<NameTitle><![CDATA[" + ddlNameTitle.SelectedValue + "]]></NameTitle>";
+        xml += "<CONTACT_PERSON><![CDATA[" + txtContactPerson.Text.Trim() + "]]></CONTACT_PERSON>";
+        xml += "<Designation><![CDATA[" + txtDesignationPerson.Text.Trim() + "]]></Designation>";
+        xml += "<CountryCode><![CDATA[" + ddlNationalityCode.SelectedValue + "]]></CountryCode>";
+        xml += "<MOBILE_NO><![CDATA[" + txtMobileNo.Text.Trim() + "]]></MOBILE_NO>";
+        xml += "<EMAILID><![CDATA[" + txtEmailId.Text.Trim() + "]]></EMAILID>";
+        xml += "<UnitNo><![CDATA[" + txtUnitNo.Text.Trim() + "]]></UnitNo>";
+        xml += "<Floor><![CDATA[" + ddlFloor.SelectedValue + "]]></Floor>";
+        xml += "<Tower><![CDATA[" + txtTower.Text.Trim() + "]]></Tower>";
+        xml += "<Area><![CDATA[" + ddlArea.SelectedValue + "]]></Area>";
+        xml += "<Emirates><![CDATA[" + ddlEmirates.SelectedValue + "]]></Emirates>"; 
+        xml += "<Category><![CDATA[" + ddlCategory.SelectedValue + "]]></Category>";
+        xml += "<SourceofCons><![CDATA[" + ddlConsultantSource.SelectedValue + "]]></SourceofCons>";
+        xml += "<TRN><![CDATA[" + txtTRNNo.Text.Trim() + "]]></TRN>";
+        xml += "<UnitNo><![CDATA[" + txtUnitNo.Text.Trim() + "]]></UnitNo>";
+        xml += "<Tower><![CDATA[" + txtTower.Text.Trim() + "]]></Tower>";
+        xml += "<FloorNo><![CDATA[" + ddlFloor.SelectedValue + "]]></FloorNo>";
+        xml += "<Area><![CDATA[" + ddlArea.SelectedValue + "]]></Area>";
+        xml += "<Emirates><![CDATA[" + ddlEmirates.SelectedValue + "]]></Emirates>";
+        xml += "<Country><![CDATA[" + ddlNationalityEntity.SelectedValue + "]]></Country>";
+        xml += "<Nationality><![CDATA[" + dlNationalityCC.SelectedValue + "]]></Nationality>";
+        xml += "<CRMCategory><![CDATA[" + ddlCRMCategory.SelectedValue + "]]></CRMCategory>";
+        xml += "<BD><![CDATA[" + ddlBD.SelectedValue + "]]></BD>";
+        xml += "<SecondaryBD><![CDATA[" + ddlSecondaryBD.SelectedValue + "]]></SecondaryBD>";
+        xml += "<CECcons><![CDATA[" + ddlCEC.SelectedValue + "]]></CECcons>";
+        xml += "<ConsultantId><![CDATA[" + ddlClientConsultant.SelectedValue + "]]></ConsultantId>";
+        xml += "<CEM><![CDATA[" + ddlClientEngagementManager.SelectedValue + "]]></CEM>";
+        xml += "<Nationality><![CDATA[" + dlNationalityCC.SelectedValue + "]]></Nationality>";
+        xml += "<CSR><![CDATA[" + ddlCSR.SelectedValue + "]]></CSR>"; 
+
+        xml += "</tr>";
+        xml += "</tbl>";
+
+        Data_MasterPL PL = new Data_MasterPL();
+        //PL.OpCode = 41;
+        PL.OpCode = 59;
+        PL.AutoId = Convert.ToInt32(hdfselectedCheck.Value);
+        PL.XML1 = xml; 
+        Data_MasterDL.returnTable(PL);
+        if (!PL.isException)
+        { 
+            PL.AutoId = int.Parse(hdfselectedCheck.Value);
+            PL.XML2 = hidxml1.Value;
+            PL.CreatedBy = Session["UserAutoId"].ToString();
+            PL.OpCode = 62;
+            Data_MasterDL.returnTable(PL);
+            if(!PL.isException)
+            {
+                  ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowDone('Record(s) Updated successfully');", true);
+            }
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowError('" + new clsGeneral().ReplaceSingleQuote(PL.exceptionMessage) + "');", true);
+        }
+    }
+
+
+    protected void btnbackToHomeEntity_Click(object sender, EventArgs e)
+    {
+        divView.Visible = true;
+        divAddEdit.Visible = false;
+    } 
+    void clearEditField()
+    {
+        ddlTransferStatus.SelectedIndex = -1;
+        ddlContactPersonTitleEntityEdit.SelectedIndex = -1;
+        txtContactPersonEntityEdit.Text = string.Empty;
+        txtDesignationEntityEdit.Text = string.Empty;
+        txtEmailEntityEdit.Text = string.Empty;
+    }
+    protected void btntransfer_Click(object sender, EventArgs e)
+    {
+        var xml2 = "<tbl>";
+        xml2 += "<tr>";
+
+        xml2 += "<NameTitle><![CDATA[" + ddlContactPersonTitleEntityEdit.SelectedValue + "]]></NameTitle>";
+        xml2 += "<CONTACT_PERSON><![CDATA[" + txtContactPersonEntityEdit.Text.Trim() + "]]></CONTACT_PERSON>";
+        xml2 += "<Designation><![CDATA[" + txtDesignationEntityEdit.Text.Trim() + "]]></Designation>";
+        xml2 += "<EMAILID><![CDATA[" + txtEmailEntityEdit.Text.Trim() + "]]></EMAILID>";
+
+        xml2 += "</tr>";
+        xml2 += "</tbl>";
+
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.OpCode = 14;
+        PL.AutoId = Convert.ToInt32(hdAutoidEdit.Value);
+        PL.STATUS = ddlTransferStatus.SelectedValue;
+        PL.XML1 = xml2;
+        PL.CreatedBy = Session["UserAutoId"].ToString();
+        Data_MasterDL.returnTable(PL);
+        if (!PL.isException)
+        {
+            new clsGeneral().insertAutomaticStatus(Convert.ToInt32(hdAutoidEdit.Value), Convert.ToInt32(ddlTransferStatus.SelectedValue), Convert.ToInt32(hidMenuId.Value));
+            clearEditField();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowDone('Record(s) Transfer successfully');", true);
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowError('" + new clsGeneral().ReplaceSingleQuote(PL.exceptionMessage) + "');", true);
+        }
+    }
+
+    protected void lnkBtnEdit_Click(object sender, EventArgs e)
+    {
+        divView.Visible = false;
+        divAddEdit.Visible = true;
+        divRemarks.Visible = false;
+        divNextFollowup.Visible = false;
+        FillPopulateCalendar();
+        DateTime now = DateTime.Now;
+        string monthyear = now.ToString("MMM yyyy"); 
+        gettotalCountDatatypewise();
+        DataTypeFiledHideShow();
+        /////////////////////////////
+        Data_MasterPL PL = new Data_MasterPL();
+        //PL.OpCode = 26;
+        PL.OpCode = 57;
+        PL.AutoId = Convert.ToInt32(hdfselectedCheck.Value);
+        Data_MasterDL.returnTable(PL);
+        if (PL.dt.Rows.Count > 0)
+        {
+            ddlBD.SelectedIndex = ddlBD.Items.IndexOf(ddlBD.Items.FindByValue(PL.dt.Rows[0]["BD"].ToString()));
+            ddlCEC.SelectedIndex = ddlCEC.Items.IndexOf(ddlCEC.Items.FindByValue(PL.dt.Rows[0]["CEC"].ToString()));
+            ddlAuthority.SelectedIndex = ddlAuthority.Items.IndexOf(ddlAuthority.Items.FindByValue(PL.dt.Rows[0]["AUTHORITY"].ToString()));
+            ddlClientSource.SelectedIndex = ddlClientSource.Items.IndexOf(ddlClientSource.Items.FindByValue(PL.dt.Rows[0]["Client_Source"].ToString()));
+            txtCompanyName.Text = PL.dt.Rows[0]["COMPANY_NAME"].ToString();
+            //ddlNationalityCodeLandline.SelectedIndex = ddlNationalityCodeLandline.Items.IndexOf(ddlNationalityCodeLandline.Items.FindByValue(PL.dt.Rows[0]["CountryCodeLandline"].ToString()));
+            //txtLandline.Text = PL.dt.Rows[0]["LANDLINE"].ToString();
+            ddlNameTitle.SelectedIndex = ddlNameTitle.Items.IndexOf(ddlNameTitle.Items.FindByValue(PL.dt.Rows[0]["NameTitle"].ToString()));
+            txtContactPerson.Text = PL.dt.Rows[0]["ConcernPerson"].ToString();
+            txtDesignationPerson.Text = PL.dt.Rows[0]["Designation"].ToString();
+            ddlNationalityCode.SelectedIndex = ddlNationalityCode.Items.IndexOf(ddlNationalityCode.Items.FindByValue(PL.dt.Rows[0]["CountryCode"].ToString()));
+            txtMobileNo.Text = PL.dt.Rows[0]["MOBILE_NO"].ToString();
+            txtEmailId.Text = PL.dt.Rows[0]["EmailId"].ToString();
+            txtUnitNo.Text = PL.dt.Rows[0]["UnitNo"].ToString();
+            ddlFloor.SelectedIndex = ddlFloor.Items.IndexOf(ddlFloor.Items.FindByValue(PL.dt.Rows[0]["Floor"].ToString()));
+            txtTower.Text = PL.dt.Rows[0]["Tower"].ToString();
+            ddlArea.SelectedIndex = ddlArea.Items.IndexOf(ddlArea.Items.FindByValue(PL.dt.Rows[0]["Area"].ToString()));
+            ddlEmirates.SelectedIndex = ddlEmirates.Items.IndexOf(ddlEmirates.Items.FindByValue(PL.dt.Rows[0]["Emirates"].ToString()));
+            //ddlNationalityEntity.SelectedIndex = ddlNationalityEntity.Items.IndexOf(ddlNationalityEntity.Items.FindByValue(PL.dt.Rows[0]["Nationality"].ToString()));
+            ddlCategory.SelectedValue = PL.dt.Rows[0]["Category"].ToString();
+            ddlConsultantSource.SelectedValue = PL.dt.Rows[0]["SourceofCons"].ToString();
+            txtTRNNo.Text = PL.dt.Rows[0]["TRNNo"].ToString();
+            ddlNationalityEntity.SelectedValue = PL.dt.Rows[0]["Country"].ToString();
+            dlNationalityCC.SelectedValue = PL.dt.Rows[0]["Nationality"].ToString();
+            ddlCRMCategory.SelectedValue = PL.dt.Rows[0]["CRMCategory"].ToString();
+            ddlClientEngagementManager.SelectedValue = PL.dt.Rows[0]["CEM"].ToString();
+            //ddlCSR.SelectedValue = PL.dt.Rows[0]["CSR"].ToString();
+            ddlSecondaryBD.SelectedValue = PL.dt.Rows[0]["SecondaryBD"].ToString();
+            ddlCEC.SelectedIndex = ddlCEC.Items.IndexOf(ddlCEC.Items.FindByValue(PL.dt.Rows[0]["CEC"].ToString()));
+            BindAssignmentListview(Convert.ToInt32(PL.dt.Rows[0]["Autoid"]));
+            btnadd.Text = "Update";
+            if (PL.dt.Rows[0]["Client_Source"].ToString() == "AMCA Consultant")
+            {
+                GetConsultant();
+                ddlClientConsultant.SelectedIndex = ddlClientConsultant.Items.IndexOf(ddlClientConsultant.Items.FindByValue(PL.dt.Rows[0]["ConsultantId"].ToString()));
+                divClientConsultant.Visible = true;
+            }
+            else
+            {
+                divClientConsultant.Visible = false;
+                ddlClientConsultant.SelectedIndex = -1;
+            }
+        }
+    }
+
+    protected void addMOU_Click(object sender, EventArgs e)
+    {
+        var xml = "<tbl>";
+        xml += "<tr>";
+
+        if (!string.IsNullOrWhiteSpace(int.Parse(hidOutid.Value).ToString()))
+        {
+            xml += "<ConsultantId>" + int.Parse(hidOutid.Value).ToString() + "</ConsultantId>";
+        }
+        if (!string.IsNullOrWhiteSpace(hdfselectedCheck.Value))
+        {
+            xml += "<mou_Service_id>" + hdfselectedCheck.Value + "</mou_Service_id>";
+        }
+        if (!string.IsNullOrWhiteSpace(hdfselectedServiceId.Value))
+        {
+            xml += "<ServiceId>" + hdfselectedServiceId.Value + "</ServiceId>";
+        }
+        if (!string.IsNullOrWhiteSpace(txtBDComments.Text))
+        {
+            xml += "<BD_Comments>" + txtBDComments.Text + "</BD_Comments>";
+        }
+
+        xml += "</tr>";
+        xml += "</tbl>";
+        ClientMasterPL PL = new ClientMasterPL();
+        PL.OpCode = 101;
+        PL.CreatedBy = Session["UserAutoId"].ToString();
+        PL.XMLDATA = xml;
+        ClientMasterDL.returnTable(PL);
+        hdfselectedCheck.Value = "";
+        hdfselectedServiceId.Value = "";
+        if (!PL.isException)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('MOU added successfully');", true);
+            MOUList(int.Parse(hidOutid.Value)); 
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + new clsGeneral().ReplaceSingleQuote(PL.exceptionMessage) + "');", true);
+        }
+        SetDataPhone_Email_ConcernPerson(Convert.ToInt32(hidOutid.Value));
+    }
+
+    void SetDataPhone_Email_ConcernPerson(int Autoid)
+    {
+        ClientMasterPL PL = new ClientMasterPL();
+        PL.AutoId = Autoid;
+        PL.OpCode = 45;
+        ClientMasterDL.returnTable(PL);
+        var row = "";
+        foreach (DataRow dr in PL.dt.Rows)
+        {
+            row += "<tr>";
+            row += "<td td class='Title'>" + dr["Title"].ToString() + "</td>";
+            row += "<td td class='ConcernPersondata'>" + dr["ConsultantConcernPerson"].ToString() + "</td>";
+            row += "<td td class='Designation'>" + dr["Designation"].ToString() + "</td>";
+            row += "<td td class='NationalityCode'>" + dr["NationalityCode"].ToString() + "</td>";
+            row += "<td td class='Phonedata'>" + dr["ConsultantPhoneNo"].ToString() + "</td>";
+            row += "<td td class='emaildata'>" + dr["ConsultantEmailId"].ToString() + "</td>";
+            row += "<td><i class='fa fa-trash' style='cursor:pointer' onclick='DeleteRow(this);'> Remove</i> </td>";
+            row += "</tr>";
+        }
+        hidxml1.Value = row;
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "SetDataPhone_Email_ConcernPerson", "SetDataPhone_Email_ConcernPerson();", true);
+    }
+
+     protected void lvadd_ItemDataBound1(object sender, ListViewItemEventArgs e)
+    {
+        DropDownList ddlstatus = (DropDownList)e.Item.FindControl("ddlstatus");
+        ddlstatus.SelectedIndex = ddlstatus.Items.IndexOf(ddlstatus.Items.FindByValue(ddlstatus.Attributes["oldvalue"]));
+
+        Literal ltrfileApprovedMOU = (Literal)e.Item.FindControl("ltrfileApprovedMOU");
+        if (!string.IsNullOrEmpty(ltrfileApprovedMOU.Text))
+        {
+            ltrfileApprovedMOU.Text = "<a href='" + ResolveUrl("~/" + ltrfileApprovedMOU.Text) + "' target='_blank'><i class='fa fa-download'> Download</i></a>";
+        }
+    }
+    void MOUList(int id)
+    {
+        ClientMasterPL PL = new ClientMasterPL();
+        PL.OpCode = 102;
+        PL.AutoId = id;
+        ClientMasterDL.returnTable(PL);
+        DataTable dt = PL.dt;
+        if (PL.dt.Rows.Count > 0)
+        {
+            LV_MOU.DataSource = dt;
+            LV_MOU.DataBind();
+        }
+        else
+        {
+            LV_MOU.DataSource = "";
+            LV_MOU.DataBind();
+        }
+    }
+    protected void addAssignmentService_Click(object sender, EventArgs e)
+    {
+        if (hidautoid.Value == "0")
+        {
+            SaveAssignmentData();
+        }
+        else
+        {
+            //UpdateMasterData();
+            SaveAssignmentData();
+        }
+    }
+
+    void SaveAssignmentData()
+    {  //======
+
+        var xml = "<tbl>";
+        xml += "<tr>";
+
+        xml += "<AUTHORITY><![CDATA[" + ddlAuthority.SelectedValue + "]]></AUTHORITY>";
+        xml += "<Client_Source><![CDATA[" + ddlClientSource.SelectedValue + "]]></Client_Source>";
+        xml += "<COMPANY_NAME><![CDATA[" + txtCompanyName.Text.Trim() + "]]></COMPANY_NAME>";
+        //xml += "<CountryCodeLandline><![CDATA[" + ddlNationalityCodeLandline.SelectedValue + "]]></CountryCodeLandline>";
+        //xml += "<LANDLINE><![CDATA[" + txtLandline.Text.Trim() + "]]></LANDLINE>";
+        xml += "<NameTitle><![CDATA[" + ddlNameTitle.SelectedValue + "]]></NameTitle>";
+        xml += "<CONTACT_PERSON><![CDATA[" + txtContactPerson.Text.Trim() + "]]></CONTACT_PERSON>";
+        xml += "<Designation><![CDATA[" + txtDesignationPerson.Text.Trim() + "]]></Designation>";
+        xml += "<CountryCode><![CDATA[" + ddlNationalityCode.SelectedValue + "]]></CountryCode>";
+        xml += "<MOBILE_NO><![CDATA[" + txtMobileNo.Text.Trim() + "]]></MOBILE_NO>";
+        xml += "<EMAILID><![CDATA[" + txtEmailId.Text.Trim() + "]]></EMAILID>";
+        xml += "<UnitNo><![CDATA[" + txtUnitNo.Text.Trim() + "]]></UnitNo>";
+        xml += "<Floor><![CDATA[" + ddlFloor.SelectedValue + "]]></Floor>";
+        xml += "<Tower><![CDATA[" + txtTower.Text.Trim() + "]]></Tower>";
+        xml += "<Area><![CDATA[" + ddlArea.SelectedValue + "]]></Area>";
+        xml += "<Emirates><![CDATA[" + ddlEmirates.SelectedValue + "]]></Emirates>";
+        xml += "<Category><![CDATA[" + ddlCategory.SelectedValue + "]]></Category>";
+        xml += "<SourceofCons><![CDATA[" + ddlConsultantSource.SelectedValue + "]]></SourceofCons>";
+        xml += "<TRN><![CDATA[" + txtTRNNo.Text.Trim() + "]]></TRN>";
+        xml += "<UnitNo><![CDATA[" + txtUnitNo.Text.Trim() + "]]></UnitNo>";
+        xml += "<Tower><![CDATA[" + txtTower.Text.Trim() + "]]></Tower>";
+        xml += "<FloorNo><![CDATA[" + ddlFloor.SelectedValue + "]]></FloorNo>";
+        xml += "<Area><![CDATA[" + ddlArea.SelectedValue + "]]></Area>";
+        xml += "<Emirates><![CDATA[" + ddlEmirates.SelectedValue + "]]></Emirates>";
+        xml += "<Country><![CDATA[" + ddlNationalityEntity.SelectedValue + "]]></Country>";
+        xml += "<Nationality><![CDATA[" + dlNationalityCC.SelectedValue + "]]></Nationality>";
+        xml += "<CRMCategory><![CDATA[" + ddlCRMCategory.SelectedValue + "]]></CRMCategory>";
+        xml += "<BD><![CDATA[" + ddlBD.SelectedValue + "]]></BD>";
+        xml += "<SecondaryBD><![CDATA[" + ddlSecondaryBD.SelectedValue + "]]></SecondaryBD>";
+        xml += "<CECcons><![CDATA[" + ddlCEC.SelectedValue + "]]></CECcons>";
+        xml += "<ConsultantId><![CDATA[" + ddlClientConsultant.SelectedValue + "]]></ConsultantId>";
+        xml += "<CEM><![CDATA[" + ddlClientEngagementManager.SelectedValue + "]]></CEM>";
+        xml += "<Nationality><![CDATA[" + dlNationalityCC.SelectedValue + "]]></Nationality>";
+        xml += "<CSR><![CDATA[" + ddlCSR.SelectedValue + "]]></CSR>";
+        xml += "</tr>";
+        xml += "</tbl>";
+
+        ///////////////////////////////////////////
+
+
+        var xml2 = "<tbl>";
+        xml2 += "<tr>";
+        xml2 += "<NatureofAss><![CDATA[" + ddlservice.SelectedValue + "]]></NatureofAss>";
+        xml2 += "<QuotedAmount><![CDATA[" + txtQuotedAmount.Text.Trim() + "]]></QuotedAmount>";
+        xml2 += "<Period><![CDATA[" + ddlPeriod.SelectedValue + "]]></Period>";
+        xml2 += "<TransactionC><![CDATA[" + ddlTransaction.SelectedValue + "]]></TransactionC>";
+        xml2 += "<Turnover><![CDATA[" + ddlTurnover.SelectedValue + "]]></Turnover>";
+        xml2 += "</tr>";
+        xml2 += "</tbl>";
+
+
+        Data_MasterPL PL = new Data_MasterPL();
+        if(hdfselectedCheck.Value == "")
+        {
+            hdfselectedCheck.Value = "0";
+        }
+        PL.AutoId = int.Parse(hdfselectedCheck.Value);
+        PL.XML1 = xml;
+        PL.XML2 = xml2; 
+        PL.CreatedBy = Session["UserAutoId"].ToString();
+        PL.DataType = Convert.ToInt32(ddlDataType.SelectedValue);
+        PL.OpCode = 60;
+        Data_MasterDL.returnTable(PL);
+        if (!PL.isException)
+        {
+            hdfselectedCheck.Value = PL.AutoId.ToString();
+            BindAssignmentListview(PL.AutoId);
+            AssignmentClear();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowDone('Record(s) add successfully');", true); 
+        }
+        else
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowError('" + new clsGeneral().ReplaceSingleQuote(PL.exceptionMessage) + "');", true);
+        }
+    }
+
+    void AssignmentClear()
+    {
+        ddlservice.SelectedIndex = -1;
+        txtQuotedAmount.Text = "";
+        ddlPeriod.SelectedIndex = -1;
+        ddlTransaction.SelectedIndex = -1;
+        ddlTurnover.SelectedIndex = -1;
+    }
+
+
+    void BindAssignmentListview(int masterautoid)
+    {
+        Data_MasterPL PL = new Data_MasterPL();
+        PL.AutoId = masterautoid;
+        PL.OpCode = 61;
+        Data_MasterDL.returnTable(PL);
+        if (!PL.isException)
+        {
+            lvadd.DataSource = PL.dt;
+            lvadd.DataBind();
+        }
+    }
+}

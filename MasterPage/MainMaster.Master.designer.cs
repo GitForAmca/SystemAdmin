@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SystemAdmin.MasterPage
+namespace AMCAPropertiesAdmin.MasterPage
 {
 
 

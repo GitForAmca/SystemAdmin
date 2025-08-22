@@ -6,7 +6,7 @@ using System.Net;
 using System.Web;
 using System.Data;
 
-namespace SystemAdmin.App_Code
+namespace AMCAPropertiesAdmin.App_Code
 {
     public class clsGeneral
     {

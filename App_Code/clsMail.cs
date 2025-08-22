@@ -4,10 +4,10 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using SystemAdmin.App_Code;
+using AMCAPropertiesAdmin.App_Code;
 
 
-namespace SystemAdmin.App_Code
+namespace AMCAPropertiesAdmin.App_Code
 {
     public class clsMail
     {
