@@ -9,7 +9,7 @@
                 <div class="caption">
                     <asp:Label ID="lblPageListTitle" runat="server" Text="Service Type Master"></asp:Label>
                 </div>
-            </div>
+            </div>  
             <div id="divView" runat="server" class="portlet-body">
                 <div class="row">
                     <div class="col-md-3">
