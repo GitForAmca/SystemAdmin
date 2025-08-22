@@ -150,7 +150,7 @@ namespace SystemAdmin.AccessControl
                     CheckBoxList chkaction = (CheckBoxList)lvItem.FindControl("chkaction");
                     foreach (ListItem li in chkaction.Items)
                     {
-                        li.Selected = false;
+                        li.Selected = false;    
                         break;
                     }
                 }
