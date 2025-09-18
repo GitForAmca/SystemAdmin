@@ -167,6 +167,7 @@
                                                         <li><a href='../ESS/ServiceMaster.aspx'><i class='fa fa-angle-right'></i>Service Master</a></li>
                                                         <li><a href='../ESS/QuestionnaireMaster.aspx'><i class='fa fa-angle-right'></i>Questionnaire Master</a></li>
                                                         <li><a href='../ESS/EmailFormat.aspx'><i class='fa fa-angle-right'></i>Email Format</a></li>
+                                                        <li><a href="../ESS/HRMSEmailFormat.aspx"><i class='fa fa-angle-right'></i>HRMS Email Format</a></li>
                                                         <li><a href='../ESS/StatusMaster.aspx'><i class='fa fa-angle-right'></i>Status Master</a></li>
                                                         <%--<li><a href='../ESS/CRMCSMapping.aspx'><i class='fa fa-angle-right'></i>CRM CS Mapping</a></li>--%>
                                                         <li><a href='../ESS/SalesCRMMapping.aspx'><i class='fa fa-angle-right'></i>Sales CRM Mapping</a></li>
