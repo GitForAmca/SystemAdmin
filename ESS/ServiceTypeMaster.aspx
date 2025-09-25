@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="col-md-12 col-sm-12">  
-        <div class="portlet box green">
+        <div class="portlet box green"> 
             <div class="portlet-title">
                 <div class="caption">
                     <asp:Label ID="lblPageListTitle" runat="server" Text="Service Type Master"></asp:Label>
