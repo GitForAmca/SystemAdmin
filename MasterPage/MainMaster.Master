@@ -185,6 +185,7 @@
                                                         <li><a href='../ESS/PortalSettings.aspx'><i class='fa fa-angle-right'></i>Portal Settings</a></li>
                                                         <li><a href='../ESS/TicketRequest.aspx'><i class='fa fa-angle-right'></i>Ticket Request</a></li>
                                                         <li><a href='../ESS/EmployeeRegion.aspx'><i class='fa fa-angle-right'></i>Region</a></li>
+                                                         <li><a href="../ESS/HRRegion.aspx"><i class='fa fa-angle-right'></i>Regional HR</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
