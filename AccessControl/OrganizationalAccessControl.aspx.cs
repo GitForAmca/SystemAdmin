@@ -143,14 +143,14 @@ namespace SystemAdmin.AccessControl
                     }
                 }
             }
-            else
+            else 
             {
                 foreach (ListViewItem lvItem in LV_Access_Menu_Company.Items)
                 {
                     CheckBoxList chkaction = (CheckBoxList)lvItem.FindControl("chkaction");
                     foreach (ListItem li in chkaction.Items)
                     {
-                        li.Selected = false;    
+                        li.Selected = false;     
                         break;
                     }
                 }
