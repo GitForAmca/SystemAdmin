@@ -228,6 +228,28 @@
                                     </li>
                                 </ul>
                             </li>
+
+                            <li class='menu-dropdown mega-menu-dropdown mega-menu-full'>
+                                <a  data-toggle='dropdown' href='javascript:;' class='dropdown-toggle'>Organizational Setup<i class='fa fa-angle-down'></i></a>
+                                <ul class='dropdown-menu' style='min-width: 900px' >
+                                    <li>
+                                        <div class='mega-menu-content'>
+                                            <div class='row'>
+                                                <div class='col-md-3'>
+                                                    <ul class='mega-menu-submenu'>
+                                                        <li><h3>Master</h3></li>
+                                                        <li><a href="../GroupStructure/Industry.aspx"><i class='fa fa-angle-right'></i>Industry</a></li> 
+                                                        <li><a href="../GroupStructure/Group.aspx"><i class='fa fa-angle-right'></i>Group</a></li> 
+                                                        <li><a href="../GroupStructure/Organization.aspx"><i class='fa fa-angle-right'></i>Organization</a></li> 
+                                                        <li><a href="../GroupStructure/Company.aspx"><i class='fa fa-angle-right'></i>Company</a></li> 
+                                                    </ul>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
