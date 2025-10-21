@@ -47,7 +47,7 @@ namespace SystemAdmin.ESS
             string DepartmentString = Request.Form[ddlDepartmentSearch.UniqueID];
             //-----------------
             EssPL PL = new EssPL();
-            PL.OpCode = 32;
+            PL.OpCode = 91;
             PL.Type = ddlTypeSearch.SelectedValue;
             PL.Action = ddlActionSearch.SelectedValue;
             PL.Department = DepartmentString;
