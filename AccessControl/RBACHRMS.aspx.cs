@@ -1304,7 +1304,7 @@ namespace SystemAdmin.AccessControl
                 {
                     li.Selected = chkSelectAll.Checked;
                 }
-                chkactionCompany_SelectedIndexChanged(chkselectallcompany, EventArgs.Empty);
+                chkactionCompany_SelectedIndexChanged(chkComapny, EventArgs.Empty);
             }
             upnl_Menuaccess.Update();
         }

@@ -212,7 +212,8 @@
                                                         <li><h3>Access Control</h3></li>
                                                         <li><a href='../AccessControl/OrganizationalAccessControl.aspx'><i class='fa fa-angle-right'></i>Organizational</a></li>
                                                         <li><a href='../AccessControl/HRMSAccessControl.aspx'><i class='fa fa-angle-right'></i>HRMS</a></li>
-                                                        <li><a href='../AccessControl/DataAccess.aspx'><i class='fa fa-angle-right'></i>Data Access</a></li>
+                                                        <li><a href='../AccessControl/DataAccess.aspx'><i class='fa fa-angle-right'></i>Organizational Data Access</a></li>
+                                                        <li><a href="../AccessControl/HRMSDataAccess.aspx"><i class='fa fa-angle-right'></i>HRMS Data Access</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class='col-md-3'>
