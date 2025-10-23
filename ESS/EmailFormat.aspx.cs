@@ -23,6 +23,7 @@ namespace SystemAdmin.ESS
             {
                 FillGroup();
                 FillListView();
+                bindToOrCC();
             }
         }
         private void BindCheckBoxList()
@@ -88,6 +89,8 @@ namespace SystemAdmin.ESS
             chkactive.Checked = true;
             hidID.Value = "";
             txtSubject.Text = "";
+            lstTo.SelectedIndex = -1;
+            lstCC.SelectedIndex = -1;
         }
         protected void lnkBtnAddNew_Click(object sender, EventArgs e)
         {
@@ -146,6 +149,8 @@ namespace SystemAdmin.ESS
                 ckObjectives.InnerText = dt.Rows[0]["Body"].ToString();
                 chkactive.Checked = bool.Parse(dt.Rows[0]["IsActive"].ToString());
                 txtSubject.Text = dt.Rows[0]["Subject"].ToString();
+                SetList(lstTo, PL.dt.Rows[0]["To_Id"].ToString());
+                SetList(lstCC, PL.dt.Rows[0]["CC_Id"].ToString());
                 ViewState["Mode"] = "Edit";
                 divView.Visible = false;
                 divAddEdit.Visible = true;
@@ -162,6 +167,9 @@ namespace SystemAdmin.ESS
         }
         string GetParentServiceXml()
         {
+            string varlstTo = Request.Form[lstTo.UniqueID];
+            string varlstCC = Request.Form[lstCC.UniqueID];
+
             string xml = "<tbl>";
             xml += "<tr>";
             xml += "<Name><![CDATA[" + txtFunctionName.Text.Trim() + "]]></Name>";
@@ -169,6 +177,8 @@ namespace SystemAdmin.ESS
             xml += "<Description><![CDATA[" + txtDescription.Text.Trim() + "]]></Description>";
             xml += "<Type><![CDATA[" + ddlType.SelectedValue + "]]></Type>";
             xml += "<Subject><![CDATA[" + txtSubject.Text.Trim() + "]]></Subject>";
+            xml += "<To><![CDATA[" + varlstTo + "]]></To>";
+            xml += "<CC><![CDATA[" + varlstCC + "]]></CC>";
             xml += "</tr>";
             xml += "</tbl>";
             return xml;
@@ -337,6 +347,81 @@ namespace SystemAdmin.ESS
         protected void ddlIsActiveSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillListView();
+        }
+
+        protected void btnView_Click(object sender, EventArgs e)
+        { 
+            Button lnkbtn = (Button)sender;
+            string commandArgs = lnkbtn.CommandArgument;
+
+            string[] args = commandArgs.Split('|');
+            string valAutoId = args.Length > 0 ? args[0] : string.Empty;
+            string valGroupId = args.Length > 1 ? args[1] : string.Empty;
+
+            int id = Convert.ToInt32(valAutoId);
+            //hidEmpidMain.Value = valAutoId;
+            //hidGroupIdMain.Value = valGroupId;
+            //SetForEditGroupWise(id);
+
+            ServiceMasterPL PL = new ServiceMasterPL();
+            PL.OpCode = 24;
+            PL.AutoId = id;
+            PL.GroupId = valGroupId;
+            ServiceMasterDL.returnTable(PL);
+            DataTable dt = PL.dt;
+            //--------------------------------
+            if (dt.Rows.Count > 0)
+            {
+                lblFunctionName.Text = "Function Name : " + dt.Rows[0]["Name"].ToString();
+                lblName.Text = "Name : " + dt.Rows[0]["EmailName"].ToString();
+                lblDescription.Text = "Description : " + dt.Rows[0]["Description"].ToString();
+                lblTo.Text = "To : " + dt.Rows[0]["To"].ToString();
+                lblCC.Text = "CC : " + dt.Rows[0]["CC"].ToString();
+                lblType.Text = "Type : " + dt.Rows[0]["Type"].ToString();
+                divEmailFormat.InnerHtml = dt.Rows[0]["Body"].ToString();
+                lblIsActive.Text = "Is Active : " + dt.Rows[0]["IsActive"].ToString();
+                lblSubject.Text = "Subject : " + dt.Rows[0]["Subject"].ToString();
+                GroupName.InnerHtml = "<strong>" + dt.Rows[0]["GroupName"].ToString() + "</strong>";
+            }
+            else
+            {
+                ClearField();
+            } 
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "openpp", "OpenPopUp();", true);
+        }
+        void SetList(ListBox ddl, string ids)
+        {
+            ddl.SelectedIndex = -1;
+            foreach (var item in ids.Split(','))
+            {
+                foreach (ListItem item2 in ddl.Items)
+                {
+                    if (item2.Value == item)
+                    {
+                        item2.Selected = true;
+                        break;
+                    }
+                }
+            }
+        }
+        void bindToOrCC()
+        {
+            ServiceMasterPL PL = new ServiceMasterPL();
+            PL.OpCode = 41;
+            ServiceMasterDL.returnTable(PL);
+            lstTo.DataSource = PL.dt;
+            lstTo.DataValueField = "Autoid";
+            lstTo.DataTextField = "Sender";
+            lstTo.DataBind();
+            lstTo.Items.Insert(0, new ListItem("Choose an item", ""));
+
+            ////////////////////////////////////////// 
+
+            lstCC.DataSource = PL.dt;
+            lstCC.DataValueField = "Autoid";
+            lstCC.DataTextField = "Sender";
+            lstCC.DataBind();
+            lstCC.Items.Insert(0, new ListItem("Choose an item", ""));
         }
     }
 }

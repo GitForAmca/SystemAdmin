@@ -72,6 +72,7 @@
                                             <th>Type</th> 
                                             <th>Group</th> 
                                             <th>Is Active</th>
+                                            <th>View</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,10 +102,13 @@
                                     </td>
                                     <td>
                                         <%# Eval("GroupName")%>
-                                    </td>  
+                                    </td>
                                     <td>
                                         <span class='<%# bool.Parse( Eval("IsActive").ToString())==true?"label label-sm label-success":"label label-sm label-danger"%>' runat="server"><%# bool.Parse( Eval("IsActive").ToString())==true?"Yes":"No"%></span>
-                                    </td>                                   
+                                    </td>
+                                    <td>
+                                        <asp:Button ID="btnView" CssClass="btn btn-xs blue" runat="server" Text="View" OnClick="btnView_Click" CommandArgument='<%# Eval("Id") + "|" + Eval("GroupId") %>' />
+                                    </td>
                                 </tr>
                             </itemtemplate>
                             <emptydatatemplate>
@@ -113,7 +117,13 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
+                                            <th>Function Name</th>
+                                            <th>Subject</th>
+                                            <th>Description</th> 
                                             <th>Type</th> 
+                                            <th>Group</th> 
+                                            <th>Is Active</th>
+                                            <th>View</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -179,15 +189,32 @@
                                                 <asp:TextBox ID="txtSubject" CssClass="form-control req" runat="server" placeholder="input Subject"></asp:TextBox>
                                             </div>
                                         </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">To<span class="required" aria-required="true"> *</span></label>
+                                                <asp:ListBox ID="lstTo" SelectionMode="Multiple" class="form-control req multiselectddl" runat="server"></asp:ListBox>
+                                            </div>
+                                           <%-- <div class="form-group">
+                                                <label class="control-label">To<span class="required" aria-required="true"> *</span></label>
+                                                <asp:TextBox ID="txtTo" CssClass="form-control req" runat="server" placeholder="input Name"></asp:TextBox>
+                                            </div>--%>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">CC<span class="required" aria-required="true"> *</span></label>                                                
+                                                <asp:ListBox ID="lstCC" SelectionMode="Multiple" class="form-control req multiselectddl" runat="server"></asp:ListBox>
+                                                <%--<asp:TextBox ID="txtCC" CssClass="form-control req" runat="server" placeholder="input Name"></asp:TextBox>--%>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <asp:CheckBox ID="chkactive" runat="server" class="form-control req" Style='border: none !important' Checked="true" Text="Is Active" />
+                                        </div> 
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label class="control-label">Description<span class="required" aria-required="true"> </span></label>
                                                 <asp:TextBox ID="txtDescription" TextMode="MultiLine" Rows="5" class="form-control" runat="server"  placeholder="input here"></asp:TextBox>
                                             </div>
                                         </div>
-                                        <div class="col-md-1" style="margin-top: -3%">
-                                            <asp:CheckBox ID="chkactive" runat="server" class="form-control req" Style='border: none !important' Checked="true" Text="Is Active" />
-                                        </div> 
                                     </div>
                                 </div>
                             </div>
@@ -238,6 +265,46 @@
                 <div class="modal-footer">
                      <button type="button" data-dismiss="modal" class="btn">Close</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="PopUpViewDetails" tabindex="-1" data-width="400" class="modal fade" style="display: none">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-green">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" style="color: #fff;">View Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form form-horizontal">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-12" id="div1" runat="server" title="EmailBody">
+                                    <h4 id="GroupName" runat="server" ></h4>
+                                <hr />
+                                </div>
+                                <div class="col-md-12" runat="server" title="EmailFormat">
+                                    <asp:Label ID="lblFunctionName" Text="Function Name : " runat="server"></asp:Label><br />
+                                    <asp:Label ID="lblName" Text="Function Name : " runat="server"></asp:Label><br />
+                                    <asp:Label ID="lblType" Text="Type : " runat="server"></asp:Label><br />
+                                    <asp:Label ID="lblSubject" Text="Subject : " runat="server"></asp:Label><br />
+                                    <asp:Label ID="lblTo" Text="To : " runat="server"></asp:Label><br />
+                                    <asp:Label ID="lblCC" Text="CEC : " runat="server"></asp:Label><br /> 
+                                    <asp:Label ID="lblIsActive" Text="Is Active : " runat="server"></asp:Label><br />  
+                                    <asp:Label ID="lblDescription" Text="Description : " runat="server"></asp:Label> 
+                                </div>
+                                <div class="col-md-12" style="margin-top:30px" id="divEmailBody" runat="server" title="EmailBody">
+                                    <h4><strong>Body : </strong></h4>
+                                </div>
+                                <div class="col-md-12" id="divEmailFormat" runat="server" title="EmailFormat"></div>
+                                <%-- <div class="col-md-12">
+                                    <asp:Button ID="btnUpdateAction" runat="server" class="btn blue" OnClick="btnUpdateAction_Click" Text="Update" />
+                                </div>--%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END FORM-->
             </div>
         </div>
     </div>
@@ -307,6 +374,12 @@
                 error: function (errMsg) {
                     ShowError(errMsg);
                 }
+            });
+        }
+        function OpenPopUp() {
+            $("#PopUpViewDetails").modal({
+                backdrop: 'static',
+                keyboard: false
             });
         }
     </script>
