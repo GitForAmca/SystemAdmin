@@ -11,7 +11,7 @@ namespace SystemAdmin.GroupStructure
 {
 
 
-    public partial class Group
+    public partial class Region
     {
 
         /// <summary>
@@ -33,13 +33,13 @@ namespace SystemAdmin.GroupStructure
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divView;
 
         /// <summary>
-        /// ddlIndustryFilter control.
+        /// ddlGroupFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIndustryFilter;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGroupFilter;
 
         /// <summary>
         /// ddlActive control.
@@ -105,31 +105,22 @@ namespace SystemAdmin.GroupStructure
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEdit;
 
         /// <summary>
-        /// txtGroupName control.
+        /// ddlGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGroupName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGroup;
 
         /// <summary>
-        /// ddlIndustry control.
+        /// ddlRegion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIndustry;
-
-        /// <summary>
-        /// LstRegion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox LstRegion;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRegion;
 
         /// <summary>
         /// ddlHOD control.

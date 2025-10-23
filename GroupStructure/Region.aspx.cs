@@ -9,18 +9,30 @@ using SystemAdmin.App_Code;
 
 namespace SystemAdmin.GroupStructure
 {
-    public partial class Group : System.Web.UI.Page
+    public partial class Region : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                GetIndustry(ddlIndustryFilter);
-                GetIndustry(ddlIndustry);
-                GetRegion(LstRegion);
+                GetGroup(ddlGroupFilter); 
+                GetRegion(ddlRegion);
                 GetHOD(ddlHOD);
+                GetGroup(ddlGroup);
                 FillListView();
             }
+        }
+
+        void GetGroup(DropDownList ddl)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 10;
+            StructureDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Id";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
         }
         void GetHOD(DropDownList ddl)
         {
@@ -44,27 +56,30 @@ namespace SystemAdmin.GroupStructure
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Choose an item", ""));
         }
-        void GetRegion(ListBox ddl)
+        void GetRegion(DropDownList ddl)
         {
             StructurePL PL = new StructurePL();
-            PL.OpCode = 11;
+            PL.OpCode = 32;
+            PL.Name = ddlGroup.SelectedValue;
             StructureDL.returnTable(PL);
             ddl.DataSource = PL.dt;
             ddl.DataValueField = "Id";
             ddl.DataTextField = "Name";
-            ddl.DataBind(); 
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
         }
         void ClearField()
         {
-            txtGroupName.Text = string.Empty;
-            ddlIndustryFilter.SelectedIndex = -1;
-            ddlIndustry.SelectedIndex = -1;
+            ddlGroup.SelectedValue = string.Empty;
+            ddlGroupFilter.SelectedIndex = -1;
+            ddlRegion.SelectedIndex = -1;
+            ddlHOD.SelectedIndex = -1;
         }
         void FillListView()
         {
             StructurePL PL = new StructurePL();
-            PL.OpCode = 6;
-            PL.Name = ddlIndustryFilter.SelectedValue;
+            PL.OpCode = 33;
+            PL.Name = ddlGroupFilter.SelectedValue;
             PL.IsActive = ddlActive.SelectedValue;
             StructureDL.returnTable(PL);
             DataTable dt = PL.dt;
@@ -105,16 +120,17 @@ namespace SystemAdmin.GroupStructure
         void getData(int Autoid)
         {
             StructurePL PL = new StructurePL();
-            PL.OpCode = 9;
+            PL.OpCode = 34;
             PL.AutoId = Autoid;
             StructureDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
             {
-                txtGroupName.Text = PL.dt.Rows[0]["Name"].ToString();
-                ddlIndustry.SelectedValue = PL.dt.Rows[0]["IndustryId"].ToString();
-                ddlHOD.SelectedValue = PL.dt.Rows[0]["HOD"].ToString();
-                SetList(LstRegion, PL.dt.Rows[0]["Region"].ToString());
+                ddlGroup.SelectedValue = PL.dt.Rows[0]["GroupId"].ToString();
+                ddlGroup_SelectedIndexChanged(ddlGroup,EventArgs.Empty);
+                ddlRegion.SelectedValue = PL.dt.Rows[0]["RegionId"].ToString();
+                ddlHOD.SelectedValue = PL.dt.Rows[0]["HODID"].ToString();
+                
                 if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
                 {
                     chkActive.Checked = false;
@@ -126,42 +142,27 @@ namespace SystemAdmin.GroupStructure
             }
             else
             {
-                txtGroupName.Text = "";
+                ddlGroup.SelectedIndex = -1;
             }
         }
 
-        void SetList(ListBox ddl, string ids)
-        {
-            ddl.SelectedIndex = -1;
-            foreach (var item in ids.Split(','))
-            {
-                foreach (ListItem item2 in ddl.Items)
-                {
-                    if (item2.Value == item)
-                    {
-                        item2.Selected = true;
-                        break;
-                    }
-                }
-            }
-        }
+    
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            StructurePL PL = new StructurePL(); 
-            PL.Name = txtGroupName.Text.Trim();
-            PL.IndustryId = ddlIndustry.SelectedValue;
+            StructurePL PL = new StructurePL();
+            PL.Name = ddlGroup.SelectedValue;
+            PL.Description = ddlRegion.SelectedValue;
             PL.IsActive = chkActive.Checked;
             PL.HOD = ddlHOD.SelectedValue;
             if (ViewState["Mode"].ToString() == "Add")
             {
-                PL.OpCode = 7;
+                PL.OpCode = 30;
             }
             else
             {
-                PL.OpCode = 8;
+                PL.OpCode = 31;
                 PL.AutoId = Convert.ToInt32(hidAutoid.Value);
-            }
-            PL.Description = Request.Form[LstRegion.UniqueID];
+            } 
             PL.CreatedBy = Session["UserAutoId"].ToString();
             StructureDL.returnTable(PL);
             if (!PL.isException)
@@ -178,7 +179,7 @@ namespace SystemAdmin.GroupStructure
 
                 else if (result == 1)
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagWarning", $"ShowError('An Group already exists with the same name');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagWarning", $"ShowError('Already exists');", true);
                 }
 
             }
@@ -198,9 +199,14 @@ namespace SystemAdmin.GroupStructure
         }
         protected void btnReset_Click(object sender, EventArgs e)
         {
-            ddlIndustryFilter.SelectedIndex = 0;
+            ddlGroupFilter.SelectedIndex = 0;
             ddlActive.SelectedIndex = 0;
             FillListView();
+        }
+
+        protected void ddlGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetRegion(ddlRegion);
         }
     }
 }

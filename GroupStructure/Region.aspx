@@ -1,18 +1,18 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"  MasterPageFile="~/MasterPage/MainMaster.master"  CodeBehind="Group.aspx.cs" Inherits="SystemAdmin.GroupStructure.Group" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/MasterPage/MainMaster.master" CodeBehind="Region.aspx.cs" Inherits="SystemAdmin.GroupStructure.Region" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"></asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="portlet box green margin-top-10">
         <div class="portlet-title">
             <div class="caption">
-                <asp:Label ID="lblPageListTitle" runat="server" Text="Group"></asp:Label>
+                <asp:Label ID="lblPageListTitle" runat="server" Text="Region"></asp:Label>
             </div>
         </div>
         <div id="divView" runat="server" class="portlet-body form-body">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label class="control-label">Industry<span class="required" aria-required="true"> </span></label>
-                        <asp:DropDownList ID="ddlIndustryFilter" class="form-control select2ddl" runat="server"></asp:DropDownList>
+                        <label class="control-label">Group<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList ID="ddlGroupFilter" class="form-control select2ddl" runat="server"></asp:DropDownList>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -67,7 +67,7 @@
                                         <th>Group</th>
                                         <th>Industry</th>
                                         <th>Region</th>
-                                        <th>Head of Group</th>
+                                        <th>Head of Region</th>
                                         <th>Is Active</th>
                                         <th>Created</th>
                                     </tr>
@@ -110,25 +110,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Group Name<span class="required" aria-required="true"> *</span></label>
-                            <asp:TextBox ID="txtGroupName" class="form-control req" runat="server"></asp:TextBox>
+                            <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
+                              <asp:DropDownList ID="ddlGroup" OnSelectedIndexChanged="ddlGroup_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
                      <div class="col-md-4">
                          <div class="form-group">
-                             <label class="control-label">Industry<span class="required" aria-required="true"> *</span></label>
-                              <asp:DropDownList ID="ddlIndustry" class="form-control select2ddl req" runat="server"></asp:DropDownList>
+                             <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
+                              <asp:DropDownList ID="ddlRegion" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                          </div>
-                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
-                             <asp:ListBox ID="LstRegion" SelectionMode="Multiple" class="form-control select2ddl req" runat="server"></asp:ListBox>
-                        </div>
-                    </div>
+                     </div> 
                      <div class="col-md-4">
                          <div class="form-group">
-                             <label class="control-label">Head of Group<span class="required" aria-required="true"> *</span></label>
+                             <label class="control-label">Head of Region<span class="required" aria-required="true"> *</span></label>
                                <asp:DropDownList ID="ddlHOD" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                          </div>
                      </div>
@@ -151,3 +145,5 @@
     </div>
     <asp:HiddenField ID="hidAutoid" runat="server" Value="" />
 </asp:Content>
+
+ 

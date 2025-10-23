@@ -241,6 +241,7 @@
                                                         <li><h3>Master</h3></li>
                                                         <li><a href="../GroupStructure/Industry.aspx"><i class='fa fa-angle-right'></i>Industry</a></li> 
                                                         <li><a href="../GroupStructure/Group.aspx"><i class='fa fa-angle-right'></i>Group</a></li> 
+                                                        <li><a href="../GroupStructure/Region.aspx"><i class='fa fa-angle-right'></i>Region</a></li> 
                                                         <li><a href="../GroupStructure/Organization.aspx"><i class='fa fa-angle-right'></i>Organization</a></li> 
                                                         <li><a href="../GroupStructure/Company.aspx"><i class='fa fa-angle-right'></i>Company</a></li> 
                                                     </ul>
