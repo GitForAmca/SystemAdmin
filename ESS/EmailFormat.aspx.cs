@@ -359,9 +359,6 @@ namespace SystemAdmin.ESS
             string valGroupId = args.Length > 1 ? args[1] : string.Empty;
 
             int id = Convert.ToInt32(valAutoId);
-            //hidEmpidMain.Value = valAutoId;
-            //hidGroupIdMain.Value = valGroupId;
-            //SetForEditGroupWise(id);
 
             ServiceMasterPL PL = new ServiceMasterPL();
             PL.OpCode = 24;
@@ -407,7 +404,7 @@ namespace SystemAdmin.ESS
         void bindToOrCC()
         {
             ServiceMasterPL PL = new ServiceMasterPL();
-            PL.OpCode = 41;
+            PL.OpCode = 46;
             ServiceMasterDL.returnTable(PL);
             lstTo.DataSource = PL.dt;
             lstTo.DataValueField = "Autoid";
