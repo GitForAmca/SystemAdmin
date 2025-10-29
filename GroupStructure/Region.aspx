@@ -114,6 +114,12 @@
                               <asp:DropDownList ID="ddlGroup" OnSelectedIndexChanged="ddlGroup_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Industry<span class="required" aria-required="true"> *</span></label>
+                              <asp:DropDownList ID="ddlIndustry" OnSelectedIndexChanged="ddlIndustry_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl req" runat="server"></asp:DropDownList>
+                        </div>
+                    </div>
                      <div class="col-md-4">
                          <div class="form-group">
                              <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
@@ -139,8 +145,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </div> 
         </div>
     </div>
     <asp:HiddenField ID="hidAutoid" runat="server" Value="" />

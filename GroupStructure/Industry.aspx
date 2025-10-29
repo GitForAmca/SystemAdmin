@@ -66,6 +66,7 @@
                                     <tr class="bgprimary">
                                         <th>#</th>
                                         <th>Industry</th>
+                                        <th>Region</th>
                                         <th>Head of Industry</th>
                                         <th>Is Active</th>
                                         <th>Created</th>
@@ -81,6 +82,9 @@
                                 </td>
                                 <td>
                                     <%# Eval("Description") %>
+                                </td>
+                                <td>
+                                     <%# Eval("RegionID") %>
                                 </td>
                                 <td>
                                      <%# Eval("HOD") %>
@@ -105,6 +109,12 @@
                         <div class="form-group">
                             <label class="control-label">Industry Name<span class="required" aria-required="true"> *</span></label>
                             <asp:TextBox ID="txtIndustryName" class="form-control req" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                     <div id="div_region"   class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
+                            <asp:ListBox ID="LstRegion" SelectionMode="Multiple" class="form-control select2ddl req" runat="server"></asp:ListBox>
                         </div>
                     </div>
                      <div class="col-md-4">

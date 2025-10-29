@@ -74,8 +74,8 @@
                                         <th>Company</th>
                                         <th>Organization</th>
                                         <th>Group</th>
-                                        <th>Region</th>
                                         <th>Industry</th>
+                                        <th>Region</th> 
                                         <th>Website</th>
                                         <th>Head of Company</th>
                                         <th>Is Active</th>
@@ -100,23 +100,13 @@
                                     <%# Eval("GroupName") %>
                                 </td>
                                 <td>
-                                    <%# Eval("Region") %>
-                                </td>
-                                <td>
                                     <%# Eval("Industry") %>
                                 </td>
                                 <td>
-                                    <asp:HyperLink
-                                        ID="hlWebsite"
-                                        runat="server"
-                                        NavigateUrl='<%# 
-        Eval("Website") != null && !Eval("Website").ToString().StartsWith("http", StringComparison.OrdinalIgnoreCase) 
-        ? "http://" + Eval("Website") 
-        : Eval("Website") %>'
-                                        Target="_blank"
-                                        Text='<%# Eval("Website") %>'>
-                                    </asp:HyperLink>
-
+                                    <%# Eval("Region") %>
+                                </td> 
+                                <td>
+                                    <asp:HyperLink ID="hlWebsite" runat="server" NavigateUrl='<%#  Eval("Website") != null && !Eval("Website").ToString().StartsWith("http", StringComparison.OrdinalIgnoreCase) ? "http://" + Eval("Website")  : Eval("Website") %>' Target="_blank" Text='<%# Eval("Website") %>'></asp:HyperLink> 
                                 </td>
                                 <td>
                                     <%# Eval("HOD") %>
@@ -124,7 +114,8 @@
                                 <td>
                                     <span class='<%# bool.Parse( Eval("IsActive").ToString())==true?"label label-sm label-success":"label label-sm label-danger"%>' runat="server"><%# bool.Parse( Eval("IsActive").ToString())==true?"Yes":"No"%></span>
                                 </td>
-                                <td>By :  <%# Eval("CreatedBy") %>
+                                <td>
+                                    By :  <%# Eval("CreatedBy") %>
                                     <br />
                                     On : <%# Eval("CreatedOn") %> 
                                 </td>

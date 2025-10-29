@@ -132,33 +132,6 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.DropDownList ddlScope;
 
         /// <summary>
-        /// pnlIndustry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlIndustry;
-
-        /// <summary>
-        /// chkSelectAllIndustry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkSelectAllIndustry;
-
-        /// <summary>
-        /// chkactionIndustry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkactionIndustry;
-
-        /// <summary>
         /// PnlGroup control.
         /// </summary>
         /// <remarks>
@@ -184,6 +157,33 @@ namespace SystemAdmin.AccessControl
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList chkactionGroup;
+
+        /// <summary>
+        /// pnlIndustry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlIndustry;
+
+        /// <summary>
+        /// chkSelectAllIndustry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSelectAllIndustry;
+
+        /// <summary>
+        /// chkactionIndustry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chkactionIndustry;
 
         /// <summary>
         /// pnlRegion control.

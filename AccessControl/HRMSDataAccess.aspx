@@ -176,6 +176,24 @@
                             <asp:DropDownList runat="server" ID="ddlScope" OnSelectedIndexChanged="ddlScope_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control req select2ddl"></asp:DropDownList>
                         </div>
                     </div>
+                    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
+                            <asp:Panel runat="server" ID="PnlGroup" CssClass="dropdown-container">
+                                <button type="button" class="dropdown-button">Choose an item</button>
+                                <div class="access-filters">
+                                    <div class="dropdown-menu">
+                                        <input type="text" class="dropdown-search" placeholder="Search..." />
+                                        <asp:CheckBox ID="chkSelectAllGroup" ForeColor="Blue" Font-Bold="true" OnCheckedChanged="chkSelectAllGroup_CheckedChanged" AutoPostBack="true" runat="server" Text="Select All" />
+                                        <div class="company-items-wrapper">
+                                            <asp:CheckBoxList ID="chkactionGroup" CssClass="group-checkboxlist req" OnSelectedIndexChanged="chkactionGroup_SelectedIndexChanged" AutoPostBack="true" runat="server" RepeatDirection="Vertical" DataTextField="Description" DataValueField="Autoid" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </asp:Panel>
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">Industry<span class="required" aria-required="true"> *</span></label>
@@ -192,23 +210,6 @@
                                                 CssClass="industry-checkboxlist req" AutoPostBack="true" OnSelectedIndexChanged="chkactionIndustry_SelectedIndexChanged"
                                                 runat="server" RepeatDirection="Vertical"
                                                 DataTextField="Name" DataValueField="Id" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </asp:Panel>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
-                            <asp:Panel runat="server" ID="PnlGroup" CssClass="dropdown-container">
-                                <button type="button" class="dropdown-button">Choose an item</button>
-                                <div class="access-filters">
-                                    <div class="dropdown-menu">
-                                        <input type="text" class="dropdown-search" placeholder="Search..." />
-                                        <asp:CheckBox ID="chkSelectAllGroup" ForeColor="Blue" Font-Bold="true" OnCheckedChanged="chkSelectAllGroup_CheckedChanged" AutoPostBack="true" runat="server" Text="Select All" />
-                                        <div class="company-items-wrapper">
-                                            <asp:CheckBoxList ID="chkactionGroup" CssClass="group-checkboxlist req" OnSelectedIndexChanged="chkactionGroup_SelectedIndexChanged" AutoPostBack="true" runat="server" RepeatDirection="Vertical" DataTextField="Description" DataValueField="Autoid" />
                                         </div>
                                     </div>
                                 </div>
@@ -673,6 +674,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+           
         }
 
             .dropdown-button::after {

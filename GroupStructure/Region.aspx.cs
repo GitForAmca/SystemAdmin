@@ -15,8 +15,9 @@ namespace SystemAdmin.GroupStructure
         {
             if (!Page.IsPostBack)
             {
-                GetGroup(ddlGroupFilter); 
-                GetRegion(ddlRegion);
+                GetGroup(ddlGroupFilter);
+                 GetRegion(ddlRegion);
+                GetGIndustry(ddlIndustry);
                 GetHOD(ddlHOD);
                 GetGroup(ddlGroup);
                 FillListView();
@@ -60,6 +61,19 @@ namespace SystemAdmin.GroupStructure
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 32;
+            PL.Name = ddlIndustry.SelectedValue;
+            StructureDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Id";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+
+        void GetGIndustry(DropDownList ddl)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 36;
             PL.Name = ddlGroup.SelectedValue;
             StructureDL.returnTable(PL);
             ddl.DataSource = PL.dt;
@@ -126,27 +140,33 @@ namespace SystemAdmin.GroupStructure
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
             {
-                ddlGroup.SelectedValue = PL.dt.Rows[0]["GroupId"].ToString();
-                ddlGroup_SelectedIndexChanged(ddlGroup,EventArgs.Empty);
-                ddlRegion.SelectedValue = PL.dt.Rows[0]["RegionId"].ToString();
-                ddlHOD.SelectedValue = PL.dt.Rows[0]["HODID"].ToString();
-                
-                if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
-                {
-                    chkActive.Checked = false;
+                try
+                { 
+                    ddlGroup.SelectedValue = PL.dt.Rows[0]["GroupId"].ToString();
+                    ddlGroup_SelectedIndexChanged(ddlGroup,EventArgs.Empty);
+                    ddlIndustry.SelectedValue = PL.dt.Rows[0]["IndustryId"].ToString();
+                    ddlIndustry_SelectedIndexChanged(ddlGroup, EventArgs.Empty);
+                    ddlRegion.SelectedValue = PL.dt.Rows[0]["RegionId"].ToString();
+                    ddlHOD.SelectedValue = PL.dt.Rows[0]["HODID"].ToString(); 
+                    if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
+                    {
+                        chkActive.Checked = false;
+                    }
+                    else
+                    {
+                        chkActive.Checked = true;
+                    }
                 }
-                else
+                catch(Exception ex)
                 {
-                    chkActive.Checked = true;
+
                 }
             }
             else
             {
                 ddlGroup.SelectedIndex = -1;
             }
-        }
-
-    
+        } 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             StructurePL PL = new StructurePL();
@@ -163,6 +183,7 @@ namespace SystemAdmin.GroupStructure
                 PL.OpCode = 31;
                 PL.AutoId = Convert.ToInt32(hidAutoid.Value);
             } 
+            PL.IndustryId = ddlIndustry.SelectedValue;
             PL.CreatedBy = Session["UserAutoId"].ToString();
             StructureDL.returnTable(PL);
             if (!PL.isException)
@@ -205,6 +226,11 @@ namespace SystemAdmin.GroupStructure
         }
 
         protected void ddlGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetGIndustry(ddlIndustry);
+        }
+
+        protected void ddlIndustry_SelectedIndexChanged(object sender, EventArgs e)
         {
             GetRegion(ddlRegion);
         }

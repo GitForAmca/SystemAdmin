@@ -66,7 +66,7 @@
                                         <th>#</th>
                                         <th>Group</th>
                                         <th>Industry</th>
-                                        <th>Region</th>
+                                      <%--  <th>Region</th>--%>
                                         <th>Head of Group</th>
                                         <th>Is Active</th>
                                         <th>Created</th>
@@ -86,9 +86,9 @@
                                 <td>
                                     <%# Eval("Industry") %>
                                 </td>
-                                <td>
+                               <%-- <td>
                                      <%# Eval("Region") %>
-                                </td>
+                                </td>--%>
                                 <td>
                                     <%# Eval("HOD") %>
                                 </td>
@@ -117,10 +117,11 @@
                      <div class="col-md-4">
                          <div class="form-group">
                              <label class="control-label">Industry<span class="required" aria-required="true"> *</span></label>
-                              <asp:DropDownList ID="ddlIndustry" class="form-control select2ddl req" runat="server"></asp:DropDownList>
+                             <asp:ListBox ID="lstIndustry" runat="server" SelectionMode="Multiple" CssClass="form-control select2ddl req"></asp:ListBox>
+                              <%--<asp:DropDownList ID="ddlIndustry" class="form-control select2ddl req" runat="server"></asp:DropDownList>--%>
                          </div>
                      </div>
-                    <div class="col-md-4">
+                    <div id="div_region" runat="server" visible="false" class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
                              <asp:ListBox ID="LstRegion" SelectionMode="Multiple" class="form-control select2ddl req" runat="server"></asp:ListBox>

@@ -15,8 +15,8 @@ namespace SystemAdmin.GroupStructure
         {
             if (!Page.IsPostBack)
             {
-                GetIndustry(ddlIndustryFilter);
-                GetIndustry(ddlIndustry);
+                GetIndustryAll(ddlIndustryFilter);
+                GetIndustry(lstIndustry);
                 GetRegion(LstRegion);
                 GetHOD(ddlHOD);
                 FillListView();
@@ -33,7 +33,18 @@ namespace SystemAdmin.GroupStructure
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Choose an item", ""));
         }
-        void GetIndustry(DropDownList ddl)
+        void GetIndustry(ListBox ddl)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 1;
+            StructureDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Id";
+            ddl.DataTextField = "Name";
+            ddl.DataBind(); 
+        }
+
+        void GetIndustryAll(DropDownList ddl)
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 1;
@@ -58,7 +69,7 @@ namespace SystemAdmin.GroupStructure
         {
             txtGroupName.Text = string.Empty;
             ddlIndustryFilter.SelectedIndex = -1;
-            ddlIndustry.SelectedIndex = -1;
+            lstIndustry.SelectedIndex = -1;
         }
         void FillListView()
         {
@@ -112,9 +123,10 @@ namespace SystemAdmin.GroupStructure
             if (PL.dt.Rows.Count > 0)
             {
                 txtGroupName.Text = PL.dt.Rows[0]["Name"].ToString();
-                ddlIndustry.SelectedValue = PL.dt.Rows[0]["IndustryId"].ToString();
+                SetList(lstIndustry, PL.dt.Rows[0]["IndustryId"].ToString());
+                //ddlIndustry.SelectedValue = PL.dt.Rows[0]["IndustryId"].ToString();
                 ddlHOD.SelectedValue = PL.dt.Rows[0]["HOD"].ToString();
-                SetList(LstRegion, PL.dt.Rows[0]["Region"].ToString());
+                //SetList(LstRegion, PL.dt.Rows[0]["Region"].ToString());
                 if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
                 {
                     chkActive.Checked = false;
@@ -149,7 +161,7 @@ namespace SystemAdmin.GroupStructure
         {
             StructurePL PL = new StructurePL(); 
             PL.Name = txtGroupName.Text.Trim();
-            PL.IndustryId = ddlIndustry.SelectedValue;
+            PL.IndustryId = Request.Form[lstIndustry.UniqueID];
             PL.IsActive = chkActive.Checked;
             PL.HOD = ddlHOD.SelectedValue;
             if (ViewState["Mode"].ToString() == "Add")
@@ -161,7 +173,7 @@ namespace SystemAdmin.GroupStructure
                 PL.OpCode = 8;
                 PL.AutoId = Convert.ToInt32(hidAutoid.Value);
             }
-            PL.Description = Request.Form[LstRegion.UniqueID];
+            //PL.Description = Request.Form[LstRegion.UniqueID];
             PL.CreatedBy = Session["UserAutoId"].ToString();
             StructureDL.returnTable(PL);
             if (!PL.isException)

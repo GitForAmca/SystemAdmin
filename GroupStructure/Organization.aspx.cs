@@ -17,7 +17,7 @@ namespace SystemAdmin.GroupStructure
             {
                 GetGroup(ddlGroupFilter);
                 GetGroup(ddlGroup);
-                GetRegion(ddlRegion);
+                //GetRegion(ddlRegion);
                 GetHOD(ddlHOD);
                 FillListView();
             }
@@ -43,11 +43,12 @@ namespace SystemAdmin.GroupStructure
             ddl.DataTextField = "Name";
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Choose an item", ""));
-        } 
+        }
         void GetRegion(DropDownList ddl)
         {
             StructurePL PL = new StructurePL();
-            PL.OpCode = 11;
+            PL.OpCode = 32;
+            PL.Name = ddlIndustry.SelectedValue;
             StructureDL.returnTable(PL);
             ddl.DataSource = PL.dt;
             ddl.DataValueField = "Id";
@@ -55,11 +56,28 @@ namespace SystemAdmin.GroupStructure
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Choose an item", ""));
         }
+
         void ClearField()
         {
-            txtGroupName.Text = string.Empty;
+            txtGroupName.Text = "";
+            txtShortName.Text = "";
+            ddlGroup.SelectedIndex = -1;
+            ddlIndustry.SelectedIndex = -1;
+            ddlRegion.SelectedIndex = -1;
+            txtconnectionName.Text = "";
+            txtSMTP.Text = "";
+            ddlSSL.SelectedIndex = -1;
+            txtPortNo.Text = "";
+            txtSequence.Text = "";
+            txtDBName.Text = "";
+            txtDBUserName.Text = "";
+            txtDBPassword.Text = "";
+            txtPrimaryColor.Value = "";
+            txtSecondarColor.Value = "";
+            txtlogourl.Text = "";
             ddlGroupFilter.SelectedIndex = -1;
             ddlGroup.SelectedIndex = -1;
+            
         }
         void FillListView()
         {
@@ -113,31 +131,41 @@ namespace SystemAdmin.GroupStructure
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
             {
-                txtGroupName.Text = PL.dt.Rows[0]["Name"].ToString();
-                txtShortName.Text = PL.dt.Rows[0]["ShortForm"].ToString();
-                ddlGroup.SelectedValue = PL.dt.Rows[0]["GroupID"].ToString();
-                ddlRegion.SelectedValue = PL.dt.Rows[0]["RegionId"].ToString();
-                txtconnectionName.Text = PL.dt.Rows[0]["ConnectionName"].ToString();
-                txtSMTP.Text = PL.dt.Rows[0]["SMTP"].ToString();
-                ddlSSL.SelectedValue = PL.dt.Rows[0]["SSL"].ToString();
-                txtPortNo.Text = PL.dt.Rows[0]["PortNo"].ToString();
-                txtSequence.Text = PL.dt.Rows[0]["Sequence"].ToString();
-                txtDBName.Text = PL.dt.Rows[0]["DbName"].ToString(); 
-                //txtDBPassword.Text = PL.dt.Rows[0]["dbPassword"].ToString();
-                txtDBPassword.Attributes["value"] = PL.dt.Rows[0]["dbPassword"].ToString();
-                txtPrimaryColor.Value = PL.dt.Rows[0]["PrimaryColor"].ToString();
-                txtSecondarColor.Value = PL.dt.Rows[0]["SecondaryColor"].ToString();
-                txtlogourl.Text = PL.dt.Rows[0]["Logo"].ToString();
-                txtDBUserName.Text = PL.dt.Rows[0]["dbUserName"].ToString();
-                if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
-                {
-                    chkActive.Checked = false;
+                try
+                { 
+                    txtGroupName.Text = PL.dt.Rows[0]["Name"].ToString();
+                    txtShortName.Text = PL.dt.Rows[0]["ShortForm"].ToString(); 
+                    txtconnectionName.Text = PL.dt.Rows[0]["ConnectionName"].ToString();
+                    txtSMTP.Text = PL.dt.Rows[0]["SMTP"].ToString();
+                    ddlSSL.SelectedValue = PL.dt.Rows[0]["SSL"].ToString();
+                    txtPortNo.Text = PL.dt.Rows[0]["PortNo"].ToString();
+                    txtSequence.Text = PL.dt.Rows[0]["Sequence"].ToString();
+                    txtDBName.Text = PL.dt.Rows[0]["DbName"].ToString(); 
+                    //txtDBPassword.Text = PL.dt.Rows[0]["dbPassword"].ToString();
+                    txtDBPassword.Attributes["value"] = PL.dt.Rows[0]["dbPassword"].ToString();
+                    txtPrimaryColor.Value = PL.dt.Rows[0]["PrimaryColor"].ToString();
+                    txtSecondarColor.Value = PL.dt.Rows[0]["SecondaryColor"].ToString();
+                    txtlogourl.Text = PL.dt.Rows[0]["Logo"].ToString();
+                    txtDBUserName.Text = PL.dt.Rows[0]["dbUserName"].ToString();
+                    if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
+                    {
+                        chkActive.Checked = false;
+                    }
+                    else
+                    {
+                        chkActive.Checked = true;
+                    }
+                    ddlHOD.SelectedValue = PL.dt.Rows[0]["HOD"].ToString();
+                    ddlGroup.SelectedValue = PL.dt.Rows[0]["GroupID"].ToString();
+                    ddlGroup_SelectedIndexChanged(ddlGroup, EventArgs.Empty);
+                    ddlIndustry.SelectedValue =  PL.dt.Rows[0]["IndustryID"].ToString();
+                    ddlIndustry_SelectedIndexChanged(ddlIndustry, EventArgs.Empty);
+                    ddlRegion.SelectedValue = PL.dt.Rows[0]["RegionId"].ToString();
                 }
-                else
+                catch(Exception ex)
                 {
-                    chkActive.Checked = true;
+
                 }
-                ddlHOD.SelectedValue = PL.dt.Rows[0]["HOD"].ToString();
             }
             else
             {
@@ -170,6 +198,7 @@ namespace SystemAdmin.GroupStructure
             xml += "<OrgName><![CDATA[" + txtGroupName.Text.Trim() + "]]></OrgName>";
             xml += "<ShortName><![CDATA[" + txtShortName.Text.Trim() + "]]></ShortName>";
             xml += "<GroupId><![CDATA[" + ddlGroup.SelectedValue + "]]></GroupId>";
+            xml += "<Industry><![CDATA[" + ddlIndustry.SelectedValue + "]]></Industry>";
             xml += "<Region><![CDATA[" + ddlRegion.SelectedValue + "]]></Region>";
             xml += "<ConnectionName><![CDATA[" + txtconnectionName.Text.Trim() + "]]></ConnectionName>";
             xml += "<SMTP><![CDATA[" + txtSMTP.Text.Trim() + "]]></SMTP>";
@@ -236,6 +265,32 @@ namespace SystemAdmin.GroupStructure
             ddlGroupFilter.SelectedIndex = 0;
             ddlActive.SelectedIndex = 0;
             FillListView();
+        }
+
+        protected void ddlIndustry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetRegion(ddlRegion);
+        }
+
+      
+
+        protected void ddlGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetGIndustry(ddlIndustry);
+        }
+
+
+        void GetGIndustry(DropDownList ddl)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 36;
+            PL.Name = ddlGroup.SelectedValue;
+            StructureDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Id";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
         }
     }
 }

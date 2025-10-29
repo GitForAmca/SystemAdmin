@@ -26,35 +26,35 @@
                     </div>
                 </div>
                 <div class="col-md-3"> 
-                         <label class="control-label"> </label>
-                    <div class="form-group">
-                    <asp:Button ID="btnGet" runat="server" class="btn blue" OnClick="btnGet_Click" Text="Get" />
-                    <asp:Button ID="btnReset" runat="server" CssClass="btn default" OnClick="btnReset_Click" Text="Reset" />
+                    <label class="control-label"> </label>
+                        <div class="form-group">
+                            <asp:Button ID="btnGet" runat="server" class="btn blue" OnClick="btnGet_Click" Text="Get" />
+                            <asp:Button ID="btnReset" runat="server" CssClass="btn default" OnClick="btnReset_Click" Text="Reset" />
                         </div>
-                    </div>
                 </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="control-label"><span class="required" aria-required="true"></span></label>
-                        <div>
-                            <div class="btn-group pull-right">
-                                <button class="btn dropdown-toggle" data-toggle="dropdown">
-                                    Action <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right">
-                                    <li>
-                                        <asp:LinkButton ID="lnkBtnAddNew" OnClick="lnkBtnAddNew_Click" runat="server"><i class="fa fa-plus"></i>Add</asp:LinkButton>
-                                    </li>
-                                    <li>
-                                        <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" OnClientClick="return CheckOnlyOneSelect('checkboxes');" Text="Edit"><i class="fa fa-pencil"></i>Edit</asp:LinkButton>
-                                    </li>
-                                </ul>
-                            </div>
+           </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label"><span class="required" aria-required="true"></span></label>
+                    <div>
+                        <div class="btn-group pull-right">
+                            <button class="btn dropdown-toggle" data-toggle="dropdown">
+                                Action <i class="fa fa-angle-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <asp:LinkButton ID="lnkBtnAddNew" OnClick="lnkBtnAddNew_Click" runat="server"><i class="fa fa-plus"></i>Add</asp:LinkButton>
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" OnClientClick="return CheckOnlyOneSelect('checkboxes');" Text="Edit"><i class="fa fa-pencil"></i>Edit</asp:LinkButton>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
             <hr />
             <div class="row">
                 <div class="col-md-12">
@@ -65,9 +65,9 @@
                                     <tr class="bgprimary">
                                         <th>#</th>
                                         <th>Organization</th>
-                                        <th>Group</th>
+                                        <th>Group</th>  
                                         <th>Region</th>
-                                        <th>Industry</th>
+                                         <th>Industry</th>
                                         <th>Sequence</th>
                                         <th>Head of Organization</th>
                                         <th>Is Active</th>
@@ -116,36 +116,42 @@
         <div id="divEdit" runat="server" class="portlet-body form" visible="false">
             <div class="form-body">
                 <div class="row">
-                     <div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Name<span class="required" aria-required="true"> *</span></label>
                             <asp:TextBox ID="txtGroupName" class="form-control req" runat="server"></asp:TextBox>
                         </div>
-                     </div>
+                    </div>
                     <div class="col-md-4">
-                           <div class="form-group">
-                               <label class="control-label">Short Name<span class="required" aria-required="true"> *</span></label>
-                               <asp:TextBox ID="txtShortName" class="form-control req" runat="server"></asp:TextBox>
-                           </div>
-                     </div>
+                        <div class="form-group">
+                            <label class="control-label">Short Name<span class="required" aria-required="true"> *</span></label>
+                            <asp:TextBox ID="txtShortName" class="form-control req" runat="server"></asp:TextBox>
+                        </div>
+                    </div> 
+                    <div class="col-md-4">
+                       <div class="form-group">
+                            <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
+                            <asp:DropDownList ID="ddlGroup" class="form-control select2ddl req" OnSelectedIndexChanged="ddlGroup_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
+                       </div>
+                    </div> 
                      <div class="col-md-4">
                          <div class="form-group">
-                             <label class="control-label">Head of Organization<span class="required" aria-required="true"> *</span></label>
-                               <asp:DropDownList ID="ddlHOD" class="form-control select2ddl req" runat="server"></asp:DropDownList>
+                            <label class="control-label">Industry<span class="required" aria-required="true"> *</span></label>
+                            <asp:DropDownList ID="ddlIndustry" OnSelectedIndexChanged="ddlIndustry_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                          </div>
-                     </div>
-                     <div class="col-md-4">
-                         <div class="form-group">
-                             <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
-                              <asp:DropDownList ID="ddlGroup" class="form-control select2ddl req" runat="server"></asp:DropDownList>
-                         </div>
-                     </div>
+                     </div> 
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
-                             <asp:DropDownList ID="ddlRegion" class="form-control select2ddl req" runat="server"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlRegion"  class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                         <div class="form-group">
+                             <label class="control-label">Head of Organization<span class="required" aria-required="true"> *</span></label>
+                             <asp:DropDownList ID="ddlHOD" class="form-control select2ddl req" runat="server"></asp:DropDownList>
+                         </div>
+                     </div>
                     <div class="col-md-4">
                        <div class="form-group">
                            <label class="control-label">Connection Name<span class="required" aria-required="true"> *</span></label>
@@ -158,7 +164,7 @@
                            <asp:TextBox ID="txtSMTP" class="form-control req" runat="server"></asp:TextBox>
                        </div>
                     </div>
-                     <div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">SSL<span class="required" aria-required="true"> *</span></label>
                              <asp:DropDownList 
@@ -169,38 +175,38 @@
                                 <asp:ListItem Text="False" Value="False"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
-                     </div>
-                     <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Port No<span class="required" aria-required="true"> *</span></label>
                             <asp:TextBox ID="txtPortNo" class="form-control req " runat="server"></asp:TextBox>
                         </div>
-                     </div> 
+                    </div> 
                     <div class="col-md-4">
                        <div class="form-group">
                            <label class="control-label">Sequence<span class="required" aria-required="true"> *</span></label>
                            <asp:TextBox ID="txtSequence" class="form-control req" runat="server"></asp:TextBox>
                        </div>
                     </div>
-                     <div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">DB Name</label>
                             <asp:TextBox ID="txtDBName" class="form-control" runat="server"></asp:TextBox>
                         </div>
-                     </div>
-                     <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">DB Username</label>
                             <asp:TextBox ID="txtDBUserName" class="form-control" runat="server"></asp:TextBox>
                         </div>
-                     </div>
-                     <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">DB Password </label>
                             <asp:TextBox ID="txtDBPassword" class="form-control" TextMode="Password" runat="server"></asp:TextBox>
                         </div>
-                     </div>
-                     <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Primary Color <span class="required" aria-required="true"> *</span></label>
                                 <input type="color" id="txtPrimaryColor" runat="server" name="txtPrimaryColor" class="form-control req"   />
@@ -211,13 +217,13 @@
                                 <label class="control-label">Secondary Color <span class="required" aria-required="true"> *</span></label>
                                 <input type="color" id="txtSecondarColor" runat="server" name="txtSecondarColor" class="form-control req"  />
                             </div>
-                     </div> 
-                      <div class="col-md-4">
+                    </div> 
+                    <div class="col-md-4">
                          <div class="form-group">
                              <label class="control-label"> Logo Url</label>
                              <asp:TextBox ID="txtlogourl" class="form-control req" runat="server"></asp:TextBox>
                          </div>
-                      </div>
+                    </div>
                     <div class="col-md-1">
                         <div class="form-group" style="padding-top:25px;">
                             <label class="control-label">Active</label>

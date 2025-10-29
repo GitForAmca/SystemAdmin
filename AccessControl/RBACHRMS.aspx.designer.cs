@@ -159,15 +159,6 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.Button btnCancel;
 
         /// <summary>
-        /// LstIndustry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox LstIndustry;
-
-        /// <summary>
         /// LstGroup control.
         /// </summary>
         /// <remarks>
@@ -175,6 +166,15 @@ namespace SystemAdmin.AccessControl
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox LstGroup;
+
+        /// <summary>
+        /// LstIndustry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox LstIndustry;
 
         /// <summary>
         /// LstRegion control.
@@ -211,6 +211,15 @@ namespace SystemAdmin.AccessControl
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox LstWorkLocation;
+
+        /// <summary>
+        /// LstReportingTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox LstReportingTo;
 
         /// <summary>
         /// btnaddbulkaccess control.
@@ -283,5 +292,14 @@ namespace SystemAdmin.AccessControl
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnWorkLocation;
+
+        /// <summary>
+        /// hdnReportingTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnReportingTo;
     }
 }

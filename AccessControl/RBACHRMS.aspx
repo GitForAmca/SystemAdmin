@@ -131,14 +131,14 @@
                                                 <tr style="background:#cdcdcd;"> 
                                                       <th>  Parent</th>
                                                     <th>Sub Parent</th>
-                                                    <th>Child</th>
-                                                    <th>Industry</th>
+                                                    <th>Child</th> 
                                                     <th>Group</th>
+                                                    <th>Industry</th>
                                                     <th>Region</th> 
                                                     <th>Organization</th> 
                                                     <th>Company</th>
-                                                    <th>Location</th>
-                                                    <th style="display:none;">Reporting To</th>  
+                                                    <th>Reporting To</th>  
+                                                    <th>Location</th> 
                                                     <th>Action</th>
                                                 </tr>
                                             </thead> 
@@ -147,7 +147,7 @@
                                     </LayoutTemplate>  
                                     <ItemTemplate>
                                         <tr>
-                                            <td  >
+                                            <td>
                                                 <asp:HiddenField ID="hidautoid" runat="server" Value='<%# Eval("Autoid")%>' />
                                                 <asp:HiddenField ID="hidIsParentMenu" runat="server" Value='<%# Eval("IsMasterMenu")%>' />
                                                 <%# Eval("ParentMenuName") %>
@@ -157,24 +157,7 @@
                                             </td>
                                             <td>
                                                 <%# Eval("MenuName") %>
-                                            </td> 
-                                            <td>
-                                                <asp:Panel runat="server" ID="pnlIndustry" CssClass="dropdown-container">
-                                                <button type="button" class="dropdown-button">Choose an item</button> 
-                                                        <div class="dropdown-menu">
-                                                             <input type="text" class="dropdown-search" placeholder="Search..." /> 
-                                                              <asp:CheckBox ID="chkSelectAllIndustry" ForeColor="Blue" Font-Bold="true"
-                                                              runat="server" Text="Select All"  
-                                                              AutoPostBack="true" OnCheckedChanged="chkSelectAllIndustry_CheckedChanged" />  
-                                                        <div class="company-items-wrapper">
-                                                            <asp:CheckBoxList ID="chkactionIndustry"
-                                                                CssClass="industry-checkboxlist" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' AutoPostBack="true" OnSelectedIndexChanged="chkactionIndustry_SelectedIndexChanged"
-                                                                runat="server" RepeatDirection="Vertical"
-                                                                DataTextField="Name" DataValueField="Id" DataSource='<%# GetIndustryAction() %>'  />
-                                                        </div>
-                                                   </div> 
-                                                </asp:Panel> 
-                                            </td> 
+                                            </td>  
                                             <td>
                                                 <asp:Panel runat="server" ID="PnlGroup" CssClass="dropdown-container">
                                                     <button type="button" class="dropdown-button">Choose an item</button> 
@@ -187,11 +170,28 @@
                                                             <asp:CheckBoxList ID="chkactionGroup"
                                                                 CssClass="group-checkboxlist" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' AutoPostBack="true"  OnSelectedIndexChanged="chkactionGroup_SelectedIndexChanged"
                                                                 runat="server" RepeatDirection="Vertical"
-                                                                DataTextField="Description" DataValueField="Autoid"  />
+                                                                DataTextField="Name" DataValueField="Id" DataSource='<%# GetGroupByIndustry() %>'  />
                                                         </div>
                                                        </div> 
                                                </asp:Panel> 
                                             </td>
+                                             <td>
+                                             <asp:Panel runat="server" ID="pnlIndustry" CssClass="dropdown-container">
+                                             <button type="button" class="dropdown-button">Choose an item</button> 
+                                                     <div class="dropdown-menu">
+                                                          <input type="text" class="dropdown-search" placeholder="Search..." /> 
+                                                           <asp:CheckBox ID="chkSelectAllIndustry" ForeColor="Blue" Font-Bold="true"
+                                                           runat="server" Text="Select All"  
+                                                           AutoPostBack="true" OnCheckedChanged="chkSelectAllIndustry_CheckedChanged" />  
+                                                     <div class="company-items-wrapper">
+                                                         <asp:CheckBoxList ID="chkactionIndustry"
+                                                             CssClass="industry-checkboxlist" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' AutoPostBack="true" OnSelectedIndexChanged="chkactionIndustry_SelectedIndexChanged"
+                                                             runat="server" RepeatDirection="Vertical"
+                                                             DataTextField="Name" DataValueField="Id"   />
+                                                     </div>
+                                                </div> 
+                                             </asp:Panel> 
+                                         </td> 
                                             <td>
                                                 <asp:Panel runat="server" ID="pnlRegion" CssClass="dropdown-container">
                                                     <button type="button" class="dropdown-button">Choose an item</button> 
@@ -244,11 +244,17 @@
                                                 </div> 
                                                </asp:Panel> 
                                             </td> 
-                                            <td style="display:none;">
-                                               <asp:Panel runat="server" ID="pnlReporting">
+                                            <td>
+                                               <asp:Panel runat="server" ID="pnlReporting" CssClass="dropdown-container">
+                                                       <button type="button" class="dropdown-button">Choose an item</button> 
+                                                    <div class="dropdown-menu">
+                                                            <input type="text" class="dropdown-search" placeholder="Search..." />
                                                  <asp:CheckBox ID="chkReportingPerson" ForeColor="Blue" Font-Bold="true" runat="server" Text="Select All"
                                                     AutoPostBack="true" OnCheckedChanged="chkReportingPerson_CheckedChanged" /> 
-                                                 <asp:CheckBoxList ID="chkactioreporting" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="EmpName" DataSource='<%# GetReportingperson(Eval("EmpId").ToString()) %>' DataValueField="Autoid" />
+                                                          <div class="company-items-wrapper">
+                                                 <asp:CheckBoxList ID="chkactioreporting"  CssClass="reporting-checkboxlist" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="EmpName" DataSource='<%# GetReportingperson(Eval("EmpId").ToString()) %>' DataValueField="Autoid" />
+                                                                  </div>
+                                                    </div> 
                                                </asp:Panel>
                                             </td>
                                             <td>
@@ -288,19 +294,19 @@
                  <h4 class="modal-title" style="color: #fff;">Apply Bulk Access</h4>
              </div>
              <div class="modal-body"> 
-                                 <div class="row">  
+                                 <div class="row">
+                                     <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
+                                           <asp:ListBox runat="server" ID="LstGroup" SelectionMode="Multiple"  CssClass="form-control select2ddl reqb"></asp:ListBox>
+                                        </div>
+                                    </div> 
                                      <div class="col-md-12">
                                          <div class="form-group">
                                              <label class="control-label">Industry<span class="required" aria-required="true"> *</span></label>
                                             <asp:ListBox runat="server" ID="LstIndustry"  SelectionMode="Multiple" CssClass="form-control select2ddl reqb"></asp:ListBox>
                                          </div>
-                                     </div>  
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
-                                           <asp:ListBox runat="server" ID="LstGroup"   SelectionMode="Multiple"  CssClass="form-control select2ddl reqb"></asp:ListBox>
-                                        </div>
-                                    </div> 
+                                     </div>   
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
@@ -325,6 +331,12 @@
                                            <asp:ListBox runat="server" ID="LstWorkLocation" SelectionMode="Multiple" CssClass="form-control select2ddl reqb"></asp:ListBox>
                                         </div>
                                     </div> 
+                                     <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Reporting To <span class="required" aria-required="true"> *</span></label>
+                                           <asp:ListBox runat="server" ID="LstReportingTo" SelectionMode="Multiple" CssClass="form-control select2ddl reqb"></asp:ListBox>
+                                        </div>
+                                    </div>
                                </div>
                   <div class="modal-footer">
                         <asp:Button ID="btnaddbulkaccess" runat="server" class="btn blue" OnClick="btnaddbulkaccess_Click" OnClientClick="return CheckRequiredField('reqb');" Text="Apply" />
@@ -344,6 +356,7 @@
 <asp:HiddenField ID="hdnOrganization" runat="server" />
 <asp:HiddenField ID="hdnCompany" runat="server" />
 <asp:HiddenField ID="hdnWorkLocation" runat="server" />
+<asp:HiddenField ID="hdnReportingTo" runat="server" />
 
   <script type="text/javascript">
      function selectAllRegion(source) {
@@ -414,6 +427,9 @@
                 else if ($dropdown.find(".org-checkboxlist").length) {
                     btn.text(selected.length ? selected.join(", ") : "Choose an item");
                 }
+                else if ($dropdown.find(".reporting-checkboxlist").length) {
+                    btn.text(selected.length ? selected.join(", ") : "Choose an item");
+                }
             });
         }
        
@@ -450,7 +466,8 @@
                         eventTarget.includes("LstGroup") ||
                         eventTarget.includes("LstRegion") ||
                         eventTarget.includes("LstOrgnization") ||
-                        eventTarget.includes("LstCompany")
+                        eventTarget.includes("LstCompany") ||
+                        eventTarget.includes("LstReportingTo")
                     )) {
                         console.log("Prevented postback for: " + eventTarget);
                         return false;
@@ -499,7 +516,11 @@
                     break;
                 case "#<%= LstWorkLocation.ClientID %>":
                     $("#<%= hdnWorkLocation.ClientID %>").val(values.join(","));
-                    break;
+                        break;
+                case "#<%= LstReportingTo.ClientID %>":
+                        $("#<%= hdnReportingTo.ClientID %>").val(values.join(","));
+                        break;
+
             }
         }
 
@@ -508,31 +529,32 @@
             updateHiddenField("#" + $(this).attr("id"));
         });
 
+
+            // 🔹 Group -> Region
+        $("#<%= LstGroup.ClientID %>").on("change", function (e) {
+            e.preventDefault(); e.stopImmediatePropagation();
+            var selected = $(this).val() || [];;
+            $.ajax({
+                type: "POST",
+                url: "RBACHRMS.aspx/GetIndustriess",
+                data: JSON.stringify({ groupIds: selected.join(",") }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    populateListBox("#<%= LstIndustry.ClientID %>", response.d);
+                }
+            });
+            return false;
+        });
+
         // 🔹 Industry -> Group
         $("#<%= LstIndustry.ClientID %>").on("change", function (e) {
             e.preventDefault(); e.stopImmediatePropagation();  
             var selected = $(this).val() || [];
             $.ajax({
                 type: "POST",
-                url: "RBACHRMS.aspx/GetGroups",
-                data: JSON.stringify({ industryIds: selected.join(",") }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    populateListBox("#<%= LstGroup.ClientID %>", response.d);
-                }
-            });
-            return false;
-        });
-
-        // 🔹 Group -> Region
-        $("#<%= LstGroup.ClientID %>").on("change", function (e) {
-            e.preventDefault(); e.stopImmediatePropagation();
-            var selected = $(this).val() || [];
-            $.ajax({
-                type: "POST",
                 url: "RBACHRMS.aspx/GetRegions",
-                data: JSON.stringify({ groupIds: selected.join(",") }),
+                data: JSON.stringify({ industryIds: selected.join(",") }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -542,17 +564,21 @@
             return false;
         });
 
+       
+
         // 🔹 Region -> Organization
         $("#<%= LstRegion.ClientID %>").on("change", function (e) {
             e.preventDefault(); e.stopImmediatePropagation();
             var selected = $(this).val() || [];
             var selectedGroups = $("#<%= LstGroup.ClientID %>").val() || [];
+            var selectedInds = $("#<%= LstIndustry.ClientID %>").val() || [];
             $.ajax({
                 type: "POST",
                 url: "RBACHRMS.aspx/GetOrganizations",
                 data: JSON.stringify({
                     regionIds: selected.join(","),
-                    groupIds: selectedGroups.join(",")
+                    groupIds: selectedGroups.join(","),
+                    indIds: selectedInds.join(",")
                 }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

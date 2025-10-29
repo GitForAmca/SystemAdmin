@@ -19,15 +19,31 @@ namespace SystemAdmin.AccessControl
             if (!Page.IsPostBack)
             {
                 FillEmpAccess();
-                BindIndustry(LstIndustry);
+                BindGroup(LstGroup);
                 BindLocation(LstWorkLocation);
+                BindReportingperson(LstReportingTo);
+
+
             }
         }
 
-        void BindIndustry(ListBox LLB)
+        void BindReportingperson(ListBox LLB)
+        {
+            MenuAccessPL PL = new MenuAccessPL();
+            PL.OpCode = 33;
+            MenuAccessDL.returnTable(PL);
+            LLB.DataSource = PL.dt;
+            LLB.DataValueField = "Autoid";
+            LLB.DataTextField = "EmpName";
+            LLB.DataBind(); 
+        }
+
+      
+
+        void BindGroup(ListBox LLB)
         {
             StructurePL PL = new StructurePL();
-            PL.OpCode = 1;
+            PL.OpCode = 26;
             StructureDL.returnTable(PL);
             LLB.DataSource = PL.dt;
             LLB.DataValueField = "Id";
@@ -103,9 +119,9 @@ namespace SystemAdmin.AccessControl
                     {
 
                         string selectedIndustryIds = string.Empty;
-                        string selectedGroupIds = string.Empty; 
+                        string selectedGroupIds = string.Empty;
                         string selectedRegionIds = string.Empty;
-                        string selectedOrgIds = string.Empty; 
+                        string selectedOrgIds = string.Empty;
                         string selectedComIds = string.Empty;
                         string selectedLocationIds = string.Empty;
 
@@ -116,43 +132,10 @@ namespace SystemAdmin.AccessControl
                         CheckBoxList chkCompany = (CheckBoxList)lvItem.FindControl("chkactionCompany");
                         CheckBoxList chkLocation = (CheckBoxList)lvItem.FindControl("chkLocation");
                         HiddenField hidAutoId = (HiddenField)lvItem.FindControl("hidautoid");
-                       
+
 
                         if (dr[0].ToString() == hidAutoId.Value.ToString())
                         {
-                            if (!string.IsNullOrEmpty(dr["IndustryId"].ToString()))
-                            {
-                                CheckBoxList chkaction = (CheckBoxList)lvItem.FindControl("chkactionIndustry");
-                                string[] action = dr["IndustryId"].ToString().Split('^');
-                                foreach (string str in action)
-                                {
-                                    foreach (ListItem li in chkaction.Items)
-                                    {
-                                        if (li.Value == str)
-                                        {
-                                            selectedIndustryIds += "," + li.Value;
-                                            li.Selected = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            } 
-
-                            if (selectedIndustryIds != "")
-                            {
-                                var Groups = GetGroupByIndustry(selectedIndustryIds);
-                                chkGroup.DataSource = Groups;
-                                chkGroup.DataTextField = "Name";
-                                chkGroup.DataValueField = "Id";
-                                chkGroup.DataBind();
-                                chkGroup.Enabled = true;
-                            }
-                            else
-                            {
-                                chkGroup.Enabled = false;
-                                chkGroup.Items.Clear();
-                            }
-
                             if (!string.IsNullOrEmpty(dr["GroupId"].ToString()))
                             {
                                 CheckBoxList chkactionGroup = (CheckBoxList)lvItem.FindControl("chkactionGroup");
@@ -169,22 +152,56 @@ namespace SystemAdmin.AccessControl
                                         }
                                     }
                                 }
-                            }
-
+                            } 
                             if (selectedGroupIds != "")
                             {
-                                var Regions = GetRegionByIndustry(selectedGroupIds);
+                                var groups = GetIndustryByGroup(selectedGroupIds);
+                                chkIndustry.DataSource = groups;
+                                chkIndustry.DataTextField = "Name";
+                                chkIndustry.DataValueField = "Id";
+                                chkIndustry.DataBind();
+                                chkIndustry.Enabled = true;  
+                            }
+                            else
+                            {
+                                chkIndustry.Enabled = false;
+                                chkIndustry.Items.Clear(); 
+                            } 
+
+                            if (!string.IsNullOrEmpty(dr["IndustryId"].ToString()))
+                            {
+                                CheckBoxList chkaction = (CheckBoxList)lvItem.FindControl("chkactionIndustry");
+                                string[] action = dr["IndustryId"].ToString().Split('^');
+                                foreach (string str in action)
+                                {
+                                    foreach (ListItem li in chkaction.Items)
+                                    {
+                                        if (li.Value == str)
+                                        {
+                                            selectedIndustryIds += "," + li.Value;
+                                            li.Selected = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (selectedIndustryIds != "")
+                            {
+                                var Regions = GetRegionByIndustry(selectedIndustryIds);
                                 chkRegion.DataSource = Regions;
                                 chkRegion.DataTextField = "CountryName";
                                 chkRegion.DataValueField = "CountryCode";
                                 chkRegion.DataBind();
-                                chkRegion.Enabled = true;
+                                chkRegion.Enabled = true; 
                             }
                             else
                             {
                                 chkRegion.Enabled = false;
-                                chkRegion.Items.Clear();
+                                chkRegion.Items.Clear(); 
                             }
+
+
 
                             if (!string.IsNullOrEmpty(dr["RegionId"].ToString()))
                             {
@@ -202,11 +219,11 @@ namespace SystemAdmin.AccessControl
                                         }
                                     }
                                 }
-                            }
+                            } 
 
                             if (selectedRegionIds != "")
                             {
-                                var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds);
+                                var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds, selectedIndustryIds);
                                 chkOrg.DataSource = organization;
                                 chkOrg.DataTextField = "Name";
                                 chkOrg.DataValueField = "Autoid";
@@ -218,7 +235,6 @@ namespace SystemAdmin.AccessControl
                                 chkOrg.Enabled = false;
                                 chkOrg.Items.Clear(); 
                             }
-
                             if (!string.IsNullOrEmpty(dr["OrgId"].ToString()))
                             {
                                 CheckBoxList chkaction = (CheckBoxList)lvItem.FindControl("chkactionOrg");
@@ -322,8 +338,8 @@ namespace SystemAdmin.AccessControl
                                 }
                             }
 
-                           
-                            
+
+
                             break;
                         }
                     }
@@ -410,13 +426,7 @@ namespace SystemAdmin.AccessControl
             MenuDL.returnTable(PL);
             return PL.dt;
         }
-        public DataTable GetIndustryAction()
-        {
-            StructurePL PL = new StructurePL();
-            PL.OpCode = 1;   
-            StructureDL.returnTable(PL);
-            return PL.dt;
-        }
+        
 
         public DataTable GetLocationn()
         {
@@ -512,17 +522,16 @@ namespace SystemAdmin.AccessControl
                 CheckBoxList chkactionIndustry = (CheckBoxList)lvItem.FindControl("chkactionIndustry");
                 CheckBoxList chkactionGroup = (CheckBoxList)lvItem.FindControl("chkactionGroup");
                 CheckBoxList chkactionRegion = (CheckBoxList)lvItem.FindControl("chkactionRegion");
-                CheckBoxList chkactionOrg = (CheckBoxList)lvItem.FindControl("chkactionOrg"); 
+                CheckBoxList chkactionOrg = (CheckBoxList)lvItem.FindControl("chkactionOrg");
                 CheckBoxList chkactionCompany = (CheckBoxList)lvItem.FindControl("chkactionCompany");
                 CheckBoxList chkLocation = (CheckBoxList)lvItem.FindControl("chkLocation");
-                CheckBoxList chkactionMenu = (CheckBoxList)lvItem.FindControl("chkactionMenu");
-                
+                CheckBoxList chkactionMenu = (CheckBoxList)lvItem.FindControl("chkactionMenu"); 
                 CheckBoxList chkactioreporting = (CheckBoxList)lvItem.FindControl("chkactioreporting");
 
 
                 foreach (ListItem ind in chkactionIndustry.Items)
                 {
-                    if(chkactionIndustry.Visible == true)
+                    if (chkactionIndustry.Visible == true)
                     {
                         if (ind.Selected)
                         {
@@ -533,7 +542,7 @@ namespace SystemAdmin.AccessControl
                     {
                         Industry  = "";
                     }
-                    
+
                 }
 
                 foreach (ListItem grp in chkactionGroup.Items)
@@ -581,7 +590,7 @@ namespace SystemAdmin.AccessControl
                     }
                 }
 
-                
+
                 foreach (ListItem act in chkactionCompany.Items)
                 {
                     if (chkactionCompany.Visible == true)
@@ -628,7 +637,7 @@ namespace SystemAdmin.AccessControl
                         Action += act.Value + "^";
                     }
                 }
-                
+
                 XML += "<tr>";
                 XML += "<EmpId>" + ddlEmployeeName.SelectedValue + "</EmpId>";
                 XML += "<IndustryId>" + Industry + "</IndustryId>";
@@ -637,7 +646,7 @@ namespace SystemAdmin.AccessControl
                 XML += "<OrgId>" + Org + "</OrgId>";
                 XML += "<Company>" + CompanyId + "</Company>";
                 XML += "<Location>" + Location + "</Location>";
-                XML += "<Action>" + Action + "</Action>"; 
+                XML += "<Action>" + Action + "</Action>";
                 XML += "<Reporting>" + Reporting + "</Reporting>";
                 XML += "<MenuId>" + hidAutoId.Value + "</MenuId>";
                 XML += "</tr>";
@@ -682,32 +691,8 @@ namespace SystemAdmin.AccessControl
                     pnlOrganization.Visible = false;
                     chkLocation.Visible = false;
                 }
-
-               
-                //Panel pnlAction = (Panel)e.Item.FindControl("pnlAction");
-                //CheckBoxList chkactionMenu = (CheckBoxList)e.Item.FindControl("chkactionMenu");
-                //HiddenField hdnAutoId = (HiddenField)e.Item.FindControl("hidautoid"); // must exist in template
-
-                //if (pnlAction != null && chkactionMenu != null && hdnAutoId != null)
-                //{
-                //    DataTable actions = GetAction(hdnAutoId.Value);
-
-                //    if (actions != null && actions.Rows.Count > 0)
-                //    {
-                //        chkactionMenu.DataSource = actions;
-                //        chkactionMenu.DataTextField = "ActionName";
-                //        chkactionMenu.DataValueField = "Autoid";
-                //        chkactionMenu.DataBind();
-
-                //        pnlAction.Visible = true;  // show dropdown
-                //    }
-                //    else
-                //    {
-                //        pnlAction.Visible = false; // hide if no actions
-                //    }
-                //}
             }
-        } 
+        }
         private int GetHeaderOffset(Table tbl)
         {
             int headerCount = 0;
@@ -717,12 +702,12 @@ namespace SystemAdmin.AccessControl
                     headerCount++;
             }
             return headerCount;
-        } 
-        private DataTable GetGroupByIndustry(string selectedIndustryIds)
+        }
+        public DataTable GetGroupByIndustry()
         {
             StructurePL PL = new StructurePL();
-            PL.OpCode = 26; 
-            PL.IndustryId = selectedIndustryIds;
+            PL.OpCode = 26;
+            //PL.IndustryId = selectedIndustryIds;
             StructureDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (dt != null && dt.Rows.Count > 0)
@@ -733,13 +718,21 @@ namespace SystemAdmin.AccessControl
             {
                 return new DataTable();
             }
+        } 
+        public DataTable GetIndustryByGroup(string GroupIds)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 36;
+            PL.Name = GroupIds;
+            StructureDL.returnTable(PL);
+            return PL.dt;
         }
 
-        private DataTable GetRegionByIndustry(string GroupIds)
+        private DataTable GetRegionByIndustry(string Industryids)
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 27;
-            PL.IndustryId = GroupIds;
+            PL.IndustryId = Industryids;
             StructureDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (dt != null && dt.Rows.Count > 0)
@@ -752,12 +745,13 @@ namespace SystemAdmin.AccessControl
             }
         }
 
-        private DataTable GetOrgByRegion(string GroupIds, string RegionIds)
+        private DataTable GetOrgByRegion(string GroupIds, string RegionIds,string IndustryIds)
         {
             StructurePL PL = new StructurePL();
-            PL.OpCode = 28;
+            PL.OpCode = 28; 
             PL.Description = GroupIds;
-            PL.IndustryId = RegionIds;
+            PL.Name = RegionIds;
+            PL.IndustryId = IndustryIds;
             StructureDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (dt != null && dt.Rows.Count > 0)
@@ -770,7 +764,7 @@ namespace SystemAdmin.AccessControl
             }
         }
 
-         private DataTable GetCompaniesByRegions(string selectedRegionIds, string selectedIndustryIds)
+        private DataTable GetCompaniesByRegions(string selectedRegionIds, string selectedIndustryIds)
         {
             MenuAccessPL PL = new MenuAccessPL();
             PL.OpCode = 32;
@@ -803,7 +797,7 @@ namespace SystemAdmin.AccessControl
             {
                 return new DataTable();
             }
-        }  
+        }
 
         protected void chkReportingPerson_CheckedChanged(object sender, EventArgs e)
         {
@@ -818,32 +812,144 @@ namespace SystemAdmin.AccessControl
                 }
             }
             upnl_Menuaccess.Update();
-        }  
-        protected void chkSelectAllIndustry_CheckedChanged(object sender, EventArgs e)
+        }
+
+        protected void chkSelectAllGroup_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chkSelectAll = (CheckBox)sender;
             ListViewItem item = (ListViewItem)chkSelectAll.NamingContainer;
-            CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
-            CheckBoxList chkIndustry = (CheckBoxList)item.FindControl("chkactionIndustry");
-            CheckBoxList chkComapny = (CheckBoxList)item.FindControl("chkactionCompany");
-            CheckBox chkselectallcompany = (CheckBox)item.FindControl("chkselectallcompany");
-            CheckBox chkSelectAllIndustry = (CheckBox)item.FindControl("chkSelectAllIndustry");
-            if (chkSelectAllIndustry != null)
+            CheckBox chkSelectAllGroup = (CheckBox)item.FindControl("chkSelectAllGroup");
+            CheckBoxList chkGroup = (CheckBoxList)item.FindControl("chkactionGroup");
+            if (chkSelectAllGroup != null)
             {
-                foreach (ListItem li in chkIndustry.Items)
+                foreach (ListItem li in chkGroup.Items)
                 {
                     li.Selected = chkSelectAll.Checked;
                 }
-                chkactionIndustry_SelectedIndexChanged(chkIndustry, EventArgs.Empty);
+                chkactionGroup_SelectedIndexChanged(chkGroup, EventArgs.Empty);
             }
             upnl_Menuaccess.Update();
-        } 
-        protected void chkactionIndustry_SelectedIndexChanged(object sender, EventArgs e)
+        }
+        //protected void chkactionGroup_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    CheckBoxList chkGroup = (CheckBoxList)sender;
+        //    ListViewItem item = (ListViewItem)chkGroup.NamingContainer;
+        //    CheckBox chkSelectAllGroup = (CheckBox)item.FindControl("chkSelectAllGroup");
+        //    CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
+        //    CheckBox chkSelectAllRegion = (CheckBox)item.FindControl("chkSelectAllRegion");
+        //    CheckBoxList chkOrg = (CheckBoxList)item.FindControl("chkactionOrg");
+        //    CheckBox chkSelectAllOrg = (CheckBox)item.FindControl("chkSelectAllOrg");
+        //    CheckBoxList chkCompany = (CheckBoxList)item.FindControl("chkactionCompany");
+        //    CheckBox chkselectallcompany = (CheckBox)item.FindControl("chkselectallcompany");
+
+        //    string selectedGroupIds = string.Empty;
+        //    string selectedRegionIds = string.Empty;
+        //    string selectedOrgIds = string.Empty;
+
+        //    foreach (ListItem groupItem in chkGroup.Items)
+        //    {
+        //        if (groupItem.Selected)
+        //        {
+        //            if (string.IsNullOrEmpty(selectedGroupIds))
+        //            {
+        //                selectedGroupIds = groupItem.Value;
+        //            }
+        //            else
+        //            {
+        //                selectedGroupIds += "," + groupItem.Value;
+        //            }
+        //        }
+        //    }
+        //    if (selectedGroupIds != "")
+        //    {
+        //        var Regions = GetRegionByIndustry(selectedGroupIds);
+        //        chkRegion.DataSource = Regions;
+        //        chkRegion.DataTextField = "CountryName";
+        //        chkRegion.DataValueField = "CountryCode";
+        //        chkRegion.DataBind();
+        //        chkRegion.Enabled = true;
+
+        //    }
+        //    else
+        //    {
+        //        chkRegion.Enabled = false;
+        //        chkRegion.Items.Clear();
+        //        chkSelectAllRegion.Checked = false;
+        //    }
+        //    foreach (ListItem regionItem in chkRegion.Items)
+        //    {
+        //        if (regionItem.Selected)
+        //        {
+        //            if (string.IsNullOrEmpty(selectedRegionIds))
+        //            {
+        //                selectedRegionIds = regionItem.Value;
+        //            }
+        //            else
+        //            {
+        //                selectedRegionIds += "," + regionItem.Value;
+        //            }
+        //        }
+        //    }
+
+        //    if (selectedRegionIds != "")
+        //    {
+        //        var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds);
+        //        chkOrg.DataSource = organization;
+        //        chkOrg.DataTextField = "Name";
+        //        chkOrg.DataValueField = "Autoid";
+        //        chkOrg.DataBind();
+        //        chkOrg.Enabled = true;
+        //        chkSelectAllOrg.Checked = false;
+        //    }
+        //    else
+        //    {
+        //        chkOrg.Enabled = false;
+        //        chkOrg.Items.Clear();
+        //        chkSelectAllOrg.Checked = false;
+        //    }
+
+        //    foreach (ListItem OrgItem in chkOrg.Items)
+        //    {
+        //        if (OrgItem.Selected)
+        //        {
+        //            if (string.IsNullOrEmpty(selectedRegionIds))
+        //            {
+        //                selectedOrgIds = OrgItem.Value;
+        //            }
+        //            else
+        //            {
+        //                selectedOrgIds += "," + OrgItem.Value;
+        //            }
+        //        }
+        //    }
+
+        //    if (selectedOrgIds != "")
+        //    {
+        //        var companies = GetCompaniesByOrgs(selectedOrgIds);
+        //        chkCompany.DataSource = companies;
+        //        chkCompany.DataTextField = "Name";
+        //        chkCompany.DataValueField = "Id";
+        //        chkCompany.DataBind();
+        //        chkCompany.Enabled = true;
+        //        chkselectallcompany.Checked = false;
+
+        //    }
+        //    else
+        //    {
+        //        chkCompany.Enabled = false;
+        //        chkCompany.Items.Clear();
+        //        chkselectallcompany.Checked = false;
+
+        //    }
+        //    upnl_Menuaccess.Update();
+        //}
+
+        protected void chkactionGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CheckBoxList chkIndustry = (CheckBoxList)sender;
-            ListViewItem item = (ListViewItem)chkIndustry.NamingContainer;
-            CheckBoxList chkGroup = (CheckBoxList)item.FindControl("chkactionGroup");
-            CheckBox chkSelectAllGroup = (CheckBox)item.FindControl("chkSelectAllGroup");
+            CheckBoxList chkGroup = (CheckBoxList)sender;
+            ListViewItem item = (ListViewItem)chkGroup.NamingContainer;
+            CheckBoxList chkIndustry = (CheckBoxList)item.FindControl("chkactionIndustry");
+            CheckBox chkSelectAllIndustry = (CheckBox)item.FindControl("chkSelectAllIndustry");
             CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
             CheckBox chkSelectAllRegion = (CheckBox)item.FindControl("chkSelectAllRegion");
             CheckBoxList chkOrg = (CheckBoxList)item.FindControl("chkactionOrg");
@@ -855,40 +961,6 @@ namespace SystemAdmin.AccessControl
             string selectedIndustryIds = string.Empty;
             string selectedGroupIds = string.Empty;
             string selectedOrgIds = string.Empty;
-
-            foreach (ListItem IndustryItem in chkIndustry.Items)
-            {
-                if (IndustryItem.Selected)
-                {
-                    if (string.IsNullOrEmpty(selectedIndustryIds))
-                    {
-                        selectedIndustryIds = IndustryItem.Value;
-                    }
-                    else
-                    {
-                        selectedIndustryIds += "," + IndustryItem.Value;
-                    }
-                }
-            }
-
-            if (selectedIndustryIds != "")
-            {
-                var groups = GetGroupByIndustry(selectedIndustryIds);
-                chkGroup.DataSource = groups;
-                chkGroup.DataTextField = "Name";
-                chkGroup.DataValueField = "Id";
-                chkGroup.DataBind();
-                chkGroup.Enabled = true;
-                chkSelectAllGroup.Checked = false;
-
-            }
-            else
-            {
-                chkGroup.Enabled = false;
-                chkGroup.Items.Clear();
-                chkSelectAllGroup.Checked = false;
-
-            }
 
             foreach (ListItem groupItem in chkGroup.Items)
             {
@@ -907,19 +979,53 @@ namespace SystemAdmin.AccessControl
 
             if (selectedGroupIds != "")
             {
-                var Regions = GetRegionByIndustry(selectedGroupIds);
+                var groups = GetIndustryByGroup(selectedGroupIds);
+                chkIndustry.DataSource = groups;
+                chkIndustry.DataTextField = "Name";
+                chkIndustry.DataValueField = "Id";
+                chkIndustry.DataBind();
+                chkIndustry.Enabled = true;
+                chkSelectAllIndustry.Checked = false;
+
+            }
+            else
+            {
+                chkIndustry.Enabled = false;
+                chkIndustry.Items.Clear();
+                chkSelectAllIndustry.Checked = false;
+
+            }
+
+            foreach (ListItem industryitem in chkIndustry.Items)
+            {
+                if (industryitem.Selected)
+                {
+                    if (string.IsNullOrEmpty(selectedGroupIds))
+                    {
+                        selectedIndustryIds = industryitem.Value;
+                    }
+                    else
+                    {
+                        selectedIndustryIds += "," + industryitem.Value;
+                    }
+                }
+            }
+
+            if (selectedIndustryIds != "")
+            {
+                var Regions = GetRegionByIndustry(selectedIndustryIds);
                 chkRegion.DataSource = Regions;
                 chkRegion.DataTextField = "CountryName";
                 chkRegion.DataValueField = "CountryCode";
                 chkRegion.DataBind();
                 chkRegion.Enabled = true;
-                chkSelectAllGroup.Checked = false;
+                chkSelectAllRegion.Checked = false;
             }
             else
             {
                 chkRegion.Enabled = false;
                 chkRegion.Items.Clear();
-                chkSelectAllGroup.Checked = false;
+                chkSelectAllRegion.Checked = false;
             }
 
             foreach (ListItem regionItem in chkRegion.Items)
@@ -939,7 +1045,7 @@ namespace SystemAdmin.AccessControl
 
             if (selectedRegionIds != "")
             {
-                var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds);
+                var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds, selectedIndustryIds);
                 chkOrg.DataSource = organization;
                 chkOrg.DataTextField = "Name";
                 chkOrg.DataValueField = "Autoid";
@@ -988,27 +1094,182 @@ namespace SystemAdmin.AccessControl
 
             }
             upnl_Menuaccess.Update();
-        } 
-        protected void chkSelectAllGroup_CheckedChanged(object sender, EventArgs e)
+        }
+        protected void chkSelectAllIndustry_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chkSelectAll = (CheckBox)sender;
             ListViewItem item = (ListViewItem)chkSelectAll.NamingContainer;
-            CheckBox chkSelectAllGroup = (CheckBox)item.FindControl("chkSelectAllGroup");
-            CheckBoxList chkGroup = (CheckBoxList)item.FindControl("chkactionGroup");
-            if (chkSelectAllGroup != null)
+            CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
+            CheckBoxList chkIndustry = (CheckBoxList)item.FindControl("chkactionIndustry");
+            CheckBoxList chkComapny = (CheckBoxList)item.FindControl("chkactionCompany");
+            CheckBox chkselectallcompany = (CheckBox)item.FindControl("chkselectallcompany");
+            CheckBox chkSelectAllIndustry = (CheckBox)item.FindControl("chkSelectAllIndustry");
+            if (chkSelectAllIndustry != null)
             {
-                foreach (ListItem li in chkGroup.Items)
+                foreach (ListItem li in chkIndustry.Items)
                 {
                     li.Selected = chkSelectAll.Checked;
                 }
-                chkactionGroup_SelectedIndexChanged(chkGroup, EventArgs.Empty);
+                chkactionIndustry_SelectedIndexChanged(chkIndustry, EventArgs.Empty);
             }
             upnl_Menuaccess.Update();
-        } 
-        protected void chkactionGroup_SelectedIndexChanged(object sender, EventArgs e)
+        }
+        //protected void chkactionIndustry_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    CheckBoxList chkIndustry = (CheckBoxList)sender;
+        //    ListViewItem item = (ListViewItem)chkIndustry.NamingContainer;
+        //    CheckBoxList chkGroup = (CheckBoxList)item.FindControl("chkactionGroup");
+        //    CheckBox chkSelectAllGroup = (CheckBox)item.FindControl("chkSelectAllGroup");
+        //    CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
+        //    CheckBox chkSelectAllRegion = (CheckBox)item.FindControl("chkSelectAllRegion");
+        //    CheckBoxList chkOrg = (CheckBoxList)item.FindControl("chkactionOrg");
+        //    CheckBox chkSelectAllOrg = (CheckBox)item.FindControl("chkSelectAllOrg");
+        //    CheckBoxList chkCompany = (CheckBoxList)item.FindControl("chkactionCompany");
+        //    CheckBox chkselectallcompany = (CheckBox)item.FindControl("chkselectallcompany");
+
+        //    string selectedRegionIds = string.Empty;
+        //    string selectedIndustryIds = string.Empty;
+        //    string selectedGroupIds = string.Empty;
+        //    string selectedOrgIds = string.Empty;
+
+        //    foreach (ListItem IndustryItem in chkIndustry.Items)
+        //    {
+        //        if (IndustryItem.Selected)
+        //        {
+        //            if (string.IsNullOrEmpty(selectedIndustryIds))
+        //            {
+        //                selectedIndustryIds = IndustryItem.Value;
+        //            }
+        //            else
+        //            {
+        //                selectedIndustryIds += "," + IndustryItem.Value;
+        //            }
+        //        }
+        //    }
+
+        //    if (selectedIndustryIds != "")
+        //    {
+        //        var groups = GetGroupByIndustry();
+        //        chkGroup.DataSource = groups;
+        //        chkGroup.DataTextField = "Name";
+        //        chkGroup.DataValueField = "Id";
+        //        chkGroup.DataBind();
+        //        chkGroup.Enabled = true;
+        //        chkSelectAllGroup.Checked = false;
+
+        //    }
+        //    else
+        //    {
+        //        chkGroup.Enabled = false;
+        //        chkGroup.Items.Clear();
+        //        chkSelectAllGroup.Checked = false;
+
+        //    }
+
+        //    foreach (ListItem groupItem in chkGroup.Items)
+        //    {
+        //        if (groupItem.Selected)
+        //        {
+        //            if (string.IsNullOrEmpty(selectedGroupIds))
+        //            {
+        //                selectedGroupIds = groupItem.Value;
+        //            }
+        //            else
+        //            {
+        //                selectedGroupIds += "," + groupItem.Value;
+        //            }
+        //        }
+        //    }
+
+        //    if (selectedGroupIds != "")
+        //    {
+        //        var Regions = GetRegionByIndustry(selectedGroupIds);
+        //        chkRegion.DataSource = Regions;
+        //        chkRegion.DataTextField = "CountryName";
+        //        chkRegion.DataValueField = "CountryCode";
+        //        chkRegion.DataBind();
+        //        chkRegion.Enabled = true;
+        //        chkSelectAllGroup.Checked = false;
+        //    }
+        //    else
+        //    {
+        //        chkRegion.Enabled = false;
+        //        chkRegion.Items.Clear();
+        //        chkSelectAllGroup.Checked = false;
+        //    }
+
+        //    foreach (ListItem regionItem in chkRegion.Items)
+        //    {
+        //        if (regionItem.Selected)
+        //        {
+        //            if (string.IsNullOrEmpty(selectedRegionIds))
+        //            {
+        //                selectedRegionIds = regionItem.Value;
+        //            }
+        //            else
+        //            {
+        //                selectedRegionIds += "," + regionItem.Value;
+        //            }
+        //        }
+        //    }
+
+        //    if (selectedRegionIds != "")
+        //    {
+        //        var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds);
+        //        chkOrg.DataSource = organization;
+        //        chkOrg.DataTextField = "Name";
+        //        chkOrg.DataValueField = "Autoid";
+        //        chkOrg.DataBind();
+        //        chkOrg.Enabled = true;
+        //        chkSelectAllOrg.Checked = false;
+        //    }
+        //    else
+        //    {
+        //        chkOrg.Enabled = false;
+        //        chkOrg.Items.Clear();
+        //        chkSelectAllOrg.Checked = false;
+        //    }
+
+        //    foreach (ListItem OrgItem in chkOrg.Items)
+        //    {
+        //        if (OrgItem.Selected)
+        //        {
+        //            if (string.IsNullOrEmpty(selectedRegionIds))
+        //            {
+        //                selectedOrgIds = OrgItem.Value;
+        //            }
+        //            else
+        //            {
+        //                selectedOrgIds += "," + OrgItem.Value;
+        //            }
+        //        }
+        //    }
+
+        //    if (selectedOrgIds != "")
+        //    {
+        //        var companies = GetCompaniesByOrgs(selectedOrgIds);
+        //        chkCompany.DataSource = companies;
+        //        chkCompany.DataTextField = "Name";
+        //        chkCompany.DataValueField = "Id";
+        //        chkCompany.DataBind();
+        //        chkCompany.Enabled = true;
+        //        chkselectallcompany.Checked = false;
+
+        //    }
+        //    else
+        //    {
+        //        chkCompany.Enabled = false;
+        //        chkCompany.Items.Clear();
+        //        chkselectallcompany.Checked = false;
+
+        //    }
+        //    upnl_Menuaccess.Update();
+        //} 
+
+        protected void chkactionIndustry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CheckBoxList chkGroup = (CheckBoxList)sender;
-            ListViewItem item = (ListViewItem)chkGroup.NamingContainer;
+            CheckBoxList chkIndustry = (CheckBoxList)sender;
+            ListViewItem item = (ListViewItem)chkIndustry.NamingContainer;
             CheckBox chkSelectAllGroup = (CheckBox)item.FindControl("chkSelectAllGroup");
             CheckBoxList chkRegion = (CheckBoxList)item.FindControl("chkactionRegion");
             CheckBox chkSelectAllRegion = (CheckBox)item.FindControl("chkSelectAllRegion");
@@ -1016,34 +1277,35 @@ namespace SystemAdmin.AccessControl
             CheckBox chkSelectAllOrg = (CheckBox)item.FindControl("chkSelectAllOrg");
             CheckBoxList chkCompany = (CheckBoxList)item.FindControl("chkactionCompany");
             CheckBox chkselectallcompany = (CheckBox)item.FindControl("chkselectallcompany");
-            
+
             string selectedGroupIds = string.Empty;
-            string selectedRegionIds = string.Empty;  
+            string selectedIndustryIds = string.Empty;
+            string selectedRegionIds = string.Empty;
             string selectedOrgIds = string.Empty;
 
-            foreach (ListItem groupItem in chkGroup.Items)
+            foreach (ListItem industryitem in chkIndustry.Items)
             {
-                if (groupItem.Selected)
+                if (industryitem.Selected)
                 {
-                    if (string.IsNullOrEmpty(selectedGroupIds))
+                    if (string.IsNullOrEmpty(selectedIndustryIds))
                     {
-                        selectedGroupIds = groupItem.Value;
+                        selectedIndustryIds = industryitem.Value;
                     }
                     else
                     {
-                        selectedGroupIds += "," + groupItem.Value;
+                        selectedIndustryIds += "," + industryitem.Value;
                     }
                 }
             }
-            if (selectedGroupIds != "")
+            if (selectedIndustryIds != "")
             {
-                var Regions = GetRegionByIndustry(selectedGroupIds);
+                var Regions = GetRegionByIndustry(selectedIndustryIds);
                 chkRegion.DataSource = Regions;
                 chkRegion.DataTextField = "CountryName";
                 chkRegion.DataValueField = "CountryCode";
                 chkRegion.DataBind();
                 chkRegion.Enabled = true;
-                
+                chkSelectAllRegion.Checked = false;
             }
             else
             {
@@ -1068,7 +1330,7 @@ namespace SystemAdmin.AccessControl
 
             if (selectedRegionIds != "")
             {
-                var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds);
+                var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds, selectedIndustryIds);
                 chkOrg.DataSource = organization;
                 chkOrg.DataTextField = "Name";
                 chkOrg.DataValueField = "Autoid";
@@ -1117,7 +1379,7 @@ namespace SystemAdmin.AccessControl
 
             }
             upnl_Menuaccess.Update();
-        } 
+        }
         protected void chkSelectAllRegion_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chkSelectAll = (CheckBox)sender;
@@ -1151,8 +1413,10 @@ namespace SystemAdmin.AccessControl
             CheckBoxList chkCompany = (CheckBoxList)item.FindControl("chkactionCompany");
             CheckBox chkselectallcompany = (CheckBox)item.FindControl("chkselectallcompany");
             CheckBoxList chkGroup = (CheckBoxList)item.FindControl("chkactionGroup");
+            CheckBoxList chkIndustry = (CheckBoxList)item.FindControl("chkactionIndustry");
 
             string selectedRegionIds = string.Empty;
+            string selectedIndustryIds = string.Empty;
             string selectedGroupIds = string.Empty;
             string selectedOrgIds = string.Empty;
 
@@ -1167,6 +1431,21 @@ namespace SystemAdmin.AccessControl
                     else
                     {
                         selectedGroupIds += "," + groupItem.Value;
+                    }
+                }
+            }
+
+            foreach (ListItem industryitem in chkIndustry.Items)
+            {
+                if (industryitem.Selected)
+                {
+                    if (string.IsNullOrEmpty(selectedGroupIds))
+                    {
+                        selectedIndustryIds = industryitem.Value;
+                    }
+                    else
+                    {
+                        selectedIndustryIds += "," + industryitem.Value;
                     }
                 }
             }
@@ -1186,7 +1465,7 @@ namespace SystemAdmin.AccessControl
             } 
             if (selectedRegionIds != "")
             {
-                var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds);
+                var organization = GetOrgByRegion(selectedGroupIds, selectedRegionIds, selectedIndustryIds);
                 chkOrg.DataSource = organization;
                 chkOrg.DataTextField = "Name";
                 chkOrg.DataValueField = "Autoid";
@@ -1322,19 +1601,10 @@ namespace SystemAdmin.AccessControl
             string[] selectedOrgs = string.IsNullOrEmpty(hdnOrganization.Value) ? new string[0] : hdnOrganization.Value.Split(',');
             string[] selectedCompanies = string.IsNullOrEmpty(hdnCompany.Value) ? new string[0] : hdnCompany.Value.Split(',');
             string[] selectedLocations = string.IsNullOrEmpty(hdnWorkLocation.Value) ? new string[0] : hdnWorkLocation.Value.Split(',');
+            string[] selectedReportings = string.IsNullOrEmpty(hdnReportingTo.Value) ? new string[0] : hdnReportingTo.Value.Split(',');
 
             foreach (ListViewDataItem row in LV_Access_Menu_Company.Items)
             {
-                // Industry
-                CheckBoxList chkactionIndustry = (CheckBoxList)row.FindControl("chkactionIndustry");
-                if (chkactionIndustry != null)
-                {
-                    foreach (ListItem item in chkactionIndustry.Items)
-                    {
-                        item.Selected = selectedIndustries.Contains(item.Value);
-                    }
-                    chkactionIndustry_SelectedIndexChanged(chkactionIndustry, e);
-                }
 
                 // Group
                 CheckBoxList chkactionGroup = (CheckBoxList)row.FindControl("chkactionGroup");
@@ -1346,6 +1616,17 @@ namespace SystemAdmin.AccessControl
                     }
                     chkactionGroup_SelectedIndexChanged(chkactionGroup, e);
                 }
+
+                // Industry
+                CheckBoxList chkactionIndustry = (CheckBoxList)row.FindControl("chkactionIndustry");
+                if (chkactionIndustry != null)
+                {
+                    foreach (ListItem item in chkactionIndustry.Items)
+                    {
+                        item.Selected = selectedIndustries.Contains(item.Value);
+                    }
+                    chkactionIndustry_SelectedIndexChanged(chkactionIndustry, e);
+                } 
 
                 // Region
                 CheckBoxList chkactionRegion = (CheckBoxList)row.FindControl("chkactionRegion");
@@ -1389,6 +1670,16 @@ namespace SystemAdmin.AccessControl
                         item.Selected = selectedLocations.Contains(item.Value);
                     }
                 }
+
+                // Reporting Person
+                CheckBoxList chkactioreporting = (CheckBoxList)row.FindControl("chkactioreporting");
+                if (chkactioreporting != null)
+                {
+                    foreach (ListItem item in chkactioreporting.Items)
+                    {
+                        item.Selected = selectedReportings.Contains(item.Value);
+                    }
+                }
             }
 
             LstIndustry.SelectedIndex = -1;
@@ -1400,11 +1691,11 @@ namespace SystemAdmin.AccessControl
 
 
         [WebMethod]
-        public static List<Dictionary<string, string>> GetGroups(string industryIds)
+        public static List<Dictionary<string, string>> GetIndustriess(string groupIds)
         {
             StructurePL PL = new StructurePL();
-            PL.OpCode = 26;
-            PL.IndustryId = industryIds;
+            PL.OpCode = 36;
+            PL.Name = groupIds;
             StructureDL.returnTable(PL);
 
             return PL.dt.AsEnumerable()
@@ -1416,11 +1707,11 @@ namespace SystemAdmin.AccessControl
         }
 
         [WebMethod]
-        public static List<Dictionary<string, string>> GetRegions(string groupIds)
+        public static List<Dictionary<string, string>> GetRegions(string industryIds)
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 27;
-            PL.IndustryId = groupIds;
+            PL.IndustryId = industryIds;
             StructureDL.returnTable(PL);
 
             return PL.dt.AsEnumerable()
@@ -1432,12 +1723,13 @@ namespace SystemAdmin.AccessControl
         }
 
         [WebMethod]
-        public static List<Dictionary<string, string>> GetOrganizations(string regionIds, string groupIds)
+        public static List<Dictionary<string, string>> GetOrganizations(string regionIds, string groupIds , string indIds)
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 28; 
             PL.Description = groupIds;
-            PL.IndustryId = regionIds;
+            PL.Name = regionIds;
+            PL.IndustryId = indIds;
             StructureDL.returnTable(PL);
 
             return PL.dt.AsEnumerable()
@@ -1474,6 +1766,7 @@ namespace SystemAdmin.AccessControl
                 ClearCheckBoxList(row, "chkactionOrg");
                 ClearCheckBoxList(row, "chkactionCompany");
                 ClearCheckBoxList(row, "chkLocation");
+                ClearCheckBoxList(row, "chkactioreporting");
             } 
             LstIndustry.ClearSelection();
             LstGroup.ClearSelection();
@@ -1481,7 +1774,7 @@ namespace SystemAdmin.AccessControl
             LstOrgnization.ClearSelection();
             LstCompany.ClearSelection();
             LstWorkLocation.ClearSelection();
-
+            LstReportingTo.ClearSelection();
             ScriptManager.RegisterStartupScript(this, GetType(), "updateDropdown", "updateDropdownButtonText();", true);
         }
 

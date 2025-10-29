@@ -16,9 +16,21 @@ namespace SystemAdmin.GroupStructure
             if (!Page.IsPostBack)
             {
                 GetIndustry(ddlIndustryFilter);
+                GetRegion(LstRegion);
                 GetHOD(ddlHOD);
                 FillListView();
             }
+        }
+
+        void GetRegion(ListBox ddl)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 35;
+            StructureDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Id";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
         }
         void GetIndustry(DropDownList ddl)
         {
@@ -102,6 +114,7 @@ namespace SystemAdmin.GroupStructure
             {
                 txtIndustryName.Text = PL.dt.Rows[0]["Description"].ToString();
                 ddlHOD.SelectedValue = PL.dt.Rows[0]["HOD"].ToString();
+                SetList(LstRegion, PL.dt.Rows[0]["RegionId"].ToString());
                 if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
                 {
                     chkActive.Checked = false;
@@ -117,12 +130,30 @@ namespace SystemAdmin.GroupStructure
             }
         }
 
+        void SetList(ListBox ddl, string ids)
+        {
+            ddl.SelectedIndex = -1;
+            foreach (var item in ids.Split(','))
+            {
+                foreach (ListItem item2 in ddl.Items)
+                {
+                    if (item2.Value == item)
+                    {
+                        item2.Selected = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             StructurePL PL = new StructurePL();
             PL.HOD = ddlHOD.SelectedValue;
             PL.Name = txtIndustryName.Text.Trim();
+            PL.Description = Request.Form[LstRegion.UniqueID].ToString();
             PL.IsActive = chkActive.Checked;
             if (ViewState["Mode"].ToString() == "Add")
             {

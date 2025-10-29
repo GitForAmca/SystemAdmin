@@ -114,6 +114,15 @@ namespace SystemAdmin.GroupStructure
         protected global::System.Web.UI.WebControls.DropDownList ddlGroup;
 
         /// <summary>
+        /// ddlIndustry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlIndustry;
+
+        /// <summary>
         /// ddlRegion control.
         /// </summary>
         /// <remarks>
