@@ -20,15 +20,28 @@ namespace SystemAdmin.ESS
                 getIndustry(ddlIndustries);
                 BindHR();
                 FillListView();
+                getDirectorList(ddlRm);
+                getDirectorList(ddlRMSearch);
             }
         }
 
+        void getDirectorList(DropDownList ddl)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 68;
+            DropdownDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Autoid";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select an option", ""));
+        }
         void FillListView()
         {
             EssPL PL = new EssPL();
             PL.OpCode = 88;
-            PL.String1 = ddlRegionSearch.SelectedValue;
-            PL.Industry = ddl_IndustrySearch.SelectedValue;
+            PL.String1 = ddlRMSearch.SelectedValue;
+            //PL.Industry = ddl_IndustrySearch.SelectedValue;
             EssDL.returnTable(PL);
             if (PL.dt.Rows.Count > 0)
             {
@@ -136,12 +149,13 @@ namespace SystemAdmin.ESS
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
             {
-                ddlIndustries.SelectedIndex = ddlIndustries.Items.IndexOf(ddlIndustries.Items.FindByValue(PL.dt.Rows[0]["IndustryId"].ToString()));
-                ddlRegion.SelectedIndex = ddlRegion.Items.IndexOf(ddlRegion.Items.FindByValue(PL.dt.Rows[0]["Region"].ToString()));
+               // ddlIndustries.SelectedIndex = ddlIndustries.Items.IndexOf(ddlIndustries.Items.FindByValue(PL.dt.Rows[0]["IndustryId"].ToString()));
+               // ddlRegion.SelectedIndex = ddlRegion.Items.IndexOf(ddlRegion.Items.FindByValue(PL.dt.Rows[0]["Region"].ToString()));
+                ddlRm.SelectedIndex = ddlRm.Items.IndexOf(ddlRm.Items.FindByValue(PL.dt.Rows[0]["ReporingManager"].ToString()));
                 ddl_PrimaryHR.SelectedIndex = ddl_PrimaryHR.Items.IndexOf(ddl_PrimaryHR.Items.FindByValue(PL.dt.Rows[0]["PrimaryHR"].ToString()));
                 ddl_SecondaryHR.SelectedIndex = ddl_SecondaryHR.Items.IndexOf(ddl_SecondaryHR.Items.FindByValue(PL.dt.Rows[0]["SecondaryHR"].ToString()));
-                BindDepartment();
-                SelectCheckDesignationMenu(PL.dt.Rows[0]["DepID"].ToString());
+                //BindDepartment();
+                //SelectCheckDesignationMenu(PL.dt.Rows[0]["DepID"].ToString());
             }
         }
 
@@ -218,12 +232,13 @@ namespace SystemAdmin.ESS
             { 
                 EssPL PL = new EssPL();
                 PL.OpCode = 86;
-                PL.Industry = ddlIndustries.SelectedValue;
-                PL.String1 = ddlRegion.SelectedValue;
+                PL.String1 = ddlRm.SelectedValue;
+                //PL.Industry = ddlIndustries.SelectedValue;
+                //PL.String1 = ddlRegion.SelectedValue;
                 PL.String2 = ddl_PrimaryHR.SelectedValue;
                 PL.String3 = ddl_SecondaryHR.SelectedValue;
                 PL.CreatedBy = Session["UserAutoId"].ToString();
-                PL.Department = GetSelectedIds();
+                //PL.Department = GetSelectedIds();
                 EssDL.returnTable(PL);
                 if(PL.dt.Rows.Count == 0 )
                 {
@@ -244,7 +259,7 @@ namespace SystemAdmin.ESS
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('Record already exits for the selected departments');", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('Record already exits for the selected Reporting Manager');", true);
                 }
             }
             else
@@ -252,12 +267,13 @@ namespace SystemAdmin.ESS
                 EssPL PL = new EssPL(); 
                 PL.OpCode = 90;
                 PL.AutoId = hidAutoid.Value;
-                PL.Industry = ddlIndustries.SelectedValue;
-                PL.String1 = ddlRegion.SelectedValue;
+                // PL.Industry = ddlIndustries.SelectedValue;
+                //PL.String1 = ddlRegion.SelectedValue;
+                PL.String1 = ddlRm.SelectedValue;
                 PL.String2 = ddl_PrimaryHR.SelectedValue;
                 PL.String3 = ddl_SecondaryHR.SelectedValue;
                 PL.CreatedBy = Session["UserAutoId"].ToString();
-                PL.Department = GetSelectedIds();
+                //PL.Department = GetSelectedIds();
                 EssDL.returnTable(PL);
                 if (!PL.isException)
                 {

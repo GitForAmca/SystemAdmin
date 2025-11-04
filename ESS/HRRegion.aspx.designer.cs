@@ -51,6 +51,15 @@ namespace SystemAdmin.ESS
         protected global::System.Web.UI.WebControls.DropDownList ddlRegionSearch;
 
         /// <summary>
+        /// ddlRMSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRMSearch;
+
+        /// <summary>
         /// btnGet control.
         /// </summary>
         /// <remarks>
@@ -121,6 +130,15 @@ namespace SystemAdmin.ESS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRegion;
+
+        /// <summary>
+        /// ddlRm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRm;
 
         /// <summary>
         /// ddl_PrimaryHR control.

@@ -3,22 +3,28 @@
     <div class="portlet box green margin-top-10">
         <div class="portlet-title">
             <div class="caption">
-                <asp:Label ID="lblPageListTitle" runat="server" Text="Regional HR"></asp:Label>
+                <asp:Label ID="lblPageListTitle" runat="server" Text="HR"></asp:Label>
             </div>
         </div> 
         <div id="divView" runat="server" class="portlet-body form-body">
             <div class="row"> 
-              <div class="col-md-3">
+              <div style="display:none;" class="col-md-3">
                    <div class="form-group">
                       <label class="control-label">Industry<span class="required" aria-required="true"> *</span></label>
                       <asp:DropDownList ID="ddl_IndustrySearch" class="form-control select2ddl" runat="server"></asp:DropDownList>
                    </div>
               </div>
-              <div class="col-md-3">
+              <div style="display:none;"  class="col-md-3">
                    <div class="form-group">
                       <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
                       <asp:DropDownList ID="ddlRegionSearch" class="form-control select2ddl" runat="server"></asp:DropDownList>
                    </div>
+              </div>
+              <div class="col-md-3">
+                  <div class="form-group">
+                     <label class="control-label">Reporting Manager<span class="required" aria-required="true"> *</span></label>
+                     <asp:DropDownList ID="ddlRMSearch" class="form-control select2ddl" runat="server"></asp:DropDownList>
+                  </div>
               </div>
               <div class="col-md-1">
                     <div class="form-group">
@@ -57,9 +63,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Region</th>
-                                        <th>Industry</th>
-                                        <th>Department</th>
+                                        <th>Reporting Manager</th>
+                                        <%--<th>Industry</th>
+                                        <th>Department</th>--%>
                                         <th>Primary HR</th>
                                         <th>Secondary HR</th>
                                     </tr>
@@ -73,14 +79,17 @@
                                     <asp:CheckBox ID="chkSelect" class="checkboxes" runat="server" Autoid='<%# Eval("Autoid")%>' />
                                 </td>
                                 <td>
+                                    <%# Eval("ReporingManager") %>
+                                </td>
+                                <%--<td>
                                     <%# Eval("Region") %>
                                 </td>
                                 <td>
                                     <%# Eval("Industry") %>
-                                </td>
-                                <td style="width:500px !important;">
+                                </td>--%>
+                              <%--  <td style="width:500px !important;">
                                     <%# Eval("Department") %>
-                                </td>
+                                </td>--%>
                                 <td>
                                     <%# Eval("PrimaryHR") %>
                                 </td>
@@ -96,31 +105,37 @@
         <div id="divEdit" runat="server" class="portlet-body form" visible="false">
             <div class="form-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div style="display:none;" class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Industries<span class="required" aria-required="true"> *</span></label>
-                            <asp:DropDownList ID="ddlIndustries" class="form-control select2ddl req" OnSelectedIndexChanged="ddlIndustries_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlIndustries" class="form-control select2ddl" OnSelectedIndexChanged="ddlIndustries_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
                         </div>
                     </div>
-                    <div class="col-md-6" style="display: flex;">
+                    <div class="col-md-6"  style="display:none;">
                         <div class="form-group" style="width: 100%">
                             <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
-                             <asp:DropDownList ID="ddlRegion" OnSelectedIndexChanged="ddlRegion_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl req" runat="server"></asp:DropDownList> 
+                             <asp:DropDownList ID="ddlRegion" OnSelectedIndexChanged="ddlRegion_SelectedIndexChanged" AutoPostBack="true" class="form-control select2ddl" runat="server"></asp:DropDownList> 
                         </div> 
                     </div>
-                    <div class="col-md-6">
+                    <div  class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Reporting Manager<span class="required" aria-required="true"> *</span></label>
+                            <asp:DropDownList ID="ddlRm" class="form-control select2ddl req"  runat="server"></asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Primary HR<span class="required" aria-required="true"> *</span></label>
                            <asp:DropDownList ID="ddl_PrimaryHR" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                          <div class="form-group">
                              <label class="control-label">Secondary HR<span class="required" aria-required="true"> *</span></label>
                             <asp:DropDownList ID="ddl_SecondaryHR" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                          </div>
                     </div> 
-                    <div class="col-md-12">
+                    <div style="display:none;" class="col-md-12">
                         <asp:ListView ID="LV_department" runat="server" DataKeyNames="Id" ItemPlaceholderID="itemplaceholder">
                             <LayoutTemplate>
                                 <table class="table table-bordered">
