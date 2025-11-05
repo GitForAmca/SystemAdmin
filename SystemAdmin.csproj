@@ -73,6 +73,7 @@
     <Content Include="AccessMenu\DesignationMenuAccess.aspx" />
     <Content Include="AccessMenu\DepartmentMenuAccess.aspx" />
     <Content Include="AccessMenu\SubDepartmentMenuAccess.aspx" />
+    <Compile Include="App_Code\StructurePL.cs" />
     <Content Include="assets\admin\layout3\css\custom.css" />
     <Content Include="assets\admin\layout3\css\layout.css" />
     <Content Include="assets\admin\layout3\css\themes\blue-hoki.css" />
@@ -4341,6 +4342,7 @@
     <Content Include="ESS\CategoryType.aspx" />
     <Content Include="ESS\CRMCSMapping.aspx" />
     <Content Include="ESS\ELFormat.aspx" />
+    <Content Include="ESS\ShowAllEmailsFormat.aspx" />
     <Content Include="ESS\EmailFormat.aspx" />
     <Content Include="ESS\GeneralSenderEmail.aspx" />
     <Content Include="ESS\LicenseActivity.aspx" />
@@ -4358,6 +4360,11 @@
     <Content Include="ESS\TaskSchedule.aspx" />
     <Content Include="ESS\TicketRequest.aspx" />
     <Content Include="ESS\TradeLicenseAuthority.aspx" />
+    <Content Include="GroupStructure\Company.aspx" />
+    <Content Include="GroupStructure\Group.aspx" />
+    <Content Include="GroupStructure\Industry.aspx" />
+    <Content Include="GroupStructure\Organization.aspx" />
+    <Content Include="GroupStructure\Region.aspx" />
     <Content Include="images\AMCA_icon.png" />
     <Content Include="images\jolahamainlogo.svg" />
     <Content Include="images\logoFooter.svg" />
@@ -4579,6 +4586,7 @@
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\System.Xml.XPath.XDocument.dll" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\vbc.exe" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\VBCSCompiler.exe" />
+    <Content Include="Style\CommonPolicy.css" />
     <Content Include="View\Dashboard.aspx" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
@@ -4643,6 +4651,7 @@
     <Compile Include="App_Code\PortalSettingsDL.cs" />
     <Compile Include="App_Code\ServiceMasterPL.cs" />
     <Compile Include="App_Code\ServiceMasterDL.cs" />
+    <Compile Include="App_Code\StructureDL.cs" />
     <Compile Include="App_Code\UtilityPL.cs" />
     <Compile Include="App_Code\SQLConnectivity.cs" />
     <Compile Include="Default.aspx.cs">
@@ -4700,6 +4709,13 @@
     </Compile>
     <Compile Include="ESS\ELFormat.aspx.designer.cs">
       <DependentUpon>ELFormat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\ShowAllEmailsFormat.aspx.cs">
+      <DependentUpon>ShowAllEmailsFormat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\ShowAllEmailsFormat.aspx.designer.cs">
+      <DependentUpon>ShowAllEmailsFormat.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\EmailFormat.aspx.cs">
       <DependentUpon>EmailFormat.aspx</DependentUpon>
@@ -4822,6 +4838,41 @@
     </Compile>
     <Compile Include="ESS\TradeLicenseAuthority.aspx.designer.cs">
       <DependentUpon>TradeLicenseAuthority.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GroupStructure\Company.aspx.cs">
+      <DependentUpon>Company.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GroupStructure\Company.aspx.designer.cs">
+      <DependentUpon>Company.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GroupStructure\Group.aspx.cs">
+      <DependentUpon>Group.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GroupStructure\Group.aspx.designer.cs">
+      <DependentUpon>Group.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GroupStructure\Industry.aspx.cs">
+      <DependentUpon>Industry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GroupStructure\Industry.aspx.designer.cs">
+      <DependentUpon>Industry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GroupStructure\Organization.aspx.cs">
+      <DependentUpon>Organization.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GroupStructure\Organization.aspx.designer.cs">
+      <DependentUpon>Organization.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GroupStructure\Region.aspx.cs">
+      <DependentUpon>Region.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GroupStructure\Region.aspx.designer.cs">
+      <DependentUpon>Region.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage\MainMaster.Master.cs">
       <DependentUpon>MainMaster.Master</DependentUpon>

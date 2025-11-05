@@ -46,9 +46,13 @@
                                     </button>
                                     <ul class="dropdown-menu pull-right">
                                         <li>
-                                            <asp:LinkButton ID="lnkBtnAddNew" OnClick="lnkBtnAddNew_Click" runat="server"><i class="fa fa-plus"></i>Add</asp:LinkButton></li>
+                                            <asp:LinkButton ID="lnkBtnAddNew" OnClick="lnkBtnAddNew_Click" runat="server"><i class="fa fa-plus"></i>Add</asp:LinkButton>
+                                        </li>
                                         <li>
                                             <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" Text="Edit" OnClientClick="return CheckOnlyOneSelect('chkselect');"><i class="fa fa-pencil"></i>Edit</asp:LinkButton>
+                                        </li>
+                                        <li>
+                                            <asp:LinkButton ID="lnkView" runat="server" OnClick="lnkView_Click" Text="Edit" OnClientClick="return CheckOnlyOneSelect('chkselect');"><i class="fa fa-ra"></i>View All</asp:LinkButton>
                                         </li>
                                     </ul>
                                 </div>
