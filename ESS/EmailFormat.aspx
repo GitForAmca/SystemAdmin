@@ -201,8 +201,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label class="control-label">CC<span class="required" aria-required="true"> *</span></label>                                                
-                                                <asp:ListBox ID="lstCC" SelectionMode="Multiple" class="form-control req multiselectddl" runat="server"></asp:ListBox>
+                                                <label class="control-label">CC<span class="required" aria-required="true"></span></label>                                                
+                                                <asp:ListBox ID="lstCC" SelectionMode="Multiple" class="form-control multiselectddl" runat="server"></asp:ListBox>
                                                 <%--<asp:TextBox ID="txtCC" CssClass="form-control req" runat="server" placeholder="input Name"></asp:TextBox>--%>
                                             </div>
                                         </div>
