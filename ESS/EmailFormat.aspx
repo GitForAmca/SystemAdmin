@@ -52,7 +52,7 @@
                                             <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" Text="Edit" OnClientClick="return CheckOnlyOneSelect('chkselect');"><i class="fa fa-pencil"></i>Edit</asp:LinkButton>
                                         </li>
                                         <li>
-                                            <asp:LinkButton ID="lnkView" runat="server" OnClick="lnkView_Click" Text="Edit" OnClientClick="return CheckOnlyOneSelect('chkselect');"><i class="fa fa-ra"></i>View All</asp:LinkButton>
+                                            <asp:LinkButton ID="lnkView" runat="server" OnClick="lnkView_Click" Text="Edit"><i class="fa fa-ra"></i>View All</asp:LinkButton>
                                         </li>
                                     </ul>
                                 </div>

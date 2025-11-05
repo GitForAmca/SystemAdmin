@@ -38,7 +38,6 @@ namespace SystemAdmin.ESS
             ServiceMasterPL PL = new ServiceMasterPL();
             PL.OpCode = 47;
             PL.GroupId = GroupId;
-            PL.AutoId = 47;
             ServiceMasterDL.returnTable(PL);
             DataTable dt = PL.dt;
 

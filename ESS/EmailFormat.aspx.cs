@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SystemAdmin.App_Code;
+using SystemAdmin.GroupStructure;
 
 
 namespace SystemAdmin.ESS
@@ -423,23 +424,9 @@ namespace SystemAdmin.ESS
 
         protected void lnkView_Click(object sender, EventArgs e)
         { 
-            foreach (ListViewItem item in LV.Items)
-            {
-                CheckBox chkSelect = (CheckBox)item.FindControl("chkSelect");
-                if (chkSelect != null)
-                {
-                    if (chkSelect.Checked)
-                    {
-                        int Autoid = Convert.ToInt32(chkSelect.Attributes["Autoid"]);
-                        int GroupId = Convert.ToInt32(chkSelect.Attributes["GroupId"]); 
-                        
-                        
-                        string Url = "../ESS/ShowAllEmailsFormat.aspx?GroupId=" + GroupId + "";
-                        string script = "window.open('" + Url + "','_blank');";
-                        ScriptManager.RegisterStartupScript(this, GetType(), "OpenWindow", script, true);
-                    }
-                }
-            } 
+            string Url = "../ESS/ShowAllEmailsFormat.aspx?GroupId=" + ddlGroupFilter.SelectedValue + "";
+            string script = "window.open('" + Url + "','_blank');";
+            ScriptManager.RegisterStartupScript(this, GetType(), "OpenWindow", script, true);
         }
     }
 }
