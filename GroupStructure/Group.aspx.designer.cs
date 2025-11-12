@@ -150,6 +150,33 @@ namespace SystemAdmin.GroupStructure
         protected global::System.Web.UI.WebControls.DropDownList ddlHOD;
 
         /// <summary>
+        /// ddlLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlLevel;
+
+        /// <summary>
+        /// ddlEmp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEmp;
+
+        /// <summary>
+        /// btnAddLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddLevel;
+
+        /// <summary>
         /// chkActive control.
         /// </summary>
         /// <remarks>
@@ -157,6 +184,24 @@ namespace SystemAdmin.GroupStructure
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkActive;
+
+        /// <summary>
+        /// AssessorTbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel AssessorTbl;
+
+        /// <summary>
+        /// LV_AssessorTbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView LV_AssessorTbl;
 
         /// <summary>
         /// btnAdd control.
