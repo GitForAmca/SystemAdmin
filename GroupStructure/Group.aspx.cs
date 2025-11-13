@@ -26,9 +26,60 @@ namespace SystemAdmin.GroupStructure
         }
         protected void btnAdd_Level(object sender, EventArgs e)
         {
-            AddNewRecordRowToHeirarchy();
+
+            AddNewRecordRowToHeirarchyAdd();
             AssessorTbl.Update();
         }
+        private void AddNewRecordRowToHeirarchyAdd()
+        {
+            if (!string.IsNullOrEmpty(ddlLevel.SelectedValue) && !string.IsNullOrEmpty(ddlEmp.SelectedValue))
+            {
+                DataTable dtCurrentTable;
+
+                // If ViewState already has table, get it; else create new structure
+                if (ViewState["Assessor"] != null)
+                {
+                    dtCurrentTable = (DataTable)ViewState["Assessor"];
+                }
+                else
+                {
+                    dtCurrentTable = new DataTable();
+                    dtCurrentTable.Columns.Add("Autoid");
+                    dtCurrentTable.Columns.Add("Level");
+                    dtCurrentTable.Columns.Add("EmpId");
+                    dtCurrentTable.Columns.Add("EmployeeName");
+                    dtCurrentTable.Columns.Add("isEnabled", typeof(bool));
+                }
+
+                // Check if Level already exists
+                DataRow[] existingRows = dtCurrentTable.Select("Autoid = '" + ddlLevel.SelectedValue + "'");
+                if (existingRows.Length > 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('This Level already exists. Please select another.');", true);
+                    return;
+                }
+
+                // Add new row
+                DataRow drNew = dtCurrentTable.NewRow();
+                drNew["Autoid"] = ddlLevel.SelectedValue;
+                drNew["Level"] = ddlLevel.SelectedItem.Text;
+                drNew["EmpId"] = ddlEmp.SelectedValue;
+                drNew["EmployeeName"] = ddlEmp.SelectedItem.Text.Trim();
+                drNew["isEnabled"] = false;
+
+                dtCurrentTable.Rows.Add(drNew);
+
+                // Store and bind
+                ViewState["Assessor"] = dtCurrentTable;
+                LV_AssessorTbl.DataSource = dtCurrentTable;
+                LV_AssessorTbl.DataBind();
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('Please select both Level and Employee.');", true);
+            }
+        }
+
         void BindLevelHeirarchy()
         {
             StructurePL PL = new StructurePL();
@@ -48,46 +99,46 @@ namespace SystemAdmin.GroupStructure
             ViewState["Assessor"] = PL.dt;
             AssessorTbl.Update();
         }
-        private void AddNewRecordRowToHeirarchy()
-        {
-            if (ddlLevel.SelectedValue != "" && ddlEmp.SelectedValue != "")
-            {
-                if (ViewState["Assessor"] != null)
-                {
-                    DataTable dtCurrentTable = (DataTable)ViewState["Assessor"];
-                    DataRow[] IsExixts = dtCurrentTable.Select("Autoid='" + ddlLevel.SelectedValue.ToString() + "'");
-                    if (IsExixts.Length > 0)
-                    {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('This Level already exists.Please select another');", true);
-                        return;
-                    }
-                    DataRow drCurrentRow = null;
-                    drCurrentRow = dtCurrentTable.NewRow();
-                    dtCurrentTable.Rows.Add(drCurrentRow);
-                    if (dtCurrentTable.Rows.Count > 0)
-                    {
-                        for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
-                        {
-                            drCurrentRow = dtCurrentTable.NewRow();
-                            drCurrentRow["Autoid"] = ddlLevel.SelectedValue.ToString();
-                            drCurrentRow["Level"] = ddlLevel.SelectedItem.ToString();
-                            drCurrentRow["EmpId"] = ddlEmp.SelectedValue.ToString();
-                            drCurrentRow["EmployeeName"] = ddlEmp.SelectedItem.Text.ToString().Trim();
-                            drCurrentRow["isEnabled"] = false;
-                        }
-                        if (dtCurrentTable.Rows[dtCurrentTable.Rows.Count - 1][0].ToString() == "")
-                        {
-                            dtCurrentTable.Rows[dtCurrentTable.Rows.Count - 1].Delete();
-                            dtCurrentTable.AcceptChanges();
-                        }
-                        dtCurrentTable.Rows.Add(drCurrentRow);
-                        ViewState["Assessor"] = dtCurrentTable;
-                        LV_AssessorTbl.DataSource = dtCurrentTable;
-                        LV_AssessorTbl.DataBind();
-                    }
-                }
-            }
-        }
+        //private void AddNewRecordRowToHeirarchy()
+        //{
+        //    if (ddlLevel.SelectedValue != "" && ddlEmp.SelectedValue != "")
+        //    {
+        //        if (ViewState["Assessor"] != null)
+        //        {
+        //            DataTable dtCurrentTable = (DataTable)ViewState["Assessor"];
+        //            DataRow[] IsExixts = dtCurrentTable.Select("Autoid='" + ddlLevel.SelectedValue.ToString() + "'");
+        //            if (IsExixts.Length > 0)
+        //            {
+        //                ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('This Level already exists.Please select another');", true);
+        //                return;
+        //            }
+        //            DataRow drCurrentRow = null;
+        //            drCurrentRow = dtCurrentTable.NewRow();
+        //            dtCurrentTable.Rows.Add(drCurrentRow);
+        //            if (dtCurrentTable.Rows.Count > 0)
+        //            {
+        //                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+        //                {
+        //                    drCurrentRow = dtCurrentTable.NewRow();
+        //                    drCurrentRow["Autoid"] = ddlLevel.SelectedValue.ToString();
+        //                    drCurrentRow["Level"] = ddlLevel.SelectedItem.ToString();
+        //                    drCurrentRow["EmpId"] = ddlEmp.SelectedValue.ToString();
+        //                    drCurrentRow["EmployeeName"] = ddlEmp.SelectedItem.Text.ToString().Trim();
+        //                    drCurrentRow["isEnabled"] = false;
+        //                }
+        //                if (dtCurrentTable.Rows[dtCurrentTable.Rows.Count - 1][0].ToString() == "")
+        //                {
+        //                    dtCurrentTable.Rows[dtCurrentTable.Rows.Count - 1].Delete();
+        //                    dtCurrentTable.AcceptChanges();
+        //                }
+        //                dtCurrentTable.Rows.Add(drCurrentRow);
+        //                ViewState["Assessor"] = dtCurrentTable;
+        //                LV_AssessorTbl.DataSource = dtCurrentTable;
+        //                LV_AssessorTbl.DataBind();
+        //            }
+        //        }
+        //    }
+        //}
         protected void LV_AssessorTbl_ItemDataBound(object sender, ListViewItemEventArgs e)
         {
             if (e.Item.ItemType == ListViewItemType.DataItem)
@@ -264,6 +315,13 @@ namespace SystemAdmin.GroupStructure
         }
         void ClearField()
         {
+            LV_AssessorTbl.DataSource = null;      
+            LV_AssessorTbl.DataBind();
+            ViewState["Assessor"] = null;
+            // ✅ Reset selection mode
+            LV_AssessorTbl.SelectedIndex = -1;
+            ddlHOD.SelectedIndex = -1;
+            ddlEmp.SelectedIndex = -1;
             txtGroupName.Text = string.Empty;
             ddlIndustryFilter.SelectedIndex = -1;
             lstIndustry.SelectedIndex = -1;
@@ -290,6 +348,7 @@ namespace SystemAdmin.GroupStructure
         }
         protected void lnkBtnAddNew_Click(object sender, EventArgs e)
         {
+            ClearField();
             divView.Visible = false;
             divEdit.Visible = true;
             ViewState["Mode"] = "Add";
@@ -420,6 +479,7 @@ namespace SystemAdmin.GroupStructure
         {
             divView.Visible = true;
             divEdit.Visible = false;
+
         }
         protected void btnGet_Click(object sender, EventArgs e)
         {

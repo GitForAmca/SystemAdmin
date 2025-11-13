@@ -138,9 +138,9 @@
                         <div class="form-group">
                             <label class="control-label">Add Level<span class="required" aria-required="true"> *</span></label>
                             <div class="input-group add-on" style="display: flex;">
-                                <asp:DropDownList ID="ddlLevel" runat="server" class="form-control select2ddl subadd"></asp:DropDownList>
-                                <asp:DropDownList ID="ddlEmp" runat="server" class="form-control select2ddl subadd"></asp:DropDownList>
-                                <asp:Button ID="btnAddLevel" runat="server" class="btn blue" OnClick="btnAdd_Level" Text="+" />
+                                <asp:DropDownList ID="ddlLevel" runat="server" class="form-control select2ddl sub"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlEmp" runat="server" class="form-control select2ddl sub" ></asp:DropDownList>
+                                <asp:Button ID="btnAddLevel" runat="server" class="btn blue" OnClick="btnAdd_Level" OnClientClick="return CheckRequiredField('sub');" Text="+" />
                             </div>
                         </div>
                     </div>
