@@ -143,14 +143,14 @@ namespace SystemAdmin.AccessControl
                     }
                 }
             }
-            else 
+            else
             {
                 foreach (ListViewItem lvItem in LV_Access_Menu_Company.Items)
                 {
                     CheckBoxList chkaction = (CheckBoxList)lvItem.FindControl("chkaction");
                     foreach (ListItem li in chkaction.Items)
                     {
-                        li.Selected = false;     
+                        li.Selected = false;
                         break;
                     }
                 }
@@ -351,7 +351,7 @@ namespace SystemAdmin.AccessControl
 
             string[] args = commandArgs.Split('|');
             string valAutoId = args.Length > 0 ? args[0] : string.Empty;
-            string valGroupId = args.Length > 1 ? args[1] : string.Empty; 
+            string valGroupId = args.Length > 1 ? args[1] : string.Empty;
 
             int id = Convert.ToInt32(valAutoId);
             hidEmpidMain.Value = valAutoId;
@@ -605,7 +605,7 @@ namespace SystemAdmin.AccessControl
         void getDepartmentFilter()
         {
             DropdownPL PL = new DropdownPL();
-            PL.OpCode = 72; 
+            PL.OpCode = 72;
             DropdownDL.returnTable(PL);
             ddlDepartmentFilter.DataSource = PL.dt;
             ddlDepartmentFilter.DataValueField = "Id";
