@@ -176,7 +176,7 @@
                                     <thead>
                                         <tr style="background: #ddd;">
                                             <th>Action</th>
-                                            <th>Full Page Access</th>
+                                            <th>Full Page Access</th> 
                                             <th>Child</th>
                                             <th>Sub Parent</th>
                                             <th>Parent</th>
