@@ -435,21 +435,20 @@ namespace SystemAdmin.GroupStructure
                 PL.OpCode = 8;
                 PL.AutoId = Convert.ToInt32(hidAutoid.Value);
             }
-            DataTable dtCurrentTable = (DataTable)ViewState["Assessor"];
-            int rowCount = dtCurrentTable.Rows.Count;
-            var xml = "<tbl>";
-            for (int i = 0; i < rowCount; i++)
-            {
-                xml += "<tr>";
-                xml += "<Level><![CDATA[" + dtCurrentTable.Rows[i]["Autoid"] + "]]></Level>";
-                xml += "<EmpId><![CDATA[" + dtCurrentTable.Rows[i]["EmpId"] + "]]></EmpId>";
-                xml += "<IsEnabled><![CDATA[" + dtCurrentTable.Rows[i]["isEnabled"] + "]]></IsEnabled>";
-                xml += "<AutoId><![CDATA[" + PL.AutoId + "]]></AutoId>";
-                xml += "</tr>";
-            }
-            xml += "</tbl>";
-            PL.XML = xml;
-            //PL.Description = Request.Form[LstRegion.UniqueID];
+            //DataTable dtCurrentTable = (DataTable)ViewState["Assessor"];
+            //int rowCount = dtCurrentTable.Rows.Count;
+            //var xml = "<tbl>";
+            //for (int i = 0; i < rowCount; i++)
+            //{
+            //    xml += "<tr>";
+            //    xml += "<Level><![CDATA[" + dtCurrentTable.Rows[i]["Autoid"] + "]]></Level>";
+            //    xml += "<EmpId><![CDATA[" + dtCurrentTable.Rows[i]["EmpId"] + "]]></EmpId>";
+            //    xml += "<IsEnabled><![CDATA[" + dtCurrentTable.Rows[i]["isEnabled"] + "]]></IsEnabled>";
+            //    xml += "<AutoId><![CDATA[" + PL.AutoId + "]]></AutoId>";
+            //    xml += "</tr>";
+            //}
+            //xml += "</tbl>";
+            //PL.XML = xml; 
             PL.CreatedBy = Session["UserAutoId"].ToString();
             StructureDL.returnTable(PL);
             if (!PL.isException)

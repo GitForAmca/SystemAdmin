@@ -63,18 +63,10 @@ namespace SystemAdmin.GroupStructure
             txtShortName.Text = "";
             ddlGroup.SelectedIndex = -1;
             ddlIndustry.SelectedIndex = -1;
-            ddlRegion.SelectedIndex = -1;
-            txtconnectionName.Text = "";
-            txtSMTP.Text = "";
-            ddlSSL.SelectedIndex = -1;
-            txtPortNo.Text = "";
-            txtSequence.Text = "";
-            txtDBName.Text = "";
-            txtDBUserName.Text = "";
-            txtDBPassword.Text = "";
+            ddlRegion.SelectedIndex = -1; 
+            txtSequence.Text = ""; 
             txtPrimaryColor.Value = "";
-            txtSecondarColor.Value = "";
-            txtlogourl.Text = "";
+            txtSecondarColor.Value = ""; 
             ddlGroupFilter.SelectedIndex = -1;
             ddlGroup.SelectedIndex = -1;
             
@@ -134,19 +126,10 @@ namespace SystemAdmin.GroupStructure
                 try
                 { 
                     txtGroupName.Text = PL.dt.Rows[0]["Name"].ToString();
-                    txtShortName.Text = PL.dt.Rows[0]["ShortForm"].ToString(); 
-                    txtconnectionName.Text = PL.dt.Rows[0]["ConnectionName"].ToString();
-                    txtSMTP.Text = PL.dt.Rows[0]["SMTP"].ToString();
-                    ddlSSL.SelectedValue = PL.dt.Rows[0]["SSL"].ToString();
-                    txtPortNo.Text = PL.dt.Rows[0]["PortNo"].ToString();
-                    txtSequence.Text = PL.dt.Rows[0]["Sequence"].ToString();
-                    txtDBName.Text = PL.dt.Rows[0]["DbName"].ToString(); 
-                    //txtDBPassword.Text = PL.dt.Rows[0]["dbPassword"].ToString();
-                    txtDBPassword.Attributes["value"] = PL.dt.Rows[0]["dbPassword"].ToString();
+                    txtShortName.Text = PL.dt.Rows[0]["ShortForm"].ToString();  
+                    txtSequence.Text = PL.dt.Rows[0]["Sequence"].ToString(); 
                     txtPrimaryColor.Value = PL.dt.Rows[0]["PrimaryColor"].ToString();
-                    txtSecondarColor.Value = PL.dt.Rows[0]["SecondaryColor"].ToString();
-                    txtlogourl.Text = PL.dt.Rows[0]["Logo"].ToString();
-                    txtDBUserName.Text = PL.dt.Rows[0]["dbUserName"].ToString();
+                    txtSecondarColor.Value = PL.dt.Rows[0]["SecondaryColor"].ToString(); 
                     if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
                     {
                         chkActive.Checked = false;
@@ -172,18 +155,11 @@ namespace SystemAdmin.GroupStructure
                 txtGroupName.Text = "";
                 txtShortName.Text = "";
                 ddlGroup.SelectedValue = "";
-                ddlRegion.SelectedValue = "";
-                txtconnectionName.Text = "";
-                txtSMTP.Text = "";
-                ddlSSL.SelectedIndex = - 1;
-                txtPortNo.Text = "";
-                txtSequence.Text = "";
-                txtDBName.Text = "";
-                txtDBUserName.Text = "";
-                txtDBPassword.Text = "";
+                ddlRegion.SelectedValue = ""; 
+                txtSequence.Text = ""; 
                 txtPrimaryColor.Value = "";
                 txtSecondarColor.Value = "";
-                txtlogourl.Text = "";
+              
             }
         }
 
@@ -199,18 +175,10 @@ namespace SystemAdmin.GroupStructure
             xml += "<ShortName><![CDATA[" + txtShortName.Text.Trim() + "]]></ShortName>";
             xml += "<GroupId><![CDATA[" + ddlGroup.SelectedValue + "]]></GroupId>";
             xml += "<Industry><![CDATA[" + ddlIndustry.SelectedValue + "]]></Industry>";
-            xml += "<Region><![CDATA[" + ddlRegion.SelectedValue + "]]></Region>";
-            xml += "<ConnectionName><![CDATA[" + txtconnectionName.Text.Trim() + "]]></ConnectionName>";
-            xml += "<SMTP><![CDATA[" + txtSMTP.Text.Trim() + "]]></SMTP>";
-            xml += "<SSL><![CDATA[" + ddlSSL.SelectedValue  + "]]></SSL>";
-            xml += "<PortNo><![CDATA[" + txtPortNo.Text.Trim() + "]]></PortNo>";
-            xml += "<Sequence><![CDATA[" + txtSequence.Text.Trim() + "]]></Sequence>";
-            xml += "<DBName><![CDATA[" + txtDBName.Text.Trim() + "]]></DBName>";
-            xml += "<DBUName><![CDATA[" + txtDBUserName.Text.Trim() + "]]></DBUName>";
-            xml += "<DBPassword><![CDATA[" + txtDBPassword.Text.Trim() + "]]></DBPassword>";
+            xml += "<Region><![CDATA[" + ddlRegion.SelectedValue + "]]></Region>"; 
+            xml += "<Sequence><![CDATA[" + txtSequence.Text.Trim() + "]]></Sequence>"; 
             xml += "<PrimaryColor><![CDATA[" + txtPrimaryColor.Value.Trim() + "]]></PrimaryColor>";
-            xml += "<SecondaryColor><![CDATA[" + txtSecondarColor.Value.Trim() + "]]></SecondaryColor>";
-            xml += "<logourl><![CDATA[" + txtlogourl.Text.Trim() + "]]></logourl>";
+            xml += "<SecondaryColor><![CDATA[" + txtSecondarColor.Value.Trim() + "]]></SecondaryColor>"; 
             xml += "</tr>";
             xml += "</tbl>";
             PL.IsActive = chkActive.Checked;

@@ -252,7 +252,7 @@
                                                  <asp:CheckBox ID="chkReportingPerson" ForeColor="Blue" Font-Bold="true" runat="server" Text="Select All"
                                                     AutoPostBack="true" OnCheckedChanged="chkReportingPerson_CheckedChanged" /> 
                                                           <div class="company-items-wrapper">
-                                                 <asp:CheckBoxList ID="chkactioreporting"  CssClass="reporting-checkboxlist" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="EmpName" DataSource='<%# GetReportingperson(Eval("EmpId").ToString()) %>' DataValueField="Autoid" />
+                                                 <asp:CheckBoxList ID="chkactioreporting" OnSelectedIndexChanged="chkactioreporting_SelectedIndexChanged" AutoPostBack="true"  CssClass="reporting-checkboxlist" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="EmpName" DataSource='<%# GetReportingperson(Eval("EmpId").ToString()) %>' DataValueField="Autoid" />
                                                                   </div>
                                                     </div> 
                                                </asp:Panel>

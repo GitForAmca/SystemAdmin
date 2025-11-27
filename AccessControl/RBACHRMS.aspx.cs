@@ -1796,5 +1796,9 @@ namespace SystemAdmin.AccessControl
             }
         }
 
+        protected void chkactioreporting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

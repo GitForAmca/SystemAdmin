@@ -159,42 +159,6 @@ namespace SystemAdmin.GroupStructure
         protected global::System.Web.UI.WebControls.DropDownList ddlHOD;
 
         /// <summary>
-        /// txtconnectionName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtconnectionName;
-
-        /// <summary>
-        /// txtSMTP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSMTP;
-
-        /// <summary>
-        /// ddlSSL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSSL;
-
-        /// <summary>
-        /// txtPortNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPortNo;
-
-        /// <summary>
         /// txtSequence control.
         /// </summary>
         /// <remarks>
@@ -202,33 +166,6 @@ namespace SystemAdmin.GroupStructure
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSequence;
-
-        /// <summary>
-        /// txtDBName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDBName;
-
-        /// <summary>
-        /// txtDBUserName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDBUserName;
-
-        /// <summary>
-        /// txtDBPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDBPassword;
 
         /// <summary>
         /// txtPrimaryColor control.
@@ -247,15 +184,6 @@ namespace SystemAdmin.GroupStructure
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtSecondarColor;
-
-        /// <summary>
-        /// txtlogourl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtlogourl;
 
         /// <summary>
         /// chkActive control.

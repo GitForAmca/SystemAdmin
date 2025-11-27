@@ -151,61 +151,14 @@
                              <label class="control-label">Head of Organization<span class="required" aria-required="true"> *</span></label>
                              <asp:DropDownList ID="ddlHOD" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                          </div>
-                     </div>
-                    <div class="col-md-4">
-                       <div class="form-group">
-                           <label class="control-label">Connection Name<span class="required" aria-required="true"> *</span></label>
-                           <asp:TextBox ID="txtconnectionName" class="form-control req" runat="server"></asp:TextBox>
-                       </div>
-                    </div>
-                    <div class="col-md-4">
-                       <div class="form-group">
-                           <label class="control-label">SMTP<span class="required" aria-required="true"> *</span></label>
-                           <asp:TextBox ID="txtSMTP" class="form-control req" runat="server"></asp:TextBox>
-                       </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label">SSL<span class="required" aria-required="true"> *</span></label>
-                             <asp:DropDownList 
-                                ID="ddlSSL" 
-                                runat="server" 
-                                CssClass="form-control req">
-                                <asp:ListItem Text="True" Value="True"></asp:ListItem>
-                                <asp:ListItem Text="False" Value="False"></asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label">Port No<span class="required" aria-required="true"> *</span></label>
-                            <asp:TextBox ID="txtPortNo" class="form-control req " runat="server"></asp:TextBox>
-                        </div>
-                    </div> 
+                     </div> 
+                    
                     <div class="col-md-4">
                        <div class="form-group">
                            <label class="control-label">Sequence<span class="required" aria-required="true"> *</span></label>
                            <asp:TextBox ID="txtSequence" class="form-control req" runat="server"></asp:TextBox>
                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label">DB Name</label>
-                            <asp:TextBox ID="txtDBName" class="form-control" runat="server"></asp:TextBox>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label">DB Username</label>
-                            <asp:TextBox ID="txtDBUserName" class="form-control" runat="server"></asp:TextBox>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label">DB Password </label>
-                            <asp:TextBox ID="txtDBPassword" class="form-control" TextMode="Password" runat="server"></asp:TextBox>
-                        </div>
-                    </div>
+                    </div> 
                     <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Primary Color <span class="required" aria-required="true"> *</span></label>
@@ -217,13 +170,7 @@
                                 <label class="control-label">Secondary Color <span class="required" aria-required="true"> *</span></label>
                                 <input type="color" id="txtSecondarColor" runat="server" name="txtSecondarColor" class="form-control req"  />
                             </div>
-                    </div> 
-                    <div class="col-md-4">
-                         <div class="form-group">
-                             <label class="control-label"> Logo Url</label>
-                             <asp:TextBox ID="txtlogourl" class="form-control req" runat="server"></asp:TextBox>
-                         </div>
-                    </div>
+                    </div>  
                     <div class="col-md-1">
                         <div class="form-group" style="padding-top:25px;">
                             <label class="control-label">Active</label>

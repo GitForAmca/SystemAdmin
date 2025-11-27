@@ -161,7 +161,7 @@ namespace SystemAdmin.AccessMenu
                     DataRow row = PL.dt.Rows[i];
                     if (Convert.ToBoolean(row["IsDefault"]))
                     {
-                        ListViewItem item2 = lV_ChildMenu.Items[i]; // assuming row and item are aligned by index
+                        ListViewItem item2 = lV_ChildMenu.Items[i]; 
                         CheckBox chkIsChecked = (CheckBox)item2.FindControl("chkIsChecked");
                         chkIsChecked.Checked = true;
                     }
@@ -227,14 +227,11 @@ namespace SystemAdmin.AccessMenu
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             var xml = "<tbl>";
-            xml += "<tr>";
-
+            xml += "<tr>"; 
             xml += "<IndustryId><![CDATA[" + ddlIndustries.SelectedValue + "]]></IndustryId>";
-            xml += "<DesignaitonId><![CDATA[" + ddlDesignation.SelectedValue + "]]></DesignaitonId>";
-
+            xml += "<DesignaitonId><![CDATA[" + ddlDesignation.SelectedValue + "]]></DesignaitonId>"; 
             xml += "</tr>";
-            xml += "</tbl>";
-
+            xml += "</tbl>"; 
             MenuAccessPL PL = new MenuAccessPL();
             PL.XML = xml;
             PL.CreatedBy = Session["UserAutoId"].ToString();

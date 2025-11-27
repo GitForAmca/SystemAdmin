@@ -24,7 +24,6 @@ namespace SystemAdmin.ESS
                 getDirectorList(ddlRMSearch);
             }
         }
-
         void getDirectorList(DropDownList ddl)
         {
             DropdownPL PL = new DropdownPL();

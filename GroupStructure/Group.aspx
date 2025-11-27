@@ -134,7 +134,7 @@
                             <asp:DropDownList ID="ddlHOD" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div  style="display:none;" class="col-md-4">
                         <div class="form-group">
                             <label class="control-label">Add Level<span class="required" aria-required="true"> *</span></label>
                             <div class="input-group add-on" style="display: flex;">
@@ -144,16 +144,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-1">
+                    <div  class="col-md-1">
                         <div class="form-group" style="padding-top: 25px;">
                             <label class="control-label">Active</label>
                             <asp:CheckBox ID="chkActive" Checked="true" runat="server"></asp:CheckBox>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row" style="display: block;">
-                    <div class="col-md-6">
+                    </div> 
+               
+                    <div class="col-md-6"  style="display:none;">
                         <asp:UpdatePanel ID="AssessorTbl" UpdateMode="Conditional" runat="server">
                             <ContentTemplate>
                                 <asp:ListView ID="LV_AssessorTbl" runat="server" DataKeyNames="Autoid" OnItemCommand="LV_AssessorTbl_ItemCommand" OnItemDataBound="LV_AssessorTbl_ItemDataBound">
@@ -197,7 +195,7 @@
                                             </td>
                                             <td>
                                                 <asp:LinkButton ID="lnkDelete" runat="server" CommandName="DeleteRow" CommandArgument='<%# Eval("Autoid") %>' CssClass="btn btn-danger btn-sm">
-                                                 <i class="fa fa-trash"></i>
+                                                    <i class="fa fa-trash"></i>
                                                 </asp:LinkButton>
                                             </td>
                                         </tr>
@@ -209,16 +207,15 @@
                             </Triggers>
                         </asp:UpdatePanel>
                     </div>
-                     <div class="col-md-12 pull-right">
-     <div class="form-group pull-right">
-         <asp:Button ID="btnAdd" runat="server" class="btn blue" OnClick="btnAdd_Click" OnClientClick="return CheckRequiredField('req');" Text="Save" />
-         <asp:Button ID="btnCancel" runat="server" CssClass="btn default" OnClick="btnCancel_Click" Text="Cancel" />
-     </div>
- </div>
-                </div>
-               
-            </div>
-
+                 
+                <div class="col-md-12 pull-right">
+                    <div class="form-group pull-right">
+                        <asp:Button ID="btnAdd" runat="server" class="btn blue" OnClick="btnAdd_Click" OnClientClick="return CheckRequiredField('req');" Text="Save" />
+                        <asp:Button ID="btnCancel" runat="server" CssClass="btn default" OnClick="btnCancel_Click" Text="Cancel" />
+                    </div>
+                </div> 
+             </div>
+            </div> 
         </div>
     </div>
     <asp:HiddenField ID="hidAutoid" runat="server" Value="" />

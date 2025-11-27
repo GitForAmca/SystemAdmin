@@ -69,10 +69,24 @@
   <ItemGroup>
     <Content Include="AccessControl\DataAccess.aspx" />
     <Content Include="AccessControl\HRMSAccessControl.aspx" />
+    <Content Include="AccessControl\HRMSDataAccess.aspx" />
     <Content Include="AccessControl\OrganizationalAccessControl.aspx" />
+    <Content Include="AccessControl\RBACHRMS.aspx" />
     <Content Include="AccessMenu\DesignationMenuAccess.aspx" />
     <Content Include="AccessMenu\DepartmentMenuAccess.aspx" />
     <Content Include="AccessMenu\SubDepartmentMenuAccess.aspx" />
+    <Compile Include="AccessControl\HRMSDataAccess.aspx.cs">
+      <DependentUpon>HRMSDataAccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AccessControl\HRMSDataAccess.aspx.designer.cs">
+      <DependentUpon>HRMSDataAccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AccessControl\RBACHRMS.aspx.cs">
+      <DependentUpon>RBACHRMS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AccessControl\RBACHRMS.aspx.designer.cs">
+      <DependentUpon>RBACHRMS.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Code\StructurePL.cs" />
     <Content Include="assets\admin\layout3\css\custom.css" />
     <Content Include="assets\admin\layout3\css\layout.css" />
@@ -4342,6 +4356,7 @@
     <Content Include="ESS\CategoryType.aspx" />
     <Content Include="ESS\CRMCSMapping.aspx" />
     <Content Include="ESS\ELFormat.aspx" />
+    <Content Include="ESS\HRRegion.aspx" />
     <Content Include="ESS\ShowAllEmailsFormat.aspx" />
     <Content Include="ESS\EmailFormat.aspx" />
     <Content Include="ESS\GeneralSenderEmail.aspx" />
@@ -4709,6 +4724,12 @@
     </Compile>
     <Compile Include="ESS\ELFormat.aspx.designer.cs">
       <DependentUpon>ELFormat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\HRRegion.aspx.cs">
+      <DependentUpon>HRRegion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\HRRegion.aspx.designer.cs">
+      <DependentUpon>HRRegion.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\ShowAllEmailsFormat.aspx.cs">
       <DependentUpon>ShowAllEmailsFormat.aspx</DependentUpon>
