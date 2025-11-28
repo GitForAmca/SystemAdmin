@@ -19,47 +19,109 @@ namespace SystemAdmin.AccessControl
             if (!Page.IsPostBack)
             {
                 FillEmpAccess();
-                BindGroup(LstGroup);
-                BindLocation(LstWorkLocation);
-                BindReportingperson(LstReportingTo);
-
+                //BindGroup(LstGroup);
+                //BindLocation(LstWorkLocation);
+                BindLocation();
+               // BindReportingperson(LstReportingTo);
+                BindReportingperson();
+                BindGroup();
 
             }
         }
 
-        void BindReportingperson(ListBox LLB)
+        //void BindReportingperson(ListBox LLB)
+        //{
+        //    MenuAccessPL PL = new MenuAccessPL();
+        //    PL.OpCode = 33;
+        //    MenuAccessDL.returnTable(PL);
+        //    LLB.DataSource = PL.dt;
+        //    LLB.DataValueField = "Autoid";
+        //    LLB.DataTextField = "EmpName";
+        //    LLB.DataBind(); 
+        //}
+
+        public void BindReportingperson()
         {
             MenuAccessPL PL = new MenuAccessPL();
             PL.OpCode = 33;
+            //PL.IndustryId = selectedIndustryIds;
             MenuAccessDL.returnTable(PL);
-            LLB.DataSource = PL.dt;
-            LLB.DataValueField = "Autoid";
-            LLB.DataTextField = "EmpName";
-            LLB.DataBind(); 
+            DataTable dt = PL.dt;
+            //if (dt != null && dt.Rows.Count > 0)
+            //{
+            //    return dt;
+            //}
+            //else
+            //{
+            //    return new DataTable();
+            //}
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                LstReportingTo.DataSource = dt;
+                LstReportingTo.DataTextField = "EmpName";
+                LstReportingTo.DataValueField = "Autoid";
+                LstReportingTo.DataBind();
+            }
         }
 
-      
-
-        void BindGroup(ListBox LLB)
+        //void BindGroup(ListBox LLB)
+        //{
+        //    StructurePL PL = new StructurePL();
+        //    PL.OpCode = 26;
+        //    StructureDL.returnTable(PL);
+        //    LLB.DataSource = PL.dt;
+        //    LLB.DataValueField = "Id";
+        //    LLB.DataTextField = "Name";
+        //    LLB.DataBind();
+        //}
+        public void  BindGroup()
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 26;
+            //PL.IndustryId = selectedIndustryIds;
             StructureDL.returnTable(PL);
-            LLB.DataSource = PL.dt;
-            LLB.DataValueField = "Id";
-            LLB.DataTextField = "Name";
-            LLB.DataBind();
+            DataTable dt = PL.dt;
+          
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                LstGroup.DataSource = dt;
+                LstGroup.DataTextField = "Name";
+                LstGroup.DataValueField = "Id";
+                LstGroup.DataBind();
+            }
         }
-
-        void BindLocation(ListBox LLB)
+        //void BindLocation(ListBox LLB)
+        //{
+        //    StructurePL PL = new StructurePL();
+        //    PL.OpCode = 25;
+        //    StructureDL.returnTable(PL);
+        //    LLB.DataSource = PL.dt;
+        //    LLB.DataValueField = "Id";
+        //    LLB.DataTextField = "Name";
+        //    LLB.DataBind();
+        //}
+        public void BindLocation()
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 25;
+            //PL.IndustryId = selectedIndustryIds;
             StructureDL.returnTable(PL);
-            LLB.DataSource = PL.dt;
-            LLB.DataValueField = "Id";
-            LLB.DataTextField = "Name";
-            LLB.DataBind();
+            DataTable dt = PL.dt;
+            //if (dt != null && dt.Rows.Count > 0)
+            //{
+            //    return dt;
+            //}
+            //else
+            //{
+            //    return new DataTable();
+            //}
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                LstWorkLocation.DataSource = dt;
+                LstWorkLocation.DataTextField = "Name";
+                LstWorkLocation.DataValueField = "Id";
+                LstWorkLocation.DataBind();
+            }
         }
         void FillActiveEmployee()
         {
@@ -386,8 +448,36 @@ namespace SystemAdmin.AccessControl
                 LV_Access_Menu_Company.DataSource = PL.dt;
                 LV_Access_Menu_Company.DataBind();
             }
+           
             upnl_Menuaccess.Update();
         }
+        public void ClearAllBulkAccess()
+        {
+            // Clear Select-All checkboxes
+            chklstGroup.Checked = false;
+            chklstIndustry.Checked = false;
+            chklstRegion.Checked = false;
+            chklstOrganization.Checked = false;
+            chklstCompany.Checked = false;
+            chkWorkLocation.Checked = false;
+            chkReportingTo.Checked = false;
+
+            // Clear checkboxlist items
+            ClearCheckBoxList(LstGroup);
+            ClearCheckBoxList(LstIndustry);
+            ClearCheckBoxList(LstRegion);
+            ClearCheckBoxList(LstOrg);
+            ClearCheckBoxList(LstCompany);
+            ClearCheckBoxList(LstWorkLocation);
+            ClearCheckBoxList(LstReportingTo);
+        }
+
+        private void ClearCheckBoxList(CheckBoxList list)
+        {
+            foreach (ListItem item in list.Items)
+                item.Selected = false;
+        }
+
         void GetEmployeeDepartment(int id)
         {
             DropdownPL PL = new DropdownPL();
@@ -830,6 +920,9 @@ namespace SystemAdmin.AccessControl
             }
             upnl_Menuaccess.Update();
         }
+
+       
+
         //protected void chkactionGroup_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //    CheckBoxList chkGroup = (CheckBoxList)sender;
@@ -1420,6 +1513,7 @@ namespace SystemAdmin.AccessControl
             string selectedGroupIds = string.Empty;
             string selectedOrgIds = string.Empty;
 
+            
             foreach (ListItem groupItem in chkGroup.Items)
             {
                 if (groupItem.Selected)
@@ -1594,6 +1688,8 @@ namespace SystemAdmin.AccessControl
         
         protected void btnaddbulkaccess_Click(object sender, EventArgs e)
         {
+            ClearAllBulkAccess();
+
             // Read selected values from hidden fields
             string[] selectedIndustries = string.IsNullOrEmpty(hdnIndustry.Value) ? new string[0] : hdnIndustry.Value.Split(',');
             string[] selectedGroups = string.IsNullOrEmpty(hdnGroup.Value) ? new string[0] : hdnGroup.Value.Split(',');
@@ -1634,7 +1730,7 @@ namespace SystemAdmin.AccessControl
                 {
                     foreach (ListItem item in chkactionRegion.Items)
                     {
-                        item.Selected = selectedRegions.Contains(item.Value);
+                      item.Selected = selectedRegions.Contains(item.Value);
                     }
                     chkactionRegion_SelectedIndexChanged(chkactionRegion, e);
                 }
@@ -1687,25 +1783,331 @@ namespace SystemAdmin.AccessControl
             ScriptManager.RegisterStartupScript(this, GetType(), "updateDropdown", "updateDropdownButtonText();", true);
             ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#PopUpBulkAccess').modal('hide');", true);
         }
+        protected void chkSelectAllGroup_CheckedChangedGrp(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            Control container = chk.NamingContainer;
 
 
+            CheckBoxList popupGroup = container.FindControl("LstGroup") as CheckBoxList;
+            if (popupGroup != null)
+            {
+                foreach (ListItem li in popupGroup.Items)
+                    li.Selected = chk.Checked;
 
-        [WebMethod]
-        public static List<Dictionary<string, string>> GetIndustriess(string groupIds)
+                LstGroup_SelectedIndexChanged(popupGroup, EventArgs.Empty);
+
+                ScriptManager.RegisterStartupScript(
+                    this, GetType(), "updateGroup", "updateDropdownButtonText();", true);
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        protected void LstGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = string.Join(",",
+                LstGroup.Items.Cast<ListItem>()
+                              .Where(i => i.Selected)
+                              .Select(i => i.Value));
+
+            BindIndustry(selected);
+            hdnGroup.Value = selected;
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        public void BindIndustry(string groupIds)
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 36;
             PL.Name = groupIds;
             StructureDL.returnTable(PL);
-
-            return PL.dt.AsEnumerable()
-                .Select(dr => new Dictionary<string, string>
-                {
-            { "Id", dr["Id"].ToString() },
-            { "Name", dr["Name"].ToString() }
-                }).ToList();
+            DataTable dt = PL.dt;
+            if (dt != null)
+            {
+                LstIndustry.DataSource = dt;
+                LstIndustry.DataTextField = "Name";
+                LstIndustry.DataValueField = "Id";
+                LstIndustry.DataBind();
+            }
+            else
+            {
+                LstIndustry.Items.Clear();
+            }
         }
 
+        protected void chkSelectAllIndustry_CheckedChangedGrp(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            Control container = chk.NamingContainer;
+
+
+            CheckBoxList popupIndustry = container.FindControl("LstIndustry") as CheckBoxList;
+            if (popupIndustry != null)
+            {
+                foreach (ListItem li in popupIndustry.Items)
+                    li.Selected = chk.Checked;
+
+                LstIndustry_SelectedIndexChanged(popupIndustry, EventArgs.Empty);
+
+                ScriptManager.RegisterStartupScript(
+                    this, GetType(), "updateGroup", "updateDropdownButtonText();", true);
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        protected void LstIndustry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = string.Join(",",
+                LstIndustry.Items.Cast<ListItem>()
+                              .Where(i => i.Selected)
+                              .Select(i => i.Value));
+
+            BindRegion(selected);
+            hdnIndustry.Value = selected;
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        public void BindRegion(string industryIds)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 27;
+            PL.IndustryId = industryIds;
+            StructureDL.returnTable(PL);
+            DataTable dt = PL.dt;
+            if (dt != null)
+            {
+                LstRegion.DataSource = dt;
+                //LstRegion.DataTextField = "CountryCode";
+                //LstRegion.DataValueField = "CountryName";
+                LstRegion.DataTextField = "CountryName";  // Displayed text
+                LstRegion.DataValueField = "CountryCode"; // Region ID
+
+                LstRegion.DataBind();
+            }
+            else
+            {
+                LstRegion.Items.Clear();
+            }
+        }
+
+        protected void chkSelectAllRegion_CheckedChangedOrg(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            Control container = chk.NamingContainer;
+
+
+            CheckBoxList popupRegion = container.FindControl("LstRegion") as CheckBoxList;
+            if (popupRegion != null)
+            {
+                foreach (ListItem li in popupRegion.Items)
+                    li.Selected = chk.Checked;
+
+                LstRegion_SelectedIndexChanged(popupRegion, EventArgs.Empty);
+
+                ScriptManager.RegisterStartupScript(
+                    this, GetType(), "updateGroup", "updateDropdownButtonText();", true);
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        protected void LstRegion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+                 string selectedGroups = string.Join(",",
+                        LstGroup.Items.Cast<ListItem>()
+                     .Where(i => i.Selected)
+                     .Select(i => i.Value));
+
+            string selectedIndustries = string.Join(",",
+                LstIndustry.Items.Cast<ListItem>()
+                                 .Where(i => i.Selected)
+                                 .Select(i => i.Value));
+            string selectedRegion = string.Join(",",
+                LstRegion.Items.Cast<ListItem>()
+                              .Where(i => i.Selected)
+                              .Select(i => i.Value));
+
+
+
+            BindOrganization(selectedGroups, selectedRegion, selectedIndustries);
+            hdnRegion.Value = selectedRegion;
+            hdnIndustry.Value = selectedIndustries;
+            hdnGroup.Value = selectedGroups;
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        public void BindOrganization(string GroupIds, string RegionIds, string IndustryIds)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 28;
+            PL.Description = GroupIds;
+            PL.Name = RegionIds;
+            PL.IndustryId = IndustryIds; 
+            StructureDL.returnTable(PL);
+            DataTable dt = PL.dt;
+            if (dt != null)
+            {
+                LstOrg.DataSource = dt;
+                LstOrg.DataTextField = "Name";
+                LstOrg.DataValueField = "Autoid";
+                LstOrg.DataBind();
+            }
+            else
+            {
+                LstOrg.Items.Clear();
+            }
+        }
+
+
+        protected void chkSelectAllOrg_CheckedChangedCompany(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            Control container = chk.NamingContainer;
+
+
+            CheckBoxList popupOrg = container.FindControl("LstOrg") as CheckBoxList;
+            if (popupOrg != null)
+            {
+                foreach (ListItem li in popupOrg.Items)
+                    li.Selected = chk.Checked;
+
+                LstOrg_SelectedIndexChanged(popupOrg, EventArgs.Empty);
+
+                ScriptManager.RegisterStartupScript(
+                    this, GetType(), "updateOrg", "updateDropdownButtonText();", true);
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        protected void LstOrg_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+            string selectedOrg = string.Join(",",
+                LstOrg.Items.Cast<ListItem>()
+                              .Where(i => i.Selected)
+                              .Select(i => i.Value));
+
+
+
+            BindCompany(selectedOrg);
+            hdnOrganization.Value = selectedOrg;
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+
+        }
+        public void BindCompany(string orgIds)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 29;
+            PL.IndustryId = orgIds;
+            StructureDL.returnTable(PL);
+            DataTable dt = PL.dt;
+            if (dt != null)
+            {
+                LstCompany.DataSource = dt;
+                LstCompany.DataTextField = "Name";
+                LstCompany.DataValueField = "id";
+                LstCompany.DataBind();
+            }
+            else
+            {
+                LstCompany.Items.Clear();
+            }
+        }
+        protected void chkSelectAllCompany_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            Control container = chk.NamingContainer;
+
+            CheckBoxList popupOrg = container.FindControl("LstCompany") as CheckBoxList;
+            if (popupOrg != null)
+            {
+                foreach (ListItem li in popupOrg.Items)
+                    li.Selected = chk.Checked;
+
+                LstCompany_SelectedIndexChanged(popupOrg, EventArgs.Empty);
+                ScriptManager.RegisterStartupScript(
+                    this, GetType(), "updateOrg", "updateDropdownButtonText();", true);
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        protected void LstCompany_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            string selectedOrg = string.Join(",",
+                LstCompany.Items.Cast<ListItem>()
+                              .Where(i => i.Selected)
+                              .Select(i => i.Value));
+
+            hdnCompany.Value = selectedOrg;
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        protected void chkSelectAllLocation_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            Control container = chk.NamingContainer;
+
+
+            CheckBoxList popupOrg = container.FindControl("LstWorkLocation") as CheckBoxList;
+            if (popupOrg != null)
+            {
+                foreach (ListItem li in popupOrg.Items)
+                    li.Selected = chk.Checked;
+                LstLocation_SelectedIndexChanged(popupOrg, EventArgs.Empty);
+
+
+                ScriptManager.RegisterStartupScript(
+                    this, GetType(), "updateOrg", "updateDropdownButtonText();", true);
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+
+        }
+        protected void LstLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            string selectedOrg = string.Join(",",
+                LstWorkLocation.Items.Cast<ListItem>()
+                              .Where(i => i.Selected)
+                              .Select(i => i.Value));
+
+            hdnWorkLocation.Value = selectedOrg;
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        protected void chkSelectAllReporting_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chk = (CheckBox)sender;
+            Control container = chk.NamingContainer;
+
+
+            CheckBoxList popupOrg = container.FindControl("LstReportingTo") as CheckBoxList;
+            if (popupOrg != null)
+            {
+                foreach (ListItem li in popupOrg.Items)
+                    li.Selected = chk.Checked;
+                LstAllReporting_SelectedIndexChanged(popupOrg, EventArgs.Empty);
+
+
+                ScriptManager.RegisterStartupScript(
+                    this, GetType(), "updateOrg", "updateDropdownButtonText();", true);
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
+        protected void LstAllReporting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            string selectedOrg = string.Join(",",
+                LstReportingTo.Items.Cast<ListItem>()
+                              .Where(i => i.Selected)
+                              .Select(i => i.Value));
+
+            hdnReportingTo.Value = selectedOrg;
+            ScriptManager.RegisterStartupScript(this, GetType(), "PopUpBulkAccess", "$('#PopUpBulkAccess').modal('show');", true);
+
+        }
         [WebMethod]
         public static List<Dictionary<string, string>> GetRegions(string industryIds)
         {
@@ -1721,10 +2123,27 @@ namespace SystemAdmin.AccessControl
             { "CountryName", dr["CountryName"].ToString() }
                 }).ToList();
         }
+        [WebMethod]
+        public static List<Dictionary<string, string>> GetIndustriess(string groupIds)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 36;
+            PL.Name = groupIds;
+            StructureDL.returnTable(PL);
+
+            return PL.dt.AsEnumerable()
+                .Select(dr => new Dictionary<string, string>
+                {
+            { "Id", dr["Id"].ToString() },
+            { "Name", dr["Name"].ToString() }
+                }).ToList();
+        }
+      
 
         [WebMethod]
         public static List<Dictionary<string, string>> GetOrganizations(string regionIds, string groupIds , string indIds)
         {
+
             StructurePL PL = new StructurePL();
             PL.OpCode = 28; 
             PL.Description = groupIds;
@@ -1769,9 +2188,9 @@ namespace SystemAdmin.AccessControl
                 ClearCheckBoxList(row, "chkactioreporting");
             } 
             LstIndustry.ClearSelection();
-            LstGroup.ClearSelection();
+            //LstGroup.ClearSelection();
             LstRegion.ClearSelection();
-            LstOrgnization.ClearSelection();
+            LstOrg.ClearSelection();
             LstCompany.ClearSelection();
             LstWorkLocation.ClearSelection();
             LstReportingTo.ClearSelection();
