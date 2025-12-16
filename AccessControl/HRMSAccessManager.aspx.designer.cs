@@ -11,7 +11,7 @@ namespace SystemAdmin.AccessControl
 {
 
 
-    public partial class HRMSDataAccess
+    public partial class HRMSAccessManager
     {
 
         /// <summary>
@@ -132,31 +132,13 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.DropDownList ddlScope;
 
         /// <summary>
-        /// PnlGroup control.
+        /// ddlGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PnlGroup;
-
-        /// <summary>
-        /// chkSelectAllGroup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkSelectAllGroup;
-
-        /// <summary>
-        /// chkactionGroup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkactionGroup;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGroup;
 
         /// <summary>
         /// pnlIndustry control.
@@ -258,22 +240,76 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.CheckBox chkselectallcompany;
 
         /// <summary>
-        /// chkactionCompany control.
+        /// pnlCompanyItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkactionCompany;
+        protected global::System.Web.UI.WebControls.Panel pnlCompanyItems;
 
         /// <summary>
-        /// LstWorkLocation control.
+        /// pnlWorkLocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox LstWorkLocation;
+        protected global::System.Web.UI.WebControls.Panel pnlWorkLocation;
+
+        /// <summary>
+        /// chkselectallworklocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkselectallworklocation;
+
+        /// <summary>
+        /// chkactionWkLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chkactionWkLocation;
+
+        /// <summary>
+        /// div_RM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_RM;
+
+        /// <summary>
+        /// PnlreportingManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlreportingManager;
+
+        /// <summary>
+        /// chkSelectAllRM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSelectAllRM;
+
+        /// <summary>
+        /// chkactionRM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chkactionRM;
 
         /// <summary>
         /// div_Department control.
@@ -348,24 +384,6 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.ListBox Lst_HOD;
 
         /// <summary>
-        /// div_RM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_RM;
-
-        /// <summary>
-        /// LST_RM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox LST_RM;
-
-        /// <summary>
         /// txtEndDate control.
         /// </summary>
         /// <remarks>
@@ -420,15 +438,6 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.Button btnCancel;
 
         /// <summary>
-        /// lblIndustry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIndustry;
-
-        /// <summary>
         /// lblGroup control.
         /// </summary>
         /// <remarks>
@@ -436,6 +445,15 @@ namespace SystemAdmin.AccessControl
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGroup;
+
+        /// <summary>
+        /// lblIndustry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIndustry;
 
         /// <summary>
         /// lblRegion control.
@@ -474,33 +492,6 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.Label lblLocation;
 
         /// <summary>
-        /// lblDepartment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDepartment;
-
-        /// <summary>
-        /// lblEmployee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmployee;
-
-        /// <summary>
-        /// lblHOD control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHOD;
-
-        /// <summary>
         /// lblRM control.
         /// </summary>
         /// <remarks>
@@ -508,6 +499,15 @@ namespace SystemAdmin.AccessControl
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRM;
+
+        /// <summary>
+        /// lblDepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDepartment;
 
         /// <summary>
         /// txtEndDateUpdate control.

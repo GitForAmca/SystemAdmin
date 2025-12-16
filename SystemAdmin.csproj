@@ -69,23 +69,17 @@
   <ItemGroup>
     <Content Include="AccessControl\DataAccess.aspx" />
     <Content Include="AccessControl\HRMSAccessControl.aspx" />
-    <Content Include="AccessControl\HRMSDataAccess.aspx" />
+    <Content Include="AccessControl\HRMSAccessManager.aspx" />
     <Content Include="AccessControl\OrganizationalAccessControl.aspx" />
-    <Content Include="AccessControl\RBACHRMS.aspx" />
     <Content Include="AccessMenu\DesignationMenuAccess.aspx" />
     <Content Include="AccessMenu\DepartmentMenuAccess.aspx" />
     <Content Include="AccessMenu\SubDepartmentMenuAccess.aspx" />
-    <Compile Include="AccessControl\HRMSDataAccess.aspx.cs">
-      <DependentUpon>HRMSDataAccess.aspx</DependentUpon>
+    <Compile Include="AccessControl\HRMSAccessManager.aspx.cs">
+      <DependentUpon>HRMSAccessManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AccessControl\HRMSDataAccess.aspx.designer.cs">
-      <DependentUpon>HRMSDataAccess.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AccessControl\RBACHRMS.aspx.cs">
-      <DependentUpon>RBACHRMS.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AccessControl\RBACHRMS.aspx.designer.cs">
-      <DependentUpon>RBACHRMS.aspx</DependentUpon>
+    <Compile Include="AccessControl\HRMSAccessManager.aspx.designer.cs">
+      <DependentUpon>HRMSAccessManager.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Code\StructurePL.cs" />
     <Content Include="assets\admin\layout3\css\custom.css" />

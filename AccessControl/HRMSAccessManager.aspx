@@ -1,6 +1,5 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" EnableEventValidation="false" AutoEventWireup="true" CodeBehind="HRMSDataAccess.aspx.cs" Inherits="SystemAdmin.AccessControl.HRMSDataAccess" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"></asp:Content>
+﻿<%@ Page Language="C#"   MasterPageFile="~/MasterPage/MainMaster.master" EnableEventValidation="false"  AutoEventWireup="true" CodeBehind="HRMSAccessManager.aspx.cs" Inherits="SystemAdmin.AccessControl.HRMSAccessManager" %>
+ <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"></asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="portlet box green margin-top-10">
         <div class="portlet-title">
@@ -36,8 +35,8 @@
                                 <li>
                                     <asp:LinkButton ID="lnkBtnAddNew" OnClick="lnkBtnAddNew_Click" runat="server"><i class="fa fa-plus"></i>Add</asp:LinkButton>
                                 </li>
-                                <li style="display:none;">
-                                    <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" OnClientClick="return CheckOnlyOneSelect('checkboxes');" Text="Edit"><i class="fa fa-pencil"></i>Edit</asp:LinkButton>
+                                <li>
+                                    <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" OnClientClick="return CheckOnlyOneSelect('checkboxes1');" Text="Edit"><i class="fa fa-pencil"></i>Edit</asp:LinkButton>
                                 </li>
                             </ul>
                         </div>
@@ -55,10 +54,12 @@
                                         <th>#</th>
                                         <th>Employee</th>
                                         <th>Access Element</th>
+                                        <th>Group</th>
+                                        <th>Menus</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
-                                        <th>Created By</th>
-                                        <th>Created On</th>
+                                        <th>Created</th>
+                                        <th>Updated</th>
                                         <th>Is Active</th>
                                         <th>Action</th>
                                     </tr>
@@ -73,13 +74,19 @@
                                 <td>
                                     <asp:HiddenField ID="hidEmpId" runat="server" Value='<%# Eval("EmpId")%>' />
                                     <asp:HiddenField ID="hidAutoId" runat="server" Value='<%# Eval("Autoid")%>' />
-                                    <asp:CheckBox ID="chkSelect" runat="server" CssClass="checkboxes chkselect" Autoid='<%# Eval("Autoid")%>' />
+                                    <asp:CheckBox ID="chkSelect" runat="server" CssClass="checkboxes1 chkselect" Autoid='<%# Eval("Autoid")%>' />
                                 </td>
                                 <td>
                                     <%# Eval("EmpName")%>
                                 </td>
                                 <td>
                                     <%# Eval("Scope")%>
+                                </td>
+                                <td>
+                                   <%# Eval("GroupName")%> 
+                                </td>
+                                <td>
+                                    <%# Eval("Menus")%> 
                                 </td>
                                 <td>
                                     <%# Eval("StartDate")%>
@@ -90,16 +97,20 @@
                                     <%# Eval("EndDate", "{0:yyyy-MM-dd}") %>
                                 </td>
                                 <td>
-                                    <%# Eval("CreatedBy")%>
+                                    <%# Eval("CreatedBy")%><br />
+                                     <%# Eval("CreatedOn")%>
                                 </td>
                                 <td>
-                                    <%# Eval("CreatedOn")%>
+                                   <%# Eval("UpdatedBy")%><br />
+                                   <%# Eval("UpdatedOn")%>
                                 </td>
                                 <td>
                                     <span class='<%# bool.Parse( Eval("IsActive").ToString())==true?"label label-sm label-success":"label label-sm label-danger"%>' runat="server"><%# bool.Parse( Eval("IsActive").ToString())==true?"Yes":"No"%></span>
                                 </td>
                                 <td>
-                                    <asp:Button ID="btnViewAction" CssClass="btn btn-xs blue" runat="server" Text="View " OnClick="btnViewAction_Click" />
+                                    
+                                    <asp:LinkButton ID="lnk_view" runat="server" OnClick="lnk_view_Click" CssClass="btn btn-xs blue" ToolTip="Click here to view details" ><i class="fa fa fa-eye"></i></asp:LinkButton>
+                                    <%--<asp:Button ID="btnViewAction" CssClass="btn btn-xs blue" runat="server" Text="View " OnClick="btnViewAction_Click" />--%>
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -169,29 +180,17 @@
                         <hr />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row"> 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">Access Element<span class="required" aria-required="true"> *</span></label>
-                            <asp:DropDownList runat="server" ID="ddlScope" OnSelectedIndexChanged="ddlScope_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control req select2ddl"></asp:DropDownList>
+                            <asp:DropDownList runat="server" ID="ddlScope"  CssClass="form-control req select2ddl"></asp:DropDownList>
                         </div>
-                    </div>
-                    
+                    </div> 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
-                            <asp:Panel runat="server" ID="PnlGroup" CssClass="dropdown-container">
-                                <button type="button" class="dropdown-button">Choose an item</button>
-                                <div class="access-filters">
-                                    <div class="dropdown-menu">
-                                        <input type="text" class="dropdown-search" placeholder="Search..." />
-                                        <asp:CheckBox ID="chkSelectAllGroup" ForeColor="Blue" Font-Bold="true" OnCheckedChanged="chkSelectAllGroup_CheckedChanged" AutoPostBack="true" runat="server" Text="Select All" />
-                                        <div class="company-items-wrapper">
-                                            <asp:CheckBoxList ID="chkactionGroup" CssClass="group-checkboxlist req" OnSelectedIndexChanged="chkactionGroup_SelectedIndexChanged" AutoPostBack="true" runat="server" RepeatDirection="Vertical" DataTextField="Description" DataValueField="Autoid" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </asp:Panel>
+                             <asp:DropDownList runat="server" ID="ddlGroup" OnSelectedIndexChanged="ddlGroup_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control req select2ddl"></asp:DropDownList> 
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -215,9 +214,8 @@
                                 </div>
                             </asp:Panel>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-
+                    </div> 
+                   <div class="col-md-3"> 
                         <div class="form-group">
                             <label class="control-label">Region<span class="required" aria-required="true"> *</span></label>
                             <asp:Panel runat="server" ID="pnlRegion" CssClass="dropdown-container">
@@ -238,8 +236,7 @@
                                 </div>
                             </asp:Panel>
                         </div>
-                    </div>
-
+                    </div>  
                 </div>
                 <div class="row">
                     <div class="col-md-3">
@@ -264,39 +261,72 @@
                                 </div>
                             </asp:Panel>
                         </div>
-                    </div>
-
-                    <div class="col-md-3">
+                    </div> 
+                    
+                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="control-label">Company<span class="required" aria-required="true"> *</span></label>
+                            <label class="control-label">Company<span class="required">*</span></label>
                             <asp:Panel runat="server" ID="pnlCompany" CssClass="dropdown-container">
                                 <button type="button" class="dropdown-button">Choose an item</button>
                                 <div class="access-filters">
-                                    <div class=" dropdown-menu">
+                                    <div class="dropdown-menu">
                                         <input type="text" class="dropdown-search" placeholder="Search..." />
                                         <asp:CheckBox ID="chkselectallcompany" ForeColor="Blue" Font-Bold="true"
-                                            runat="server" Text="Select All"
-                                            AutoPostBack="true" OnCheckedChanged="chkselectallcompany_CheckedChanged" />
-                                        <div class="company-items-wrapper">
-                                            <asp:CheckBoxList ID="chkactionCompany"
-                                                CssClass="company-checkboxlist req"
-                                                runat="server" RepeatDirection="Vertical" OnSelectedIndexChanged="chkactionCompany_SelectedIndexChanged" AutoPostBack="true"
-                                                DataTextField="Name" DataValueField="Id" />
-                                        </div>
+                                            runat="server" Text="Select All" AutoPostBack="true"
+                                            OnCheckedChanged="chkselectallcompany_CheckedChanged" />
+                                        <asp:Panel ID="pnlCompanyItems" runat="server" CssClass="company-items-wrapper company-checkboxlist"> 
+                                        </asp:Panel>
                                     </div>
                                 </div>
                             </asp:Panel>
                         </div>
                     </div>
-
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="control-label">Work Location<span class="required" aria-required="true"> *</span></label>
-                            <asp:ListBox runat="server" ID="LstWorkLocation" SelectionMode="Multiple" CssClass="form-control select2ddl req"></asp:ListBox>
+                            <label class="control-label">Work Location<span class="required">*</span></label>
+                                <asp:Panel runat="server" ID="pnlWorkLocation" CssClass="dropdown-container">
+                                    <button type="button" class="dropdown-button">Choose an item</button>
+                                    <div class="access-filters">
+                                        <div class="dropdown-menu">
+                                            <input type="text" class="dropdown-search" placeholder="Search..." />
+                                            <asp:CheckBox ID="chkselectallworklocation" ForeColor="Blue" Font-Bold="true"
+                                                runat="server" Text="Select All" AutoPostBack="true"
+                                                OnCheckedChanged="chkselectallworklocation_CheckedChanged" />
+                                            <div class="company-items-wrapper">
+                                                <asp:CheckBoxList ID="chkactionWkLocation"
+                                                    CssClass="region-checkboxlist req" AutoPostBack="true" OnSelectedIndexChanged="chkactionWkLocation_SelectedIndexChanged"
+                                                    runat="server" RepeatDirection="Vertical"
+                                                    DataTextField="Name" DataValueField="Id" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </asp:Panel> 
                         </div>
                     </div>
-
-                    <div class="col-md-3" runat="server" visible="false" id="div_Department">
+                    <div class="col-md-3" runat="server"  id="div_RM">
+                        <div class="form-group">
+                            <label class="control-label">Reporting Manager<span class="required" aria-required="true"> *</span></label>
+                             <asp:Panel runat="server" ID="PnlreportingManager" CssClass="dropdown-container">
+                                 <button type="button" class="dropdown-button">Choose an item</button>
+                                 <div class="access-filters">
+                                     <div class="dropdown-menu">
+                                         <input type="text" class="dropdown-search" placeholder="Search..." />
+                                         <asp:CheckBox ID="chkSelectAllRM" ForeColor="Blue" Font-Bold="true"
+                                             runat="server" Text="Select All"
+                                             AutoPostBack="true" OnCheckedChanged="chkSelectAllRM_CheckedChanged" />
+                                         <div class="company-items-wrapper">
+                                             <asp:CheckBoxList ID="chkactionRM"
+                                                 CssClass="dep-checkboxlist req"
+                                                 runat="server" RepeatDirection="Vertical" OnSelectedIndexChanged="chkactionRM_SelectedIndexChanged" AutoPostBack="true"
+                                                 DataTextField="Department" DataValueField="Id" />
+                                         </div>
+                                     </div>
+                                 </div>
+                             </asp:Panel>
+                          <%--  <asp:ListBox runat="server" ID="LST_RM" SelectionMode="Multiple" CssClass="form-control select2ddl req"></asp:ListBox>--%>
+                        </div>
+                    </div>
+                    <div class="col-md-3" runat="server" id="div_Department">
                         <div class="form-group">
                             <label class="control-label">Department<span class="required" aria-required="true"> *</span></label>
                             <asp:Panel runat="server" ID="PnlDepartment" CssClass="dropdown-container">
@@ -317,7 +347,7 @@
                                 </div>
                             </asp:Panel>
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="row">
                     <div class="col-md-3" runat="server" visible="false" id="div_Employee">
@@ -332,12 +362,7 @@
                             <asp:ListBox runat="server" ID="Lst_HOD" SelectionMode="Multiple" CssClass="form-control select2ddl req"></asp:ListBox>
                         </div>
                     </div>
-                    <div class="col-md-3" runat="server" visible="false" id="div_RM">
-                        <div class="form-group">
-                            <label class="control-label">Reporting Manager<span class="required" aria-required="true"> *</span></label>
-                            <asp:ListBox runat="server" ID="LST_RM" SelectionMode="Multiple" CssClass="form-control select2ddl req"></asp:ListBox>
-                        </div>
-                    </div>
+                    
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">End Date<span class="required" aria-required="true"> *</span></label>
@@ -349,7 +374,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 pull-right text-right">
+                    <div style="display:none;" class="col-md-12 pull-right text-right">
                         <div class="form-group">
                             <label class="control-label">Is Active</label>
                             <asp:CheckBox ID="chkActive" Checked="true" runat="server"></asp:CheckBox>
@@ -366,10 +391,16 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr style="background: #ddd;">
-                                            <th>Action</th>
+                                            <th>
+                                                <asp:CheckBox ID="chkSelectAll"
+                                                    runat="server"
+                                                    AutoPostBack="true"
+                                                    OnCheckedChanged="chkSelectAll_CheckedChanged" />
+                                            </th>
                                             <th>Child</th>
                                             <th>Sub Parent</th>
                                             <th>Parent</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tr id="itemplaceholder" runat="server" />
@@ -379,17 +410,21 @@
                                 <tr>
                                     <td>
                                         <asp:HiddenField ID="hidautoid" runat="server" Value='<%# Eval("Autoid")%>' />
-                                        <asp:CheckBox ID="chkIsChecked" Checked="true" runat="server" CssClass="checkboxes" />
+                                        <asp:CheckBox ID="chkIsChecked"  runat="server" CssClass="checkboxes" />
                                     </td>
                                     <td>
                                         <%# Eval("MenuName") %>
                                     </td>
                                     <td>
+                                        
                                         <%# Eval("SubParentMenuName") %>
                                     </td>
                                     <td>
                                         <%# Eval("ParentMenuName") %>
                                     </td>
+                                     <td>
+                                       <asp:CheckBoxList ID="chkactionMenu" class=' <%# GetInt(Container.DataItemIndex.ToString()) %>' runat="server" RepeatDirection="Vertical" DataTextField="ActionName" DataValueField="Autoid" DataSource='<%# GetAction(Eval("Autoid").ToString()) %>' />
+                                     </td>
                                 </tr>
                             </ItemTemplate>
                         </asp:ListView>
@@ -399,7 +434,7 @@
             <div class="form-actions right">
                 <div class="row">
                     <div class="col-md-12">
-                        <asp:Button ID="btnSave" runat="server" class="btn blue" OnClick="btnSave_Click" OnClientClick="return CheckRequiredField('req');" Text="Save" />
+                        <asp:Button ID="btnSave" runat="server" class="btn blue" OnClick="btnSave_Click" OnClientClick="return CheckRequiredField('req')  && validateAllSelections();" Text="Save" />
                         <asp:Button ID="btnCancel" runat="server" CssClass="btn default" OnClick="btnCancel_Click" Text="Cancel" />
                     </div>
                 </div>
@@ -407,25 +442,25 @@
         </div>
 
         <div id="PopUpAction" tabindex="-1" data-width="400" class="modal fade" style="display: none">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-self-width">
                 <div class="modal-content">
                     <div class="modal-header bg-green">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title" style="color: #fff;">View Access</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body"  style="max-height:800px; overflow-y: auto;">
                         <div class="row">
-                            <div class="card p-3 shadow-sm">
-                                <div class="row mb-2">
-                                    <div class="col-md-4"><strong>Industry:</strong></div>
-                                    <div class="col-md-8">
-                                        <asp:Label ID="lblIndustry" runat="server"></asp:Label></div>
-                                </div>
-                                <hr />
+                            <div class="card p-3 shadow-sm"> 
                                 <div class="row mb-2">
                                     <div class="col-md-4"><strong>Group:</strong></div>
                                     <div class="col-md-8">
                                         <asp:Label ID="lblGroup" runat="server"></asp:Label></div>
+                                </div>
+                                <hr />
+                                <div class="row mb-2">
+                                    <div class="col-md-4"><strong>Industry:</strong></div>
+                                    <div class="col-md-8">
+                                        <asp:Label ID="lblIndustry" runat="server"></asp:Label></div>
                                 </div>
                                 <hr />
                                 <div class="row mb-2">
@@ -453,29 +488,17 @@
                                 </div>
                                 <hr />
                                 <div class="row mb-2">
-                                    <div class="col-md-4"><strong>Department:</strong></div>
-                                    <div class="col-md-8">
-                                        <asp:Label ID="lblDepartment" runat="server"></asp:Label></div>
-                                </div>
-                                <hr />
-                                <div class="row mb-2">
-                                    <div class="col-md-4"><strong>Employee:</strong></div>
-                                    <div class="col-md-8">
-                                        <asp:Label ID="lblEmployee" runat="server"></asp:Label></div>
-                                </div>
-                                <hr />
-                                <div class="row mb-2">
-                                    <div class="col-md-4"><strong>HOD:</strong></div>
-                                    <div class="col-md-8">
-                                        <asp:Label ID="lblHOD" runat="server"></asp:Label></div>
-                                </div>
-                                <hr />
-                                <div class="row mb-2">
                                     <div class="col-md-4"><strong>Reporting Manager:</strong></div>
                                     <div class="col-md-8">
                                         <asp:Label ID="lblRM" runat="server"></asp:Label></div>
                                 </div>
                                 <hr />
+                                <div class="row mb-2">
+                                    <div class="col-md-4"><strong>Department:</strong></div>
+                                    <div class="col-md-8">
+                                        <asp:Label ID="lblDepartment" runat="server"></asp:Label></div>
+                                </div> 
+                                <hr /> 
                             </div> 
                         </div>
                         <div class="row margin-top-20">
@@ -485,8 +508,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">End Date<span class="required" aria-required="true"> *</span></label>
-                                    <div class="input-group date date-picker" data-date-format="dd-M-yyyy">
-                                        <asp:TextBox ID="txtEndDateUpdate" runat="server" CssClass="form-control requp" disabled onkeypress="return false"></asp:TextBox>
+                                    <div class="input-group date date-picker" data-date-start-date="0d"  data-date-format="dd-M-yyyy">
+                                        <asp:TextBox ID="txtEndDateUpdate" runat="server" CssClass="form-control requp" onkeypress="return false"></asp:TextBox>
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
@@ -503,15 +526,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:ListView ID="LV_Access_Menu_Company_Update" runat="server" ItemPlaceholderID="itemplaceholder">
+                                <asp:ListView ID="LV_Access_Menu_Company_Update" OnItemDataBound="LV_Access_Menu_Company_Update_ItemDataBound" runat="server" ItemPlaceholderID="itemplaceholder">
                                     <LayoutTemplate>
                                         <table class="table table-bordered table-hover">
                                             <thead>
                                                 <tr style="background: #ddd;">
-                                                    <th style="display:none;">Action</th>
+                                                    <th>Is Active</th>
                                                     <th>Child</th>
                                                     <th>Sub Parent</th>
                                                     <th>Parent</th>
+                                                    <th>Action Menu</th>
                                                 </tr>
                                             </thead>
                                             <tr id="itemplaceholder" runat="server" />
@@ -519,9 +543,9 @@
                                     </LayoutTemplate>
                                     <ItemTemplate>
                                         <tr>
-                                            <td style="display:none;">
+                                            <td>
                                                 <asp:HiddenField ID="hidautoidUpdate" runat="server" Value='<%# Eval("MenuID")%>' />
-                                                <asp:CheckBox ID="chkIsCheckedUpdate" Checked="true" runat="server" CssClass="checkboxes" />
+                                                <asp:CheckBox ID="chkIsCheckedUpdate"  Checked='<%# Eval("MenuActive") %>'  runat="server" CssClass="checkboxes" />
                                             </td>
                                             <td>
                                                 <%# Eval("MenuName") %>
@@ -532,6 +556,10 @@
                                             <td>
                                                 <%# Eval("ParentMenuName") %>
                                             </td>
+                                            <td> 
+                                             <asp:CheckBoxList ID="chkactionMenu" class='<%# GetInt(Container.DataItemIndex.ToString()) %>'
+                                                runat="server" RepeatDirection="Vertical" /> 
+                                            </td>
                                         </tr>
                                     </ItemTemplate>
                                 </asp:ListView>
@@ -540,7 +568,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                         <asp:Button ID="btnUpdateAction" runat="server" class="btn blue" OnClick="btnUpdateAction_Click" OnClientClick="return CheckRequiredField('requp');" Text="Update" />
+                         <asp:Button ID="btnUpdateAction" runat="server" class="btn blue" OnClick="btnUpdateAction_Click" OnClientClick="return CheckRequiredField('requp')" Text="Update" />
                         <button type="button" data-dismiss="modal" class="btn">Close</button>
                     </div>
                     <!-- END FORM-->
@@ -557,25 +585,25 @@
     <asp:HiddenField ID="hdnWorkLocation" runat="server" />
 
 
-    <script>
+<script>
         $(document).ready(function () {
 
             $('.dropdown-button').click(function (e) {
                 e.preventDefault();
                 var menu = $(this).siblings('.access-filters');
-                $('.access-filters').not(menu).hide(); // hide others
-                menu.toggle(); // show/hide current
+                $('.access-filters').not(menu).hide(); 
+                menu.toggle(); 
             });
 
             $(document).on('click', function () {
-                $('.dropdown-container').removeClass('open'); // close when clicking outside
+                $('.dropdown-container').removeClass('open');
             });
+
             $(document).click(function (e) {
                 if (!$(e.target).closest('.dropdown-container').length) {
                     $('.access-filters').hide();
                 }
             });
-
 
             $('.dropdown-search').on('keyup', function () {
                 var searchText = $(this).val().toLowerCase();
@@ -583,14 +611,9 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(searchText) > -1);
                 });
             });
-
-
-            $('#<%= chkSelectAllGroup.ClientID %>').change(function () {
-                var checked = $(this).is(':checked');
-                $('#<%= chkactionGroup.ClientID %> input[type=checkbox]').prop('checked', checked);
-            });
+          
         });
-    </script>
+</script>
     <script> 
         if (typeof Sys !== "undefined" && Sys.WebForms && Sys.WebForms.PageRequestManager) {
             var prm = Sys.WebForms.PageRequestManager.getInstance();
@@ -601,38 +624,56 @@
 
         $(document).ready(function () {
             updateDropdownButtonText();
-        });
+        }); 
 
         function updateDropdownButtonText() {
             $(".dropdown-container").each(function () {
-                const $dropdown = $(this);
-
-                const $checkboxLists = $dropdown.find("input[type='checkbox']").not($dropdown.find("#chkSelectAllRegion, #chkselectallcompany"));
-
-                const selected = $checkboxLists.filter(":checked").map(function () {
-                    return $(this).parent().text().trim();
-                }).get();
+                const $dropdown = $(this); 
+                const selected = $dropdown.find("input[type='checkbox']:checked").map(function () { 
+                    let text = $(this).next().text().trim(); 
+                    if (!text) { 
+                        text = $(this).parent().text().trim();
+                    } 
+                    if (text.toLowerCase() === "select all") return null;
+                    return text;
+                }).get(); 
                 const btn = $dropdown.find(".dropdown-button");
-                if ($dropdown.find(".region-checkboxlist").length) {
-                    btn.text(selected.length ? selected.join(", ") : "Choose an item");
-                } else if ($dropdown.find(".company-checkboxlist").length) {
-                    btn.text(selected.length ? selected.join(", ") : "Choose an item");
-                }
-                else if ($dropdown.find(".industry-checkboxlist").length) {
-                    btn.text(selected.length ? selected.join(", ") : "Choose an item");
-                }
-                else if ($dropdown.find(".group-checkboxlist").length) {
-                    btn.text(selected.length ? selected.join(", ") : "Choose an item");
-                }
-                else if ($dropdown.find(".org-checkboxlist").length) {
-                    btn.text(selected.length ? selected.join(", ") : "Choose an item");
-                }
-
-                else if ($dropdown.find(".dep-checkboxlist").length) {
-                    btn.text(selected.length ? selected.join(", ") : "Choose an item");
-                }
+                btn.text(selected.length ? selected.join(", ") : "Choose an item");
             });
         }
+
+        function validateAllSelections() {
+            debugger
+            var isValid = true;
+
+            // Helper function to check one panel
+            function checkPanel(panelId, message) {
+                var panel = document.getElementById(panelId);
+                if (!panel) return true; // skip if not found
+                var dropdownButton = panel.querySelector(".dropdown-button");
+                var checkboxes = panel.querySelectorAll(".company-items-wrapper input[type='checkbox']");
+                var anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+
+                if (!anyChecked) {
+                    ShowWarning(message); // or alert(message)
+                    if (dropdownButton) dropdownButton.classList.add("error-outline");
+                    isValid = false;
+                } else {
+                    if (dropdownButton) dropdownButton.classList.remove("error-outline");
+                }
+            }
+
+            // Validate each panel
+            checkPanel('<%= pnlIndustry.ClientID %>', 'Please select at least one Industry.');
+            checkPanel('<%= pnlRegion.ClientID %>', 'Please select at least one Region.');
+            checkPanel('<%= pnlOrganization.ClientID %>', 'Please select at least one Organization.');
+            checkPanel('<%= pnlCompany.ClientID %>', 'Please select at least one Company.');
+            checkPanel('<%= pnlWorkLocation.ClientID %>', 'Please select at least one Work Location.');
+            checkPanel('<%= PnlreportingManager.ClientID %>', 'Please select at least one Reporting Manager.');
+            checkPanel('<%= PnlDepartment.ClientID %>', 'Please select at least one Department.'); 
+            return isValid;
+        }
+
     </script>
     <script>
         function OpenPopUpAction() {
@@ -643,6 +684,12 @@
         }
     </script>
     <style>
+          .error-outline {
+      border: 1px solid red !important;
+      border-radius: 4px !important;
+      padding: 5px !important;
+  } 
+
         .btn-access {
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -750,6 +797,14 @@
             padding-left : 15px;
             
         }
+        .group-heading {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #155724; /* dark green for group heading */
+}
+.industry-item {
+    margin-left: 15px; /* indent under group */
+}
+
     </style>
 </asp:Content>
-
