@@ -4350,6 +4350,8 @@
     <Content Include="ESS\CategoryType.aspx" />
     <Content Include="ESS\CRMCSMapping.aspx" />
     <Content Include="ESS\ELFormat.aspx" />
+    <Content Include="ESS\EmployeeRegion.aspx" />
+    <Content Include="ESS\HRMSEmailFormat.aspx" />
     <Content Include="ESS\HRRegion.aspx" />
     <Content Include="ESS\ShowAllEmailsFormat.aspx" />
     <Content Include="ESS\EmailFormat.aspx" />
@@ -4377,6 +4379,7 @@
     <Content Include="images\AMCA_icon.png" />
     <Content Include="images\jolahamainlogo.svg" />
     <Content Include="images\logoFooter.svg" />
+    <Content Include="images\SystemAdminAvatar.jpg" />
     <Content Include="js\accessibility.js" />
     <Content Include="js\BootstrapMultiselect\BootstrapMultiselect.css" />
     <Content Include="js\BootstrapMultiselect\BootstrapMultiselect.js" />
@@ -4718,6 +4721,18 @@
     </Compile>
     <Compile Include="ESS\ELFormat.aspx.designer.cs">
       <DependentUpon>ELFormat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\EmployeeRegion.aspx.cs">
+      <DependentUpon>EmployeeRegion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\EmployeeRegion.aspx.designer.cs">
+      <DependentUpon>EmployeeRegion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\HRMSEmailFormat.aspx.cs">
+      <DependentUpon>HRMSEmailFormat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\HRMSEmailFormat.aspx.designer.cs">
+      <DependentUpon>HRMSEmailFormat.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\HRRegion.aspx.cs">
       <DependentUpon>HRRegion.aspx</DependentUpon>
