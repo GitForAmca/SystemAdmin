@@ -162,13 +162,16 @@
                     <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Primary Color <span class="required" aria-required="true"> *</span></label>
-                                <input type="color" id="txtPrimaryColor" runat="server" name="txtPrimaryColor" class="form-control req"   />
+                             <%--   <input type="color" id="txtPrimaryColor" runat="server" name="txtPrimaryColor" class="form-control req"   />--%>
+                                    <input id="txtPrimaryColor" type="text" runat="server" name="txtPrimaryColor" class="form-control req" />
+
                             </div>
                     </div> 
                     <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Secondary Color <span class="required" aria-required="true"> *</span></label>
-                                <input type="color" id="txtSecondarColor" runat="server" name="txtSecondarColor" class="form-control req"  />
+                               <%-- <input type="color" id="txtSecondarColor" runat="server" name="txtSecondarColor" class="form-control req"  />--%>
+                                <input id="txtSecondarColor" type="text"  runat="server" name="txtSecondarColor" class="form-control req" />
                             </div>
                     </div>  
                     <div class="col-md-1">

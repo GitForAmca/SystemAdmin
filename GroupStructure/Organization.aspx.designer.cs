@@ -174,7 +174,7 @@ namespace SystemAdmin.GroupStructure
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtPrimaryColor;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtPrimaryColor;
 
         /// <summary>
         /// txtSecondarColor control.
@@ -183,7 +183,7 @@ namespace SystemAdmin.GroupStructure
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtSecondarColor;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtSecondarColor;
 
         /// <summary>
         /// chkActive control.
