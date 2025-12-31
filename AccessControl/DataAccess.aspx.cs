@@ -145,6 +145,7 @@ namespace SystemAdmin.AccessControl
             PL.String1 = ddlElementSearch.SelectedValue;
             PL.String3 = ddlNameSearch.SelectedValue;
             PL.String5 = txtEndDateSearch.Text;
+            PL.IsActive = ddlActive.SelectedValue;
             EssDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
@@ -655,6 +656,7 @@ namespace SystemAdmin.AccessControl
             ddlAccessEmployeeSearch.SelectedIndex = 0;
             ddlElementSearch.SelectedIndex = 0;
             ddlNameSearch.SelectedIndex = 0;
+            ddlActive.SelectedIndex = 0;
             txtEndDateSearch.Text = "";
             FillListView(ddlGroupFilter.SelectedValue);
         }

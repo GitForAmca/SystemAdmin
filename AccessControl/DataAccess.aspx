@@ -45,6 +45,16 @@
                                 </div>
                         </div>
                     </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Is Active<span class="required" aria-required="true"></span></label>
+                        <asp:DropDownList ID="ddlActive" runat="server" CssClass="form-control select2ddl">
+                            <asp:ListItem Text="Choose an item" Value=""></asp:ListItem>
+                            <asp:ListItem Text="Active" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Inactive" Value="0"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
                     <div class="col-md-1">
                         <div class="form-group">
                             <label class="control-label"></label>
