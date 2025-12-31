@@ -42,6 +42,42 @@ namespace SystemAdmin.AccessControl
         protected global::System.Web.UI.WebControls.DropDownList ddlGroupFilter;
 
         /// <summary>
+        /// ddlAccessEmployeeSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAccessEmployeeSearch;
+
+        /// <summary>
+        /// ddlElementSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlElementSearch;
+
+        /// <summary>
+        /// ddlNameSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlNameSearch;
+
+        /// <summary>
+        /// txtEndDateSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEndDateSearch;
+
+        /// <summary>
         /// btnGet control.
         /// </summary>
         /// <remarks>
@@ -49,6 +85,15 @@ namespace SystemAdmin.AccessControl
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGet;
+
+        /// <summary>
+        /// btnReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReset;
 
         /// <summary>
         /// lnkBtnAddNew control.

@@ -19,7 +19,10 @@ namespace SystemAdmin.AccessControl
                 FillGroup(ddlGroupFilter);
                 FillListView(ddlGroupFilter.SelectedValue);
                 FillEmployee(ddlEmpName);
+                FillEmployee(ddlAccessEmployeeSearch);
+                FillEmployee(ddlNameSearch);
                 BindElement();
+                BindElementSearch();
             }
             if (!IsPostBack && Session["SuccessMessage"] != null)
             {
@@ -60,6 +63,18 @@ namespace SystemAdmin.AccessControl
             ddlElement.DataTextField = "Element";
             ddlElement.DataBind();
             ddlElement.Items.Insert(0, new ListItem("Select an option", ""));
+        }
+        private void BindElementSearch()
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 69;
+            PL.ServiceTypeAutoid = "1,2,3,4,5";
+            DropdownDL.returnTable(PL);
+            ddlElementSearch.DataSource = PL.dt;
+            ddlElementSearch.DataValueField = "Element";
+            ddlElementSearch.DataTextField = "Element";
+            ddlElementSearch.DataBind();
+            ddlElementSearch.Items.Insert(0, new ListItem("Select an option", ""));
         }
         private void BindCheckBoxList()
         {
@@ -126,6 +141,10 @@ namespace SystemAdmin.AccessControl
             EssPL PL = new EssPL();
             PL.OpCode = 66;
             PL.GroupId = GroupId;
+            PL.EmpId = ddlAccessEmployeeSearch.SelectedValue;
+            PL.String1 = ddlElementSearch.SelectedValue;
+            PL.String3 = ddlNameSearch.SelectedValue;
+            PL.String5 = txtEndDateSearch.Text;
             EssDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
@@ -629,6 +648,15 @@ namespace SystemAdmin.AccessControl
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
             }
-        } 
+        }
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            ddlGroupFilter.SelectedIndex = 0;
+            ddlAccessEmployeeSearch.SelectedIndex = 0;
+            ddlElementSearch.SelectedIndex = 0;
+            ddlNameSearch.SelectedIndex = 0;
+            txtEndDateSearch.Text = "";
+            FillListView(ddlGroupFilter.SelectedValue);
+        }
     }
 }
