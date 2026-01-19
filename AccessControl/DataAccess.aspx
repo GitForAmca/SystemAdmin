@@ -10,17 +10,57 @@
             </div> 
             <div id="divView" runat="server" class="portlet-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label class="control-label">Group<span class="required" aria-required="true"> </span></label>
                             <asp:DropDownList runat="server" ID="ddlGroupFilter" CssClass="form-control select2ddl"></asp:DropDownList>
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Access Employee<span class="required" aria-required="true"> </span></label>
+                            <asp:DropDownList runat="server" ID="ddlAccessEmployeeSearch" CssClass="form-control select2ddl"></asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Element<span class="required" aria-required="true"> </span></label>
+                            <asp:DropDownList runat="server" ID="ddlElementSearch" CssClass="form-control select2ddl"></asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Name<span class="required" aria-required="true"> </span></label>
+                            <asp:DropDownList runat="server" ID="ddlNameSearch" CssClass="form-control select2ddl"></asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">End Date<span class="required" aria-required="true"> </span></label>
+                                <div class="input-group date date-picker" data-date-format="dd-M-yyyy">
+                                    <asp:TextBox ID="txtEndDateSearch" runat="server" CssClass="form-control req" onkeypress="return false"></asp:TextBox>
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                        </div>
+                    </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Is Active<span class="required" aria-required="true"></span></label>
+                        <asp:DropDownList ID="ddlActive" runat="server" CssClass="form-control select2ddl">
+                            <asp:ListItem Text="Choose an item" Value=""></asp:ListItem>
+                            <asp:ListItem Text="Active" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Inactive" Value="0"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
                     <div class="col-md-1">
                         <div class="form-group">
                             <label class="control-label"></label>
                             <div style="margin-top: 8px;">
                                 <asp:Button ID="btnGet" runat="server" CssClass="btn green" Text="Get" OnClick="btnGet_Click" />
+                                <asp:Button ID="btnReset" runat="server" CssClass="btn default" OnClick="btnReset_Click" Text="Reset" />
                             </div>
                         </div>
                     </div>
