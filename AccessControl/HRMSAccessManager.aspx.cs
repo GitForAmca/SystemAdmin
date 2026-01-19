@@ -1354,6 +1354,7 @@ namespace SystemAdmin.AccessControl
             PL.OpCode = 98;
             PL.EmpId = ddlEmployeeName.SelectedValue.ToString();
             PL.GroupId = ddlGroup.SelectedValue.ToString();
+            PL.String1 = ddlScope.SelectedValue.ToString();
             EssDL.returnTable(PL);
             DataTable dt = PL.dt;
             if (PL.dt.Rows.Count > 0)
