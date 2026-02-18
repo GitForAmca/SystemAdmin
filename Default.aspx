@@ -201,7 +201,7 @@
                                 <div class="col-md-12 text-center">
                                     <div class="form-group">
 							            <asp:Image ID="imgUserAvatar" CssClass="imgavatar" runat="server" />
-                                        <h3 style="color: #D7B46A"><strong><asp:Label runat="server" ID="lblHelloUsername"></asp:Label></strong></h3>
+                                        <h3 style="color: #b7091e"><strong><asp:Label runat="server" ID="lblHelloUsername"></asp:Label></strong></h3>
                                         <p><strong>(<asp:Label runat="server" ID="lblEmpId"></asp:Label></strong>)</p>
                                         <%--<p>Enter the Verification Code sent to <span style="font-weight: bold;"><asp:Label runat="server" ID="lblUserEmail"></asp:Label></span> </p>--%>
                                     </div>

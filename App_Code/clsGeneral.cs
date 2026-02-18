@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-using System.Web;
 using System.Data;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace SystemAdmin.App_Code
 {
@@ -88,6 +90,32 @@ namespace SystemAdmin.App_Code
             {
                 return string.Empty;
             }
+        }
+        public string FileUploadAll(FileUpload Ctrfile, string DirectoryPath)
+        {
+            string strfilePath = "";
+            if (System.IO.Directory.Exists(HttpContext.Current.Server.MapPath("~/" + DirectoryPath)) == false)
+                System.IO.Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/" + DirectoryPath));
+            string filepath = DirectoryPath;
+
+            if (Ctrfile.HasFile)
+            {
+                Guid myglobalid = Guid.NewGuid();
+                string filename = string.Empty;
+                filename = Path.GetFileName(Ctrfile.PostedFile.FileName);
+                string[] ArrFName = filename.Split('.');
+                string strfilename = string.Empty;
+                strfilename = "FILE_" + myglobalid.ToString() + "." + ArrFName[ArrFName.Length - 1];
+                strfilePath = filepath + strfilename;
+                Ctrfile.SaveAs(HttpContext.Current.Server.MapPath("~/" + strfilePath));
+
+            }
+            else
+            {
+                strfilePath = string.IsNullOrEmpty(Ctrfile.Attributes["oldpath"]) ? "" : Ctrfile.Attributes["oldpath"];
+            }
+
+            return strfilePath;
         }
     }
 }

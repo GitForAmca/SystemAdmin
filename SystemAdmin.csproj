@@ -81,6 +81,8 @@
     <Compile Include="AccessControl\HRMSAccessManager.aspx.designer.cs">
       <DependentUpon>HRMSAccessManager.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Code\ProductsPL.cs" />
+    <Compile Include="App_Code\ProductsDL.cs" />
     <Compile Include="App_Code\StructurePL.cs" />
     <Content Include="assets\admin\layout3\css\custom.css" />
     <Content Include="assets\admin\layout3\css\layout.css" />
@@ -4598,6 +4600,8 @@
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\System.Xml.XPath.XDocument.dll" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\vbc.exe" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\tools\RoslynLatest\VBCSCompiler.exe" />
+    <Content Include="Products\Products.aspx" />
+    <Content Include="Products\ProductsAceess.aspx" />
     <Content Include="Style\CommonPolicy.css" />
     <Content Include="View\Dashboard.aspx" />
     <Content Include="Web.config" />
@@ -4724,18 +4728,21 @@
     </Compile>
     <Compile Include="ESS\EmployeeRegion.aspx.cs">
       <DependentUpon>EmployeeRegion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ESS\EmployeeRegion.aspx.designer.cs">
       <DependentUpon>EmployeeRegion.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\HRMSEmailFormat.aspx.cs">
       <DependentUpon>HRMSEmailFormat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ESS\HRMSEmailFormat.aspx.designer.cs">
       <DependentUpon>HRMSEmailFormat.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\HRRegion.aspx.cs">
       <DependentUpon>HRRegion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ESS\HRRegion.aspx.designer.cs">
       <DependentUpon>HRRegion.aspx</DependentUpon>
@@ -4931,6 +4938,20 @@
     </Compile>
     <Compile Include="Menu\SubParentMenu.aspx.designer.cs">
       <DependentUpon>SubParentMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Products\Products.aspx.cs">
+      <DependentUpon>Products.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\Products.aspx.designer.cs">
+      <DependentUpon>Products.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Products\ProductsAceess.aspx.cs">
+      <DependentUpon>ProductsAceess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Products\ProductsAceess.aspx.designer.cs">
+      <DependentUpon>ProductsAceess.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Dashboard.aspx.cs">

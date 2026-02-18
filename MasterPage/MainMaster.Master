@@ -147,6 +147,24 @@
                     <div class="hor-menu">
                         <ul class='nav navbar-nav'>
                             <li class='menu-dropdown mega-menu-dropdown mega-menu-full'>
+                                <a  data-toggle='dropdown' href='javascript:;' class='dropdown-toggle'>Products<i class='fa fa-angle-down'></i></a>
+                                <ul class='dropdown-menu' style='min-width: 900px' >
+                                    <li>
+                                        <div class='mega-menu-content'>
+                                            <div class='row'>
+                                                <div class='col-md-3'>
+                                                    <ul class='mega-menu-submenu'>
+                                                        <li><h3>Master</h3></li>
+                                                        <li><a href="../Products/Products.aspx"><i class='fa fa-angle-right'></i>Products</a></li> 
+                                                        <li><a href="../Products/ProductsAceess.aspx"><i class='fa fa-angle-right'></i>Products Access</a></li> 
+                                                    </ul>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class='menu-dropdown mega-menu-dropdown mega-menu-full'>
                                 <a  data-toggle='dropdown' href='javascript:;' class='dropdown-toggle'>Setting <i class='fa fa-angle-down'></i></a>
                                 <ul class='dropdown-menu' style='min-width: 900px' >
                                     <li>

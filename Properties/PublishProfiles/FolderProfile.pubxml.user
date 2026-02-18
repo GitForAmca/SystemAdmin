@@ -5,30 +5,39 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\ARIF\F\AMCA\Publish Projects\Admin</_PublishTargetUrl>
-    <History>True|2025-05-05T06:29:38.5611326Z;True|2025-05-01T14:28:16.0457247+04:00;True|2025-04-29T15:12:16.5038718+04:00;True|2025-04-28T17:46:22.9397514+04:00;True|2025-04-22T08:09:41.9604419+04:00;</History>
+    <History>True|2026-02-10T06:29:33.5302998Z||;True|2026-02-09T16:49:52.6290189+04:00||;True|2026-01-19T13:10:00.9990818+04:00||;True|2025-12-18T15:24:25.7181995+04:00||;True|2025-12-18T12:52:12.4390572+04:00||;True|2025-12-03T09:04:04.2640349+04:00||;True|2025-05-05T10:29:38.5611326+04:00||;True|2025-05-01T14:28:16.0457247+04:00||;True|2025-04-29T15:12:16.5038718+04:00||;True|2025-04-28T17:46:22.9397514+04:00||;True|2025-04-22T08:09:41.9604419+04:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include=".gitignore">
-      <publishTime>01/30/2025 15:11:48</publishTime>
+      <publishTime>09/26/2025 10:22:41</publishTime>
     </File>
     <File Include="AccessControl/DataAccess.aspx">
-      <publishTime>04/25/2025 14:45:16</publishTime>
+      <publishTime>12/31/2025 13:37:30</publishTime>
     </File>
     <File Include="AccessControl/HRMSAccessControl.aspx">
       <publishTime>05/02/2025 11:18:40</publishTime>
     </File>
+    <File Include="AccessControl/HRMSAccessManager.aspx">
+      <publishTime>12/18/2025 12:49:58</publishTime>
+    </File>
+    <File Include="AccessControl/HRMSDataAccess.aspx">
+      <publishTime>11/04/2025 15:01:53</publishTime>
+    </File>
     <File Include="AccessControl/OrganizationalAccessControl.aspx">
-      <publishTime>04/21/2025 15:07:24</publishTime>
+      <publishTime>11/18/2025 13:19:02</publishTime>
+    </File>
+    <File Include="AccessControl/RBACHRMS.aspx">
+      <publishTime>12/03/2025 09:03:18</publishTime>
     </File>
     <File Include="AccessMenu/DepartmentMenuAccess.aspx">
-      <publishTime>01/30/2025 14:55:12</publishTime>
+      <publishTime>05/14/2025 14:07:27</publishTime>
     </File>
     <File Include="AccessMenu/DesignationMenuAccess.aspx">
-      <publishTime>07/11/2024 10:46:32</publishTime>
+      <publishTime>05/14/2025 14:07:27</publishTime>
     </File>
     <File Include="AccessMenu/SubDepartmentMenuAccess.aspx">
-      <publishTime>01/30/2025 14:55:13</publishTime>
+      <publishTime>05/14/2025 14:07:27</publishTime>
     </File>
     <File Include="App_Code/Class1.cs">
       <publishTime>07/11/2024 10:46:32</publishTime>
@@ -13789,10 +13798,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:36</publishTime>
     </File>
     <File Include="bin/SystemAdmin.dll">
-      <publishTime>05/07/2025 08:20:30</publishTime>
+      <publishTime>02/10/2026 10:49:59</publishTime>
     </File>
     <File Include="bin/SystemAdmin.pdb">
-      <publishTime>05/07/2025 08:20:30</publishTime>
+      <publishTime>02/10/2026 10:49:59</publishTime>
     </File>
     <File Include="css/AjaxTabStyle.css">
       <publishTime>07/11/2024 10:46:34</publishTime>
@@ -13876,7 +13885,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:34</publishTime>
     </File>
     <File Include="Default.aspx">
-      <publishTime>07/11/2024 10:46:32</publishTime>
+      <publishTime>02/10/2026 10:30:34</publishTime>
     </File>
     <File Include="Directors/DirectorElementAccess.aspx">
       <publishTime>05/01/2025 17:09:53</publishTime>
@@ -13900,10 +13909,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/10/2024 10:02:50</publishTime>
     </File>
     <File Include="ESS/EmailFormat.aspx">
-      <publishTime>08/08/2024 11:09:14</publishTime>
+      <publishTime>11/06/2025 09:24:48</publishTime>
+    </File>
+    <File Include="ESS/EmployeeRegion.aspx">
+      <publishTime>07/11/2025 09:01:26</publishTime>
     </File>
     <File Include="ESS/GeneralSenderEmail.aspx">
       <publishTime>10/25/2024 17:28:20</publishTime>
+    </File>
+    <File Include="ESS/HRMSEmailFormat.aspx">
+      <publishTime>09/18/2025 16:06:27</publishTime>
+    </File>
+    <File Include="ESS/HRRegion.aspx">
+      <publishTime>11/04/2025 15:01:53</publishTime>
     </File>
     <File Include="ESS/LicenseActivity.aspx">
       <publishTime>11/13/2024 14:51:18</publishTime>
@@ -13936,7 +13954,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:32</publishTime>
     </File>
     <File Include="ESS/ServiceTypeMaster.aspx">
-      <publishTime>09/20/2024 11:01:52</publishTime>
+      <publishTime>09/26/2025 10:22:42</publishTime>
+    </File>
+    <File Include="ESS/ShowAllEmailsFormat.aspx">
+      <publishTime>11/06/2025 09:24:48</publishTime>
     </File>
     <File Include="ESS/StatusMaster.aspx">
       <publishTime>07/17/2024 18:21:34</publishTime>
@@ -13950,6 +13971,21 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="ESS/TradeLicenseAuthority.aspx">
       <publishTime>01/06/2025 14:22:17</publishTime>
     </File>
+    <File Include="GroupStructure/Company.aspx">
+      <publishTime>11/04/2025 15:01:53</publishTime>
+    </File>
+    <File Include="GroupStructure/Group.aspx">
+      <publishTime>12/03/2025 09:03:18</publishTime>
+    </File>
+    <File Include="GroupStructure/Industry.aspx">
+      <publishTime>11/04/2025 15:01:53</publishTime>
+    </File>
+    <File Include="GroupStructure/Organization.aspx">
+      <publishTime>12/18/2025 15:23:51</publishTime>
+    </File>
+    <File Include="GroupStructure/Region.aspx">
+      <publishTime>11/04/2025 15:01:53</publishTime>
+    </File>
     <File Include="images/AMCA_icon.png">
       <publishTime>07/11/2024 10:46:34</publishTime>
     </File>
@@ -13957,6 +13993,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:34</publishTime>
     </File>
     <File Include="images/logoFooter.svg">
+      <publishTime>07/11/2024 10:46:34</publishTime>
+    </File>
+    <File Include="images/SystemAdminAvatar.jpg">
       <publishTime>07/11/2024 10:46:34</publishTime>
     </File>
     <File Include="js/accessibility.js">
@@ -14449,10 +14488,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/11/2024 10:46:34</publishTime>
     </File>
     <File Include="MasterPage/MainMaster.Master">
-      <publishTime>04/25/2025 09:14:48</publishTime>
+      <publishTime>02/09/2026 16:19:33</publishTime>
     </File>
     <File Include="Menu/ChildMenu.aspx">
-      <publishTime>11/13/2024 14:51:18</publishTime>
+      <publishTime>09/26/2025 10:23:24</publishTime>
     </File>
     <File Include="Menu/ParentMenu.aspx">
       <publishTime>07/11/2024 10:46:32</publishTime>
@@ -14736,11 +14775,20 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1/tools/RoslynLatest/VBCSCompiler.exe.config">
       <publishTime>07/11/2024 10:46:36</publishTime>
     </File>
+    <File Include="Products/Products.aspx">
+      <publishTime>02/09/2026 17:44:58</publishTime>
+    </File>
+    <File Include="Products/ProductsAceess.aspx">
+      <publishTime>02/10/2026 10:49:37</publishTime>
+    </File>
+    <File Include="Style/CommonPolicy.css">
+      <publishTime>11/06/2025 09:24:48</publishTime>
+    </File>
     <File Include="View/Dashboard.aspx">
       <publishTime>07/11/2024 10:46:32</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/28/2025 17:46:17</publishTime>
+      <publishTime>12/18/2025 12:52:08</publishTime>
     </File>
     <File Include="WebForm1.aspx">
       <publishTime>07/11/2024 10:46:32</publishTime>
