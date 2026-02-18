@@ -25,6 +25,7 @@ namespace SystemAdmin.App_Code
                 sqlCmd.Parameters.Add("@IsActive", SqlDbType.VarChar).Value = PL.IsActive;
                 sqlCmd.Parameters.Add("@IndustryId", SqlDbType.VarChar).Value = PL.IndustryId;
                 sqlCmd.Parameters.Add("@HOD", SqlDbType.VarChar).Value = PL.HOD;
+                sqlCmd.Parameters.Add("@XMLData", SqlDbType.Xml).Value = PL.XMLData;
                 SqlDataAdapter sqlAdp = new SqlDataAdapter(sqlCmd);
                 PL.dt = new DataTable();
                 sqlAdp.Fill(PL.dt);

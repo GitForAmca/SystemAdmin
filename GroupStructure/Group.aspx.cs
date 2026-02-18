@@ -48,7 +48,9 @@ namespace SystemAdmin.GroupStructure
                     dtCurrentTable.Columns.Add("Level");
                     dtCurrentTable.Columns.Add("EmpId");
                     dtCurrentTable.Columns.Add("EmployeeName");
-                    dtCurrentTable.Columns.Add("isEnabled", typeof(bool));
+                    dtCurrentTable.Columns.Add("DesignationId");
+                    dtCurrentTable.Columns.Add("DesignationName");
+                    dtCurrentTable.Columns.Add("IsMain");
                 }
 
                 // Check if Level already exists
@@ -64,9 +66,9 @@ namespace SystemAdmin.GroupStructure
                 drNew["Autoid"] = ddlLevel.SelectedValue;
                 drNew["Level"] = ddlLevel.SelectedItem.Text;
                 drNew["EmpId"] = ddlEmp.SelectedValue;
+                drNew["DesignationId"] = "0";
                 drNew["EmployeeName"] = ddlEmp.SelectedItem.Text.Trim();
-                drNew["isEnabled"] = false;
-
+                drNew["IsMain"] = false;
                 dtCurrentTable.Rows.Add(drNew);
 
                 // Store and bind
@@ -99,63 +101,37 @@ namespace SystemAdmin.GroupStructure
             ViewState["Assessor"] = PL.dt;
             AssessorTbl.Update();
         }
-        //private void AddNewRecordRowToHeirarchy()
-        //{
-        //    if (ddlLevel.SelectedValue != "" && ddlEmp.SelectedValue != "")
-        //    {
-        //        if (ViewState["Assessor"] != null)
-        //        {
-        //            DataTable dtCurrentTable = (DataTable)ViewState["Assessor"];
-        //            DataRow[] IsExixts = dtCurrentTable.Select("Autoid='" + ddlLevel.SelectedValue.ToString() + "'");
-        //            if (IsExixts.Length > 0)
-        //            {
-        //                ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('This Level already exists.Please select another');", true);
-        //                return;
-        //            }
-        //            DataRow drCurrentRow = null;
-        //            drCurrentRow = dtCurrentTable.NewRow();
-        //            dtCurrentTable.Rows.Add(drCurrentRow);
-        //            if (dtCurrentTable.Rows.Count > 0)
-        //            {
-        //                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
-        //                {
-        //                    drCurrentRow = dtCurrentTable.NewRow();
-        //                    drCurrentRow["Autoid"] = ddlLevel.SelectedValue.ToString();
-        //                    drCurrentRow["Level"] = ddlLevel.SelectedItem.ToString();
-        //                    drCurrentRow["EmpId"] = ddlEmp.SelectedValue.ToString();
-        //                    drCurrentRow["EmployeeName"] = ddlEmp.SelectedItem.Text.ToString().Trim();
-        //                    drCurrentRow["isEnabled"] = false;
-        //                }
-        //                if (dtCurrentTable.Rows[dtCurrentTable.Rows.Count - 1][0].ToString() == "")
-        //                {
-        //                    dtCurrentTable.Rows[dtCurrentTable.Rows.Count - 1].Delete();
-        //                    dtCurrentTable.AcceptChanges();
-        //                }
-        //                dtCurrentTable.Rows.Add(drCurrentRow);
-        //                ViewState["Assessor"] = dtCurrentTable;
-        //                LV_AssessorTbl.DataSource = dtCurrentTable;
-        //                LV_AssessorTbl.DataBind();
-        //            }
-        //        }
-        //    }
-        //}
+         
         protected void LV_AssessorTbl_ItemDataBound(object sender, ListViewItemEventArgs e)
         {
             if (e.Item.ItemType == ListViewItemType.DataItem)
             {
-                DropDownList ddlLevel = (DropDownList)e.Item.FindControl("ddlLevel");
+                
+                DropDownList ddlExecutive = (DropDownList)e.Item.FindControl("ddlExecutive");
+                DropDownList ddlDesignation = (DropDownList)e.Item.FindControl("ddlDesignation");
                 HiddenField hdnEmp = (HiddenField)e.Item.FindControl("hdnEmp");
-               
-                if (ddlEmp != null)
-                {
-                    GetEmployee(ddlEmp);
+                HiddenField hdnDesignationId = (HiddenField)e.Item.FindControl("hdnDesignationId");
 
-                    // Pre-select employee if exists in data
+                if (ddlExecutive != null)
+                {
+                    GetEmployee(ddlExecutive); 
                     if (hdnEmp != null && !string.IsNullOrEmpty(hdnEmp.Value))
                     {
-                        ListItem item = ddlEmp.Items.FindByValue(hdnEmp.Value);
+                        ListItem item = ddlExecutive.Items.FindByValue(hdnEmp.Value);
                         if (item != null)
-                            ddlEmp.SelectedValue = hdnEmp.Value;
+                            ddlExecutive.SelectedValue = hdnEmp.Value;
+                    }
+
+                }
+
+                if (ddlDesignation != null)
+                {
+                    GetDesigantion(ddlDesignation);
+                    if (hdnDesignationId != null && !string.IsNullOrEmpty(hdnDesignationId.Value))
+                    {
+                        ListItem item = ddlDesignation.Items.FindByValue(hdnDesignationId.Value);
+                        if (item != null)
+                            ddlDesignation.SelectedValue = hdnDesignationId.Value;
                     }
 
                 }
@@ -183,45 +159,7 @@ namespace SystemAdmin.GroupStructure
                 }
             }
         }
-        protected void chkOnOffPreGrace_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox chk = (CheckBox)sender;
-            ListViewItem item = (ListViewItem)chk.NamingContainer;
-            int index = item.DataItemIndex;
-            DropDownList ddl = (DropDownList)item.FindControl("ddlHierarchyAssessor");
-            if (ViewState["Assessor"] != null)
-            {
-                DataTable dt = (DataTable)ViewState["Assessor"];
-                try
-                {
-                    if (dt.Rows.Count > index)
-                    {
-                        dt.Rows[index]["isEnabled"] = chk.Checked;
-                        dt.AcceptChanges();
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                }
-                ViewState["Assessor"] = dt;
-                LV_AssessorTbl.DataSource = dt;
-                LV_AssessorTbl.DataBind();
-            }
-            if (ddl != null)
-            {
-                if (!chk.Checked)
-                {
-                    ddl.CssClass = ddl.CssClass + "form-control select2ddl disabled";
-                    ddl.SelectedIndex = -1;
-                }
-                else
-                {
-                    ddl.CssClass = ddl.CssClass.Replace("disabled", "form-control select2ddl reqAdd").Trim();
-                }
-            }
-            AssessorTbl.Update();
-        }
+     
         protected void ddlEmp_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlSender = (DropDownList)sender;
@@ -252,6 +190,18 @@ namespace SystemAdmin.GroupStructure
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 41;
+            StructureDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Id";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+
+        void GetDesigantion(DropDownList ddl)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 46;
             StructureDL.returnTable(PL);
             ddl.DataSource = PL.dt;
             ddl.DataValueField = "Id";
@@ -317,8 +267,7 @@ namespace SystemAdmin.GroupStructure
         {
             LV_AssessorTbl.DataSource = null;      
             LV_AssessorTbl.DataBind();
-            ViewState["Assessor"] = null;
-            // ✅ Reset selection mode
+            ViewState["Assessor"] = null; 
             LV_AssessorTbl.SelectedIndex = -1;
             ddlHOD.SelectedIndex = -1;
             ddlEmp.SelectedIndex = -1;
@@ -435,20 +384,37 @@ namespace SystemAdmin.GroupStructure
                 PL.OpCode = 8;
                 PL.AutoId = Convert.ToInt32(hidAutoid.Value);
             }
-            //DataTable dtCurrentTable = (DataTable)ViewState["Assessor"];
-            //int rowCount = dtCurrentTable.Rows.Count;
-            //var xml = "<tbl>";
-            //for (int i = 0; i < rowCount; i++)
-            //{
-            //    xml += "<tr>";
-            //    xml += "<Level><![CDATA[" + dtCurrentTable.Rows[i]["Autoid"] + "]]></Level>";
-            //    xml += "<EmpId><![CDATA[" + dtCurrentTable.Rows[i]["EmpId"] + "]]></EmpId>";
-            //    xml += "<IsEnabled><![CDATA[" + dtCurrentTable.Rows[i]["isEnabled"] + "]]></IsEnabled>";
-            //    xml += "<AutoId><![CDATA[" + PL.AutoId + "]]></AutoId>";
-            //    xml += "</tr>";
-            //}
-            //xml += "</tbl>";
-            //PL.XML = xml; 
+            DataTable dtCurrentTable = (DataTable)ViewState["Assessor"];
+            int rowCount = dtCurrentTable.Rows.Count;
+            var xml = "<tbl>"; 
+            foreach (ListViewItem item in LV_AssessorTbl.Items)
+            {
+               
+                HiddenField hdnLevel = (HiddenField)item.FindControl("hdnLevel");
+                HiddenField hdnEmp = (HiddenField)item.FindControl("hdnEmp");
+                HiddenField hdnDesignationId = (HiddenField)item.FindControl("hdnDesignationId"); 
+                string level = hdnLevel?.Value ?? "";
+                string empId = hdnEmp?.Value ?? "";
+                string designationId = hdnDesignationId?.Value ?? "";
+               
+                DropDownList ddlExecutive = (DropDownList)item.FindControl("ddlExecutive");
+                DropDownList ddlDesignation = (DropDownList)item.FindControl("ddlDesignation");
+                CheckBox chkOnOffPreGrace = (CheckBox)item.FindControl("chkOnOffPreGrace");
+                bool IsMain = chkOnOffPreGrace?.Checked ?? false;
+
+                string selectedExecutive = ddlExecutive?.SelectedValue ?? "";
+                string selectedDesignation = ddlDesignation?.SelectedValue ?? ""; 
+                xml += "<tr>";
+                xml += $"<Level><![CDATA[{level}]]></Level>";
+                xml += $"<EmpId><![CDATA[{selectedExecutive}]]></EmpId>";
+                xml += $"<DesignationId><![CDATA[{selectedDesignation}]]></DesignationId>";
+                xml += $"<IsMain><![CDATA[{IsMain}]]></IsMain>";
+                xml += $"<AutoId><![CDATA[{PL.AutoId}]]></AutoId>";
+                xml += "</tr>";
+            }
+
+            xml += "</tbl>";
+            PL.XML = xml;
             PL.CreatedBy = Session["UserAutoId"].ToString();
             StructureDL.returnTable(PL);
             if (!PL.isException)
@@ -489,6 +455,16 @@ namespace SystemAdmin.GroupStructure
             ddlIndustryFilter.SelectedIndex = 0;
             ddlActive.SelectedIndex = 0;
             FillListView();
+        }
+
+        protected void ddlExecutive_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

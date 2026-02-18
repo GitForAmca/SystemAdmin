@@ -161,36 +161,112 @@
                     </div> 
                     <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">Primary Color <span class="required" aria-required="true"> *</span></label>
-                             <%--   <input type="color" id="txtPrimaryColor" runat="server" name="txtPrimaryColor" class="form-control req"   />--%>
-                                    <input id="txtPrimaryColor" type="text" runat="server" name="txtPrimaryColor" class="form-control req" />
+                                <label class="control-label">Primary Color <span class="required" aria-required="true"> *</span></label> 
+                                <input id="txtPrimaryColor" type="text" runat="server" name="txtPrimaryColor" class="form-control req" />
 
                             </div>
                     </div> 
                     <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">Secondary Color <span class="required" aria-required="true"> *</span></label>
-                               <%-- <input type="color" id="txtSecondarColor" runat="server" name="txtSecondarColor" class="form-control req"  />--%>
+                                <label class="control-label">Secondary Color <span class="required" aria-required="true"> *</span></label> 
                                 <input id="txtSecondarColor" type="text"  runat="server" name="txtSecondarColor" class="form-control req" />
                             </div>
-                    </div>  
+                    </div>   
                     <div class="col-md-1">
                         <div class="form-group" style="padding-top:25px;">
                             <label class="control-label">Active</label>
                             <asp:CheckBox ID="chkActive" Checked="true" runat="server"></asp:CheckBox>
                         </div>
                     </div>
-                    <div class="col-md-12 pull-right">
-                        <div class="form-group pull-right">
-                            <asp:Button ID="btnAdd" runat="server" class="btn blue" OnClick="btnAdd_Click" OnClientClick="return CheckRequiredField('req');" Text="Save" />
-                            <asp:Button ID="btnCancel" runat="server" CssClass="btn default" OnClick="btnCancel_Click" Text="Cancel" />
-                        </div>
-                    </div>
-                </div>
+                    
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="col-md-4">
+                              <div class="form-group">
+                                  <label class="control-label">Add Heirarchy<span class="required" aria-required="true"> *</span></label>
+                                  <div class="input-group add-on" style="display: flex;">
+                                      <asp:DropDownList ID="ddlLevel" runat="server" class="form-control select2ddl sub"></asp:DropDownList>
+                                      <asp:DropDownList ID="ddlEmp" runat="server" class="form-control select2ddl sub" ></asp:DropDownList>
+                                      <asp:Button ID="btnAddLevel" runat="server" class="btn blue" OnClick="btnAddLevel_Click" OnClientClick="return CheckRequiredField('sub');" Text="+" />
+                                  </div>
+                              </div>
+                          </div>
+                       </div>
+                       <div class="col-md-6" >
+                               <asp:UpdatePanel ID="AssessorTbl" UpdateMode="Conditional" runat="server">
+                                   <ContentTemplate>
+                                       <asp:ListView ID="LV_AssessorTbl" runat="server" DataKeyNames="Autoid" OnItemCommand="LV_AssessorTbl_ItemCommand" OnItemDataBound="LV_AssessorTbl_ItemDataBound">
+                                           <LayoutTemplate>
+                                               <table class="table table-bordered">
+                                                   <thead>
+                                                       <tr style="border: none; background-color: transparent !important;">
+                                                           <td colspan="8" class="text-center" style="border: none !important; font-weight: bold;">Organization Heirarchy</td>
+                                                       </tr>
+                                                       <tr class="tableStatusBg">
+                                                           <th>SI.No</th>
+                                                           <th>Level</th>
+                                                           <th>Executive</th>
+                                                           <th>Designation</th> 
+                                                           <th>Is Primary?</th> 
+                                                           <th>Action</th>
+                                                       </tr>
+                                                   </thead>
+                                                   <tbody>
+                                                       <div id="itemplaceholder" runat="server"></div>
+                                                   </tbody>
+                                               </table>
+                                           </LayoutTemplate>
+                                           <ItemTemplate>
+                                               <tr>
+                                                   <td><%# Container.DataItemIndex+1 %></td>
+                                                   <td>
+                                                       <asp:HiddenField ID="hdnLevel" runat="server" Value='<%# Eval("Autoid") %>' />
+                                                       <div class="input-group add-on" style="display: flex;">
+                                                           <%# Eval("Level") %>
+                                                       </div>
+                                                   </td>
+                                                   <td>
+                                                       <asp:HiddenField ID="hdnEmp" runat="server" Value='<%# Eval("EmpId") %>' />
+                                                       <div class="input-group add-on" style="display: flex;">
+                                                           <asp:DropDownList ID="ddlExecutive" class="form-control multiselectddl req" OnSelectedIndexChanged="ddlExecutive_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
+                                                       </div>
+                                                   </td>
+                                                   <td>
+                                                       <asp:HiddenField ID="hdnDesignationId" runat="server" Value='<%# Eval("DesignationId") %>' />
+                                                       <div class="input-group add-on" style="display: flex;">
+                                                           <asp:DropDownList ID="ddlDesignation" class="form-control multiselectddl req" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
+                                                       </div>
+                                                   </td> 
+                                                    <td> 
+                                                        <asp:CheckBox ID="chkOnOffPreGrace" runat="server"  checked='<%# Eval("IsMain").ToString() == "True" %>'  /> 
+                                                    </td> 
+                                                   <td>
+                                                       <asp:LinkButton ID="lnkDelete" runat="server" CommandName="DeleteRow" CommandArgument='<%# Eval("Autoid") %>' CssClass="btn btn-danger btn-sm">
+                                                           <i class="fa fa-trash"></i>
+                                                       </asp:LinkButton>
+                                                   </td>
+                                               </tr>
+                                           </ItemTemplate>
+                                       </asp:ListView>
+                                   </ContentTemplate>
+                                   <Triggers>
+                                       <asp:PostBackTrigger ControlID="LV_AssessorTbl" />
+                                   </Triggers>
+                               </asp:UpdatePanel>
+                           </div>
+    
+                       <div class="col-md-12 pull-right">
+                           <div class="form-group pull-right">
+                                 <asp:Button ID="btnAdd" runat="server" class="btn blue" OnClick="btnAdd_Click" OnClientClick="return CheckRequiredField('req');" Text="Save" />
+                                 <asp:Button ID="btnCancel" runat="server" CssClass="btn default" OnClick="btnCancel_Click" Text="Cancel" />
+                           </div>
+                       </div> 
+                    </div>                   
             </div>
-
+            </div>
         </div>
-    </div>
+   
     <asp:HiddenField ID="hidAutoid" runat="server" Value="" />
 </asp:Content>
 

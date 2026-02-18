@@ -134,9 +134,9 @@
                             <asp:DropDownList ID="ddlHOD" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
-                    <div  style="display:none;" class="col-md-4">
+                    <div  class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Add Level<span class="required" aria-required="true"> *</span></label>
+                            <label class="control-label">Add Heirarchy<span class="required" aria-required="true"> *</span></label>
                             <div class="input-group add-on" style="display: flex;">
                                 <asp:DropDownList ID="ddlLevel" runat="server" class="form-control select2ddl sub"></asp:DropDownList>
                                 <asp:DropDownList ID="ddlEmp" runat="server" class="form-control select2ddl sub" ></asp:DropDownList>
@@ -151,7 +151,10 @@
                         </div>
                     </div> 
                
-                    <div class="col-md-6"  style="display:none;">
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-6" >
                         <asp:UpdatePanel ID="AssessorTbl" UpdateMode="Conditional" runat="server">
                             <ContentTemplate>
                                 <asp:ListView ID="LV_AssessorTbl" runat="server" DataKeyNames="Autoid" OnItemCommand="LV_AssessorTbl_ItemCommand" OnItemDataBound="LV_AssessorTbl_ItemDataBound">
@@ -162,10 +165,11 @@
                                                     <td colspan="8" class="text-center" style="border: none !important; font-weight: bold;">Group Heirarchy</td>
                                                 </tr>
                                                 <tr class="tableStatusBg">
-                                                    <th>SI. No</th>
+                                                    <th>SI.No</th>
                                                     <th>Level</th>
-                                                    <th>Employee</th>
-                                                    <th>Is Enabled?</th>
+                                                    <th>Executive</th>
+                                                    <th>Designation</th> 
+                                                    <th>Is Primary?</th> 
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -184,15 +188,20 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <asp:HiddenField ID="hdnEmp" runat="server" Value='<%# Eval("EmployeeName") %>' />
+                                                <asp:HiddenField ID="hdnEmp" runat="server" Value='<%# Eval("EmpId") %>' />
                                                 <div class="input-group add-on" style="display: flex;">
-                                                    <%# Eval("EmployeeName") %>
-
+                                                    <asp:DropDownList ID="ddlExecutive" class="form-control multiselectddl req" OnSelectedIndexChanged="ddlExecutive_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
                                                 </div>
                                             </td>
                                             <td>
-                                                <asp:CheckBox ID="chkOnOffPreGrace" runat="server" OnCheckedChanged="chkOnOffPreGrace_CheckedChanged" Checked='<%# Eval("isEnabled").ToString() == "True" %>' AutoPostBack="true" />
-                                            </td>
+                                                <asp:HiddenField ID="hdnDesignationId" runat="server" Value='<%# Eval("DesignationId") %>' />
+                                                <div class="input-group add-on" style="display: flex;">
+                                                    <asp:DropDownList ID="ddlDesignation" class="form-control multiselectddl req" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
+                                                </div>
+                                            </td> 
+                                             <td> 
+                                                 <asp:CheckBox ID="chkOnOffPreGrace" runat="server"  checked='<%# Eval("IsMain").ToString() == "True" %>'  /> 
+                                             </td> 
                                             <td>
                                                 <asp:LinkButton ID="lnkDelete" runat="server" CommandName="DeleteRow" CommandArgument='<%# Eval("Autoid") %>' CssClass="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash"></i>

@@ -17,6 +17,8 @@ namespace SystemAdmin.GroupStructure
             {
                 GetGroup(ddlGroupFilter);
                 GetGroup(ddlGroup);
+                GetLevel(ddlLevel);
+                GetEmployee(ddlEmp);
                 //GetRegion(ddlRegion);
                 GetHOD(ddlHOD);
                 FillListView();
@@ -26,6 +28,17 @@ namespace SystemAdmin.GroupStructure
         {
             StructurePL PL = new StructurePL();
             PL.OpCode = 24;
+            StructureDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Id";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        void GetLevel(DropDownList ddl)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 40;
             StructureDL.returnTable(PL);
             ddl.DataSource = PL.dt;
             ddl.DataValueField = "Id";
@@ -57,6 +70,17 @@ namespace SystemAdmin.GroupStructure
             ddl.Items.Insert(0, new ListItem("Choose an item", ""));
         }
 
+        void GetEmployee(DropDownList ddl)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 41;
+            StructureDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Id";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
         void ClearField()
         {
             txtGroupName.Text = "";
@@ -112,6 +136,7 @@ namespace SystemAdmin.GroupStructure
                     break;
                 }
             }
+            BindLevelHeirarchy();
         }
 
         void getData(int Autoid)
@@ -193,6 +218,37 @@ namespace SystemAdmin.GroupStructure
             }
             PL.HOD = ddlHOD.SelectedValue;
             PL.XML = xml;
+            DataTable dtCurrentTable = (DataTable)ViewState["Assessor"];
+            int rowCount = dtCurrentTable.Rows.Count;
+            var xml1 = "<tbl>";
+            foreach (ListViewItem item in LV_AssessorTbl.Items)
+            {
+
+                HiddenField hdnLevel = (HiddenField)item.FindControl("hdnLevel");
+                HiddenField hdnEmp = (HiddenField)item.FindControl("hdnEmp");
+                HiddenField hdnDesignationId = (HiddenField)item.FindControl("hdnDesignationId");
+                string level = hdnLevel?.Value ?? "";
+                string empId = hdnEmp?.Value ?? "";
+                string designationId = hdnDesignationId?.Value ?? "";
+
+                DropDownList ddlExecutive = (DropDownList)item.FindControl("ddlExecutive");
+                DropDownList ddlDesignation = (DropDownList)item.FindControl("ddlDesignation");
+                CheckBox chkOnOffPreGrace = (CheckBox)item.FindControl("chkOnOffPreGrace");
+                bool IsMain = chkOnOffPreGrace?.Checked ?? false;
+
+                string selectedExecutive = ddlExecutive?.SelectedValue ?? "";
+                string selectedDesignation = ddlDesignation?.SelectedValue ?? "";
+                xml1 += "<tr>";
+                xml1 += $"<Level><![CDATA[{level}]]></Level>";
+                xml1 += $"<EmpId><![CDATA[{selectedExecutive}]]></EmpId>";
+                xml1 += $"<DesignationId><![CDATA[{selectedDesignation}]]></DesignationId>";
+                xml1 += $"<IsMain><![CDATA[{IsMain}]]></IsMain>";
+                xml1 += $"<AutoId><![CDATA[{PL.AutoId}]]></AutoId>";
+                xml1 += "</tr>";
+            }
+
+            xml1 += "</tbl>";
+            PL.XMLData = xml1;
             PL.CreatedBy = Session["UserAutoId"].ToString();
             StructureDL.returnTable(PL);
             if (!PL.isException)
@@ -259,6 +315,157 @@ namespace SystemAdmin.GroupStructure
             ddl.DataTextField = "Name";
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+
+        void GetDesigantion(DropDownList ddl)
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 46;
+            StructureDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Id";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+
+        protected void LV_AssessorTbl_ItemDataBound(object sender, ListViewItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListViewItemType.DataItem)
+            {
+
+                DropDownList ddlExecutive = (DropDownList)e.Item.FindControl("ddlExecutive");
+                DropDownList ddlDesignation = (DropDownList)e.Item.FindControl("ddlDesignation");
+                HiddenField hdnEmp = (HiddenField)e.Item.FindControl("hdnEmp");
+                HiddenField hdnDesignationId = (HiddenField)e.Item.FindControl("hdnDesignationId");
+
+                if (ddlExecutive != null)
+                {
+                    GetEmployee(ddlExecutive);
+                    if (hdnEmp != null && !string.IsNullOrEmpty(hdnEmp.Value))
+                    {
+                        ListItem item = ddlExecutive.Items.FindByValue(hdnEmp.Value);
+                        if (item != null)
+                            ddlExecutive.SelectedValue = hdnEmp.Value;
+                    }
+
+                }
+
+                if (ddlDesignation != null)
+                {
+                    GetDesigantion(ddlDesignation);
+                    if (hdnDesignationId != null && !string.IsNullOrEmpty(hdnDesignationId.Value))
+                    {
+                        ListItem item = ddlDesignation.Items.FindByValue(hdnDesignationId.Value);
+                        if (item != null)
+                            ddlDesignation.SelectedValue = hdnDesignationId.Value;
+                    }
+
+                }
+
+            }
+        }
+
+        protected void LV_AssessorTbl_ItemCommand(object sender, ListViewCommandEventArgs e)
+        {
+            if (e.CommandName == "DeleteRow")
+            {
+                string autoid = e.CommandArgument.ToString();
+
+                if (ViewState["Assessor"] != null)
+                {
+                    DataTable dt = (DataTable)ViewState["Assessor"];
+                    DataRow[] rows = dt.Select("Autoid='" + autoid + "'");
+                    if (rows.Length > 0)
+                    {
+                        dt.Rows.Remove(rows[0]);
+                        dt.AcceptChanges();
+                    }
+                    ViewState["Assessor"] = dt;
+                    LV_AssessorTbl.DataSource = dt;
+                    LV_AssessorTbl.DataBind();
+                }
+            }
+        }
+
+        protected void ddlExecutive_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAddLevel_Click(object sender, EventArgs e)
+        {
+            AddNewRecordRowToHeirarchyAdd();
+            AssessorTbl.Update();
+        }
+
+        private void AddNewRecordRowToHeirarchyAdd()
+        {
+            if (!string.IsNullOrEmpty(ddlLevel.SelectedValue) && !string.IsNullOrEmpty(ddlEmp.SelectedValue))
+            {
+                DataTable dtCurrentTable; 
+                if (ViewState["Assessor"] != null)
+                {
+                    dtCurrentTable = (DataTable)ViewState["Assessor"];
+                }
+                else
+                {
+                    dtCurrentTable = new DataTable();
+                    dtCurrentTable.Columns.Add("Autoid");
+                    dtCurrentTable.Columns.Add("Level");
+                    dtCurrentTable.Columns.Add("EmpId");
+                    dtCurrentTable.Columns.Add("EmployeeName");
+                    dtCurrentTable.Columns.Add("DesignationId");
+                    dtCurrentTable.Columns.Add("DesignationName");
+                    dtCurrentTable.Columns.Add("IsMain");
+                } 
+                DataRow[] existingRows = dtCurrentTable.Select("Autoid = '" + ddlLevel.SelectedValue + "'");
+                if (existingRows.Length > 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('This Level already exists. Please select another.');", true);
+                    return;
+                } 
+                DataRow drNew = dtCurrentTable.NewRow();
+                drNew["Autoid"] = ddlLevel.SelectedValue;
+                drNew["Level"] = ddlLevel.SelectedItem.Text;
+                drNew["EmpId"] = ddlEmp.SelectedValue;
+                drNew["DesignationId"] = "0";
+                drNew["EmployeeName"] = ddlEmp.SelectedItem.Text.Trim();
+                drNew["IsMain"] = false;
+                dtCurrentTable.Rows.Add(drNew); 
+                ViewState["Assessor"] = dtCurrentTable;
+                LV_AssessorTbl.DataSource = dtCurrentTable;
+                LV_AssessorTbl.DataBind();
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('Please select both Level and Employee.');", true);
+            }
+        }
+
+        void BindLevelHeirarchy()
+        {
+            StructurePL PL = new StructurePL();
+            PL.OpCode = 47;
+            PL.AutoId = hidAutoid.Value;
+            StructureDL.returnTable(PL);
+            if (PL.dt.Rows.Count > 0)
+            {
+                LV_AssessorTbl.DataSource = PL.dt;
+                LV_AssessorTbl.DataBind();
+            }
+            else
+            {
+                LV_AssessorTbl.DataSource = "";
+                LV_AssessorTbl.DataBind();
+            }
+            ViewState["Assessor"] = PL.dt;
+            AssessorTbl.Update();
         }
     }
 }

@@ -15,5 +15,6 @@ namespace SystemAdmin.App_Code
         public object IsActive { get; set; } 
         public object XML { get; set; }
         public object HOD { get; set; }
+        public object XMLData { get; set; }
     }
 }
