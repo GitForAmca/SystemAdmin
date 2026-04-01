@@ -78,6 +78,15 @@ namespace SystemAdmin.Directors
         protected global::System.Web.UI.WebControls.DropDownList ddlSubDepartmentSearch;
 
         /// <summary>
+        /// ddlDepartmentSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDepartmentSearch;
+
+        /// <summary>
         /// divGroupSearch control.
         /// </summary>
         /// <remarks>
@@ -184,6 +193,15 @@ namespace SystemAdmin.Directors
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubDepartment;
+
+        /// <summary>
+        /// ddlDepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDepartment;
 
         /// <summary>
         /// divGroup control.

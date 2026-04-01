@@ -36,10 +36,16 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="control-label">Sub Department<span class="required" aria-required="true"> </span></label>
+                        <label class="control-label">Parent Department<span class="required" aria-required="true"> </span></label>
                         <asp:DropDownList runat="server" ID="ddlSubDepartmentSearch" OnSelectedIndexChanged="ddlSubDepartmentSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
                     </div>
                 </div>
+                 <div class="col-md-4">
+                     <div class="form-group">
+                         <label class="control-label"> Department<span class="required" aria-required="true"> </span></label>
+                         <asp:DropDownList runat="server" ID="ddlDepartmentSearch"  CssClass="form-control select2ddl"></asp:DropDownList>
+                     </div>
+                 </div>
                 <div class="col-md-4" id="divGroupSearch" runat="server" visible="false">
                     <div class="form-group">
                         <label class="control-label">Group<span class="required" aria-required="true"> </span></label>
@@ -91,7 +97,8 @@
                                         <th>Employee</th>
                                         <th>Element</th>
                                         <th>Role</th>
-                                        <th>Sub Department</th>
+                                        <th>Parent Department</th>
+                                        <th> Department</th>
                                         <th>Director</th>
                                         <th>Created By</th>
                                         <th>Created On</th>
@@ -120,6 +127,9 @@
                                 <td>
                                     <%# Eval("SubDepartment")%>
                                 </td>
+                                 <td>
+                                     <%# Eval("Department")%>
+                                 </td>
                                 <td>
                                     <%# Eval("DirectorName")%>
                                 </td>
@@ -142,7 +152,7 @@
                                         <th>Director</th>
                                         <th>Element</th>
                                         <th>Access To</th>
-                                        <th>Sub Department</th>
+                                        <th>Parent Department</th>
                                         <th>Created By</th>
                                         <th>Created On</th>
                                         <th>Is Active</th>
@@ -183,10 +193,16 @@
                     </div> 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Sub Department<span class="required" aria-required="true"> *</span></label>
+                            <label class="control-label">Parent Department<span class="required" aria-required="true"> *</span></label>
                             <asp:DropDownList runat="server" ID="ddlSubDepartment" OnSelectedIndexChanged="ddlSubDepartment_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control req select2ddl"></asp:DropDownList>
                         </div>
-                    </div>  
+                    </div> 
+                    <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> Department </label>
+                                <asp:DropDownList runat="server" ID="ddlDepartment" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
+                            </div>
+                        </div> 
                     <div class="col-md-4" id="divGroup" runat="server" visible="false">
                         <div class="form-group">
                             <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>
