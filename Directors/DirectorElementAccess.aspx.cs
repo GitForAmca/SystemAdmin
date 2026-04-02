@@ -19,8 +19,8 @@ namespace SystemAdmin.Directors
                 getDirectorList(ddlDirector);
                 getDirectorList(ddlDirectorSearch);
                 BindElement();
-                BindDepartment(ddlDepartmentSearch);
-                BindDepartment(ddlDepartment);
+                BindDepartment(ddlDepartmentSearch,"");
+                BindDepartment(ddlDepartment, "");
             }
         }
         void getDirectorList(DropDownList ddl)
@@ -35,10 +35,11 @@ namespace SystemAdmin.Directors
             ddl.Items.Insert(0, new ListItem("Select an option", ""));
         }
 
-        void BindDepartment(DropDownList ddl)
+        void BindDepartment(DropDownList ddl,string PID)
         {
             DropdownPL PL = new DropdownPL();
-            PL.OpCode = 72;
+            PL.OpCode = 79;
+            PL.SubDepartmentId = PID;
             DropdownDL.returnTable(PL);
             ddl.DataSource = PL.dt;
             ddl.DataValueField = "Id";
@@ -123,6 +124,7 @@ namespace SystemAdmin.Directors
             {
                 divGroup.Visible = false;
             }
+            BindDepartment(ddlDepartment, ddlSubDepartment.SelectedValue);
         }
         void getSubDepartment(string Element , DropDownList ddl)
         {
@@ -261,6 +263,7 @@ namespace SystemAdmin.Directors
                 }
                 try
                 {
+                    ddlSubDepartment_SelectedIndexChanged(null,null);
                     if (!string.IsNullOrEmpty(dt.Rows[0]["DepID"].ToString()))
                     {
                         ddlDepartment.SelectedIndex = ddlDepartment.Items.IndexOf(ddlDepartment.Items.FindByValue(dt.Rows[0]["DepID"].ToString()));
@@ -365,6 +368,7 @@ namespace SystemAdmin.Directors
             {
                 divGroupSearch.Visible = false;
             }
+            BindDepartment(ddlDepartmentSearch, ddlSubDepartmentSearch.SelectedValue);
         } 
         protected void ddlElementSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
