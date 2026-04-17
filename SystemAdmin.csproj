@@ -4348,6 +4348,7 @@
     <Content Include="Directors\DirectorElementAccess.aspx" />
     <Content Include="Directors\DirectorRelations.aspx" />
     <Content Include="Directors\Directors.aspx" />
+    <Content Include="ESS\BankingDetails.aspx" />
     <Content Include="ESS\CategoryBox.aspx" />
     <Content Include="ESS\CategoryType.aspx" />
     <Content Include="ESS\CRMCSMapping.aspx" />
@@ -4697,6 +4698,13 @@
     </Compile>
     <Compile Include="Directors\Directors.aspx.designer.cs">
       <DependentUpon>Directors.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\BankingDetails.aspx.cs">
+      <DependentUpon>BankingDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\BankingDetails.aspx.designer.cs">
+      <DependentUpon>BankingDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\CategoryBox.aspx.cs">
       <DependentUpon>CategoryBox.aspx</DependentUpon>
