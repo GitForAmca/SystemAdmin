@@ -3,7 +3,7 @@
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Arif\Publish\SystemAdmin</_PublishTargetUrl>
-    <History>True|2026-04-17T14:20:45.4197240Z||;</History>
+    <History>True|2026-05-06T04:56:06.9032625Z||;True|2026-04-22T19:08:03.1904848+05:30||;True|2026-04-22T19:01:47.9333270+05:30||;True|2026-04-22T18:58:28.3554647+05:30||;True|2026-04-20T11:11:50.8548277+05:30||;True|2026-04-17T19:50:45.4197240+05:30||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -13639,6 +13639,12 @@
     <File Include="assets/global/scripts/metronic.js">
       <publishTime>04/17/2026 18:21:44</publishTime>
     </File>
+    <File Include="AutomaticDataAssign/CEC.aspx">
+      <publishTime>04/22/2026 19:07:49</publishTime>
+    </File>
+    <File Include="AutomaticDataAssign/CSR.aspx">
+      <publishTime>04/22/2026 18:10:46</publishTime>
+    </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>04/17/2026 18:21:44</publishTime>
     </File>
@@ -13790,10 +13796,10 @@
       <publishTime>04/17/2026 18:21:44</publishTime>
     </File>
     <File Include="bin/SystemAdmin.dll">
-      <publishTime>04/17/2026 19:50:38</publishTime>
+      <publishTime>05/06/2026 10:25:57</publishTime>
     </File>
     <File Include="bin/SystemAdmin.pdb">
-      <publishTime>04/17/2026 19:50:38</publishTime>
+      <publishTime>05/06/2026 10:25:57</publishTime>
     </File>
     <File Include="css/AjaxTabStyle.css">
       <publishTime>04/17/2026 18:21:44</publishTime>
@@ -14483,10 +14489,10 @@
       <publishTime>04/17/2026 18:21:44</publishTime>
     </File>
     <File Include="MasterPage/MainMaster.Master">
-      <publishTime>04/17/2026 18:24:16</publishTime>
+      <publishTime>04/22/2026 16:18:58</publishTime>
     </File>
     <File Include="Menu/ChildMenu.aspx">
-      <publishTime>04/17/2026 18:21:42</publishTime>
+      <publishTime>05/06/2026 10:25:25</publishTime>
     </File>
     <File Include="Menu/ParentMenu.aspx">
       <publishTime>04/17/2026 18:21:42</publishTime>
@@ -14783,7 +14789,7 @@
       <publishTime>04/17/2026 18:21:42</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/17/2026 19:48:53</publishTime>
+      <publishTime>04/22/2026 19:07:59</publishTime>
     </File>
     <File Include="WebForm1.aspx">
       <publishTime>04/17/2026 18:21:42</publishTime>

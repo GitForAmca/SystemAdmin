@@ -26,7 +26,10 @@ namespace SystemAdmin.Menu
                 getSubParentMenu(ddlSubParentMenuFilter, "", "");
                 getRegion("0");
                 getIndustry(ddlIndustries);
-                BindStatus();
+                BindManualStatus();
+                BindAutomaticStatus();
+                BindState();
+                BindStage();
                 FillListView();
             }
         }
@@ -46,17 +49,51 @@ namespace SystemAdmin.Menu
             ddlSecondayPerson.DataBind();
             ddlSecondayPerson.Items.Insert(0, new ListItem("Choose an item", ""));
         }
-        void BindStatus()
+        void BindManualStatus()
         {
             ServiceMasterPL PL = new ServiceMasterPL();
             PL.Industry = ddlIndustries.SelectedValue;
             PL.GroupId = ddlGroup.SelectedValue;
             PL.OpCode = 40;
             ServiceMasterDL.returnTable(PL);
-            lstStatus.DataSource = PL.dt;
-            lstStatus.DataValueField = "id";
-            lstStatus.DataTextField = "StatusName";
-            lstStatus.DataBind();
+            lstManualStatus.DataSource = PL.dt;
+            lstManualStatus.DataValueField = "id";
+            lstManualStatus.DataTextField = "StatusName";
+            lstManualStatus.DataBind();
+        }
+        void BindAutomaticStatus()
+        {
+            ServiceMasterPL PL = new ServiceMasterPL();
+            PL.Industry = ddlIndustries.SelectedValue;
+            PL.GroupId = ddlGroup.SelectedValue;
+            PL.OpCode = 48;
+            ServiceMasterDL.returnTable(PL);
+            lstAutomaticStatus.DataSource = PL.dt;
+            lstAutomaticStatus.DataValueField = "id";
+            lstAutomaticStatus.DataTextField = "StatusName";
+            lstAutomaticStatus.DataBind();
+        }
+        void BindState()
+        {
+            ServiceMasterPL PL = new ServiceMasterPL();
+            PL.OpCode = 49;
+            PL.OldName = "State";
+            ServiceMasterDL.returnTable(PL);
+            lstState.DataSource = PL.dt;
+            lstState.DataValueField = "AutoId";
+            lstState.DataTextField = "StateName";
+            lstState.DataBind();
+        }
+        void BindStage()
+        {
+            ServiceMasterPL PL = new ServiceMasterPL();
+            PL.OpCode = 49;
+            PL.OldName = "Stage";
+            ServiceMasterDL.returnTable(PL);
+            lstStage.DataSource = PL.dt;
+            lstStage.DataValueField = "AutoId";
+            lstStage.DataTextField = "StateName";
+            lstStage.DataBind();
         }
 
         void getRegion(string id)
@@ -98,7 +135,6 @@ namespace SystemAdmin.Menu
             {
                 getGroupCompany(ddlIndustries.SelectedValue);
                 getRegion(ddlIndustries.SelectedValue);
-                BindStatus();
             }
         }
         void getMenuType()
@@ -122,7 +158,7 @@ namespace SystemAdmin.Menu
             if (ddlMenuType.SelectedValue != "")
             {
                 getParentMenu(ddlParentMenu, ddlMenuType.SelectedValue, "");
-                if(ddlMenuType.SelectedValue == "1")
+                if (ddlMenuType.SelectedValue == "1")
                 {
                     divIndustries.Visible = true;
                     divManualStatus.Visible = true;
@@ -246,7 +282,10 @@ namespace SystemAdmin.Menu
         }
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            string manualStatus = Request.Form[lstStatus.UniqueID];
+            string manualStatus = Request.Form[lstManualStatus.UniqueID];
+            string automaticStatus = Request.Form[lstAutomaticStatus.UniqueID];
+            string stages = Request.Form[lstStage.UniqueID];
+            string states = Request.Form[lstState.UniqueID];
 
             var xml = "<tbl>";
             xml += "<tr>";
@@ -261,6 +300,9 @@ namespace SystemAdmin.Menu
             xml += "<IsActive><![CDATA[" + chkActive.Checked + "]]></IsActive>";
             xml += "<IsMasterMenu><![CDATA[" + chkMasterMenu.Checked + "]]></IsMasterMenu>";
             xml += "<StatusId><![CDATA[" + manualStatus + "]]></StatusId>";
+            xml += "<AutomaticStatusIds><![CDATA[" + automaticStatus + "]]></AutomaticStatusIds>";
+            xml += "<StageIds><![CDATA[" + stages + "]]></StageIds>";
+            xml += "<StateIds><![CDATA[" + states + "]]></StateIds>";
             xml += "</tr>";
             xml += "</tbl>";
 
@@ -288,8 +330,7 @@ namespace SystemAdmin.Menu
                 divView.Visible = true;
                 divEdit.Visible = false;
                 ClearField();
-                FillListView(); 
-                Response.Redirect(Request.RawUrl);
+                FillListView();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record Save Successfully');", true);
             }
             else
@@ -301,7 +342,7 @@ namespace SystemAdmin.Menu
         void saveGroup(int mainId)
         {
             string groupString = Request.Form[ddlGroup.UniqueID];
-            if(groupString != null)
+            if (groupString != null)
             {
                 var query = from val in groupString.Split(',')
                             select int.Parse(val);
@@ -386,8 +427,14 @@ namespace SystemAdmin.Menu
                 }
 
                 SetList(ddlRegion, PL.dt.Rows[0]["RegionIds"].ToString());
-                BindStatus();
-                SetList(lstStatus, PL.dt.Rows[0]["StatusId"].ToString());
+                BindManualStatus();
+                BindAutomaticStatus();
+                BindState();
+                BindStage();
+                SetList(lstAutomaticStatus, PL.dt.Rows[0]["AutomaticStatusIds"].ToString());
+                SetList(lstManualStatus, PL.dt.Rows[0]["StatusId"].ToString());
+                SetList(lstStage, PL.dt.Rows[0]["StageIds"].ToString());
+                SetList(lstState, PL.dt.Rows[0]["StateIds"].ToString());
 
                 if (PL.dt.Rows[0]["IsDefault"].ToString() == "True")
                 {

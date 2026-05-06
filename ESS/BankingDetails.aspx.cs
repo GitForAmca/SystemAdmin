@@ -16,6 +16,7 @@ namespace SystemAdmin.ESS
             if (!Page.IsPostBack)
             {
                 GetCompany();
+                GetCompanyAdd();
                 FillListView();
             }
         }
@@ -37,8 +38,14 @@ namespace SystemAdmin.ESS
             ddlCompanyFilter.DataTextField = "CompanyName";
             ddlCompanyFilter.DataBind();
             ddlCompanyFilter.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        void GetCompanyAdd()
+        {
+            EssPL PL = new EssPL();
+            PL.OpCode = 115;
+            EssDL.returnTable(PL);
             ddlCompanyAdd.DataSource = PL.dt;
-            ddlCompanyAdd.DataValueField = "CompanyId";
+            ddlCompanyAdd.DataValueField = "Autoid";
             ddlCompanyAdd.DataTextField = "CompanyName";
             ddlCompanyAdd.DataBind();
             ddlCompanyAdd.Items.Insert(0, new ListItem("Choose an item", ""));

@@ -249,6 +249,24 @@ namespace SystemAdmin.Menu
         protected global::System.Web.UI.WebControls.DropDownList ddlSecondayPerson;
 
         /// <summary>
+        /// divAutomaticStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAutomaticStatus;
+
+        /// <summary>
+        /// lstAutomaticStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lstAutomaticStatus;
+
+        /// <summary>
         /// divManualStatus control.
         /// </summary>
         /// <remarks>
@@ -258,13 +276,49 @@ namespace SystemAdmin.Menu
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divManualStatus;
 
         /// <summary>
-        /// lstStatus control.
+        /// lstManualStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lstStatus;
+        protected global::System.Web.UI.WebControls.ListBox lstManualStatus;
+
+        /// <summary>
+        /// divState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divState;
+
+        /// <summary>
+        /// lstState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lstState;
+
+        /// <summary>
+        /// divStage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divStage;
+
+        /// <summary>
+        /// lstStage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lstStage;
 
         /// <summary>
         /// txtaction control.

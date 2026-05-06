@@ -179,22 +179,40 @@
                             <asp:ListBox ID="ddlRegion" SelectionMode="Multiple" class="form-control req multiselectddl" runat="server"></asp:ListBox>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Primary Person<span class="required" aria-required="true"> *</span></label>
                             <asp:DropDownList ID="ddlPrimaryPerson" class="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Secondary Person<span class="required" aria-required="true"> *</span></label>
                             <asp:DropDownList ID="ddlSecondayPerson" CssClass="form-control select2ddl req" runat="server"></asp:DropDownList>
                         </div>
                     </div>
-                    <div class="col-md-3" id="divManualStatus" runat="server">
+                    <div class="col-md-12" id="divAutomaticStatus" runat="server">
+                        <div class="form-group">
+                            <label class="control-label">Automatic Status<span class="required" aria-required="true"> </span></label>
+                            <asp:ListBox ID="lstAutomaticStatus" SelectionMode="Multiple" class="form-control multiselectddl" runat="server"></asp:ListBox>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="divManualStatus" runat="server">
                         <div class="form-group">
                             <label class="control-label">Manual Status<span class="required" aria-required="true"> </span></label>
-                            <asp:ListBox ID="lstStatus" SelectionMode="Multiple" class="form-control multiselectddl" runat="server"></asp:ListBox>
+                            <asp:ListBox ID="lstManualStatus" SelectionMode="Multiple" class="form-control multiselectddl" runat="server"></asp:ListBox>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="divState" runat="server">
+                        <div class="form-group">
+                            <label class="control-label">State<span class="required" aria-required="true"> </span></label>
+                            <asp:ListBox ID="lstState" SelectionMode="Multiple" class="form-control multiselectddl" runat="server"></asp:ListBox>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="divStage" runat="server">
+                        <div class="form-group">
+                            <label class="control-label">Stage<span class="required" aria-required="true"> </span></label>
+                            <asp:ListBox ID="lstStage" SelectionMode="Multiple" class="form-control multiselectddl" runat="server"></asp:ListBox>
                         </div>
                     </div>
                 </div>

@@ -204,7 +204,13 @@
                                                         <li><a href='../ESS/TicketRequest.aspx'><i class='fa fa-angle-right'></i>Ticket Request</a></li>
                                                         <li><a href='../ESS/EmployeeRegion.aspx'><i class='fa fa-angle-right'></i>Region</a></li>
                                                         <li><a href='../ESS/BankingDetails.aspx'><i class='fa fa-angle-right'></i>Banking Details</a></li>
-                                                       
+                                                    </ul>
+                                                </div>
+                                                <div class='col-md-3'>
+                                                    <ul class='mega-menu-submenu'>
+                                                        <li><h3>Automatic Data Assigned</h3></li>
+                                                        <li><a href='../AutomaticDataAssign/CEC.aspx'><i class='fa fa-angle-right'></i>CEC</a></li>
+                                                        <li><a href='../AutomaticDataAssign/CSR.aspx'><i class='fa fa-angle-right'></i>CSR</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
