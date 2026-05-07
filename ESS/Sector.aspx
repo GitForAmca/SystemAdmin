@@ -1,43 +1,18 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" AutoEventWireup="true" CodeBehind="LicenseActivity.aspx.cs" Inherits="SystemAdmin.ESS.LicenseActivity" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" AutoEventWireup="true" CodeBehind="Sector.aspx.cs" Inherits="SystemAdmin.ESS.Sector" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"></asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="col-md-12 col-sm-12">
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <asp:Label ID="lblPageListTitle" runat="server" Text="License Activity"></asp:Label>
+                    <asp:Label ID="lblPageListTitle" runat="server" Text="Sector"></asp:Label>
                 </div>
             </div> 
 
             <div id="divView" runat="server" class="portlet-body">
                 <div class="row">
                     <%--action div start--%>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">License Activity<span class="required" aria-required="true"></span></label>
-                            <asp:DropDownList ID="ddlLicenseActivity" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label">Is Active<span class="required" aria-required="true"></span></label>
-                            <asp:DropDownList ID="ddlIsActive" runat="server" CssClass="form-control select2ddl">
-                                <asp:ListItem Text="Choose an item" Value=""></asp:ListItem>
-                                <asp:ListItem Text="Active" Value="1"></asp:ListItem>
-                                <asp:ListItem Text="Inactive" Value="0"></asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                        <label class="control-label"><span class="required" aria-required="true"></span></label>
-                            <div> 
-                            <asp:Button ID="btnGet" runat="server" class="btn blue" OnClick="btnGet_Click" Text="Get" />
-                            <asp:Button ID="btnReset" runat="server" CssClass="btn default" OnClick="btnReset_Click" Text="Reset" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group"> 
                             <label class="control-label">&nbsp;</label>
                             <div>
@@ -52,9 +27,6 @@
                                         <li>
                                             <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" Text="Edit" OnClientClick="return CheckOnlyOneSelect('chkselect');"><i class="fa fa-pencil"></i> Edit</asp:LinkButton>
                                         </li>
-                                        <li>
-                                            <asp:LinkButton ID="lnkBtnDelete" runat="server" OnClick="lnkBtnDelete_Click" Text="Edit" OnClientClick="DeleteQuestions(this);return false;"><i class="fa fa-trash"></i> Delete</asp:LinkButton>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -65,17 +37,18 @@
                 <hr />
                 <div class="row">
                     <div class="col-md-12">
-                        <asp:ListView ID="LV_LicenseActivity" runat="server" ItemPlaceholderID="itemplaceholder">
+                        <asp:ListView ID="LV_Sector" runat="server" ItemPlaceholderID="itemplaceholder">
                             <LayoutTemplate>
                                 <table class="table table-bordered table-hover mydatatable">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>License Activity</th>
-                                            <th>Activity Code</th>
+                                            <th>Sector</th>
+                                            <th>Industries</th>
+                                            <th>Activities</th>
                                             <th>Is Active</th>
-                                            <th>Added By</th>
-                                            <th>Added On</th>
+                                            <th>Created By</th>
+                                            <th>Created On</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -89,10 +62,13 @@
                                         <asp:CheckBox ID="chkSelect" runat="server" CssClass="checkboxes chkselect" Autoid='<%# Eval("AutoId")%>' />
                                     </td>
                                     <td>
-                                        <%# Eval("LicenseActivityName")%>
+                                        <%# Eval("SectorName")%>
                                     </td>
                                     <td>
-                                        <%# Eval("ActivityCode")%>
+                                        <%# Eval("Industries")%>
+                                    </td>
+                                    <td>
+                                        <%# Eval("Activities")%>
                                     </td> 
                                     <td>
                                         <span class='<%# bool.Parse( Eval("IsActive").ToString())==true?"label label-sm label-success":"label label-sm label-danger"%>' runat="server"><%# bool.Parse( Eval("IsActive").ToString())==true?"Yes":"No"%></span>
@@ -110,11 +86,12 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>License Activity</th>
-                                            <th>Activity Code</th>
+                                            <th>Sector</th>
+                                            <th>Industries</th>
+                                            <th>Activities</th>
                                             <th>Is Active</th>
-                                            <th>Added By</th>
-                                            <th>Added On</th>
+                                            <th>Created By</th>
+                                            <th>Created On</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -126,16 +103,22 @@
             <div id="divAddEdit" runat="server" class="portlet-body form" visible="false">
                 <div class="form-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">License Activity<span class="required" aria-required="true"> *</span></label>
-                                <asp:TextBox ID="txtLicenseActivity" CssClass="form-control reqRec" runat="server" placeholder="input here"></asp:TextBox>
+                                <label class="control-label">Sector<span class="required" aria-required="true"> *</span></label>
+                                <asp:TextBox ID="txtSector" CssClass="form-control reqRec" runat="server" placeholder="input here"></asp:TextBox>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label">Activity Code<span class="required" aria-required="true"> *</span></label>
-                                <asp:TextBox ID="txtActivityCode" CssClass="form-control reqRec" runat="server" placeholder="input here"></asp:TextBox>
+                                <label class="control-label">Industry<span class="required" aria-required="true"> *</span></label> 
+                                <asp:ListBox ID="lstIndustry" SelectionMode="Multiple" OnSelectedIndexChanged="lstIndustry_SelectedIndexChanged" AutoPostBack="true"   class="form-control select2ddl reqRec" runat="server"></asp:ListBox>
+                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Activity<span class="required" aria-required="true"> *</span></label> 
+                                <asp:ListBox ID="lstActivity" SelectionMode="Multiple" class="form-control select2ddl reqRec" runat="server"></asp:ListBox>
                              </div>
                         </div>
                     </div>

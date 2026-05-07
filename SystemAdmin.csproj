@@ -4356,6 +4356,10 @@
     <Content Include="ESS\EmployeeRegion.aspx" />
     <Content Include="ESS\HRMSEmailFormat.aspx" />
     <Content Include="ESS\HRRegion.aspx" />
+    <Content Include="ESS\Authority.aspx" />
+    <Content Include="ESS\LicenseType.aspx" />
+    <Content Include="ESS\Sector.aspx" />
+    <Content Include="ESS\LicenseIndustry.aspx" />
     <Content Include="ESS\ShowAllEmailsFormat.aspx" />
     <Content Include="ESS\EmailFormat.aspx" />
     <Content Include="ESS\GeneralSenderEmail.aspx" />
@@ -4754,6 +4758,34 @@
     </Compile>
     <Compile Include="ESS\HRRegion.aspx.designer.cs">
       <DependentUpon>HRRegion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\Authority.aspx.cs">
+      <DependentUpon>Authority.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\Authority.aspx.designer.cs">
+      <DependentUpon>Authority.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\LicenseType.aspx.cs">
+      <DependentUpon>LicenseType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\LicenseType.aspx.designer.cs">
+      <DependentUpon>LicenseType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\Sector.aspx.cs">
+      <DependentUpon>Sector.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\Sector.aspx.designer.cs">
+      <DependentUpon>Sector.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\LicenseIndustry.aspx.cs">
+      <DependentUpon>LicenseIndustry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\LicenseIndustry.aspx.designer.cs">
+      <DependentUpon>LicenseIndustry.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\ShowAllEmailsFormat.aspx.cs">
       <DependentUpon>ShowAllEmailsFormat.aspx</DependentUpon>

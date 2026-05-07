@@ -11,7 +11,7 @@ namespace SystemAdmin.ESS
 {
 
 
-    public partial class LicenseActivity
+    public partial class Sector
     {
 
         /// <summary>
@@ -33,42 +33,6 @@ namespace SystemAdmin.ESS
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divView;
 
         /// <summary>
-        /// ddlLicenseActivity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLicenseActivity;
-
-        /// <summary>
-        /// ddlIsActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIsActive;
-
-        /// <summary>
-        /// btnGet control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGet;
-
-        /// <summary>
-        /// btnReset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnReset;
-
-        /// <summary>
         /// lnkBtnAddNew control.
         /// </summary>
         /// <remarks>
@@ -87,22 +51,13 @@ namespace SystemAdmin.ESS
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnEdit;
 
         /// <summary>
-        /// lnkBtnDelete control.
+        /// LV_Sector control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnDelete;
-
-        /// <summary>
-        /// LV_LicenseActivity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView LV_LicenseActivity;
+        protected global::System.Web.UI.WebControls.ListView LV_Sector;
 
         /// <summary>
         /// divAddEdit control.
@@ -114,22 +69,31 @@ namespace SystemAdmin.ESS
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAddEdit;
 
         /// <summary>
-        /// txtLicenseActivity control.
+        /// txtSector control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLicenseActivity;
+        protected global::System.Web.UI.WebControls.TextBox txtSector;
 
         /// <summary>
-        /// txtActivityCode control.
+        /// lstIndustry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtActivityCode;
+        protected global::System.Web.UI.WebControls.ListBox lstIndustry;
+
+        /// <summary>
+        /// lstActivity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lstActivity;
 
         /// <summary>
         /// chkactive control.
