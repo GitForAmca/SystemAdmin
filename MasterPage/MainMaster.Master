@@ -199,7 +199,6 @@
                                                         <li><a href='../ESS/TaskSchedule.aspx'><i class='fa fa-angle-right'></i>Task Schedule</a></li>
                                                         <li><a href='../ESS/PolicyMaster.aspx'><i class='fa fa-angle-right'></i>Policy Master</a></li>
                                                         <li><a href='../ESS/GeneralSenderEmail.aspx'><i class='fa fa-angle-right'></i>General Sender Email</a></li>
-                                                        <li><a href='../ESS/LicenseActivity.aspx'><i class='fa fa-angle-right'></i>License Activity</a></li>
                                                         <li><a href='../ESS/PortalSettings.aspx'><i class='fa fa-angle-right'></i>Portal Settings</a></li>
                                                         <li><a href='../ESS/TicketRequest.aspx'><i class='fa fa-angle-right'></i>Ticket Request</a></li>
                                                         <li><a href='../ESS/EmployeeRegion.aspx'><i class='fa fa-angle-right'></i>Region</a></li>
@@ -211,6 +210,16 @@
                                                         <li><h3>Automatic Data Assigned</h3></li>
                                                         <li><a href='../AutomaticDataAssign/CEC.aspx'><i class='fa fa-angle-right'></i>CEC</a></li>
                                                         <li><a href='../AutomaticDataAssign/CSR.aspx'><i class='fa fa-angle-right'></i>CSR</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class='col-md-3'>
+                                                    <ul class='mega-menu-submenu'>
+                                                        <li><h3>License Authority Activity</h3></li>
+                                                        <li><a href='../ESS/LicenseActivity.aspx'><i class='fa fa-angle-right'></i>Activity</a></li>
+                                                        <li><a href='../ESS/LicenseIndustry.aspx'><i class='fa fa-angle-right'></i>Industry</a></li>
+                                                        <li><a href='../ESS/Sector.aspx'><i class='fa fa-angle-right'></i>Sector</a></li>
+                                                        <li><a href='../ESS/LicenseType.aspx'><i class='fa fa-angle-right'></i>License Type</a></li>
+                                                        <li><a href='../ESS/Authority.aspx'><i class='fa fa-angle-right'></i>Authority</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
