@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" AutoEventWireup="true" CodeBehind="LicenseActivity.aspx.cs" Inherits="SystemAdmin.ESS.LicenseActivity" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"></asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server"> 
     <div class="col-md-12 col-sm-12">
         <div class="portlet box green">
             <div class="portlet-title">
@@ -64,8 +64,9 @@
                 </div>
                 <hr />
                 <div class="row">
-                    <div class="col-md-12">
-                        <asp:ListView ID="LV_LicenseActivity" runat="server" ItemPlaceholderID="itemplaceholder">
+                    <div class="col-md-12"> 
+
+                        <%--<asp:ListView ID="LV_LicenseActivity" runat="server" ItemPlaceholderID="itemplaceholder">
                             <LayoutTemplate>
                                 <table class="table table-bordered table-hover mydatatable">
                                     <thead>
@@ -119,7 +120,69 @@
                                     </thead>
                                 </table>
                             </EmptyDataTemplate>
+                        </asp:ListView>--%>
+                         
+                    <div class="col-md-2  pull-right">
+                        <div class="form-group">
+                        <input type="text" id="txtSearchActivity" class="form-control" placeholder="Search..." />
+                        </div>
+                    </div>
+
+
+                        <asp:ListView ID="LV_LicenseActivity" runat="server" ItemPlaceholderID="itemplaceholder" OnPagePropertiesChanging="LV_LicenseActivity_PagePropertiesChanging">
+                            <LayoutTemplate>
+                                <table id="tblLicenseActivity" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>License Activity</th>
+                                            <th>Activity Code</th>
+                                            <th>Is Active</th>
+                                            <th>Added By</th>
+                                            <th>Added On</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="itemplaceholder" runat="server"></tr>
+                                    </tbody>
+                                </table> 
+
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                                    <!-- LEFT SIDE : TOTAL RECORDS -->
+                                    <div>Total Records :
+                                        <asp:Label ID="lblTotalRecords" runat="server" Font-Bold="true"></asp:Label></div>
+
+                                    <!-- RIGHT SIDE : PAGING -->
+                                    <div>
+                                        <asp:DataPager ID="dpPager" runat="server" PagedControlID="LV_LicenseActivity" PageSize="10">
+                                            <Fields>
+                                                <asp:NumericPagerField ButtonType="Link" NumericButtonCssClass="btn btn-default" CurrentPageLabelCssClass="btn btn-primary" NextPageText="Next" PreviousPageText="Prev" ButtonCount="5" />
+                                            </Fields>
+                                        </asp:DataPager>
+                                    </div>
+                                </div>                                 
+                            </LayoutTemplate>
+                            <ItemTemplate>
+                                <tr class="searchRow">
+                                    <td>
+                                        <asp:CheckBox ID="chkSelect" runat="server" CssClass="checkboxes chkselect" Autoid='<%# Eval("AutoId")%>' />
+                                    </td>
+                                    <td><%# Eval("LicenseActivityName") %></td>
+                                    <td><%# Eval("ActivityCode") %></td>
+                                    <td><span class='<%# Convert.ToBoolean(Eval("IsActive")) ? "label label-success" : "label label-danger" %>'><%# Convert.ToBoolean(Eval("IsActive")) ? "Yes" : "No" %></span></td>
+                                    <td><%# Eval("CreatedBy") %></td>
+                                    <td><%# Eval("CreatedOn") %></td>
+                                </tr>
+                            </ItemTemplate>
+                            <EmptyDataTemplate>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>No Records Found</td>
+                                    </tr>
+                                </table>
+                            </EmptyDataTemplate>
                         </asp:ListView>
+
                     </div>
                 </div>
             </div>
@@ -162,6 +225,25 @@
                 Myconfirm('Do you want to Delete!', args);
             }
         }
+
+
+        $(document).ready(function () {
+
+            $("#txtSearchActivity").on("keyup", function () {
+
+                var value = $(this).val().toLowerCase();
+
+                $("#tblLicenseActivity tbody tr.searchRow").each(function () {
+
+                    var found = $(this).text().toLowerCase().indexOf(value) > -1;
+
+                    $(this).toggle(found);
+
+                });
+
+            });
+
+        });
     </script>
 </asp:Content>
 

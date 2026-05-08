@@ -44,10 +44,18 @@ namespace SystemAdmin.ESS
                 {
                     LV_LicenseActivity.DataSource = PL.dt;
                     LV_LicenseActivity.DataBind();
+                    
+                    // Find label from ListView
+                    Label lblTotalRecords = (Label)LV_LicenseActivity.FindControl("lblTotalRecords");
+
+                    if (lblTotalRecords != null)
+                    {
+                        lblTotalRecords.Text = PL.dt.Rows.Count.ToString();
+                    }
                 }
                 else
                 {
-                    LV_LicenseActivity.DataSource = "";
+                    LV_LicenseActivity.DataSource = PL.dt;
                     LV_LicenseActivity.DataBind();
                 }
             }
@@ -199,6 +207,14 @@ namespace SystemAdmin.ESS
         protected void btnReset_Click(object sender, EventArgs e)
         {
             ClearField();
+            FillListView();
+        }
+        protected void LV_LicenseActivity_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
+        {
+            DataPager pager = (DataPager)LV_LicenseActivity.FindControl("dpPager");
+
+            pager.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+
             FillListView();
         }
     }
