@@ -73,18 +73,7 @@ namespace SystemAdmin.ESS
             ddl.DataValueField = "AutoId";
             ddl.DataTextField = "LicenseActivityName";
             ddl.DataBind();
-        }
-        void GetActiviesFilter(ListBox ddl, String IndustryId)
-        {
-            EssPL PL = new EssPL();
-            PL.OpCode = 121;
-            PL.Industry = IndustryId;
-            EssDL.returnTable(PL);
-            ddl.DataSource = PL.dt;
-            ddl.DataValueField = "ActivityId";
-            ddl.DataTextField = "LicenseActivityName";
-            ddl.DataBind();
-        }
+        } 
         void ClearField()
         {
             ddlIndustryFilter.SelectedIndex = -1;

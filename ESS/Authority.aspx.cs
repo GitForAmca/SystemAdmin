@@ -17,14 +17,37 @@ namespace SystemAdmin.ESS
         {
             if (!Page.IsPostBack)
             {
-                FillListView();
+                GetAuthourity(ddlAuthorityFilter);
+                GetLicenseActivites(lstLicenseTypeFilter);
+                GetSectors(lstSectorFilter); 
+                GetIndustries(lstIndustryFilter);
+                GetActivies(lstActivityFilter);
                 GetLicenseType(lstLicenseType);
+                FillListView();
             }
         }
         void FillListView()
         { 
             EssPL PL = new EssPL();
             PL.OpCode = 133;
+            PL.AutoId = ddlAuthorityFilter.SelectedValue;
+            if (lstLicenseTypeFilter.SelectedValue != "")
+            {
+                PL.String1 = Request.Form[lstLicenseTypeFilter.UniqueID].ToString();
+            }
+            if (lstSectorFilter.SelectedValue != "")
+            {
+                PL.String2 = Request.Form[lstSectorFilter.UniqueID].ToString();
+            }
+            if (lstIndustryFilter.SelectedValue != "")
+            {
+                PL.String3 = Request.Form[lstIndustryFilter.UniqueID].ToString();
+            }
+            if (lstActivityFilter.SelectedValue != "")
+            {
+                PL.String4 = Request.Form[lstActivityFilter.UniqueID].ToString();
+            }
+            PL.IsActive = ddlIsActive.SelectedValue;
             EssDL.returnTable(PL);
             DataTable dt = PL.dt; 
             if(!PL.isException)
@@ -44,6 +67,59 @@ namespace SystemAdmin.ESS
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
             }
+        }
+        void GetAuthourity(DropDownList ddl)
+        {
+            EssPL PL = new EssPL();
+            PL.OpCode = 141;
+            EssDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "AutoId";
+            ddl.DataTextField = "Authority";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        void GetLicenseActivites(ListBox ddl)
+        {
+            EssPL PL = new EssPL();
+            PL.OpCode = 134;
+            EssDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "AutoId";
+            ddl.DataTextField = "LicenseType";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Choose an item", ""));
+        }
+        void GetSectors(ListBox ddl)
+        {
+            EssPL PL = new EssPL();
+            PL.OpCode = 127;
+            EssDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "AutoId";
+            ddl.DataTextField = "Sector";
+            ddl.DataBind();
+        }
+        void GetIndustries(ListBox ddl)
+        {
+            EssPL PL = new EssPL();
+            PL.OpCode = 122;
+            EssDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "AutoId";
+            ddl.DataTextField = "IndustryName";
+            ddl.DataBind();
+        }
+        void GetActivies(ListBox ddl)
+        {
+            EssPL PL = new EssPL();
+            PL.OpCode = 116;
+            PL.String1 = lstActivity.SelectedValue;
+            EssDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "AutoId";
+            ddl.DataTextField = "LicenseActivityName";
+            ddl.DataBind();
         }
         void GetIndustries(ListBox ddl, String SectorId)
         {
@@ -89,7 +165,15 @@ namespace SystemAdmin.ESS
             ddl.DataBind();
         }
         void ClearField()
-        {
+        { 
+            ddlAuthorityFilter.SelectedIndex = -1;
+            lstLicenseTypeFilter.SelectedIndex = -1;
+            lstSectorFilter.SelectedIndex = -1;
+            lstIndustryFilter.SelectedIndex = -1;
+            lstActivityFilter.SelectedIndex = -1;
+            ddlIsActive.SelectedIndex = -1;
+
+
             lstLicenseType.SelectedIndex = -1;
             lstSector.SelectedIndex = -1;
             lstIndustry.SelectedIndex = -1;
@@ -117,7 +201,7 @@ namespace SystemAdmin.ESS
                         int Autoid = Convert.ToInt32(chkSelect.Attributes["Autoid"]);
                         //-----------------
                         EssPL PL = new EssPL();
-                        PL.OpCode = 132;
+                        PL.OpCode = 142;
                         PL.AutoId = Autoid;
                         EssDL.returnTable(PL);
                         DataTable dt = PL.dt;
@@ -125,16 +209,19 @@ namespace SystemAdmin.ESS
 
                         if (dt.Rows.Count > 0)
                         {
-                            txtAuthority.Text = dt.Rows[0]["LicenseType"].ToString();
+                            txtAuthority.Text = dt.Rows[0]["Authority"].ToString();
 
-                            GetSectors(lstSector, dt.Rows[0]["LicenseTypeIds"].ToString());
+                            GetLicenseActivites(lstLicenseType);
+                            SetList(lstLicenseType, PL.dt.Rows[0]["LicenseTypeIds"].ToString());
+                             
+                            GetSectors(lstSector, PL.dt.Rows[0]["LicenseTypeIds"].ToString());
                             SetList(lstSector, PL.dt.Rows[0]["SectorIds"].ToString());
 
                             GetIndustries(lstIndustry, PL.dt.Rows[0]["SectorIds"].ToString());
                             SetList(lstIndustry, PL.dt.Rows[0]["IndustryIds"].ToString());
 
                             GetActivies(lstActivity, PL.dt.Rows[0]["IndustryIds"].ToString());
-                            SetList(lstActivity, PL.dt.Rows[0]["ActivityIds"].ToString()); 
+                            SetList(lstActivity, PL.dt.Rows[0]["ActivityIds"].ToString());
 
                             chkactive.Checked = bool.Parse(dt.Rows[0]["IsActive"].ToString());
                             ViewState["Mode"] = "Edit";
@@ -258,6 +345,15 @@ namespace SystemAdmin.ESS
                 lstIndustry.Items.Clear();
                 GetIndustries(lstIndustry, Request.Form[lstSector.UniqueID]);
             }
+        }
+        protected void btnGet_Click(object sender, EventArgs e)
+        {
+            FillListView();
+        }
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            ClearField();
+            FillListView();
         }
     }
 }

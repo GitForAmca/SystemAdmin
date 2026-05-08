@@ -12,15 +12,63 @@
             <div id="divView" runat="server" class="portlet-body">
                 <div class="row">
                     <%--action div start--%>
-                    <div class="col-md-12">
+
+                    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Authority<span class="required" aria-required="true"></span></label> 
+                            <asp:DropDownList ID="ddlAuthorityFilter" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Type<span class="required" aria-required="true"></span></label>
+                            <asp:ListBox ID="lstLicenseTypeFilter" SelectionMode="Multiple" class="form-control select2ddl reqRec" runat="server"></asp:ListBox>  
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Sector<span class="required" aria-required="true"></span></label>
+                            <asp:ListBox ID="lstSectorFilter" SelectionMode="Multiple" class="form-control select2ddl reqRec" runat="server"></asp:ListBox> 
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Industry<span class="required" aria-required="true"></span></label>
+                            <asp:ListBox ID="lstIndustryFilter" SelectionMode="Multiple" class="form-control select2ddl reqRec" runat="server"></asp:ListBox>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Activity<span class="required" aria-required="true"></span></label>
+                            <asp:ListBox ID="lstActivityFilter" SelectionMode="Multiple" class="form-control select2ddl reqRec" runat="server"></asp:ListBox>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label">Is Active<span class="required" aria-required="true"></span></label>
+                            <asp:DropDownList ID="ddlIsActive" runat="server" CssClass="form-control select2ddl">
+                                <asp:ListItem Text="Choose an item" Value=""></asp:ListItem>
+                                <asp:ListItem Text="Active" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="Inactive" Value="0"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label class="control-label"><span class="required" aria-required="true"></span></label>
+                            <div class="btn-group pull-right">
+                                <asp:Button ID="btnGet" runat="server" class="btn blue" OnClick="btnGet_Click" Text="Get" />
+                                <asp:Button ID="btnReset" runat="server" CssClass="btn default" OnClick="btnReset_Click" Text="Reset" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group"> 
-                            <label class="control-label">&nbsp;</label>
-                            <div>
+                            <label class="control-label">&nbsp;</label> 
                                 <div class="btn-group pull-right">
-                                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                                        Action <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right">
+                                    <button class="btn dropdown-toggle" data-toggle="dropdown">Action <i class="fa fa-angle-down"></i></button>
+                                    <ul class="dropdown-menu">
                                         <li>
                                             <asp:LinkButton ID="lnkBtnAddNew" OnClick="lnkBtnAddNew_Click" runat="server"><i class="fa fa-plus"></i> Add</asp:LinkButton>
                                         </li>
@@ -28,8 +76,7 @@
                                             <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnEdit_Click" Text="Edit" OnClientClick="return CheckOnlyOneSelect('chkselect');"><i class="fa fa-pencil"></i> Edit</asp:LinkButton>
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
+                                </div> 
                         </div>
                     </div>
                     <%--action div End--%>

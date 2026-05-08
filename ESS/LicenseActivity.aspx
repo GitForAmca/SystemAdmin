@@ -126,20 +126,18 @@
             <div id="divAddEdit" runat="server" class="portlet-body form" visible="false">
                 <div class="form-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">License Activity<span class="required" aria-required="true"> *</span></label>
                                 <asp:TextBox ID="txtLicenseActivity" CssClass="form-control reqRec" runat="server" placeholder="input here"></asp:TextBox>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label">Activity Code<span class="required" aria-required="true"> *</span></label>
                                 <asp:TextBox ID="txtActivityCode" CssClass="form-control reqRec" runat="server" placeholder="input here"></asp:TextBox>
                              </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-1 pull-right">
                             <label class="control-label">&nbsp;</label>
                             <asp:CheckBox ID="chkactive" runat="server" class="form-control" Style='border: none !important' Checked="true" Text="Is Active" />
