@@ -35,7 +35,6 @@ namespace SystemAdmin.ESS
             lst.DataValueField = "Id";
             lst.DataTextField = "Department";
             lst.DataBind();
-            lst.Items.Insert(0, new ListItem("Choose an item", ""));
         }
         void getMenuList(ListBox ddl)
         {
@@ -173,11 +172,13 @@ namespace SystemAdmin.ESS
                                 divPrimaryOrSecondaryAssigner.Visible = false;
                                 divRequestAction.Visible = true;
                                 ddlRequestAction.SelectedIndex = ddlRequestAction.Items.IndexOf(ddlRequestAction.Items.FindByValue(PL.dt.Rows[0]["RequestActionType"].ToString()));
-                                ddlRecieverType.SelectedIndex = ddlRecieverType.Items.IndexOf(ddlRecieverType.Items.FindByValue(PL.dt.Rows[0]["ReceiverType"].ToString()));
                             }
+
+                            ddlRecieverType.SelectedIndex = ddlRecieverType.Items.IndexOf(ddlRecieverType.Items.FindByValue(PL.dt.Rows[0]["ReceiverType"].ToString()));
 
                             getMenuList(lstMenu);
                             SetList(lstMenu, PL.dt.Rows[0]["MenuIds"].ToString());
+                            Session["MenuIds"] = PL.dt.Rows[0]["MenuIds"].ToString();
 
                             chkactive.Checked = bool.Parse(dt.Rows[0]["IsActive"].ToString());
                             ViewState["Mode"] = "Edit";
@@ -263,8 +264,11 @@ namespace SystemAdmin.ESS
                 {
                     if(menuIds != "" && menuIds != null && menuIds != "0")
                     { 
-                        deleteMenuids(Convert.ToInt32(hidID.Value));
-                        saveMenu(Convert.ToInt32(hidID.Value), menuIds);
+                        if(Session["MenuIds"].ToString() != menuIds)
+                        {
+                            deleteMenuids(Convert.ToInt32(hidID.Value));
+                            saveMenu(Convert.ToInt32(hidID.Value), menuIds); 
+                        }
                     }
                     divView.Visible = true;
                     divAddEdit.Visible = false;
