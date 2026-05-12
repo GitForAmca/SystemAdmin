@@ -306,19 +306,7 @@ namespace SystemAdmin.ESS
             PL.OpCode = 150;
             PL.AutoId = autoId; 
             EssDL.returnTable(PL);
-        }
-        protected void ddlIndustryFilter_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-            //if (ddlIndustryFilter.SelectedValue != "")
-            //{
-            //    GetActiviesFilter(lstActivityFilter, ddlIndustryFilter.SelectedValue);
-            //}
-            //else
-            //{
-            //    ddlIndustryFilter.Items.Clear();
-            //    GetIndustries(ddlIndustryFilter);
-            //}
-        }
+        } 
         protected void LV_LicenseIndustry_ItemDataBound(object sender, ListViewItemEventArgs e)
         { 
             if (e.Item.ItemType == ListViewItemType.DataItem)

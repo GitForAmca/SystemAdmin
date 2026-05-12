@@ -15,7 +15,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">Request<span class="required" aria-required="true"></span></label>
-                            <asp:DropDownList ID="ddlRequestFilter" OnSelectedIndexChanged="ddlIndustryFilter_SelectedIndexChanged" AutoPostBack="true" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlRequestFilter" runat="server" CssClass="form-control select2ddl"></asp:DropDownList>
                         </div>
                     </div> 
                     <div class="col-md-3">
@@ -195,7 +195,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="control-label">Request Name<span class="required" aria-required="true"> *</span></label>
+                                <label class="control-label">Request<span class="required" aria-required="true"> *</span></label>
                                 <asp:TextBox ID="txtRequestName" onblur="checkRequestType(this);"  CssClass="form-control reqRec" runat="server" placeholder="input here"></asp:TextBox>
                             </div>
                         </div>
