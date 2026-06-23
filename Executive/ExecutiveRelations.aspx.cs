@@ -7,33 +7,34 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SystemAdmin.App_Code;
 
-namespace SystemAdmin.Directors
+namespace SystemAdmin.Executive
 {
-    public partial class Directors : System.Web.UI.Page
+    public partial class ExecutiveRelations : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 FillListView();
-                getDirectorList();
+                getDirectorList(ddlFromDirector);
+                getDirectorList(ddlToDirector);
             }
         }
-        void getDirectorList()
+        void getDirectorList(DropDownList ddl)
         {
             DropdownPL PL = new DropdownPL();
             PL.OpCode = 68;
             DropdownDL.returnTable(PL);
-            ddlDirector.DataSource = PL.dt;
-            ddlDirector.DataValueField = "Autoid";
-            ddlDirector.DataTextField = "Name";
-            ddlDirector.DataBind();
-            ddlDirector.Items.Insert(0, new ListItem("Select an option", ""));
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "Autoid";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select an option", ""));
         }
         void FillListView()
         {
             EssPL PL = new EssPL();
-            PL.OpCode = 70;
+            PL.OpCode = 75;
             EssDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------
@@ -42,8 +43,8 @@ namespace SystemAdmin.Directors
         }
         void ClearField()
         {
-            ddlDirector.SelectedIndex = -1;
-            txtTeamName.Text = "";
+            ddlFromDirector.SelectedIndex = -1;
+            ddlToDirector.SelectedIndex = -1;
         }
         protected void lnkBtnAddNew_Click(object sender, EventArgs e)
         {
@@ -74,15 +75,23 @@ namespace SystemAdmin.Directors
         void setForEdit(int id)
         {
             EssPL PL = new EssPL();
-            PL.OpCode = 70;
+            PL.OpCode = 75;
             PL.AutoId = id;
             EssDL.returnTable(PL);
             DataTable dt = PL.dt;
             //--------------------------------
             if (dt.Rows.Count > 0)
             {
-                txtTeamName.Text = dt.Rows[0]["TeamName"].ToString();
-                ddlDirector.SelectedIndex = ddlDirector.Items.IndexOf(ddlDirector.Items.FindByValue(dt.Rows[0]["DirectorId"].ToString()));
+                ddlFromDirector.SelectedIndex = ddlFromDirector.Items.IndexOf(ddlFromDirector.Items.FindByValue(dt.Rows[0]["FromDirectorId"].ToString()));
+                ddlToDirector.SelectedIndex = ddlToDirector.Items.IndexOf(ddlToDirector.Items.FindByValue(dt.Rows[0]["ToDirectorId"].ToString()));
+                if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
+                {
+                    chkActive.Checked = false;
+                }
+                else
+                {
+                    chkActive.Checked = true;
+                }
                 ViewState["Mode"] = "Edit";
                 divView.Visible = false;
                 divAddEdit.Visible = true;
@@ -96,8 +105,9 @@ namespace SystemAdmin.Directors
         {
             string xml = "<tbl>";
             xml += "<tr>";
-            xml += "<DirectorId><![CDATA[" + ddlDirector.SelectedValue + "]]></DirectorId>";
-            xml += "<TeamName><![CDATA[" + txtTeamName.Text.Trim() + "]]></TeamName>";
+            xml += "<FromDirectorId><![CDATA[" + ddlFromDirector.SelectedValue + "]]></FromDirectorId>";
+            xml += "<ToDirectorId><![CDATA[" + ddlToDirector.SelectedValue + "]]></ToDirectorId>";
+            xml += "<IsActive><![CDATA[" + chkActive.Checked + "]]></IsActive>";
             xml += "</tr>";
             xml += "</tbl>";
             return xml;
@@ -107,7 +117,7 @@ namespace SystemAdmin.Directors
             EssPL PL = new EssPL();
             if (ViewState["Mode"].ToString() == "Add")
             {
-                PL.OpCode = 71;
+                PL.OpCode = 76;
                 PL.XML = GetParentServiceXml();
                 PL.CreatedBy = Session["UserAutoId"].ToString();
                 EssDL.returnTable(PL);
@@ -126,7 +136,7 @@ namespace SystemAdmin.Directors
             }
             else if (ViewState["Mode"].ToString() == "Edit")
             {
-                PL.OpCode = 72;
+                PL.OpCode = 77;
                 PL.XML = GetParentServiceXml();
                 PL.AutoId = Convert.ToInt32(hidID.Value);
                 EssDL.returnTable(PL);
@@ -149,26 +159,6 @@ namespace SystemAdmin.Directors
         protected void btncancel_Click(object sender, EventArgs e)
         {
             Response.Redirect(Request.RawUrl);
-        }
-        [System.Web.Services.WebMethod]
-        public static string CheckExistDirector(string text, string oldname)
-        {
-            EssPL PL = new EssPL();
-            PL.OpCode = 73;
-            PL.String1 = text;
-            PL.String2 = oldname;
-            EssDL.returnTable(PL);
-            return PL.dt.Rows[0]["count"].ToString();
-        }
-        [System.Web.Services.WebMethod]
-        public static string CheckExistTeam(string text, string oldname)
-        {
-            EssPL PL = new EssPL();
-            PL.OpCode = 74;
-            PL.String1 = text;
-            PL.String2 = oldname;
-            EssDL.returnTable(PL);
-            return PL.dt.Rows[0]["count"].ToString();
         }
     }
 }

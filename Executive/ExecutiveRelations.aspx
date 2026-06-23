@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" AutoEventWireup="true" ValidateRequest="false" CodeBehind="DirectorRelations.aspx.cs" Inherits="SystemAdmin.Directors.DirectorRelations" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" AutoEventWireup="true" ValidateRequest="false" CodeBehind="ExecutiveRelations.aspx.cs" Inherits="SystemAdmin.Executive.ExecutiveRelations" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"></asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 <div class="col-md-12 col-sm-12">
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">
-                <asp:Label ID="lblPageListTitle" runat="server" Text="Director Relations"></asp:Label>
+                <asp:Label ID="lblPageListTitle" runat="server" Text="Executive Relations"></asp:Label>
             </div>
         </div>
         <div id="divView" runat="server" class="portlet-body">
@@ -39,8 +39,8 @@
                                 <thead class="dtTheme">
                                     <tr>
                                         <th>#</th>
-                                        <th>From Director</th>
-                                        <th>To Director</th>
+                                        <th>From Executive</th>
+                                        <th>To Executive</th>
                                         <th>Is Active</th>
                                         <th>Created By</th>
                                         <th>Created On</th>
@@ -78,8 +78,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>From Director</th>
-                                        <th>To Director</th>
+                                        <th>From Executive</th>
+                                        <th>To Executive</th>
                                         <th>Is Active</th>
                                         <th>Created By</th>
                                         <th>Created On</th>

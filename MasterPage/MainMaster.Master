@@ -211,6 +211,7 @@
                                                         <li><h3>Automatic Data Assigned</h3></li>
                                                         <li><a href='../AutomaticDataAssign/CEC.aspx'><i class='fa fa-angle-right'></i>CEC</a></li>
                                                         <li><a href='../AutomaticDataAssign/CSR.aspx'><i class='fa fa-angle-right'></i>CSR</a></li>
+                                                        <li><a href='../AutomaticDataAssign/CRMMapping.aspx'><i class='fa fa-angle-right'></i>CRM Mapping</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class='col-md-3'>
@@ -252,10 +253,10 @@
                                                 </div>
                                                 <div class='col-md-3'>
                                                     <ul class='mega-menu-submenu'>
-                                                        <li><h3>Directors</h3></li>
-                                                        <li><a href='../Directors/Directors.aspx'><i class='fa fa-angle-right'></i>Directors</a></li>
-                                                        <li><a href='../Directors/DirectorRelations.aspx'><i class='fa fa-angle-right'></i>Director Relations</a></li>
-                                                        <li><a href='../Directors/DirectorElementAccess.aspx'><i class='fa fa-angle-right'></i>Director Element Access</a></li>
+                                                        <li><h3>Executive</h3></li>
+                                                        <li><a href='../Executive/Executive.aspx'><i class='fa fa-angle-right'></i>Executive</a></li>
+                                                        <li><a href='../Executive/ExecutiveRelations.aspx'><i class='fa fa-angle-right'></i>Executive Relations</a></li>
+                                                        <li><a href='../Executive/ExecutiveElementAccess.aspx'><i class='fa fa-angle-right'></i>Executive Element Access</a></li>
                                                         <li><a href="../ESS/HRRegion.aspx"><i class='fa fa-angle-right'></i>HR</a></li>
                                                     </ul>
                                                 </div>

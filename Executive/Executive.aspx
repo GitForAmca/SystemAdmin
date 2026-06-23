@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" AutoEventWireup="true" ValidateRequest="false" CodeBehind="Directors.aspx.cs" Inherits="SystemAdmin.Directors.Directors" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" AutoEventWireup="true" ValidateRequest="false" CodeBehind="Executive.aspx.cs" Inherits="SystemAdmin.Executive.Executive" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"></asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 <div class="col-md-12 col-sm-12">
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">
-                <asp:Label ID="lblPageListTitle" runat="server" Text="Directors"></asp:Label>
+                <asp:Label ID="lblPageListTitle" runat="server" Text="Executive"></asp:Label>
             </div>
         </div>
         <div id="divView" runat="server" class="portlet-body">
@@ -128,7 +128,7 @@
             data: Data,
             async: false,
             contentType: "application/json; charset=utf-8",
-            url: "Directors.aspx/CheckExistDirector",
+            url: "Executive.aspx/CheckExistDirector",
             success: function (Result) {
                 if (Result.d != "0") {
                     ShowWarning('Already Exist!')
@@ -156,7 +156,7 @@
             data: Data,
             async: false,
             contentType: "application/json; charset=utf-8",
-            url: "Directors.aspx/CheckExistTeam",
+            url: "Executive.aspx/CheckExistTeam",
             success: function (Result) {
                 if (Result.d != "0") {
                     ShowWarning('Already Exist!')

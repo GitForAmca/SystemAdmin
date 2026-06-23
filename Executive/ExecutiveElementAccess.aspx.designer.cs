@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SystemAdmin.Directors
+namespace SystemAdmin.Executive
 {
 
 
-    public partial class DirectorElementAccess
+    public partial class ExecutiveElementAccess
     {
 
         /// <summary>
@@ -31,6 +31,15 @@ namespace SystemAdmin.Directors
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divView;
+
+        /// <summary>
+        /// ddlGroupFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlGroupFilter;
 
         /// <summary>
         /// ddlDirectorSearch control.
@@ -150,6 +159,42 @@ namespace SystemAdmin.Directors
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAddEdit;
 
         /// <summary>
+        /// divAddGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAddGroup;
+
+        /// <summary>
+        /// chkGroupCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chkGroupCompany;
+
+        /// <summary>
+        /// divUpdateGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUpdateGroup;
+
+        /// <summary>
+        /// ddlUpdateGroupCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlUpdateGroupCompany;
+
+        /// <summary>
         /// ddlDirector control.
         /// </summary>
         /// <remarks>
@@ -202,6 +247,24 @@ namespace SystemAdmin.Directors
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDepartment;
+
+        /// <summary>
+        /// divJurisdiction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divJurisdiction;
+
+        /// <summary>
+        /// ddlJurisdiction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlJurisdiction;
 
         /// <summary>
         /// divGroup control.

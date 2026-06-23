@@ -4317,6 +4317,9 @@
     <Content Include="assets\global\plugins\zoom\jquery.zoom.min.js" />
     <Content Include="assets\global\scripts\datatable.js" />
     <Content Include="assets\global\scripts\metronic.js" />
+    <Content Include="AutomaticDataAssign\CEC.aspx" />
+    <Content Include="AutomaticDataAssign\CRMMapping.aspx" />
+    <Content Include="AutomaticDataAssign\CSR.aspx" />
     <Content Include="css\AjaxTabStyle.css" />
     <Content Include="css\colorbox.css" />
     <Content Include="css\Copy of style.css" />
@@ -4345,9 +4348,9 @@
     <Content Include="css\style.css" />
     <Content Include="css\tabcss.css" />
     <Content Include="Default.aspx" />
-    <Content Include="Directors\DirectorElementAccess.aspx" />
-    <Content Include="Directors\DirectorRelations.aspx" />
-    <Content Include="Directors\Directors.aspx" />
+    <Content Include="Executive\ExecutiveElementAccess.aspx" />
+    <Content Include="Executive\ExecutiveRelations.aspx" />
+    <Content Include="Executive\Executive.aspx" />
     <Content Include="ESS\BankingDetails.aspx" />
     <Content Include="ESS\CategoryBox.aspx" />
     <Content Include="ESS\CategoryType.aspx" />
@@ -4358,6 +4361,7 @@
     <Content Include="ESS\HRRegion.aspx" />
     <Content Include="ESS\Authority.aspx" />
     <Content Include="ESS\LicenseType.aspx" />
+    <Content Include="ESS\RequestBox.aspx" />
     <Content Include="ESS\Sector.aspx" />
     <Content Include="ESS\LicenseIndustry.aspx" />
     <Content Include="ESS\ShowAllEmailsFormat.aspx" />
@@ -4675,6 +4679,27 @@
     <Compile Include="App_Code\StructureDL.cs" />
     <Compile Include="App_Code\UtilityPL.cs" />
     <Compile Include="App_Code\SQLConnectivity.cs" />
+    <Compile Include="AutomaticDataAssign\CEC.aspx.cs">
+      <DependentUpon>CEC.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AutomaticDataAssign\CEC.aspx.designer.cs">
+      <DependentUpon>CEC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticDataAssign\CRMMapping.aspx.cs">
+      <DependentUpon>CRMMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AutomaticDataAssign\CRMMapping.aspx.designer.cs">
+      <DependentUpon>CRMMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AutomaticDataAssign\CSR.aspx.cs">
+      <DependentUpon>CSR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AutomaticDataAssign\CSR.aspx.designer.cs">
+      <DependentUpon>CSR.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4682,26 +4707,26 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Directors\DirectorElementAccess.aspx.cs">
-      <DependentUpon>DirectorElementAccess.aspx</DependentUpon>
+    <Compile Include="Executive\ExecutiveElementAccess.aspx.cs">
+      <DependentUpon>ExecutiveElementAccess.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Directors\DirectorElementAccess.aspx.designer.cs">
-      <DependentUpon>DirectorElementAccess.aspx</DependentUpon>
+    <Compile Include="Executive\ExecutiveElementAccess.aspx.designer.cs">
+      <DependentUpon>ExecutiveElementAccess.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Directors\DirectorRelations.aspx.cs">
-      <DependentUpon>DirectorRelations.aspx</DependentUpon>
+    <Compile Include="Executive\ExecutiveRelations.aspx.cs">
+      <DependentUpon>ExecutiveRelations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Directors\DirectorRelations.aspx.designer.cs">
-      <DependentUpon>DirectorRelations.aspx</DependentUpon>
+    <Compile Include="Executive\ExecutiveRelations.aspx.designer.cs">
+      <DependentUpon>ExecutiveRelations.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Directors\Directors.aspx.cs">
-      <DependentUpon>Directors.aspx</DependentUpon>
+    <Compile Include="Executive\Executive.aspx.cs">
+      <DependentUpon>Executive.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Directors\Directors.aspx.designer.cs">
-      <DependentUpon>Directors.aspx</DependentUpon>
+    <Compile Include="Executive\Executive.aspx.designer.cs">
+      <DependentUpon>Executive.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\BankingDetails.aspx.cs">
       <DependentUpon>BankingDetails.aspx</DependentUpon>
@@ -4772,6 +4797,13 @@
     </Compile>
     <Compile Include="ESS\LicenseType.aspx.designer.cs">
       <DependentUpon>LicenseType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ESS\RequestBox.aspx.cs">
+      <DependentUpon>RequestBox.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ESS\RequestBox.aspx.designer.cs">
+      <DependentUpon>RequestBox.aspx</DependentUpon>
     </Compile>
     <Compile Include="ESS\Sector.aspx.cs">
       <DependentUpon>Sector.aspx</DependentUpon>

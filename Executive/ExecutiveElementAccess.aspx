@@ -1,52 +1,58 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" AutoEventWireup="true" ValidateRequest="false" CodeBehind="DirectorElementAccess.aspx.cs" Inherits="SystemAdmin.Directors.DirectorElementAccess" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage/MainMaster.master" AutoEventWireup="true" ValidateRequest="false" CodeBehind="ExecutiveElementAccess.aspx.cs" Inherits="SystemAdmin.Executive.ExecutiveElementAccess" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"></asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 <div class="col-md-12 col-sm-12">
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">
-                <asp:Label ID="lblPageListTitle" runat="server" Text="Director Element Access"></asp:Label>
+                <asp:Label ID="lblPageListTitle" runat="server" Text="Executive Element Access"></asp:Label>
             </div>
         </div>
         <div id="divView" runat="server" class="portlet-body">
             <div class="row">
-
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <label class="control-label">Director<span class="required" aria-required="true"> </span></label>
+                        <label class="control-label">Group<span class="required" aria-required="true"> </span></label>
+                        <asp:DropDownList runat="server" ID="ddlGroupFilter" CssClass="form-control select2ddl"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Executive<span class="required" aria-required="true"> </span></label>
                         <asp:DropDownList ID="ddlDirectorSearch" class="form-control select2ddl" runat="server"></asp:DropDownList>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Element<span class="required" aria-required="true"> </span></label>
                         <asp:DropDownList runat="server" ID="ddlElementSearch" OnSelectedIndexChanged="ddlElementSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Role<span class="required" aria-required="true"> </span></label>
                         <asp:DropDownList runat="server" ID="ddlRoleSearch" CssClass="form-control select2ddl"></asp:DropDownList>
-                    </div>                </div>
-                <div class="col-md-4">
+                    </div>                
+                </div>
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Employee<span class="required" aria-required="true"> </span></label>
                         <asp:DropDownList runat="server" ID="ddlEmployeeSearch" CssClass="form-control select2ddl"></asp:DropDownList>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label class="control-label">Parent Department<span class="required" aria-required="true"> </span></label>
                         <asp:DropDownList runat="server" ID="ddlSubDepartmentSearch" OnSelectedIndexChanged="ddlSubDepartmentSearch_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
                     </div>
                 </div>
-                 <div class="col-md-4">
+                 <div class="col-md-3">
                      <div class="form-group">
                          <label class="control-label"> Department<span class="required" aria-required="true"> </span></label>
                          <asp:DropDownList runat="server" ID="ddlDepartmentSearch"  CssClass="form-control select2ddl"></asp:DropDownList>
                      </div>
                  </div>
-                <div class="col-md-4" id="divGroupSearch" runat="server" visible="false">
+                <div class="col-md-3" id="divGroupSearch" runat="server" visible="false">
                     <div class="form-group">
                         <label class="control-label">Group<span class="required" aria-required="true"> </span></label>
                         <asp:DropDownList ID="ddlGroupSearch" runat="server" class="form-control select2ddl">
@@ -68,7 +74,8 @@
 
                 <div class="col-md-2 pull-right">
                     <div class="form-group">
-                        <div>
+                        <label class="control-label"></label>
+                        <div style="margin-top: 8px;">
                             <div class="btn-group pull-right">
                                 <button class="btn dropdown-toggle" data-toggle="dropdown">
                                     Action <i class="fa fa-angle-down"></i>
@@ -98,8 +105,8 @@
                                         <th>Element</th>
                                         <th>Role</th>
                                         <th>Parent Department</th>
-                                        <th> Department</th>
-                                        <th>Director</th>
+                                        <th>Department</th>
+                                        <th>Executive</th>
                                         <th>Created By</th>
                                         <th>Created On</th>
                                         <th>Is Active</th>
@@ -149,7 +156,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Director</th>
+                                        <th>Executive</th>
                                         <th>Element</th>
                                         <th>Access To</th>
                                         <th>Parent Department</th>
@@ -165,11 +172,28 @@
             </div>
         </div>
         <div id="divAddEdit" runat="server" class="portlet-body form" visible="false">
-            <div class="form-body">                    
+            <div class="form-body"> 
+                <div class="row" runat="server" id="divAddGroup" visible="false">
+                    <div class="col-md-12">
+                        <h4><strong>Company List</strong></h4>
+                        <asp:CheckBoxList ID="chkGroupCompany" runat="server" RepeatDirection="Horizontal" DataTextField="Name" DataValueField="AutoId" OnDataBinding="chkGroupCompany_DataBinding" />
+                    </div>
+                </div>
+                <div class="row" runat="server" id="divUpdateGroup" visible="false">
+                    <div class="col-md-3">
+                        <h4><strong>Company List</strong></h4>
+                        <asp:DropDownList ID="ddlUpdateGroupCompany" class="form-control requp select2ddl" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr />
+                    </div>
+                </div>                   
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Director<span class="required" aria-required="true"> *</span></label>
+                            <label class="control-label">Executive<span class="required" aria-required="true"> *</span></label>
                             <asp:DropDownList ID="ddlDirector" class="form-control req select2ddl" runat="server"></asp:DropDownList>  
                         </div> 
                     </div> 
@@ -198,11 +222,17 @@
                         </div>
                     </div> 
                     <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="control-label"> Department </label>
-                                <asp:DropDownList runat="server" ID="ddlDepartment" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
-                            </div>
-                        </div> 
+                        <div class="form-group">
+                            <label class="control-label"> Department </label>
+                            <asp:DropDownList runat="server" ID="ddlDepartment" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2ddl"></asp:DropDownList>
+                        </div>
+                    </div> 
+                    <div class="col-md-4" id="divJurisdiction" runat="server" visible="false">
+                        <div class="form-group">
+                            <label class="control-label">Jurisdiction<span class="required" aria-required="true"> *</span></label>
+                            <asp:DropDownList ID="ddlJurisdiction" runat="server" class="form-control req select2ddl"></asp:DropDownList>
+                        </div>
+                    </div>
                     <div class="col-md-4" id="divGroup" runat="server" visible="false">
                         <div class="form-group">
                             <label class="control-label">Group<span class="required" aria-required="true"> *</span></label>

@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SystemAdmin.Directors
+namespace SystemAdmin.Executive
 {
 
 
-    public partial class DirectorRelations
+    public partial class Executive
     {
 
         /// <summary>
@@ -69,31 +69,22 @@ namespace SystemAdmin.Directors
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAddEdit;
 
         /// <summary>
-        /// ddlFromDirector control.
+        /// ddlDirector control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFromDirector;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDirector;
 
         /// <summary>
-        /// ddlToDirector control.
+        /// txtTeamName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlToDirector;
-
-        /// <summary>
-        /// chkActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkActive;
+        protected global::System.Web.UI.WebControls.TextBox txtTeamName;
 
         /// <summary>
         /// btnsave control.

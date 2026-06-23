@@ -7,21 +7,61 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SystemAdmin.App_Code;
 
-namespace SystemAdmin.Directors
+namespace SystemAdmin.Executive
 {
-    public partial class DirectorElementAccess : System.Web.UI.Page
+    public partial class ExecutiveElementAccess : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                FillListView();
+                FillGroup(ddlGroupFilter);
+                FillListView(ddlGroupFilter.SelectedValue);
                 getDirectorList(ddlDirector);
                 getDirectorList(ddlDirectorSearch);
                 BindElement();
                 BindDepartment(ddlDepartmentSearch,"");
                 BindDepartment(ddlDepartment, "");
             }
+        }
+        void FillGroup(DropDownList ddl)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 87;
+            DropdownDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "GroupId";
+            ddl.DataTextField = "Name";
+            ddl.DataBind();
+        }
+        void getDDLGroup()
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 3;
+            PL.AutoId = 1;
+            DropdownDL.returnTable(PL);
+            ddlUpdateGroupCompany.DataSource = PL.dt;
+            ddlUpdateGroupCompany.DataValueField = "Autoid";
+            ddlUpdateGroupCompany.DataTextField = "Name";
+            ddlUpdateGroupCompany.DataBind();
+            ddlUpdateGroupCompany.Items.Insert(0, new ListItem("Select an option", ""));
+        }
+        private void BindCheckBoxList()
+        {
+            chkGroupCompany.DataSource = GetGroup();
+            chkGroupCompany.DataBind();
+        }
+        protected void chkGroupCompany_DataBinding(object sender, EventArgs e)
+        {
+            ((CheckBoxList)sender).DataSource = GetGroup();
+        }
+        public DataTable GetGroup()
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 3;
+            PL.AutoId = 1;
+            DropdownDL.returnTable(PL);
+            return PL.dt;
         }
         void getDirectorList(DropDownList ddl)
         {
@@ -31,6 +71,17 @@ namespace SystemAdmin.Directors
             ddl.DataSource = PL.dt;
             ddl.DataValueField = "Autoid";
             ddl.DataTextField = "Name";
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select an option", ""));
+        }
+        void getddlJurisdictionList(DropDownList ddl)
+        {
+            DropdownPL PL = new DropdownPL();
+            PL.OpCode = 84;
+            DropdownDL.returnTable(PL);
+            ddl.DataSource = PL.dt;
+            ddl.DataValueField = "AutoId";
+            ddl.DataTextField = "AssignmentType";
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select an option", ""));
         }
@@ -114,15 +165,25 @@ namespace SystemAdmin.Directors
                 if (ddlSubDepartment.SelectedValue == "Post-Sales" && ddlElement.SelectedValue.ToString() != "Meeting")
                 {
                     divGroup.Visible = true;
+                    getddlJurisdictionList(ddlJurisdiction);
                 }
                 else
                 {
                     divGroup.Visible = false;
                 }
+                if (ddlSubDepartment.SelectedValue == "Post-Sales" && ddlElement.SelectedValue.ToString() != "Meeting" && ddlDepartment.SelectedValue.ToString() == "3")
+                {
+                    divJurisdiction.Visible = true;
+                }
+                else
+                {
+                    divJurisdiction.Visible = false;
+                }
             }
             else
             {
                 divGroup.Visible = false;
+                divJurisdiction.Visible = false;
             }
             BindDepartment(ddlDepartment, ddlSubDepartment.SelectedValue);
         }
@@ -175,10 +236,11 @@ namespace SystemAdmin.Directors
                 ddl.SelectedValue = "CEM";
             }
         }
-        void FillListView()
+        void FillListView(string GroupId)
         {
             EssPL PL = new EssPL();
             PL.OpCode = 78;
+            PL.GroupId = GroupId;
             PL.String1 = ddlElementSearch.SelectedValue;
             PL.String2 = ddlRoleSearch.SelectedValue;
             PL.EmpId = ddlEmployeeSearch.SelectedValue;
@@ -206,6 +268,11 @@ namespace SystemAdmin.Directors
             divView.Visible = false;
             divAddEdit.Visible = true;
             ViewState["Mode"] = "Add";
+
+            divAddGroup.Visible = true;
+            divUpdateGroup.Visible = false;
+            ddlUpdateGroupCompany.Enabled = true;
+            BindCheckBoxList();
         }
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
         {
@@ -225,6 +292,10 @@ namespace SystemAdmin.Directors
             divView.Visible = false;
             divAddEdit.Visible = true;
             ViewState["Mode"] = "Edit";
+
+            divAddGroup.Visible = false;
+            divUpdateGroup.Visible = true;
+            ddlUpdateGroupCompany.Enabled = false;
         }
         void setForEdit(int id)
         {
@@ -239,10 +310,14 @@ namespace SystemAdmin.Directors
                 BindEmployee(dt.Rows[0]["Element"].ToString(), ddlEmployee);
                 getSubDepartment(dt.Rows[0]["Element"].ToString() , ddlSubDepartment);
                 BindRole(dt.Rows[0]["Element"].ToString(), ddlRole);
+                getddlJurisdictionList(ddlJurisdiction);
+                getDDLGroup();
+                ddlUpdateGroupCompany.SelectedIndex = ddlUpdateGroupCompany.Items.IndexOf(ddlUpdateGroupCompany.Items.FindByValue(dt.Rows[0]["GroupId"].ToString()));
                 ddlDirector.SelectedIndex = ddlDirector.Items.IndexOf(ddlDirector.Items.FindByValue(dt.Rows[0]["DirectorId"].ToString()));
                 ddlElement.SelectedIndex = ddlElement.Items.IndexOf(ddlElement.Items.FindByValue(dt.Rows[0]["Element"].ToString()));
                 ddlRole.SelectedIndex = ddlRole.Items.IndexOf(ddlRole.Items.FindByValue(dt.Rows[0]["EARole"].ToString()));
                 ddlGroup.SelectedIndex = ddlGroup.Items.IndexOf(ddlGroup.Items.FindByValue(dt.Rows[0]["PSGroup"].ToString()));
+                ddlJurisdiction.SelectedIndex = ddlJurisdiction.Items.IndexOf(ddlJurisdiction.Items.FindByValue(dt.Rows[0]["Jurisdiction"].ToString()));
                 ddlEmployee.SelectedIndex = ddlEmployee.Items.IndexOf(ddlEmployee.Items.FindByValue(dt.Rows[0]["EmpId"].ToString()));
                 ddlSubDepartment.SelectedIndex = ddlSubDepartment.Items.IndexOf(ddlSubDepartment.Items.FindByValue(dt.Rows[0]["SubDepartment"].ToString()));
                 if (dt.Rows[0]["SubDepartment"].ToString() == "Post-Sales" && dt.Rows[0]["Element"].ToString() != "Meeting")
@@ -252,6 +327,14 @@ namespace SystemAdmin.Directors
                 else
                 {
                     divGroup.Visible = false;
+                }
+                if (dt.Rows[0]["SubDepartment"].ToString() == "Post-Sales" && dt.Rows[0]["Element"].ToString() != "Meeting" && dt.Rows[0]["Department"].ToString() == "Operations")
+                {
+                    divJurisdiction.Visible = true;
+                }
+                else
+                {
+                    divJurisdiction.Visible = false;
                 }
                 if (PL.dt.Rows[0]["IsActive"].ToString() == "False")
                 {
@@ -263,7 +346,6 @@ namespace SystemAdmin.Directors
                 }
                 try
                 {
-                    ddlSubDepartment_SelectedIndexChanged(null,null);
                     if (!string.IsNullOrEmpty(dt.Rows[0]["DepID"].ToString()))
                     {
                         ddlDepartment.SelectedIndex = ddlDepartment.Items.IndexOf(ddlDepartment.Items.FindByValue(dt.Rows[0]["DepID"].ToString()));
@@ -286,7 +368,36 @@ namespace SystemAdmin.Directors
                 ClearField();
             }
         }
-        string GetParentServiceXml()
+        string GetChildStatusXml()
+        {
+            string xml = "<tbl>";
+            foreach (ListItem gr in chkGroupCompany.Items)
+            {
+                if (gr.Selected)
+                {
+                    xml += XMLField(gr.Value);
+                }
+            }
+            xml += "</tbl>";
+            return xml;
+        }
+        string XMLField(string GroupId)
+        {
+            string xml = "<tr>";
+            xml += "<GroupId><![CDATA[" + GroupId + "]]></GroupId>";
+            xml += "<DirectorId><![CDATA[" + ddlDirector.SelectedValue + "]]></DirectorId>";
+            xml += "<Element><![CDATA[" + ddlElement.SelectedValue + "]]></Element>";
+            xml += "<EmpId><![CDATA[" + ddlEmployee.SelectedValue + "]]></EmpId>";
+            xml += "<SubDepartment><![CDATA[" + ddlSubDepartment.SelectedValue + "]]></SubDepartment>";
+            xml += "<EARole><![CDATA[" + ddlRole.SelectedValue + "]]></EARole>";
+            xml += "<PSGroup><![CDATA[" + ddlGroup.SelectedValue + "]]></PSGroup>";
+            xml += "<Jurisdiction><![CDATA[" + ddlJurisdiction.SelectedValue + "]]></Jurisdiction>";
+            xml += "<IsActive><![CDATA[" + chkActive.Checked + "]]></IsActive>";
+            xml += "<Department><![CDATA[" + ddlDepartment.SelectedValue + "]]></Department>";
+            xml += "</tr>";
+            return xml;
+        }
+        string XMLFieldUpdate()
         {
             string xml = "<tbl>";
             xml += "<tr>";
@@ -296,55 +407,74 @@ namespace SystemAdmin.Directors
             xml += "<SubDepartment><![CDATA[" + ddlSubDepartment.SelectedValue + "]]></SubDepartment>";
             xml += "<EARole><![CDATA[" + ddlRole.SelectedValue + "]]></EARole>";
             xml += "<PSGroup><![CDATA[" + ddlGroup.SelectedValue + "]]></PSGroup>";
+            xml += "<Jurisdiction><![CDATA[" + ddlJurisdiction.SelectedValue + "]]></Jurisdiction>";
             xml += "<IsActive><![CDATA[" + chkActive.Checked + "]]></IsActive>";
             xml += "<Department><![CDATA[" + ddlDepartment.SelectedValue + "]]></Department>";
             xml += "</tr>";
             xml += "</tbl>";
             return xml;
         }
+        private bool IsAnyItemChecked()
+        {
+            foreach (ListItem item in chkGroupCompany.Items)
+            {
+                if (item.Selected)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         protected void btnsave_Click(object sender, EventArgs e)
         {
-            EssPL PL = new EssPL();
-            if (ViewState["Mode"].ToString() == "Add")
+            if (IsAnyItemChecked() || ddlUpdateGroupCompany.SelectedValue != "")
             {
-                PL.OpCode = 79;
-                PL.XML = GetParentServiceXml();
-                PL.CreatedBy = Session["UserAutoId"].ToString();
-                EssDL.returnTable(PL);
-                if (!PL.isException)
+                EssPL PL = new EssPL();
+                if (ViewState["Mode"].ToString() == "Add")
                 {
-                    divView.Visible = true;
-                    divAddEdit.Visible = false;
-                    ClearField();
-                    FillListView();
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record save successfully');", true);
+                    PL.OpCode = 79;
+                    PL.XML = GetChildStatusXml();
+                    PL.CreatedBy = Session["UserAutoId"].ToString();
+                    EssDL.returnTable(PL);
+                    if (!PL.isException)
+                    {
+                        divView.Visible = true;
+                        divAddEdit.Visible = false;
+                        ClearField();
+                        FillListView(ddlGroupFilter.SelectedValue);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record save successfully');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
+                    }
                 }
-                else
+                else if (ViewState["Mode"].ToString() == "Edit")
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
+                    PL.OpCode = 80;
+                    PL.XML = XMLFieldUpdate();
+                    PL.AutoId = Convert.ToInt32(hidID.Value);
+                    EssDL.returnTable(PL);
+                    if (!PL.isException)
+                    {
+                        divView.Visible = true;
+                        divAddEdit.Visible = false;
+                        ClearField();
+                        FillListView(ddlGroupFilter.SelectedValue);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record save successfully');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
+                    }
                 }
+                ClearField();
+                FillListView(ddlGroupFilter.SelectedValue);
             }
-            else if (ViewState["Mode"].ToString() == "Edit")
+            else
             {
-                PL.OpCode = 80;
-                PL.XML = GetParentServiceXml();
-                PL.AutoId = Convert.ToInt32(hidID.Value);
-                EssDL.returnTable(PL);
-                if (!PL.isException)
-                {
-                    divView.Visible = true;
-                    divAddEdit.Visible = false;
-                    ClearField();
-                    FillListView();
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagSave", "ShowDone('Record save successfully');", true);
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "flagError", "ShowError('" + PL.exceptionMessage + "');", true);
-                }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "flag", "ShowError('Select atleast one Company');", true);
             }
-            ClearField();
-            FillListView();
         }
         protected void btncancel_Click(object sender, EventArgs e)
         {
@@ -380,7 +510,7 @@ namespace SystemAdmin.Directors
 
         protected void btnGet_Click(object sender, EventArgs e)
         {
-            FillListView();
+            FillListView(ddlGroupFilter.SelectedValue);
         }
 
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
