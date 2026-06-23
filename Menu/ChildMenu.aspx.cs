@@ -162,7 +162,7 @@ namespace SystemAdmin.Menu
             if (ddlMenuType.SelectedValue != "")
             {
                 getParentMenu(ddlParentMenu, ddlMenuType.SelectedValue, "");
-                if (ddlMenuType.SelectedValue == "1" )
+                if (ddlMenuType.SelectedValue == "1" || ddlMenuType.SelectedValue == "6")
                 {
                     divIndustries.Visible = true;
                     divManualStatus.Visible = true;
@@ -412,7 +412,7 @@ namespace SystemAdmin.Menu
                 txtMenuName.Text = PL.dt.Rows[0]["MenuName"].ToString();
                 txtMenuURL.Text = PL.dt.Rows[0]["MenuURL"].ToString();
                 ddlMenuType.SelectedIndex = ddlMenuType.Items.IndexOf(ddlMenuType.Items.FindByValue(PL.dt.Rows[0]["Type"].ToString()));
-                if (PL.dt.Rows[0]["Type"].ToString() == "1")
+                if (PL.dt.Rows[0]["Type"].ToString() == "1" || PL.dt.Rows[0]["Type"].ToString() == "6")
                 {
                     divIndustries.Visible = true;
                     divManualStatus.Visible = true;
