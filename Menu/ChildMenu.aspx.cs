@@ -54,6 +54,7 @@ namespace SystemAdmin.Menu
             ServiceMasterPL PL = new ServiceMasterPL();
             PL.Industry = ddlIndustries.SelectedValue;
             PL.GroupId = ddlGroup.SelectedValue;
+            PL.Category = ddlMenuType.SelectedValue;
             PL.OpCode = 40;
             ServiceMasterDL.returnTable(PL);
             lstManualStatus.DataSource = PL.dt;
@@ -67,6 +68,7 @@ namespace SystemAdmin.Menu
             PL.Industry = ddlIndustries.SelectedValue;
             PL.GroupId = ddlGroup.SelectedValue;
             PL.OpCode = 48;
+            PL.Category = ddlMenuType.SelectedValue;
             ServiceMasterDL.returnTable(PL);
             lstAutomaticStatus.DataSource = PL.dt;
             lstAutomaticStatus.DataValueField = "id";
@@ -78,6 +80,7 @@ namespace SystemAdmin.Menu
             ServiceMasterPL PL = new ServiceMasterPL();
             PL.OpCode = 49;
             PL.OldName = "State";
+            PL.Category = ddlMenuType.SelectedValue;
             ServiceMasterDL.returnTable(PL);
             lstState.DataSource = PL.dt;
             lstState.DataValueField = "AutoId";
@@ -89,6 +92,7 @@ namespace SystemAdmin.Menu
             ServiceMasterPL PL = new ServiceMasterPL();
             PL.OpCode = 49;
             PL.OldName = "Stage";
+            PL.Category = ddlMenuType.SelectedValue;
             ServiceMasterDL.returnTable(PL);
             lstStage.DataSource = PL.dt;
             lstStage.DataValueField = "AutoId";
@@ -158,11 +162,17 @@ namespace SystemAdmin.Menu
             if (ddlMenuType.SelectedValue != "")
             {
                 getParentMenu(ddlParentMenu, ddlMenuType.SelectedValue, "");
-                if (ddlMenuType.SelectedValue == "1")
+                if (ddlMenuType.SelectedValue == "1" )
                 {
                     divIndustries.Visible = true;
                     divManualStatus.Visible = true;
                     divGroup.Visible = true;
+                }
+                else if (ddlMenuType.SelectedValue == "2")
+                {
+                    divIndustries.Visible = false;
+                    divManualStatus.Visible = true;
+                    divGroup.Visible = false;
                 }
                 else
                 {
@@ -172,6 +182,10 @@ namespace SystemAdmin.Menu
                     divGroup.Visible = false;
                 }
             }
+            BindAutomaticStatus();
+            BindManualStatus();
+            BindState();
+            BindStage();
         }
         protected void ddlParentMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -275,6 +289,11 @@ namespace SystemAdmin.Menu
                     break;
                 }
             }
+
+            //BindAutomaticStatus();
+            //BindManualStatus();
+            //BindState();
+            //BindStage();
         }
         protected void lnkBtnDelete_Click(object sender, EventArgs e)
         {
@@ -399,6 +418,12 @@ namespace SystemAdmin.Menu
                     divManualStatus.Visible = true;
                     divGroup.Visible = true;
                 }
+                else if (PL.dt.Rows[0]["Type"].ToString() == "2")
+                {
+                    divIndustries.Visible = false;
+                    divManualStatus.Visible = true;
+                    divGroup.Visible = false;
+                }
                 else
                 {
                     divIndustries.Visible = false;
@@ -425,7 +450,6 @@ namespace SystemAdmin.Menu
                 {
                     getRegion("0");
                 }
-
                 SetList(ddlRegion, PL.dt.Rows[0]["RegionIds"].ToString());
                 BindManualStatus();
                 BindAutomaticStatus();
